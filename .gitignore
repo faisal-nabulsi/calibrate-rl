@@ -216,3 +216,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Logs
+*.log
+
+# Transcripts / large data files
+transcripts_*.txt
+
+# Checkpoints and model weights
+*.bin
+*.safetensors
+checkpoint-*/
+outputs/
+
+# Backup files
+*.bak
