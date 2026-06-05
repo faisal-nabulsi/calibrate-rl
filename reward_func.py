@@ -53,11 +53,22 @@ def extract_gold_answer(label: str) -> str | None:
     return match.group(1).replace(",", "") if match else None
 
 
-def extract_predicted_answer(text: str) -> tuple[str | None, str]:
-    # 1. \boxed{<number>}
-    match = re.search(r"\\boxed\{(-?[\d,]+(?:/\d+)?(?:\.\d+)?)", text)
-    if match:
-        return match.group(1).replace(",", ""), "boxed"
+def _clean_frac(s):
+    # \frac{a}{b} or \dfrac{a}{b} -> "a/b"; plain numbers pass through (commas stripped)
+    m = re.match(r"-?\\?d?frac\{(-?\d+)\}\{(-?\d+)\}", s)
+    if m:
+        return f"{m.group(1)}/{m.group(2)}"
+    return s.replace(",", "")
+
+
+def extract_predicted_answer(text):
+    # 1. \boxed{<number or \frac{a}{b}>} -- take the LAST boxed answer if several
+    boxed = re.findall(
+        r"\\boxed\{\s*(-?\\d?frac\{-?\d+\}\{-?\d+\}|-?[\d,]+(?:/\d+)?(?:\.\d+)?)",
+        text,
+    )
+    if boxed:
+        return _clean_frac(boxed[-1]), "boxed"
 
     # 2. #### <number>
     match = re.search(r"####\s*(-?[\d,]+(?:\.\d+)?)", text)
@@ -76,10 +87,13 @@ def extract_predicted_answer(text: str) -> tuple[str | None, str]:
     if matches:
         return matches[-1].replace(",", ""), "bold"
 
-    # 5. Last number in text (fallback)
+    # 5. GATED fallback: a bare number counts ONLY if it is the single number in the
+    #    text. Kills candidate-listing ("could be 10, 20, or 42" -> no reward), which
+    #    GRPO would otherwise learn to exploit, while still crediting a genuine lone
+    #    answer that forgot the \boxed{}.
     numbers = re.findall(r"-?[\d,]+(?:\.\d+)?", text)
-    if numbers:
-        return numbers[-1].replace(",", ""), "last_number_fallback"
+    if len(numbers) == 1:
+        return numbers[0].replace(",", ""), "single_number_fallback"
 
     return None, "no_answer"
 
