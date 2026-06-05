@@ -87,7 +87,7 @@ def build_prompt(example):
 
 
 logger.info("Loading entity-tracking dataset ...")
-dataset = load_dataset("json", data_files={"train": "data/skeleton_dataset_v3.json"}, split="train")
+dataset = load_dataset("json", data_files={"train": "data/skeleton_dataset_v10.json"}, split="train")
 dataset = dataset.map(build_prompt)
 logger.info(f"Dataset loaded: {len(dataset)} entity-tracking problems")
 
@@ -112,7 +112,11 @@ training_args = GRPOConfig(
     # - 1024 completion length for <think> section + answer
     num_generations=8,
     max_completion_length=1024,
-    temperature=1.2,
+    # Held constant at 1.0 to MATCH the v10 calibration sampling temperature
+    # (measure_v10_full.py samples at temp=1.0). Calibrating difficulty at one
+    # temperature and training at another invalidates the goldilocks zone
+    # measurement. Annealing callback removed below for the same reason.
+    temperature=1.0,
 
     # ── Generation ──────────────────────────────────────────────────────
     # Plain model.generate() -- no vLLM, no paged attention.
@@ -227,21 +231,12 @@ if os.environ.get("WANDB_TOKEN"):
 
 logger.info("Starting training ...")
 
-# Temperature annealing callback
-from transformers import TrainerCallback
-
-class TemperatureAnnealingCallback(TrainerCallback):
-    def __init__(self, start_temp=1.2, end_temp=0.7, total_steps=500):
-        self.start_temp = start_temp
-        self.end_temp = end_temp
-        self.total_steps = total_steps
-
-    def on_step_begin(self, args, state, control, **kwargs):
-        progress = state.global_step / self.total_steps
-        new_temp = self.start_temp - (self.start_temp - self.end_temp) * progress
-        trainer.args.temperature = new_temp
-
-trainer.add_callback(TemperatureAnnealingCallback(start_temp=1.2, end_temp=0.7, total_steps=500))
+# Temperature annealing REMOVED: we hold temperature constant at 1.0 to match
+# the calibration sampling temperature (measure_v10_full.py). Annealing 1.2->0.7
+# meant the model trained against a difficulty profile that drifted away from the
+# measured goldilocks zone (high temp early -> more too-hard, low temp late ->
+# more too-easy), so the validated 40% goldilocks snapshot never held during the
+# run. If annealing is ever reintroduced, re-calibrate across the same schedule.
 trainer.train()
 trainer.save_model()
 
