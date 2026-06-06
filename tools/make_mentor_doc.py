@@ -107,22 +107,24 @@ def main():
         "set to train on an old dataset at an annealing temperature ≠ calibration.)",
         "Human-eval UI: a local 2-page app — (1) call the model live on any held-out "
         "problem, auto-graded by the real grader; (2) browse the 12 held-out with "
-        "their 8 rollouts, pass-rate, and zone. Plus a .docx transcript of the base "
-        "model on the 12 (attached separately) for the team to read.",
+        "their 8 rollouts, pass-rate, and zone. We also generated a .docx transcript "
+        "of the base model on all 12 held-out problems (8 rollouts each, attached "
+        "separately) so the team can read the actual reasoning, not just pass-rates.",
     ])
+    p("Reading that transcript already pays off, and it's the clearest argument for "
+      "why goldilocks is the productive band. On the held-out complex_eq_solcount "
+      "problem (gold 11), the base model answers 10 in six of eight rollouts and 11 in "
+      "the other two — a consistent off-by-one (it drops one solution), not random "
+      "noise. That's exactly the trainable failure goldilocks is meant to capture: a "
+      "systematic slip the policy is one nudge from fixing. Contrast box_diagonal_sq "
+      "(1/8), where the eight rollouts scatter across six different wrong answers — "
+      "genuine execution noise, a much harder case to move. The held-out monitor's job "
+      "is to show the former kind tightening up as training proceeds; the transcript is "
+      "how we'll judge, by eye, whether the reasoning is actually maturing rather than "
+      "just the number ticking.")
 
-    # ── 5. Rigor note: data integrity ───────────────────────────────────────
-    h("5. Data-integrity check (rigor note — 0 impact on this run)")
-    p("We built an independent gold-answer checker (recomputes answers from problem "
-      "text for ~22 of 29 concepts) and found a real generator bug: the "
-      "continued_fraction skeleton rendered problems at depth D but computed answers "
-      "at depth D+2 (verified — every wrong gold equals the depth+2 value). It affects "
-      "14 rows of the full dataset. None of those rows were in the random-300 "
-      "calibration sample, so this run's goldilocks set is unaffected — but it de-risks "
-      "scaling, and the checker now gates any future dataset.")
-
-    # ── 6. Caveat ───────────────────────────────────────────────────────────
-    h("6. Caveat: OpenRouter baseline ≠ local training weights")
+    # ── 5. Caveat ───────────────────────────────────────────────────────────
+    h("5. Caveat: OpenRouter baseline ≠ local training weights")
     p("The human-eval baseline (UI + transcript) is served via OpenRouter "
       "(qwen/qwen-2.5-7b-instruct): ~51% overall on the 12 held-out, which re-sample "
       "as goldilocks 9 / borderline 2 / too-easy 1 / too-hard 0 — confirming they sit "
@@ -133,8 +135,8 @@ def main():
       "the actual training delta comes from the in-run local pass@8 monitor. We won't "
       "compare the two pass-rates directly.")
 
-    # ── 7. Deferred ─────────────────────────────────────────────────────────
-    h("7. Deliberately deferred (not part of this run)")
+    # ── 6. Deferred ─────────────────────────────────────────────────────────
+    h("6. Deliberately deferred (not part of this run)")
     b([
         "AMC transfer measurement (rebuildable post-hoc from checkpoints).",
         "A larger goldilocks pool via calibrating more than 300 problems (120 is "
@@ -144,8 +146,8 @@ def main():
         "A separate 3B run with its own calibrated curriculum.",
     ])
 
-    # ── 8. Where we'd value your read ───────────────────────────────────────
-    h("8. Two things we'd value your read on")
+    # ── 7. Where we'd value your read ───────────────────────────────────────
+    h("7. Two things we'd value your read on")
     b([
         "Step budget: ~4.5 epochs over 106 goldilocks — reasonable, or do you expect "
         "overfitting before the held-out moves? Would you rather fewer epochs + a "
