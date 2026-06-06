@@ -54,10 +54,15 @@ def extract_gold_answer(label: str) -> str | None:
 
 
 def _clean_frac(s):
-    # \frac{a}{b} or \dfrac{a}{b} -> "a/b"; plain numbers pass through (commas stripped)
-    m = re.match(r"-?\\?d?frac\{(-?\d+)\}\{(-?\d+)\}", s)
+    # \frac{a}{b} or \dfrac{a}{b} (optionally negated) -> "a/b"; plain numbers pass
+    # through (commas stripped). A leading minus negates the numerator so the sign
+    # survives (e.g. -\frac{1}{2} -> "-1/2", not "1/2").
+    m = re.match(r"(-?)\\?d?frac\{(-?\d+)\}\{(-?\d+)\}", s)
     if m:
-        return f"{m.group(1)}/{m.group(2)}"
+        lead, num, den = m.group(1), int(m.group(2)), int(m.group(3))
+        if lead == "-":
+            num = -num
+        return f"{num}/{den}"
     return s.replace(",", "")
 
 

@@ -9,14 +9,12 @@ Reward: binary correctness only (1.0 if final answer matches gold, 0.0
 otherwise). No auxiliary rewards -- GRPO learns entirely from the contrast
 between correct and incorrect completions within each group.
 
-Ghost-batching mitigation:
-  The entity-filtered dataset contains many problems that are too easy (all 8
-  completions correct → zero gradient) or too hard (all wrong → zero gradient).
-  Only ~33% of problems produce useful signal. To compensate:
-  - Large effective batch (128 prompts via gradient_accumulation_steps=32)
-    ensures each update sees ~40+ "sweet spot" problems
-  - KL penalty (beta) prevents policy drift from noisy updates
-  - DAPO loss normalizes across active tokens in the global batch
+Run shape (depth-0 goldilocks hillclimb):
+  Trains on 106 calibrated goldilocks problems (7B gets 2-6/8); 4 unique prompts
+  per optimizer step (2 × 16 / 8 generations); 120 steps ≈ 4.5 epochs; held-out
+  goldilocks pass@8 eval + checkpoint every 27 steps. Because the set is all
+  goldilocks, ~every prompt produces gradient (no ghost-batching waste).
+  KL penalty (beta) anchors the policy; DAPO loss normalizes across active tokens.
 
 Generation: vanilla model.generate() -- no vLLM, no paged attention.
 vLLM colocate has PEFT convergence bugs (trl#2856, vllm#14483).
@@ -30,7 +28,7 @@ Usage:
 """
 
 import os
-import os
+import json
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import torch
 import logging
@@ -86,10 +84,24 @@ def build_prompt(example):
     return example
 
 
-logger.info("Loading entity-tracking dataset ...")
-dataset = load_dataset("json", data_files={"train": "data/skeleton_dataset_v10.json"}, split="train")
-dataset = dataset.map(build_prompt)
-logger.info(f"Dataset loaded: {len(dataset)} entity-tracking problems")
+# GOLDILOCKS hillclimb: train ONLY on the calibrated goldilocks-zone problems
+# (2-6/8 for the 7B), with a disjoint goldilocks held-out as the per-step monitor.
+# Built by build_goldilocks_set.py from calib_v10_7B.json (re-graded with the
+# current grader + corrected golds). AMC is intentionally OFF for this small
+# hillclimb loop — we're optimizing the loop, not yet claiming transfer.
+from datasets import Dataset
+from holdout_eval import HeldoutEvalCallback
+
+EVAL_EVERY = 27          # ~1 epoch over 106 train at 4 prompts/step
+EVAL_K = 8               # pass@8 ...
+EVAL_TEMP = 1.0          # ... temp 1.0 — measures the goldilocks pass-rate training should lift
+
+logger.info("Loading goldilocks train + held-out sets ...")
+train_rows = json.load(open("data/goldilocks_train_v10.json"))
+holdout_skel = json.load(open("data/goldilocks_holdout_v10.json"))
+dataset = Dataset.from_list(train_rows).map(build_prompt)
+logger.info(f"Train (goldilocks): {len(dataset)} | held-out goldilocks: {len(holdout_skel)} "
+            f"| AMC: OFF (small hillclimb loop)")
 
 
 # ── LoRA config ─────────────────────────────────────────────────────────────
@@ -127,25 +139,19 @@ training_args = GRPOConfig(
     # the KV cache (~5GB for 128 sequences) fits easily.
     use_vllm=False,
 
-    # ── Ghost-batching mitigation ──────────────────────────────────────
-    # With entity-only filtering (~33% of problems in sweet spot), most
-    # mini-batches contain zero-gradient prompts (all-correct or all-wrong).
-    # A small effective batch means some updates see NO useful signal at all,
-    # causing massive W&B noise.
-    #
-    # Fix: accumulate over 16 mini-batches so each optimizer step sees
-    # 64 prompts. Even if only 33% produce gradient, that's ~20 useful
-    # prompts per update -- enough for a reasonable direction.
-    # (32 was designed for vLLM; 16 balances signal vs wall-clock time
-    # with vanilla model.generate on L40S: ~7 hrs for 500 steps.)
+    # ── Batch sizing ───────────────────────────────────────────────────
+    # Effective batch per optimizer step = per_device_train_batch_size ×
+    # gradient_accumulation_steps = 2 × 16 = 32 completions = 32 / 8 generations
+    # = 4 UNIQUE PROMPTS per step. Over 120 steps that's 480 prompt-instances,
+    # ~4.5 epochs over the 106-problem goldilocks train set. Because the train
+    # set is all-goldilocks, ~all of those prompts produce gradient (no
+    # ghost-batching / zero-gradient waste, unlike training the full set).
     per_device_train_batch_size=2,
-    gradient_accumulation_steps=16,  # effective batch = 4*16 = 64 prompts
-    #                                  64 / 8 generations = 8 unique prompts
-    #                                  per accumulation step
+    gradient_accumulation_steps=16,  # 2 × 16 = 32 completions = 4 unique prompts/step
 
     # Training schedule
     num_train_epochs=1,
-    max_steps=500,                   # ~5 epochs over ~1500 entity problems
+    max_steps=120,                   # ~4.5 epochs over 106 goldilocks @ 4 prompts/step
     learning_rate=5e-5,              # halved from 1e-4 for stability
     lr_scheduler_type="cosine",
     warmup_ratio=0.03,
@@ -169,7 +175,7 @@ training_args = GRPOConfig(
 
     # Logging & saving
     logging_steps=1,
-    save_steps=50,
+    save_steps=27,
     log_completions=True,            # log (prompt, completion) pairs to W&B
     num_completions_to_print=2,      # only print 2 examples to terminal
     report_to="wandb" if os.environ.get("WANDB_TOKEN") else "none",
@@ -205,12 +211,13 @@ logger.info(f"  W&B:              {training_args.report_to}")
 
 
 # ── Trainer ─────────────────────────────────────────────────────────────────
-from transformers import AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer
 model = AutoModelForCausalLM.from_pretrained(
     "Qwen/Qwen2.5-7B-Instruct",
     torch_dtype=torch.bfloat16,
     device_map="cuda"
 )
+eval_tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-7B-Instruct")
 trainer = GRPOTrainer(
     model=model,
     args=training_args,
@@ -218,6 +225,18 @@ trainer = GRPOTrainer(
     reward_funcs=[correctness_reward, format_reward],
     peft_config=peft_config,
 )
+
+# Held-out eval. SAME grader (reward_func) + system prompt as training.
+# Per-step monitor: held-out goldilocks, pass@8 @ temp 1.0 (the goldilocks
+# pass-rate training should lift) + boxed_rate / mean_completion_tokens tripwires,
+# at step 0, every EVAL_EVERY steps, and end. AMC is OFF for this hillclimb loop.
+trainer.add_callback(HeldoutEvalCallback(
+    eval_tokenizer,
+    per_step_sets={"holdout_gold": holdout_skel},
+    endpoint_sets=None,
+    eval_every=EVAL_EVERY, k=EVAL_K, temperature=EVAL_TEMP,
+    max_new_tokens=training_args.max_completion_length, logger=logger,
+))
 
 
 # ── Train ───────────────────────────────────────────────────────────────────
@@ -243,6 +262,10 @@ trainer.save_model()
 logger.info(f"Training complete! Model saved to: {training_args.output_dir}")
 logger.info(f"=== Run finished: {datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')} ===")
 import time
-logger.info("Waiting 60 seconds for disk flush before shutdown...")
+# INTENTIONAL: powers off the cloud GPU VM after the run to stop billing. Runs
+# only after train + final held-out eval + save_model complete and a 60s disk
+# flush. Keep this if launching on a billed VM; remove only if running somewhere
+# you don't want auto-shutdown (e.g. a local/persistent machine).
+logger.info("Waiting 60 seconds for disk flush before VM shutdown...")
 time.sleep(60)
 os.system("sudo poweroff")

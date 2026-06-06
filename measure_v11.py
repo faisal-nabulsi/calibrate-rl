@@ -30,19 +30,7 @@ random.shuffle(data)
 data = data[:N_PROBLEMS]
 print(f"Sampling {N_PROBLEMS} problems, {N_ROLLOUTS} rollouts each = {N_PROBLEMS * N_ROLLOUTS} total transcripts")
 
-def extract_answer(text):
-    match = re.search(r'\\boxed\{([^}]+)\}', text)
-    if match:
-        val = match.group(1).strip()
-        num = re.search(r'-?\d+\.?\d*', val)
-        if num:
-            return num.group(0)
-        return val
-    fractions = re.findall(r'\d+/\d+', text)
-    if fractions:
-        return fractions[-1]
-    numbers = re.findall(r'-?\d+\.?\d*', text)
-    return numbers[-1] if numbers else None
+# (removed dead local extract_answer; grading uses reward_func.extract_predicted_answer)
 
 results = []
 

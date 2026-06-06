@@ -1,7 +1,14 @@
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
-import torch, json, re, sys
+import torch, json, sys
+# Canonical grader — one source of truth (same as train_grpo.py / holdout_eval.py).
+from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
+
+# Same system prompt the model is trained/calibrated with; an eval that prompts
+# the model differently than training measures the wrong thing.
+SYSTEM_PROMPT = ("You are a math problem solver. Think step by step and put your "
+                 "final answer in \\boxed{}.")
 
 BASE_MODEL = "Qwen/Qwen2.5-7B-Instruct"
 CHECKPOINT = sys.argv[1] if len(sys.argv) > 1 else None
@@ -21,40 +28,28 @@ dataset = load_dataset("AI-MO/aimo-validation-amc", split="train")
 problems = list(dataset)
 print(f"Loaded {len(problems)} AMC problems")
 
-def extract_answer(text):
-    m = re.search(r"\\boxed\{(-?[\d,\.]+)\}", text)
-    if m:
-        val = m.group(1).replace(",", "")
-        try: return str(int(float(val)))
-        except: return val
-    m = re.search(r"[Tt]he\s+(?:final\s+)?answer\s+is\s*:?\s*(-?[\d,\.]+)", text)
-    if m: return m.group(1).replace(",", "")
-    numbers = re.findall(r"-?\d+\.?\d*", text)
-    return numbers[-1] if numbers else None
-
 results = []
 correct = 0
 
 for i, problem in enumerate(problems):
     question = problem["problem"]
-    gold_answer = str(int(float(str(problem["answer"]).strip())))
+    gold_answer = str(problem["answer"]).strip()
     text_input = tokenizer.apply_chat_template(
-        [{"role": "user", "content": question}],
+        [{"role": "system", "content": SYSTEM_PROMPT},
+         {"role": "user", "content": question}],
         tokenize=False, add_generation_prompt=True
     )
     inputs = tokenizer(text_input, return_tensors="pt").input_ids.to(model.device)
     with torch.no_grad():
         output = model.generate(
-            inputs, max_new_tokens=512,
+            inputs, max_new_tokens=1024,   # == training completion length
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id
         )
     response = tokenizer.decode(output[0][inputs.shape[1]:], skip_special_tokens=True)
-    predicted = extract_answer(response)
-    try:
-        is_correct = predicted is not None and abs(float(str(predicted).replace(",","")) - float(str(gold_answer).replace(",",""))) < 1e-6
-    except (ValueError, TypeError):
-        is_correct = False
+    predicted, _ = extract_predicted_answer(response)
+    gold = extract_gold_answer(gold_answer)
+    is_correct = gold is not None and predicted is not None and _numbers_match(predicted, gold)
     if is_correct:
         correct += 1
     results.append({"problem_id": i, "question": question, "gold_answer": gold_answer, "model_response": response, "predicted_answer": predicted, "correct": is_correct})
