@@ -59,28 +59,55 @@ SYSTEM_PROMPT = ("You are a math problem solver. Think step by step and put your
 
 
 # ── dataset prep ──────────────────────────────────────────────────────────────
-def make_skeleton_split(path, n_holdout=100, seed=42):
+def make_skeleton_split(path, n_holdout=100, seed=42, stratified=True):
     """Deterministic, deduped, disjoint split of a skeleton dataset.
 
     Dedupe is on the problem string so a held-out instance can never be a
     byte-identical copy of a training instance (skeleton generators can emit
     duplicates). Returns (train_rows, holdout_rows) as plain dicts.
+
+    stratified=True (default): spread the held-out set as evenly as possible
+    across skeleton_type concepts, so the per-step monitor can't miss a
+    per-concept regression hiding in a concept a random draw happened to skip.
+    Held-out = unseen number-instances of the SAME concepts (in-distribution).
     """
     import random
+    from collections import defaultdict
     with open(path) as f:
         rows = json.load(f)
     seen, deduped = set(), []
     for r in rows:
-        key = r["problem"]
-        if key not in seen:
-            seen.add(key)
+        if r["problem"] not in seen:
+            seen.add(r["problem"])
             deduped.append(r)
+    n_holdout = min(n_holdout, len(deduped) // 5)   # never hold out >20%
     rng = random.Random(seed)
-    rng.shuffle(deduped)
-    n_holdout = min(n_holdout, len(deduped) // 5)  # never hold out >20%
-    holdout = deduped[:n_holdout]
-    train = deduped[n_holdout:]
-    return train, holdout
+
+    if not stratified:
+        order = deduped[:]
+        rng.shuffle(order)
+        hold = order[:n_holdout]
+    else:
+        groups = defaultdict(list)
+        for r in deduped:
+            groups[r.get("skeleton_type", "unknown")].append(r)
+        concepts = sorted(groups)                   # sorted -> deterministic
+        base, extra = divmod(n_holdout, len(concepts))
+        hold = []
+        for i, c in enumerate(concepts):
+            insts = groups[c][:]
+            rng.shuffle(insts)
+            k = min(len(insts), base + (1 if i < extra else 0))
+            hold += insts[:k]
+        if len(hold) < n_holdout:                   # a concept too small to fill its quota
+            held = {r["problem"] for r in hold}
+            leftover = [r for r in deduped if r["problem"] not in held]
+            rng.shuffle(leftover)
+            hold += leftover[:n_holdout - len(hold)]
+
+    held = {r["problem"] for r in hold}
+    train = [r for r in deduped if r["problem"] not in held]
+    return train, hold
 
 
 def load_amc(limit=None):
