@@ -234,11 +234,15 @@ trainer = GRPOTrainer(
     peft_config=peft_config,
 )
 
-# Held-out eval every EVAL_EVERY steps + at step 0 (attributable baseline).
-# Uses the SAME grader (reward_func) and system prompt as training; logs
-# pass@k plus boxed_rate / mean_completion_tokens (reward-hacking tripwires).
+# Held-out eval. SAME grader (reward_func) + system prompt as training.
+#  - v10 held-out skeletons: training-health monitor, every EVAL_EVERY steps
+#    (+ step 0 + end). Logs pass@k, boxed_rate, mean_completion_tokens.
+#  - AMC: the capability claim, evaluated ONLY before + after (no test-set
+#    peeking). Rebuild the AMC curve post-hoc from saved checkpoints if needed.
 trainer.add_callback(HeldoutEvalCallback(
-    eval_tokenizer, amc=amc_eval, skeletons=holdout_skel,
+    eval_tokenizer,
+    per_step_sets={"holdout_skel": holdout_skel},
+    endpoint_sets={"amc": amc_eval},
     eval_every=EVAL_EVERY, k=EVAL_K, temperature=EVAL_TEMP,
     max_new_tokens=training_args.max_completion_length, logger=logger,
 ))

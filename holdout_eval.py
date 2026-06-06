@@ -24,11 +24,16 @@ CONSISTENCY GUARANTEES (all three were violated by the old eval_*.py scripts):
   - same gen length    -> max_new_tokens default 1024 == training completion length
 
 DESIGN TRADE-OFFS (documented for review; all are knobs, not hard-coded):
-  1. Held-out set = AMC + held-out skeletons.
-       AMC alone can't tell "learned to game skeleton templates" from "got
-       better at math"; held-out skeletons alone can't tell you about transfer.
-       Running both is the strongest hack-detector but ~doubles eval time.
-       (Knob: pass either set as None to skip it.)
+  1. Held-out sets, split BY ROLE and BY CADENCE:
+       - v10 held-out skeleton slice -> per-step TRAINING-HEALTH MONITOR
+         (in-distribution: same concepts, unseen numbers). Watched every N steps
+         because acting on it can't bias the capability claim (it only measures
+         "got good at skeletons"). It does NOT prove transfer.
+       - AMC -> the CAPABILITY CLAIM. Evaluated ONLY before + after, so it is
+         never steered on (no adaptive overfitting / test-set peeking). The
+         transfer curve, if wanted, is reconstructed post-hoc from saved
+         checkpoints. NOTE: AMC is external; absolute number is contamination-
+         confounded, so the before->after DELTA is the signal.
   2. Integration = in-training TrainerCallback.
        Simplest "every N steps", logs alongside training reward, single process.
        Cost: eval pauses training (adds wall-clock). A separate checkpoint-
@@ -167,27 +172,36 @@ except Exception:                                   # allows import without tran
 
 
 class HeldoutEvalCallback(TrainerCallback):
-    """Eval on held-out sets every `eval_every` steps (and at step 0)."""
+    """Two cadences, two roles:
 
-    def __init__(self, tokenizer, amc=None, skeletons=None, eval_every=50,
-                 max_new_tokens=1024, k=1, temperature=0.0, batch_size=8,
-                 logger=None):
+      per_step_sets  -> evaluated at step 0, every `eval_every` steps, and at the
+                        end. This is the TRAINING-HEALTH MONITOR (the in-
+                        distribution v10 held-out slice). Safe to watch often.
+
+      endpoint_sets  -> evaluated ONLY at train-begin and train-end. This is the
+                        CAPABILITY CLAIM (external AMC). Measured exactly twice so
+                        it is never used to steer the run -> no adaptive
+                        overfitting / test-set peeking. (You can still rebuild the
+                        full AMC curve afterwards by retro-evaluating the saved
+                        checkpoints, since no mid-run decision touched AMC.)
+    """
+
+    def __init__(self, tokenizer, per_step_sets=None, endpoint_sets=None,
+                 eval_every=50, max_new_tokens=1024, k=1, temperature=0.0,
+                 batch_size=8, logger=None):
         self.tok = tokenizer
-        self.sets = {}
-        if amc:
-            self.sets["amc"] = amc
-        if skeletons:
-            self.sets["holdout_skel"] = skeletons
+        self.per_step = dict(per_step_sets or {})
+        self.endpoint = dict(endpoint_sets or {})
         self.every = eval_every
         self.kw = dict(max_new_tokens=max_new_tokens, k=k,
                        temperature=temperature, batch_size=batch_size)
         self.log = logger
-        self._done0 = False
+        self._began = False
 
-    def _run(self, model, step):
-        for name, probs in self.sets.items():
+    def _run(self, model, step, sets, when):
+        for name, probs in sets.items():
             m = evaluate(model, self.tok, probs, **self.kw)
-            line = f"[holdout-eval step {step}] {name}: " + \
+            line = f"[holdout-eval step {step} | {when}] {name}: " + \
                    "  ".join(f"{k}={v}" for k, v in m.items())
             print(line, flush=True)
             if self.log:
@@ -200,13 +214,17 @@ class HeldoutEvalCallback(TrainerCallback):
                 pass
 
     def on_train_begin(self, args, state, control, model=None, **kw):
-        if model is not None and not self._done0:      # step-0 baseline (attributable delta)
-            self._done0 = True
-            self._run(model, 0)
+        if model is not None and not self._began:   # baseline: monitor + AMC "before"
+            self._began = True
+            self._run(model, 0, {**self.per_step, **self.endpoint}, "begin")
 
     def on_step_end(self, args, state, control, model=None, **kw):
         if model is not None and state.global_step > 0 and state.global_step % self.every == 0:
-            self._run(model, state.global_step)
+            self._run(model, state.global_step, self.per_step, "periodic")  # monitor only
+
+    def on_train_end(self, args, state, control, model=None, **kw):
+        if model is not None:                       # final: monitor + AMC "after"
+            self._run(model, state.global_step, {**self.per_step, **self.endpoint}, "end")
 
 
 # ── standalone: eval base model or any checkpoint on both held-out sets ────────
