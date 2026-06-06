@@ -86,10 +86,24 @@ def build_prompt(example):
     return example
 
 
-logger.info("Loading entity-tracking dataset ...")
-dataset = load_dataset("json", data_files={"train": "data/skeleton_dataset_v10.json"}, split="train")
-dataset = dataset.map(build_prompt)
-logger.info(f"Dataset loaded: {len(dataset)} entity-tracking problems")
+# Held-out split: train on the bulk of v10, reserve a disjoint, deduped slice of
+# unseen number-instances (same concepts) for in-distribution generalization eval.
+# AMC is held out by construction (we never train on it).
+from datasets import Dataset
+from holdout_eval import make_skeleton_split, load_amc, HeldoutEvalCallback
+
+EVAL_EVERY = 50          # = save_steps; one held-out eval per checkpoint
+HOLDOUT_N = 100          # unseen skeleton instances reserved for eval
+EVAL_K = 1               # pass@1 ...
+EVAL_TEMP = 0.0          # ... greedy (set K=8, TEMP=1.0 for pass@8 sampled)
+
+logger.info("Loading v10 skeleton dataset and carving held-out split ...")
+train_rows, holdout_skel = make_skeleton_split(
+    "data/skeleton_dataset_v10.json", n_holdout=HOLDOUT_N, seed=42)
+dataset = Dataset.from_list(train_rows).map(build_prompt)
+amc_eval = load_amc()
+logger.info(f"Train: {len(dataset)} skeletons | held-out skeletons: {len(holdout_skel)} "
+            f"| AMC held-out: {len(amc_eval)}")
 
 
 # ── LoRA config ─────────────────────────────────────────────────────────────
@@ -205,12 +219,13 @@ logger.info(f"  W&B:              {training_args.report_to}")
 
 
 # ── Trainer ─────────────────────────────────────────────────────────────────
-from transformers import AutoModelForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer
 model = AutoModelForCausalLM.from_pretrained(
     "Qwen/Qwen2.5-7B-Instruct",
     torch_dtype=torch.bfloat16,
     device_map="cuda"
 )
+eval_tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-7B-Instruct")
 trainer = GRPOTrainer(
     model=model,
     args=training_args,
@@ -218,6 +233,15 @@ trainer = GRPOTrainer(
     reward_funcs=[correctness_reward, format_reward],
     peft_config=peft_config,
 )
+
+# Held-out eval every EVAL_EVERY steps + at step 0 (attributable baseline).
+# Uses the SAME grader (reward_func) and system prompt as training; logs
+# pass@k plus boxed_rate / mean_completion_tokens (reward-hacking tripwires).
+trainer.add_callback(HeldoutEvalCallback(
+    eval_tokenizer, amc=amc_eval, skeletons=holdout_skel,
+    eval_every=EVAL_EVERY, k=EVAL_K, temperature=EVAL_TEMP,
+    max_new_tokens=training_args.max_completion_length, logger=logger,
+))
 
 
 # ── Train ───────────────────────────────────────────────────────────────────
