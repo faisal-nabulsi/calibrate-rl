@@ -30,7 +30,7 @@ Usage:
 """
 
 import os
-import os
+import json
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import torch
 import logging
@@ -86,26 +86,24 @@ def build_prompt(example):
     return example
 
 
-# Held-out split: train on the bulk of v10, reserve a disjoint, deduped slice of
-# unseen number-instances (same concepts) for in-distribution generalization eval.
-# AMC is held out by construction (we never train on it).
+# GOLDILOCKS hillclimb: train ONLY on the calibrated goldilocks-zone problems
+# (2-6/8 for the 7B), with a disjoint goldilocks held-out as the per-step monitor.
+# Built by build_goldilocks_set.py from calib_v10_7B.json (re-graded with the
+# current grader + corrected golds). AMC is intentionally OFF for this small
+# hillclimb loop — we're optimizing the loop, not yet claiming transfer.
 from datasets import Dataset
-from holdout_eval import make_skeleton_split, load_amc, HeldoutEvalCallback
+from holdout_eval import HeldoutEvalCallback
 
-EVAL_EVERY = 50          # = save_steps; one held-out eval per checkpoint
-HOLDOUT_N = 100          # unseen skeleton instances reserved for eval
-EVAL_K = 1               # pass@1 ...
-EVAL_TEMP = 0.0          # ... greedy (set K=8, TEMP=1.0 for pass@8 sampled)
+EVAL_EVERY = 27          # ~1 epoch over 106 train at 4 prompts/step
+EVAL_K = 8               # pass@8 ...
+EVAL_TEMP = 1.0          # ... temp 1.0 — measures the goldilocks pass-rate training should lift
 
-# v10_clean = continued_fraction golds recomputed (depth+2 generator bug) + deduped
-# (built by clean_dataset.py; verified by check_dataset.py: 0 conflicts, 0 dupes).
-logger.info("Loading v10_clean skeleton dataset and carving held-out split ...")
-train_rows, holdout_skel = make_skeleton_split(
-    "data/skeleton_dataset_v10_clean.json", n_holdout=HOLDOUT_N, seed=42)
+logger.info("Loading goldilocks train + held-out sets ...")
+train_rows = json.load(open("data/goldilocks_train_v10.json"))
+holdout_skel = json.load(open("data/goldilocks_holdout_v10.json"))
 dataset = Dataset.from_list(train_rows).map(build_prompt)
-amc_eval = load_amc()
-logger.info(f"Train: {len(dataset)} skeletons | held-out skeletons: {len(holdout_skel)} "
-            f"| AMC held-out: {len(amc_eval)}")
+logger.info(f"Train (goldilocks): {len(dataset)} | held-out goldilocks: {len(holdout_skel)} "
+            f"| AMC: OFF (small hillclimb loop)")
 
 
 # ── LoRA config ─────────────────────────────────────────────────────────────
@@ -161,7 +159,7 @@ training_args = GRPOConfig(
 
     # Training schedule
     num_train_epochs=1,
-    max_steps=500,                   # ~5 epochs over ~1500 entity problems
+    max_steps=120,                   # ~4.5 epochs over 106 goldilocks @ 4 prompts/step
     learning_rate=5e-5,              # halved from 1e-4 for stability
     lr_scheduler_type="cosine",
     warmup_ratio=0.03,
@@ -185,7 +183,7 @@ training_args = GRPOConfig(
 
     # Logging & saving
     logging_steps=1,
-    save_steps=50,
+    save_steps=27,
     log_completions=True,            # log (prompt, completion) pairs to W&B
     num_completions_to_print=2,      # only print 2 examples to terminal
     report_to="wandb" if os.environ.get("WANDB_TOKEN") else "none",
@@ -237,14 +235,13 @@ trainer = GRPOTrainer(
 )
 
 # Held-out eval. SAME grader (reward_func) + system prompt as training.
-#  - v10 held-out skeletons: training-health monitor, every EVAL_EVERY steps
-#    (+ step 0 + end). Logs pass@k, boxed_rate, mean_completion_tokens.
-#  - AMC: the capability claim, evaluated ONLY before + after (no test-set
-#    peeking). Rebuild the AMC curve post-hoc from saved checkpoints if needed.
+# Per-step monitor: held-out goldilocks, pass@8 @ temp 1.0 (the goldilocks
+# pass-rate training should lift) + boxed_rate / mean_completion_tokens tripwires,
+# at step 0, every EVAL_EVERY steps, and end. AMC is OFF for this hillclimb loop.
 trainer.add_callback(HeldoutEvalCallback(
     eval_tokenizer,
-    per_step_sets={"holdout_skel": holdout_skel},
-    endpoint_sets={"amc": amc_eval},
+    per_step_sets={"holdout_gold": holdout_skel},
+    endpoint_sets=None,
     eval_every=EVAL_EVERY, k=EVAL_K, temperature=EVAL_TEMP,
     max_new_tokens=training_args.max_completion_length, logger=logger,
 ))

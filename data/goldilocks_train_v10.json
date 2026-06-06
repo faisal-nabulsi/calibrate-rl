@@ -1,0 +1,744 @@
+[
+ {
+  "problem": "With 4 glasses, 3 full and one at 2/3, the equalizing pour from each full glass is m/n irreducible. What is m+n?",
+  "answer": "13",
+  "skeleton_type": "equalization_fraction",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "Positive integers x,y,z satisfy 3x+4y+2z=102, 2x+1y+3z=73, and 4x+2y+3z=107. Find x+y+z.",
+  "answer": "35",
+  "skeleton_type": "algebraic_system_2eq",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "The series sum of 1/(k(k+2)), k up to 8, equals m/n reduced. Find m+n.",
+  "answer": "74",
+  "skeleton_type": "telescoping_mn",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "You have 8 equal glasses, 7 full and one 1/3 full. The fraction poured from each full glass to equalize is m/n in lowest terms; report m+n.",
+  "answer": "13",
+  "skeleton_type": "equalization_fraction",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "A polynomial has roots 1,2,...,6 with multiplicities [3, 4, 3, 4, 3, 4]. After removing the roots, on how many of the 7 intervals is the polynomial positive?",
+  "answer": "4",
+  "skeleton_type": "polynomial_sign_intervals",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "A complex number is both an 20th and an 24th root of unity. How many such numbers exist?",
+  "answer": "4",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Find the number of complex solutions to z^11 = z\u0304 (z-bar is the conjugate).",
+  "answer": "13",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many complex z solve the equation z^5 = conjugate of z?",
+  "answer": "7",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "The 10th roots of unity and the 8th roots of unity share how many common values?",
+  "answer": "2",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c=12?",
+  "answer": "12",
+  "skeleton_type": "ordered_triple_constraint",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "You have 3 equal glasses, 2 full and one 2/3 full. The fraction poured from each full glass to equalize is m/n in lowest terms; report m+n.",
+  "answer": "10",
+  "skeleton_type": "equalization_fraction",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "Among the numbers 1000 through 2999, how many have digits that add up to 14?",
+  "answer": "148",
+  "skeleton_type": "constrained_digit_count",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Of perfect squares under 2596, how many are divisible by 9 and end in 1?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many right triangles with integer side lengths have a hypotenuse of at most 18?",
+  "answer": "5",
+  "skeleton_type": "count_pythagorean",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Find 3^11 mod 114.",
+  "answer": "105",
+  "skeleton_type": "modular_exponent",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "The value of 6+1/(6+1/(6+1/6)) is m/n in lowest terms. What is m+n?",
+  "answer": "1633",
+  "skeleton_type": "continued_fraction",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Add the differences of consecutive cubes 2\u00b3-1\u00b3, 4\u00b3-3\u00b3, ..., 20\u00b3-19\u00b3.",
+  "answer": "4300",
+  "skeleton_type": "alternating_cubes",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "The dimensions of a rectangular box are the 3 smallest integers with exactly 8 divisors each. Find d\u00b2 for its space diagonal d.",
+  "answer": "3076",
+  "skeleton_type": "box_diagonal_sq",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "A complex number is both an 9th and an 20th root of unity. How many such numbers exist?",
+  "answer": "1",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "How many positive integers up to 642 are divisible by 3, 5, or 7?",
+  "answer": "349",
+  "skeleton_type": "inclusion_exclusion_3set",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Find the smallest positive integer n with lcm(n,12)=1140 and gcd(n,30)=10.",
+  "answer": "190",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "The sum 1/(1\u00b73) + 1/(2\u00b74) + ... + 1/(11\u00b713) is m/n in lowest terms. Find m+n.",
+  "answer": "521",
+  "skeleton_type": "telescoping_mn",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Of the divisors of 720, how many are greater than 20?",
+  "answer": "16",
+  "skeleton_type": "constrained_divisor_count",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "The triangular numbers are 1, 3, 6, 10, .... How many below 1321 are multiples of 3?",
+  "answer": "33",
+  "skeleton_type": "triangular_filter_count",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Add the differences of consecutive cubes 2\u00b3-1\u00b3, 4\u00b3-3\u00b3, ..., 32\u00b3-31\u00b3.",
+  "answer": "17152",
+  "skeleton_type": "alternating_cubes",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Add up all odd divisors of 115.",
+  "answer": "144",
+  "skeleton_type": "divisor_sum_filter",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "Express the sum of 1/(k(k+2)) for k=1..11 as a reduced fraction m/n and give m+n.",
+  "answer": "521",
+  "skeleton_type": "telescoping_mn",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "The least common multiple of n and 36 is 2772; the greatest common divisor of n and 45 is 1. Find the smallest n.",
+  "answer": "77",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "You have 4 equal glasses, 3 full and one 3/4 full. The fraction poured from each full glass to equalize is m/n in lowest terms; report m+n.",
+  "answer": "17",
+  "skeleton_type": "equalization_fraction",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "How many complex z solve the equation z^5 = conjugate of z?",
+  "answer": "7",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Evaluate the nested fraction 7+1/(7+1/(...)) with 5 total 7's as m/n irreducible; report m+n.",
+  "answer": "20749",
+  "skeleton_type": "continued_fraction",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Find the number of complex solutions to z^8 = z\u0304 (z-bar is the conjugate).",
+  "answer": "10",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "How many complex z solve the equation z^11 = conjugate of z?",
+  "answer": "13",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Find the smallest positive integer n with lcm(n,24)=2472 and gcd(n,60)=2.",
+  "answer": "206",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "How many values of z satisfy both z^16=1 and z^8=1?",
+  "answer": "8",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "The equation z^11=z\u0304 has how many complex solutions?",
+  "answer": "13",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Count the triangular numbers under 4422 that are divisible by 5.",
+  "answer": "36",
+  "skeleton_type": "triangular_filter_count",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "The equation z^12=z\u0304 has how many complex solutions?",
+  "answer": "14",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "At what positive integer x is 3x\u00b3 +1x\u00b2 -7x +9 equal to 1553?",
+  "answer": "8",
+  "skeleton_type": "poly_remainder",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "The dimensions of a rectangular box are the 3 smallest integers with exactly 4 divisors each. Find d\u00b2 for its space diagonal d.",
+  "answer": "200",
+  "skeleton_type": "box_diagonal_sq",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Positive integers x,y,z satisfy 4x+4y+4z=168, 4x+1y+3z=114, and 4x+3y+2z=125. Find x+y+z.",
+  "answer": "42",
+  "skeleton_type": "algebraic_system_2eq",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "A rectangular box has edges equal to the smallest three integers each with exactly 4 divisors. What is the squared length of its diagonal?",
+  "answer": "200",
+  "skeleton_type": "box_diagonal_sq",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "What is the smallest positive integer with exactly 36 divisors?",
+  "answer": "1260",
+  "skeleton_type": "prime_power_divisors",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "What is (2\u00b3-1\u00b3) + (4\u00b3-3\u00b3) + ... + (16\u00b3-15\u00b3)?",
+  "answer": "2240",
+  "skeleton_type": "alternating_cubes",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Evaluate 2\u00b3 - 1\u00b3 + 4\u00b3 - 3\u00b3 + 6\u00b3 - 5\u00b3 + ... + 30\u00b3 - 29\u00b3.",
+  "answer": "14175",
+  "skeleton_type": "alternating_cubes",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "How many right triangles with integer side lengths have a hypotenuse of at most 15?",
+  "answer": "4",
+  "skeleton_type": "count_pythagorean",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "Find x+y+z if 3x+4y+3z=111, 1x+1y+4z=54, and 2x+3y+4z=92.",
+  "answer": "33",
+  "skeleton_type": "algebraic_system_2eq",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "Solve 3x\u00b3 +5x\u00b2 +4x -5 = 1883 for the positive integer x.",
+  "answer": "8",
+  "skeleton_type": "poly_remainder",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Among the numbers 3000 through 3999, how many have digits that add up to 15?",
+  "answer": "73",
+  "skeleton_type": "constrained_digit_count",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "In how many ways can 15 be written as a+b+c with 0\u2264a<b<c (integers)?",
+  "answer": "19",
+  "skeleton_type": "ordered_triple_constraint",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "What is the minimum positive integer n satisfying both lcm(n,45)=1035 and gcd(n,60)=3?",
+  "answer": "69",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Three equations: 2x+4y+3z=113, 3x+2y+3z=98, 3x+1y+1z=59. What is x+y+z?",
+  "answer": "37",
+  "skeleton_type": "algebraic_system_2eq",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Count the complex numbers z with z^10=1 and z^24=1.",
+  "answer": "2",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "The 24th roots of unity and the 15th roots of unity share how many common values?",
+  "answer": "3",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=125; add up a+b across all of them.",
+  "answer": "28",
+  "skeleton_type": "complex_modulus_power",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "Evaluate 9^15 modulo 152.",
+  "answer": "49",
+  "skeleton_type": "modular_exponent",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=290.",
+  "answer": "42",
+  "skeleton_type": "complex_modulus_power",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Find the number of integer points (x,y) with x\u00b2+y\u00b2 \u2264 9.",
+  "answer": "29",
+  "skeleton_type": "lattice_points_circle",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "How many values of z satisfy both z^9=1 and z^20=1?",
+  "answer": "1",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "3 glasses: 2 completely full, one 3/4 full. Equalizing by pouring equally from each full glass, the poured fraction is m/n reduced. Find m+n.",
+  "answer": "13",
+  "skeleton_type": "equalization_fraction",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "The triangular numbers are 1, 3, 6, 10, .... How many below 4607 are multiples of 5?",
+  "answer": "38",
+  "skeleton_type": "triangular_filter_count",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "How many of the triangular numbers less than 3855 are divisible by 3?",
+  "answer": "58",
+  "skeleton_type": "triangular_filter_count",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Add the differences of consecutive cubes 2\u00b3-1\u00b3, 4\u00b3-3\u00b3, ..., 26\u00b3-25\u00b3.",
+  "answer": "9295",
+  "skeleton_type": "alternating_cubes",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "Find 3^12 mod 227.",
+  "answer": "34",
+  "skeleton_type": "modular_exponent",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "How many size-3 subsets of {1..10} have sum \u2261 1 mod 5?",
+  "answer": "24",
+  "skeleton_type": "constrained_subset_count",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "How many perfect squares less than 9209 are divisible by 4?",
+  "answer": "47",
+  "skeleton_type": "perfect_square_divisible",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Find the alternating sum of cubes 2\u00b3-1\u00b3+4\u00b3-3\u00b3+...+14\u00b3-13\u00b3.",
+  "answer": "1519",
+  "skeleton_type": "alternating_cubes",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many perfect squares less than 2013 are divisible by 4 and end in the digit 6?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "The equation z^5=z\u0304 has how many complex solutions?",
+  "answer": "7",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Find the number of integer points (x,y) with x\u00b2+y\u00b2 \u2264 9.",
+  "answer": "29",
+  "skeleton_type": "lattice_points_circle",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many right triangles with integer side lengths have a hypotenuse of at most 15?",
+  "answer": "4",
+  "skeleton_type": "count_pythagorean",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "The dimensions of a rectangular box are the 3 smallest integers with exactly 4 divisors each. Find d\u00b2 for its space diagonal d.",
+  "answer": "200",
+  "skeleton_type": "box_diagonal_sq",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many complex z solve the equation z^4 = conjugate of z?",
+  "answer": "6",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "Find the number of perfect squares below 8919 that are multiples of 16.",
+  "answer": "23",
+  "skeleton_type": "perfect_square_divisible",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "How many ordered triples (a,b,c), 0\u2264a<b<c, sum to 14?",
+  "answer": "16",
+  "skeleton_type": "ordered_triple_constraint",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Compute the sum where each pair is (even)\u00b3-(previous odd)\u00b3, up to 34\u00b3-33\u00b3.",
+  "answer": "20519",
+  "skeleton_type": "alternating_cubes",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Sum every odd divisor of 106.",
+  "answer": "54",
+  "skeleton_type": "divisor_sum_filter",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "Among triangular numbers below 5594, how many are multiples of 2?",
+  "answer": "52",
+  "skeleton_type": "triangular_filter_count",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "A rectangular box has edges equal to the smallest three integers each with exactly 6 divisors. What is the squared length of its diagonal?",
+  "answer": "868",
+  "skeleton_type": "box_diagonal_sq",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Find the smallest positive integer n with lcm(n,36)=396 and gcd(n,60)=4.",
+  "answer": "44",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "The equation z^9=z\u0304 has how many complex solutions?",
+  "answer": "11",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Write the continued fraction with 5 levels of 3 (i.e. 3+1/(3+1/(...))) as a reduced fraction m/n; find m+n.",
+  "answer": "469",
+  "skeleton_type": "continued_fraction",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "Find the number of integer-sided right triangles whose hypotenuse is at most 18.",
+  "answer": "5",
+  "skeleton_type": "count_pythagorean",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c=15?",
+  "answer": "19",
+  "skeleton_type": "ordered_triple_constraint",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "How many complex z solve the equation z^10 = conjugate of z?",
+  "answer": "12",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "Find the number of integer-sided right triangles whose hypotenuse is at most 18.",
+  "answer": "5",
+  "skeleton_type": "count_pythagorean",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Given P(x) with roots at 1..4 of multiplicities [3, 3, 1, 1] respectively, on how many of the 5 resulting intervals is P(x)>0?",
+  "answer": "3",
+  "skeleton_type": "polynomial_sign_intervals",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Solve 3x+3y+2z=58, 4x+2y+3z=70, 1x+4y+3z=53 for positive integers; give x+y+z.",
+  "answer": "22",
+  "skeleton_type": "algebraic_system_2eq",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "For which positive integer x does 4x\u00b3 -3x\u00b2 -9x -9 equal 2583?",
+  "answer": "9",
+  "skeleton_type": "poly_remainder",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Count the integers in [1,520] divisible by at least one of 2, 3, 5.",
+  "answer": "382",
+  "skeleton_type": "inclusion_exclusion_3set",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "What is the minimum positive integer n satisfying both lcm(n,24)=2184 and gcd(n,45)=1?",
+  "answer": "91",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "What is the sum of the odd positive divisors of 607?",
+  "answer": "608",
+  "skeleton_type": "divisor_sum_filter",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "Count the complex numbers z with z^10 equal to its own conjugate.",
+  "answer": "12",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "For some positive integer n, lcm(n,24) equals 744 and gcd(n,60) equals 4. What is the least possible n?",
+  "answer": "124",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "Of perfect squares under 2312, how many are divisible by 4 and end in 4?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Among triangular numbers below 5653, how many are multiples of 3?",
+  "answer": "70",
+  "skeleton_type": "triangular_filter_count",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "What is the minimum positive integer n satisfying both lcm(n,12)=696 and gcd(n,45)=1?",
+  "answer": "232",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many integers between 3000 and 3999 (inclusive of 3000) have a digit sum of 17?",
+  "answer": "75",
+  "skeleton_type": "constrained_digit_count",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many positive divisors of 540 are greater than 12?",
+  "answer": "15",
+  "skeleton_type": "constrained_divisor_count",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "Compute the remainder of 4 raised to the 15 upon division by 211.",
+  "answer": "171",
+  "skeleton_type": "modular_exponent",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many times must a 12-sided die be rolled for the chance of a given face appearing to first exceed 1/2?",
+  "answer": "8",
+  "skeleton_type": "complement_prob_mn",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "How many points with integer coordinates lie within distance 5 of the origin?",
+  "answer": "81",
+  "skeleton_type": "lattice_points_circle",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "The dimensions of a rectangular box are the 3 smallest integers with exactly 6 divisors each. Find d\u00b2 for its space diagonal d.",
+  "answer": "868",
+  "skeleton_type": "box_diagonal_sq",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "The 9th roots of unity and the 24th roots of unity share how many common values?",
+  "answer": "3",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Evaluate the nested fraction 2+1/(2+1/(...)) with 3 total 2's as m/n irreducible; report m+n.",
+  "answer": "17",
+  "skeleton_type": "continued_fraction",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "How many integer-coordinate points (x,y) satisfy x\u00b2+y\u00b2 \u2264 5\u00b2?",
+  "answer": "81",
+  "skeleton_type": "lattice_points_circle",
+  "depth": "0",
+  "calib_correct": 5
+ }
+]

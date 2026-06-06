@@ -48,14 +48,11 @@ PORT = int(os.environ.get("PORT", "8011"))
 SYSTEM_PROMPT = ("You are a math problem solver. Think step by step and put your "
                  "final answer in \\boxed{}.")
 
-# The held-out 100 — the EXACT stratified, deduped, disjoint slice train_grpo.py
-# reserves (data/skeleton_dataset_v10_clean.json, seed 42, never trained on).
-# Browsing these = getting familiar with the set you'll judge reasoning maturity
-# on, pre- vs post-RL.
+# The 12 held-out GOLDILOCKS problems — the exact per-step monitor set the run
+# reserves (data/goldilocks_holdout_v10.json, never trained on). Same set the
+# Results page shows, so you judge reasoning maturity on the set training targets.
 try:
-    from holdout_eval import make_skeleton_split
-    _, _HOLD = make_skeleton_split(os.path.join(REPO, "data/skeleton_dataset_v10_clean.json"),
-                                   n_holdout=100, seed=42)
+    _HOLD = json.load(open(os.path.join(REPO, "data/goldilocks_holdout_v10.json")))
     _HOLD = sorted(_HOLD, key=lambda r: (r.get("skeleton_type", ""), str(r.get("answer"))))
     PROBLEMS = [(r.get("skeleton_type", "?"), r.get("answer"), r["problem"]) for r in _HOLD]
 except Exception as e:
@@ -199,7 +196,7 @@ code{background:#eef0f6;padding:1px 5px;border-radius:4px;font-size:13px}
     <div><label>Max tokens</label><input id="max" type="number" value="1024"></div></div>
    <div class="muted" style="margin-top:8px">Temp 1.0 = calibration setting. Try 0.7 / 1.2 to see the spread.</div>
   </div>
-  <div class="panel"><h2>Held-out 100 <span id="pcount" class="muted"></span></h2>
+  <div class="panel"><h2>Held-out goldilocks (12) <span id="pcount" class="muted"></span></h2>
    <select id="cfilter" style="margin-bottom:8px"></select>
    <div id="plist" class="plist"></div></div>
  </div>
@@ -271,7 +268,7 @@ PAGE = (PAGE.replace("%BASE%", DEFAULT_BASE).replace("%MODEL%", DEFAULT_MODEL)
 
 
 RESULTS_PAGE = r"""<!doctype html><html><head><meta charset="utf-8">
-<title>Held-out 100 — graded rollouts</title>
+<title>Held-out goldilocks (12) — graded rollouts</title>
 <script>
 window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
 </script>
@@ -311,7 +308,7 @@ select{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:7px
 .summary{display:flex;gap:14px;flex-wrap:wrap}
 .stat{font-size:13px}.stat b{font-size:18px;display:block}
 </style></head><body>
-<header><h1>Held-out 100 · graded rollouts <a href="/" style="float:right">← Call it yourself</a></h1>
+<header><h1>Held-out goldilocks (12) · graded rollouts <a href="/" style="float:right">← Call it yourself</a></h1>
 <div class="sub" id="sub">loading…</div></header>
 <div class="wrap">
  <div class="side">

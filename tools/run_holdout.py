@@ -19,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 sys.path.insert(0, REPO)
 from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
-from holdout_eval import make_skeleton_split, SYSTEM_PROMPT
+from holdout_eval import SYSTEM_PROMPT
 
 API_KEY = os.environ.get("OPENROUTER_API_KEY") or os.environ.get("QWEN_API_KEY")
 BASE_URL = os.environ.get("BASE_URL", "https://openrouter.ai/api/v1")
@@ -74,8 +74,7 @@ def main():
     if not API_KEY:
         sys.exit("Set OPENROUTER_API_KEY (or QWEN_API_KEY), e.g.\n"
                  "  OPENROUTER_API_KEY=sk-or-... python3 tools/run_holdout.py")
-    _, hold = make_skeleton_split(os.path.join(REPO, "data/skeleton_dataset_v10_clean.json"),
-                                  n_holdout=100, seed=42)
+    hold = json.load(open(os.path.join(REPO, "data/goldilocks_holdout_v10.json")))
     hold = sorted(hold, key=lambda r: (r.get("skeleton_type", ""), str(r.get("answer"))))
     total = len(hold) * ROLLOUTS
     print(f"{len(hold)} problems x {ROLLOUTS} rollouts @ temp {TEMPERATURE} via {MODEL} "

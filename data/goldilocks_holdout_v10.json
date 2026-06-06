@@ -1,0 +1,86 @@
+[
+ {
+  "problem": "Count the complex numbers z with z^9 equal to its own conjugate.",
+  "answer": "11",
+  "skeleton_type": "complex_eq_solcount",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "A positive integer n has lcm(n,45)=10710 and gcd(n,15)=1. What is the smallest such n?",
+  "answer": "238",
+  "skeleton_type": "lcm_gcd_system",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "The 16th roots of unity and the 10th roots of unity share how many common values?",
+  "answer": "2",
+  "skeleton_type": "roots_of_unity_sum",
+  "depth": "0",
+  "calib_correct": 3
+ },
+ {
+  "problem": "Add the differences of consecutive cubes 2\u00b3-1\u00b3, 4\u00b3-3\u00b3, ..., 36\u00b3-35\u00b3.",
+  "answer": "24300",
+  "skeleton_type": "alternating_cubes",
+  "depth": "0",
+  "calib_correct": 4
+ },
+ {
+  "problem": "Take the three smallest integers with exactly 6 divisors as a box's dimensions. What is the square of its space diagonal?",
+  "answer": "868",
+  "skeleton_type": "box_diagonal_sq",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Among triangular numbers below 4844, how many are multiples of 3?",
+  "answer": "64",
+  "skeleton_type": "triangular_filter_count",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "Three equations: 2x+4y+2z=104, 3x+1y+2z=73, 1x+1y+3z=64. What is x+y+z?",
+  "answer": "38",
+  "skeleton_type": "algebraic_system_2eq",
+  "depth": "0",
+  "calib_correct": 6
+ },
+ {
+  "problem": "How many right triangles with integer side lengths have a hypotenuse of at most 18?",
+  "answer": "5",
+  "skeleton_type": "count_pythagorean",
+  "depth": "0",
+  "calib_correct": 2
+ },
+ {
+  "problem": "With 8 glasses, 7 full and one at 3/4, the equalizing pour from each full glass is m/n irreducible. What is m+n?",
+  "answer": "33",
+  "skeleton_type": "equalization_fraction",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Write the continued fraction with 5 levels of 5 (i.e. 5+1/(5+1/(...))) as a reduced fraction m/n; find m+n.",
+  "answer": "4341",
+  "skeleton_type": "continued_fraction",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Evaluate 5^9 modulo 280.",
+  "answer": "125",
+  "skeleton_type": "modular_exponent",
+  "depth": "0",
+  "calib_correct": 5
+ },
+ {
+  "problem": "Of the divisors of 470, what do the even ones add up to?",
+  "answer": "576",
+  "skeleton_type": "divisor_sum_filter",
+  "depth": "0",
+  "calib_correct": 6
+ }
+]
