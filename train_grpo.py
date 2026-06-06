@@ -97,9 +97,11 @@ HOLDOUT_N = 100          # unseen skeleton instances reserved for eval
 EVAL_K = 1               # pass@1 ...
 EVAL_TEMP = 0.0          # ... greedy (set K=8, TEMP=1.0 for pass@8 sampled)
 
-logger.info("Loading v10 skeleton dataset and carving held-out split ...")
+# v10_clean = continued_fraction golds recomputed (depth+2 generator bug) + deduped
+# (built by clean_dataset.py; verified by check_dataset.py: 0 conflicts, 0 dupes).
+logger.info("Loading v10_clean skeleton dataset and carving held-out split ...")
 train_rows, holdout_skel = make_skeleton_split(
-    "data/skeleton_dataset_v10.json", n_holdout=HOLDOUT_N, seed=42)
+    "data/skeleton_dataset_v10_clean.json", n_holdout=HOLDOUT_N, seed=42)
 dataset = Dataset.from_list(train_rows).map(build_prompt)
 amc_eval = load_amc()
 logger.info(f"Train: {len(dataset)} skeletons | held-out skeletons: {len(holdout_skel)} "
