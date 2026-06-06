@@ -62,8 +62,8 @@ except Exception as e:
     print(f"WARNING: could not load held-out set ({e}); problem list will be empty.")
     PROBLEMS = []
 
-DEFAULT_BASE = "https://router.huggingface.co/v1"
-DEFAULT_MODEL = "Qwen/Qwen2.5-7B-Instruct"
+DEFAULT_BASE = "https://openrouter.ai/api/v1"
+DEFAULT_MODEL = "qwen/qwen-2.5-7b-instruct"
 
 
 def grade(text, gold):
