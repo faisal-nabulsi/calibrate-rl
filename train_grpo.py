@@ -9,14 +9,12 @@ Reward: binary correctness only (1.0 if final answer matches gold, 0.0
 otherwise). No auxiliary rewards -- GRPO learns entirely from the contrast
 between correct and incorrect completions within each group.
 
-Ghost-batching mitigation:
-  The entity-filtered dataset contains many problems that are too easy (all 8
-  completions correct → zero gradient) or too hard (all wrong → zero gradient).
-  Only ~33% of problems produce useful signal. To compensate:
-  - Large effective batch (128 prompts via gradient_accumulation_steps=32)
-    ensures each update sees ~40+ "sweet spot" problems
-  - KL penalty (beta) prevents policy drift from noisy updates
-  - DAPO loss normalizes across active tokens in the global batch
+Run shape (depth-0 goldilocks hillclimb):
+  Trains on 106 calibrated goldilocks problems (7B gets 2-6/8); 4 unique prompts
+  per optimizer step (2 × 16 / 8 generations); 120 steps ≈ 4.5 epochs; held-out
+  goldilocks pass@8 eval + checkpoint every 27 steps. Because the set is all
+  goldilocks, ~every prompt produces gradient (no ghost-batching waste).
+  KL penalty (beta) anchors the policy; DAPO loss normalizes across active tokens.
 
 Generation: vanilla model.generate() -- no vLLM, no paged attention.
 vLLM colocate has PEFT convergence bugs (trl#2856, vllm#14483).
@@ -141,21 +139,15 @@ training_args = GRPOConfig(
     # the KV cache (~5GB for 128 sequences) fits easily.
     use_vllm=False,
 
-    # ── Ghost-batching mitigation ──────────────────────────────────────
-    # With entity-only filtering (~33% of problems in sweet spot), most
-    # mini-batches contain zero-gradient prompts (all-correct or all-wrong).
-    # A small effective batch means some updates see NO useful signal at all,
-    # causing massive W&B noise.
-    #
-    # Fix: accumulate over 16 mini-batches so each optimizer step sees
-    # 64 prompts. Even if only 33% produce gradient, that's ~20 useful
-    # prompts per update -- enough for a reasonable direction.
-    # (32 was designed for vLLM; 16 balances signal vs wall-clock time
-    # with vanilla model.generate on L40S: ~7 hrs for 500 steps.)
+    # ── Batch sizing ───────────────────────────────────────────────────
+    # Effective batch per optimizer step = per_device_train_batch_size ×
+    # gradient_accumulation_steps = 2 × 16 = 32 completions = 32 / 8 generations
+    # = 4 UNIQUE PROMPTS per step. Over 120 steps that's 480 prompt-instances,
+    # ~4.5 epochs over the 106-problem goldilocks train set. Because the train
+    # set is all-goldilocks, ~all of those prompts produce gradient (no
+    # ghost-batching / zero-gradient waste, unlike training the full set).
     per_device_train_batch_size=2,
-    gradient_accumulation_steps=16,  # effective batch = 4*16 = 64 prompts
-    #                                  64 / 8 generations = 8 unique prompts
-    #                                  per accumulation step
+    gradient_accumulation_steps=16,  # 2 × 16 = 32 completions = 4 unique prompts/step
 
     # Training schedule
     num_train_epochs=1,
@@ -270,6 +262,10 @@ trainer.save_model()
 logger.info(f"Training complete! Model saved to: {training_args.output_dir}")
 logger.info(f"=== Run finished: {datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')} ===")
 import time
-logger.info("Waiting 60 seconds for disk flush before shutdown...")
+# INTENTIONAL: powers off the cloud GPU VM after the run to stop billing. Runs
+# only after train + final held-out eval + save_model complete and a 60s disk
+# flush. Keep this if launching on a billed VM; remove only if running somewhere
+# you don't want auto-shutdown (e.g. a local/persistent machine).
+logger.info("Waiting 60 seconds for disk flush before VM shutdown...")
 time.sleep(60)
 os.system("sudo poweroff")
