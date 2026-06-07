@@ -1,5 +1,32 @@
 #!/usr/bin/env python3
 """
+skeleton_injector_v11.py — CalibrateRL v11 (derived from validated v10)
+
+v11 CHANGES APPLIED (safe, verified):
+  - custom_binary_op: 3 -> 4 operands, range 8-40 -> 3-12 (one extra
+    composition step, smaller range to avoid overflow). Answers re-verified.
+  - box_diagonal_sq: prompt clarity only ("smallest by value") to reduce
+    selection noise. Math/answers unchanged.
+  - arith_term_filter -> DEPTH1_PARTNERS. v10 calib: mean_pass 0.958,
+    6/9 too_easy -> saturated standalone, promote to composition-only. CONFIRMED.
+
+STAGED (commented, gated on 2048 re-sample):
+  - algebraic_system_2eq range bump (x,y,z 2-15->5-25; coeffs 1-4->1-7).
+    v10 calib mean_pass 0.831 EVEN WHILE truncation-suppressed (worst-hit
+    concept). Bump likely justified; confirm un-truncated >=0.80 at 2048,
+    then uncomment the staged lines in c_system().
+
+DROPPED (data says leave it):
+  - continued_fraction depth 5 -> 4: v10 calib mean_pass 0.411, 5/7 goldilocks
+    -> already IN BAND. Cutting depth would push it too easy. The lone 0.00 is
+    a truncation casualty that 2048 should fix. No edit.
+
+NOT CHANGED (plan items already done or mismatched v10 code):
+  - trapezoid_area, frobenius_stamps: already in DEPTH1_PARTNERS in v10.
+  - divisor_sum_filter "widen pool": v10 uses randint(60,900), not a fixed
+    pool; the v11 edit referenced a different concept. Left untouched.
+
+--- original v7 header below ---
 skeleton_injector_v7.py — CalibrateRL v7: BROAD COVERAGE via CONSTRAINTS
 
 THESIS: v6 proved single-method concepts saturate for the 7B. v7 keeps broad
@@ -64,7 +91,7 @@ ISPRIME=sieve(2_000_000)
 PROBLEMS=[]
 REGISTRY=[]
 # concepts that are irreducibly one-step at depth-0; reserved as depth-1 ride-along partners
-DEPTH1_PARTNERS={'infinite_product_exp','unit_conversion_area','arith_term_filter','count_obtuse_triangles','primality_in_sequence','frobenius_stamps','vieta_pair_count','sum_of_squares','trapezoid_area','vieta_sumcubes','rate_closing','percent_compound','three_number_system','point_rotation','digit_count_bigprod','arith_series_sum','geo_first_exceed','mean_removal','distinct_product_count'}
+DEPTH1_PARTNERS={'infinite_product_exp','unit_conversion_area','count_obtuse_triangles','primality_in_sequence','frobenius_stamps','vieta_pair_count','sum_of_squares','trapezoid_area','vieta_sumcubes','rate_closing','percent_compound','three_number_system','point_rotation','digit_count_bigprod','arith_series_sum','geo_first_exceed','mean_removal','distinct_product_count','arith_term_filter'}
 # concepts whose answers are naturally small (count concepts) — exempt from the >=10 rule
 SMALL_OK={"complex_eq_solcount","constrained_divisor_count","count_pythagorean",
           "ordered_triple_constraint","geo_first_exceed","primality_in_sequence",
@@ -118,16 +145,17 @@ def c_complexsol():
 
 @concept("custom_binary_op",[22,34,68])
 def c_customop():
-    a=random.randint(3,12); b=random.randint(3,12); c=random.randint(3,12); d=random.randint(3,12)  # v11: 4 operands, small
+    # v11: 4 operands (one extra composition step), smaller range 3-12 to avoid overflow
+    a=random.randint(3,12); b=random.randint(3,12); c=random.randint(3,12); d=random.randint(3,12)
     op=lambda x,y:x+y+x*y
     ans=op(op(op(a,b),c),d)
-    if ans>2000000: return None
+    if ans>200000: return None
     return (random.choice([
         f"Define x⊕y = x+y+xy for all integers. What is (({a}⊕{b})⊕{c})⊕{d}?",
         f"Let the operation x⊕y mean x+y+xy. Compute (({a}⊕{b})⊕{c})⊕{d}.",
-        f"Using x⊕y = x+y+xy, evaluate {a}⊕{b}, then ⊕ {c}, then ⊕ {d}.",
+        f"Using x⊕y = x+y+xy, evaluate {a}⊕{b}, then ⊕ that result with {c}, then ⊕ with {d}.",
         f"If a⊕b is defined as a+b+ab, what is (({a}⊕{b})⊕{c})⊕{d}?",
-        f"With the rule x⊕y=x+y+xy, find ((({a}⊕{b})⊕{c})⊕{d}).",
+        f"With the rule x⊕y=x+y+xy, find the value of (({a}⊕{b})⊕{c})⊕{d}.",
     ]), ans, "custom_binary_op")
 
 @concept("modular_exponent",[55])
@@ -239,7 +267,7 @@ def c_divfilter():
 
 @concept("divisor_sum_filter",[55])
 def c_divsumfilter():
-    n=random.choice([360,420,540,600,720,840,900,960,1080,1200,1260,1440,1680,1800,1980,2520]); cond=random.choice(["odd","even"])  # v11: larger composites
+    n=random.randint(60,900); cond=random.choice(["odd","even"])
     ds=divisors(n)
     if cond=="odd": v=sum(d for d in ds if d%2==1)
     else: v=sum(d for d in ds if d%2==0)
@@ -425,11 +453,11 @@ def c_boxdiag():
     if len(dims)<3: return None
     a,b,c=dims
     return (random.choice([
-        f"A box's three edge lengths are the three smallest positive integers that each have exactly {k} divisors. What is the square of its space diagonal?",
-        f"The dimensions of a rectangular box are the 3 smallest integers with exactly {k} divisors each. Find d² for its space diagonal d.",
-        f"Let the edges of a box be the three smallest numbers having exactly {k} positive divisors. Compute the square of the space diagonal.",
-        f"A rectangular box has edges equal to the smallest three integers each with exactly {k} divisors. What is the squared length of its diagonal?",
-        f"Take the three smallest integers with exactly {k} divisors as a box's dimensions. What is the square of its space diagonal?",
+        f"A box's three edge lengths are the three smallest positive integers (smallest by value) that each have exactly {k} divisors. What is the square of its space diagonal?",
+        f"The dimensions of a rectangular box are the 3 smallest integers with exactly {k} divisors each (ordered by value, smallest first). Find d² for its space diagonal d.",
+        f"Let the edges of a box be the three smallest numbers (by value) having exactly {k} positive divisors. Compute the square of the space diagonal.",
+        f"A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly {k} divisors. What is the squared length of its diagonal?",
+        f"Take the three smallest integers (by value) with exactly {k} divisors as a box's dimensions. What is the square of its space diagonal?",
     ]), a*a+b*b+c*c, "box_diagonal_sq")
 
 @concept("trapezoid_area",[67,30])
@@ -730,9 +758,16 @@ def c_equalize():
 @concept("algebraic_system_2eq",[44])
 def c_system():
     # 3x3 integer system, ask x+y+z -> genuine multi-step elimination
-    x=random.randint(5,25); y=random.randint(5,25); z=random.randint(5,25)  # v11: bigger vars
+    # v10 ranges (active):
+    x=random.randint(2,15); y=random.randint(2,15); z=random.randint(2,15)
     def row():
-        return random.randint(1,7),random.randint(1,7),random.randint(1,7)  # v11: bigger coeffs
+        return random.randint(1,4),random.randint(1,4),random.randint(1,4)
+    # v11 STAGED range bump (do NOT enable until 2048 calib confirms standalone >=0.80
+    # un-truncated; v10 calib showed mean_pass 0.831 but it was the worst truncation
+    # victim, so the un-truncated rate is likely higher -> bump justified). To enable,
+    # comment out the two v10 lines above and uncomment the two below:
+    #   x=random.randint(5,25); y=random.randint(5,25); z=random.randint(5,25)
+    #   def row(): return random.randint(1,7),random.randint(1,7),random.randint(1,7)
     a1,b1,c1=row(); a2,b2,c2=row(); a3,b3,c3=row()
     det=a1*(b2*c3-b3*c2)-b1*(a2*c3-a3*c2)+c1*(a2*b3-a3*b2)
     if det==0: return None
