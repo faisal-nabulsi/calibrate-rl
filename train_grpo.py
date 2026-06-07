@@ -93,7 +93,7 @@ from datasets import Dataset
 from holdout_eval import HeldoutEvalCallback
 
 EVAL_EVERY = 27          # ~1 epoch over 106 train at 4 prompts/step
-EVAL_K = 8               # pass@8 ...
+EVAL_K = 16               # pass@8 ...
 EVAL_TEMP = 1.0          # ... temp 1.0 — measures the goldilocks pass-rate training should lift
 
 logger.info("Loading goldilocks train + held-out sets ...")
@@ -268,4 +268,4 @@ import time
 # you don't want auto-shutdown (e.g. a local/persistent machine).
 logger.info("Waiting 60 seconds for disk flush before VM shutdown...")
 time.sleep(60)
-os.system("sudo poweroff")
+# os.system("sudo poweroff")  # gated on Lightning

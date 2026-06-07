@@ -141,6 +141,7 @@ def evaluate(model, tokenizer, problems, *, system_prompt=SYSTEM_PROMPT,
 
     n = len(problems)
     n_correct = 0
+    correct_rollouts = 0
     n_boxed = 0
     total_tokens = 0
     total_samples = 0
@@ -179,6 +180,7 @@ def evaluate(model, tokenizer, problems, *, system_prompt=SYSTEM_PROMPT,
                 total_samples += 1
                 if gold is not None and pred is not None and _numbers_match(pred, gold):
                     hit = True
+                    correct_rollouts += 1
             n_correct += int(hit)
 
     if was_training:
@@ -186,6 +188,7 @@ def evaluate(model, tokenizer, problems, *, system_prompt=SYSTEM_PROMPT,
     return {
         f"pass@{k}": round(n_correct / n, 4) if n else 0.0,
         "n": n,
+        "mean_pass_rate": round(correct_rollouts / total_samples, 4) if total_samples else 0.0,
         "boxed_rate": round(n_boxed / total_samples, 4) if total_samples else 0.0,
         "mean_completion_tokens": round(total_tokens / total_samples, 1) if total_samples else 0.0,
     }
