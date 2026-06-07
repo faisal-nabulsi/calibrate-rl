@@ -242,3 +242,9 @@ completions/
 *.parquet
 .netrc
 __pycache__/
+
+wandb/
+checkpoint/
+*.safetensors
+completions/
+.netrc
