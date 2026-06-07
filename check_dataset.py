@@ -62,11 +62,17 @@ def rc_continued_fraction(p):
     return v.numerator + v.denominator
 
 def rc_custom_binary_op(p):
+    # a⊕b = a+b+ab, left-folded over ALL operands. v10 had 3 operands
+    # ((a⊕b)⊕c); v11 uses 4 (((a⊕b)⊕c)⊕d) — fold all of them, not the last 3.
+    # The operator definition ("x+y+xy") carries no digits, so every integer in
+    # the text is an operand.
     nums = ints(p)
-    if len(nums) < 3: return None
-    a, b, c = nums[-3:]
+    if len(nums) < 2: return None
     op = lambda u, v: u + v + u * v
-    return op(op(a, b), c)
+    v = nums[0]
+    for x in nums[1:]:
+        v = op(v, x)
+    return v
 
 def rc_modular_exponent(p):
     m = re.search(r"(\d+)\^?(\d+)?.*?divided by\s*(\d+)", p)
