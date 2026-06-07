@@ -13,7 +13,7 @@ Config via env (defaults are tonight's plan):
   MAX_NEW_TOKENS=2048   TEMP=1.0   SEED=42   GEN_BATCH=8   SAVE_EVERY=25
   OUT=data/calib_v11_2048_7B.json   MODEL=Qwen/Qwen2.5-7B-Instruct
 """
-import os, sys, json, random
+import os, sys, json, random, time
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -67,14 +67,18 @@ def save():                                   # atomic: tmp -> rename
 tok = AutoTokenizer.from_pretrained(MODEL)
 if tok.pad_token is None:
     tok.pad_token = tok.eos_token
+_t_load = time.time()
 model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.bfloat16,
                                              device_map="cuda")
 model.eval()
+print(f"model loaded in {time.time()-_t_load:.0f}s — sampling now", flush=True)
 
 todo = [it for it in data if it["problem"] not in done]
 print(f"{len(todo)} to sample ({len(done)} skipped)", flush=True)
 
+_t_run = time.time()
 for idx, item in enumerate(todo):
+    _t0 = time.time()
     problem = item["problem"]
     gold = str(item.get("answer", item.get("gold"))).strip()
     skeleton_type = item.get("skeleton_type", "unknown")
@@ -112,8 +116,11 @@ for idx, item in enumerate(todo):
         "max_advantage": float(max(rewards) - mean), "advantage_std": float(np.std(rewards)),
         "zone": zone, "rollout_rewards": rewards, "rollout_texts": texts,
     })
-    print(f"[{len(done)+idx+1}/{N_PROBLEMS}] {nc}/{N_ROLLOUTS} {zone:10} | "
-          f"{skeleton_type:24} | {problem[:48]}", flush=True)
+    dt = time.time() - _t0
+    avg = (time.time() - _t_run) / (idx + 1)
+    eta_h = (len(todo) - idx - 1) * avg / 3600
+    print(f"[{len(done)+idx+1}/{N_PROBLEMS}] {nc}/{N_ROLLOUTS} {zone:10} | {skeleton_type:22} | "
+          f"{dt:4.0f}s avg {avg:4.0f}s ETA {eta_h:4.1f}h | {problem[:40]}", flush=True)
     if (idx + 1) % SAVE_EVERY == 0:
         save()
         print(f"  ...saved {len(results)} to {OUT}", flush=True)
