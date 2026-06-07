@@ -268,6 +268,99 @@ def rc_lcm_gcd_system(p):
     return None
 
 
+def rc_poly_remainder(p):
+    # "...ax³ +bx² +cx +d = V (or 'equal V')..." find positive integer x with poly(x)=V
+    s = p.replace("^3", "³").replace("^2", "²").replace(" ", "")
+    parts = re.split(r"=|equals?", s)
+    if len(parts) < 2:
+        return None
+    lhs, rhs = parts[0], parts[-1]
+    Am = re.search(r"(-?\d+)x³", lhs)
+    Bm = re.search(r"(-?\d+)x²", lhs)
+    Cm = re.search(r"(-?\d+)x(?![²³\d])", lhs)
+    Vm = re.search(r"-?\d+", rhs)
+    if not (Am and Bm and Cm and Vm):
+        return None
+    A, B, C, V = int(Am.group(1)), int(Bm.group(1)), int(Cm.group(1)), int(Vm.group())
+    rem = re.sub(r"-?\d+x³", "", lhs)
+    rem = re.sub(r"-?\d+x²", "", rem)
+    rem = re.sub(r"-?\d+x", "", rem)
+    Dm = re.search(r"-?\d+", rem)
+    D = int(Dm.group()) if Dm else 0
+    for x in range(1, 3000):
+        if A * x**3 + B * x * x + C * x + D == V:
+            return x
+    return None
+
+
+def rc_polynomial_sign_intervals(p):
+    # roots at 1..k with given multiplicities; count open intervals where the
+    # product ∏(x-i)^m_i is positive. Sign flips only across ODD-multiplicity roots.
+    m = re.search(r"\[([\d,\s]+)\]", p)
+    if m:
+        mult = [int(x) for x in m.group(1).split(",")]
+    else:
+        exps = re.findall(r"\)\s*\^\s*\(?\s*(\d+)", p)   # (x-i)^m form
+        if not exps:
+            return None
+        mult = [int(x) for x in exps]
+    k = len(mult)
+    pos = 0
+    for t in (r + 0.5 for r in range(0, k + 1)):        # one test point per interval
+        sign = 1
+        for root, mu in zip(range(1, k + 1), mult):
+            if mu % 2 == 1 and t < root:
+                sign = -sign
+        if sign > 0:
+            pos += 1
+    return pos
+
+
+def _solve3(A, b):
+    from fractions import Fraction
+    M = [[Fraction(v) for v in row] + [Fraction(bb)] for row, bb in zip(A, b)]
+    for i in range(3):
+        piv = next((r for r in range(i, 3) if M[r][i] != 0), None)
+        if piv is None:
+            return None
+        M[i], M[piv] = M[piv], M[i]
+        inv = M[i][i]
+        M[i] = [v / inv for v in M[i]]
+        for r in range(3):
+            if r != i and M[r][i] != 0:
+                f = M[r][i]
+                M[r] = [a - f * b for a, b in zip(M[r], M[i])]
+    return [M[r][3] for r in range(3)]
+
+
+def rc_algebraic_system_2eq(p):
+    # 3 eqs "ax+by+cz=d"; question always asks x+y+z.
+    eqs = re.findall(r"(-?\d+)x([+-]\d+)y([+-]\d+)z=(-?\d+)", p.replace(" ", ""))
+    if len(eqs) < 3:
+        return None
+    A = [[int(a), int(b), int(c)] for a, b, c, _ in eqs[:3]]
+    rhs = [int(d) for *_, d in eqs[:3]]
+    sol = _solve3(A, rhs)
+    if sol is None:
+        return None
+    total = sum(sol)
+    return int(total) if total == int(total) else None
+
+
+def rc_constrained_subset_count(p):
+    # "k-element subsets of {1..N} with sum ≡ r (mod m)"
+    km = re.search(r"(\d+)-element", p) or re.search(r"size-?\s?(\d+)", p)
+    nm = (re.search(r"\{1[^}]*?(\d+)\}", p) or re.search(r"first (\d+) positive", p)
+          or re.search(r"\{1\.\.(\d+)\}", p))
+    rm = (re.search(r"remainder (\d+) when divided by (\d+)", p)
+          or re.search(r"≡\s*(\d+)\s*\(?mod\s*(\d+)", p)
+          or re.search(r"(\d+)\s*more than a multiple of (\d+)", p))
+    if not (km and nm and rm):
+        return None
+    k, N, r, mod = int(km.group(1)), int(nm.group(1)), int(rm.group(1)), int(rm.group(2))
+    return sum(1 for c in combinations(range(1, N + 1), k) if sum(c) % mod == r % mod)
+
+
 RECOMPUTERS = {
     "continued_fraction": rc_continued_fraction,
     "custom_binary_op": rc_custom_binary_op,
@@ -292,6 +385,10 @@ RECOMPUTERS = {
     "prime_power_divisors": rc_prime_power_divisors,
     "box_diagonal_sq": rc_box_diagonal_sq,
     "lcm_gcd_system": rc_lcm_gcd_system,
+    "poly_remainder": rc_poly_remainder,
+    "polynomial_sign_intervals": rc_polynomial_sign_intervals,
+    "algebraic_system_2eq": rc_algebraic_system_2eq,
+    "constrained_subset_count": rc_constrained_subset_count,
 }
 
 
