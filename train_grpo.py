@@ -116,7 +116,7 @@ peft_config = LoraConfig(
 
 # ── Training config ─────────────────────────────────────────────────────────
 training_args = GRPOConfig(
-    output_dir=f"./checkpoint/run_{RUN_TIMESTAMP}",
+    output_dir=os.environ.get("RESUME_OUTPUT_DIR", f"./checkpoint/run_{RUN_TIMESTAMP}"),
     run_name=f"grpo_{RUN_TIMESTAMP}",
 
     # GRPO sampling
@@ -256,7 +256,13 @@ logger.info("Starting training ...")
 # measured goldilocks zone (high temp early -> more too-hard, low temp late ->
 # more too-easy), so the validated 40% goldilocks snapshot never held during the
 # run. If annealing is ever reintroduced, re-calibrate across the same schedule.
-trainer.train()
+import sys
+_resume = None
+for _i, _a in enumerate(sys.argv):
+    if _a == "--resume_from_checkpoint" and _i + 1 < len(sys.argv):
+        _resume = sys.argv[_i + 1]
+print(f"[resume] resume_from_checkpoint = {_resume}")
+trainer.train(resume_from_checkpoint=_resume)
 trainer.save_model()
 
 logger.info(f"Training complete! Model saved to: {training_args.output_dir}")
