@@ -10,7 +10,7 @@ Covers the cases from the step-7 review: boxed integers/negatives/commas,
 single-number fallback (candidate-listing must score ZERO), fraction<->decimal
 equivalence, and no-answer.
 """
-from reward_func import (
+from core.reward_func import (
     extract_predicted_answer, extract_gold_answer, _numbers_match,
 )
 

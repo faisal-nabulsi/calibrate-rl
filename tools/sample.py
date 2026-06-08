@@ -22,7 +22,7 @@ sys.path.insert(0, REPO)
 import numpy as np
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
+from core.reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
 
 def _env(k, d): return os.environ.get(k, d)
 MODEL          = _env("MODEL", "Qwen/Qwen2.5-7B-Instruct")

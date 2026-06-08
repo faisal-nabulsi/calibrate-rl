@@ -51,7 +51,7 @@ from __future__ import annotations
 import json
 import torch
 
-from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
+from core.reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
 
 # Must match train_grpo.py / measure_v10_full.py exactly.
 SYSTEM_PROMPT = ("You are a math problem solver. Think step by step and put your "

@@ -31,7 +31,7 @@ from collections import Counter
 import sys
 sys.path.insert(0, os.path.dirname(__file__))
 
-from reward_func import (
+from core.reward_func import (
     extract_gold_answer,
     extract_gold_steps,
     extract_predicted_answer,

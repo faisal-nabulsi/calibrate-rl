@@ -36,7 +36,7 @@ else:
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # tools/ -> repo root
 sys.path.insert(0, REPO)
 try:
-    from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
+    from core.reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
     GRADER_OK = True
 except Exception as e:                                  # pragma: no cover
     GRADER_OK = False

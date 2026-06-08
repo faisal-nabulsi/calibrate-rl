@@ -19,7 +19,7 @@ Outputs:
 """
 import json, random
 from collections import defaultdict, Counter
-from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
+from core.reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
 from clean_dataset import parse_cf, cf_value
 
 CALIB = "data/calib_v10_7B.json"

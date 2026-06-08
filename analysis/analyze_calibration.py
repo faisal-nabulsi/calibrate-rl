@@ -8,7 +8,7 @@ from collections import defaultdict, Counter
 
 try:                       # re-derive parse-rate from saved transcripts (F4 / Step 4)
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from reward_func import extract_predicted_answer
+    from core.reward_func import extract_predicted_answer
     HAVE_GRADER = True
 except Exception:
     HAVE_GRADER = False

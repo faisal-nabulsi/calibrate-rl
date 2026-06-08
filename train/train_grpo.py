@@ -57,7 +57,7 @@ logger.setLevel(logging.INFO)
 from datasets import load_from_disk
 from peft import LoraConfig
 from trl import GRPOTrainer, GRPOConfig
-from reward_func import correctness_reward, format_reward
+from core.reward_func import correctness_reward, format_reward
 
 logger.info(f"=== Run started: {RUN_TIMESTAMP} ===")
 logger.info(f"Log file: {LOG_FILE}")

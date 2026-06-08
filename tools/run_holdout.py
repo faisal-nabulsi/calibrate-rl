@@ -18,7 +18,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 sys.path.insert(0, REPO)
-from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
+from core.reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
 from holdout_eval import SYSTEM_PROMPT
 
 API_KEY = os.environ.get("OPENROUTER_API_KEY") or os.environ.get("QWEN_API_KEY")

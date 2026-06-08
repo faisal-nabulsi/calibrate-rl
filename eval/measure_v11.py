@@ -5,7 +5,7 @@ import numpy as np
 import re
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
-from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
+from core.reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
 
 BASE_MODEL = os.environ.get("MODEL", "Qwen/Qwen2.5-7B-Instruct")
 _model_tag = BASE_MODEL.split("/")[-1].replace("Qwen2.5-","").replace("-Instruct","")

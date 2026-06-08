@@ -3,7 +3,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
 import torch, json, sys
 # Canonical grader — one source of truth (same as train_grpo.py / holdout_eval.py).
-from reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
+from core.reward_func import extract_predicted_answer, extract_gold_answer, _numbers_match
 
 # Same system prompt the model is trained/calibrated with; an eval that prompts
 # the model differently than training measures the wrong thing.
