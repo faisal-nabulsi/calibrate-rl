@@ -30,12 +30,50 @@ for k in keys:
     else:
         flip = "same_ok" if b["correct"] else "same_wrong"
     recs.append({
-        "q": b["question"], "gold": str(b["gold_answer"]), "flip": flip,
+        "id": k, "q": b["question"], "gold": str(b["gold_answer"]), "flip": flip,
         "b_ok": b["correct"], "b_pred": str(b.get("predicted_answer")), "b_resp": b["model_response"],
         "t_ok": t["correct"], "t_pred": str(t.get("predicted_answer")), "t_resp": t["model_response"],
     })
 order = {"up": 0, "down": 1, "same_wrong": 2, "same_ok": 3}
 recs.sort(key=lambda r: (order[r["flip"]], r["q"]))
+
+# Michael's per-problem judgment after reading both responses.
+# verdict: real-improve | minor-improve | path | real-regress | fluke
+JUDGMENTS = {
+ 18: ("path", "Cleaner method, sloppy execution. Base double-counted via overlapping quadrant cases (→925). "
+      "Trained switched to symmetric |x|,|y| counting and landed the correct 841 despite a visible arithmetic "
+      "stumble it recovered from. Better approach, messy run."),
+ 42: ("real-improve", "GENUINE fix. Base made a fundamental log error — wrote a₇ = 27·log₂a₇ instead of 27 + log₂a₇ — "
+      "and brute-forced fruitlessly until it ran out of tokens (no answer). Trained did the algebra correctly "
+      "(a₇ = 27 + log₂a₇ → 32) and solved cleanly. Real reasoning, not luck."),
+ 59: ("real-improve", "GENUINE fix. Base used the wrong form 5k² — missing that 5∣square ⟹ 25∣square. Trained correctly "
+      "used 25m². A real number-theory insight."),
+ 66: ("real-improve", "GENUINE fix. Base mis-identified the intersection points (mirrored wrong → undefined/vertical slope) "
+      "and fumbled. Trained recognized BOTH circles pass through the origin, used origin + the second point → slope 2/5 → 7. "
+      "Real geometric insight."),
+ 67: ("minor-improve", "Minor fix, same method. Both optimize with calculus; base slipped an extra factor of 2 in the area "
+      "(→3/4 → 25), trained executed the algebra correctly (→3/2 → 13). Cleaner execution, not a new concept."),
+ 68: ("real-improve", "GENUINE fix. Base got confused by the custom operation, left x unsolved and just boxed 40. Trained "
+      "correctly evaluated z⊗z = x²+y²i and solved the full system (x=√10) → 50."),
+ 80: ("real-improve", "GENUINE fix. Base ignored the denominator's sign — treated it as numerator≥0 → 0≤log n≤2, a range where "
+      "the fraction is actually NEGATIVE. Trained correctly handled the fraction's sign → n=1 and 100–999 → 901."),
+ 7:  ("real-regress", "Real regression, on a recall-heavy problem. Base recalled the known Pell sequence (288 → digit sum 18). "
+      "Trained tried to DERIVE the recurrence, used wrong coefficients (498) → 24. Worse reasoning — but base essentially memorized it."),
+ 19: ("real-regress", "REAL regression. Base correctly included the 'average equals X itself' case (X=4); trained dropped it, "
+      "got only X=22,10 → 32. A genuinely missed case, not noise."),
+ 53: ("real-regress", "REAL regression. Trained made arithmetic errors building the array rows AND a logic error (treated the whole "
+      "2023rd row as digit 3, computed 2023×3 → units 9). Base computed the rows and pattern correctly → 5."),
+ 60: ("fluke", "NOT a reasoning loss — a careless fumble. Trained actually computed the answer correctly via logs "
+      "(⌊17.385⌋+1 = 18) but then contradicted itself and boxed 19. It had the right answer in hand."),
+ 71: ("fluke", "NOT a reasoning loss — truncation. Trained took a verbose exhaustive-enumeration path and ran out of tokens "
+      "before concluding. Base used a cleaner brute-force-to-30 and finished (29 → 11). An efficiency/budget failure."),
+}
+OVERALL = ("Reading all 12 flips changes the picture vs the count. The 7 UPs are mostly GENUINE reasoning fixes "
+           "(real algebra/number-theory/geometry corrections — #42, #59, #66, #68, #80), not luck. Of the 5 DOWNs, "
+           "3 are real regressions (#7, #19, #53) and 2 aren't reasoning losses at all (#60 careless mis-box, #71 "
+           "truncation). So ~6 real improvements vs ~3 real regressions, with 2 fixable fluke losses. The net count "
+           "(+2, McNemar p≈0.77) is within noise, but the QUALITY of the changes shows real, modest reasoning movement — "
+           "not the pure noise the number alone implies. Encouraging for run 2 with more optimization force.")
 
 nb = sum(1 for r in recs if r["b_ok"]); nt = sum(1 for r in recs if r["t_ok"])
 up = sum(1 for r in recs if r["flip"] == "up"); down = sum(1 for r in recs if r["flip"] == "down")
@@ -70,6 +108,7 @@ header .sub{color:#9aa0b4;font-size:12.5px;margin-top:3px}
 </style></head><body>
 <header><h1>AMC — base vs trained (checkpoint-120)</h1>
 <div class="sub">base %NB%/83 → trained %NT%/83 (%NET%) · flips: %UP%↑ %DOWN%↓ · McNemar p ≈ %P% (not significant)</div></header>
+<div style="max-width:1500px;margin:14px auto 0;padding:0 14px"><div class="panel" style="border-left:4px solid #3257d6"><b>Michael's read (after reading all 12 flipped transcripts):</b> %OVERALL%</div></div>
 <div class="wrap">
  <div class="side"><div class="panel filters">
    <button data-f="" class="on">all (%TOTAL%)</button>
@@ -81,7 +120,9 @@ header .sub{color:#9aa0b4;font-size:12.5px;margin-top:3px}
  <div class="main"><div class="panel"><div id="reader"><div style="color:var(--mut)">Pick a problem — read base vs trained side by side.</div></div></div></div>
 </div>
 <script>
-const DATA=%DATA%; const $=id=>document.getElementById(id); let filter="";
+const DATA=%DATA%; const JUDG=%JDATA%; const $=id=>document.getElementById(id); let filter="";
+const VCOL={'real-improve':'#137a37','minor-improve':'#137a37','path':'#3257d6','real-regress':'#b3261e','fluke':'#b07a00'};
+const VLAB={'real-improve':'REAL IMPROVEMENT','minor-improve':'MINOR IMPROVEMENT','path':'DIFFERENT PATH','real-regress':'REAL REGRESSION','fluke':'FLUKE (not reasoning)'};
 function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 document.querySelectorAll('.filters button').forEach(btn=>btn.onclick=()=>{
  filter=btn.dataset.f;document.querySelectorAll('.filters button').forEach(b=>b.classList.toggle('on',b===btn));renderList();});
@@ -98,14 +139,18 @@ function col(title,ok,pred,resp){
  return `<div class="col"><h3><span>${title}</span><span class="badge ${ok?'ok':'no'}">${ok?'CORRECT':'WRONG'} · ${esc(pred)}</span></h3><div class="resp">${esc(resp)}</div></div>`;
 }
 function show(r){
- const rd=$('reader');
- rd.innerHTML=`<div class="q">${esc(r.q)}<span class="pill">gold ${esc(r.gold)}</span></div>`+
+ const rd=$('reader'); const j=JUDG[r.id]; let jbox='';
+ if(j){jbox=`<div style="border-left:4px solid ${VCOL[j[0]]};background:#fafafe;padding:9px 12px;margin-bottom:10px;border-radius:6px">`+
+   `<b style="color:${VCOL[j[0]]}">${VLAB[j[0]]} — judgment:</b> ${esc(j[1])}</div>`;}
+ rd.innerHTML=`<div class="q">${esc(r.q)}<span class="pill">gold ${esc(r.gold)}</span></div>`+jbox+
    `<div class="cols">${col('BASE',r.b_ok,r.b_pred,r.b_resp)}${col('TRAINED (ckpt-120)',r.t_ok,r.t_pred,r.t_resp)}</div>`;
  if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise([rd]);
 }
 renderList();
 </script></body></html>"""
-PAGE = (PAGE.replace("%DATA%", DATA).replace("%NB%", str(nb)).replace("%NT%", str(nt))
+PAGE = (PAGE.replace("%DATA%", DATA).replace("%JDATA%", json.dumps(JUDGMENTS))
+        .replace("%OVERALL%", html.escape(OVERALL))
+        .replace("%NB%", str(nb)).replace("%NT%", str(nt))
         .replace("%NET%", f"{nt-nb:+d}").replace("%UP%", str(up)).replace("%DOWN%", str(down))
         .replace("%P%", f"{pval:.2f}").replace("%TOTAL%", str(len(recs))))
 open(OUT, "w").write(PAGE)
