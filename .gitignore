@@ -248,3 +248,4 @@ checkpoint/
 *.safetensors
 completions/
 .netrc
+nohup.out
