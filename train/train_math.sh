@@ -13,7 +13,7 @@ cd "$(dirname "$0")/.."
 # Step 1: Build curated entity-tracking dataset (if not already built)
 if [ ! -d "data/entity_tracking_dataset" ]; then
     echo ">>> Building entity-tracking dataset from GSM8K ..."
-    python src/build_entity_dataset.py
+    python archive/builders/build_entity_dataset.py
     echo ""
 fi
 
@@ -28,7 +28,7 @@ echo "    Batch:   128 effective (ghost-batch mitigation)"
 echo "    KL beta: 0.04"
 echo ""
 
-python src/train_grpo.py
+python train/train_grpo.py
 
 echo ""
 echo ">>> Done! Model saved to ./checkpoint/"
