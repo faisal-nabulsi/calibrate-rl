@@ -258,3 +258,7 @@ nohup.out
 # Claude Code / MCP config (may hold secrets like the Slack bot token)
 .claude.json
 .claude/
+
+# personal agent persona (do not commit)
+CLAUDE.local.md
+.DS_Store
