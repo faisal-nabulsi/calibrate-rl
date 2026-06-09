@@ -254,3 +254,7 @@ nohup.out
 # agent coordination (per-machine, local-only)
 .agent_identity
 .last_seen
+
+# Claude Code / MCP config (may hold secrets like the Slack bot token)
+.claude.json
+.claude/
