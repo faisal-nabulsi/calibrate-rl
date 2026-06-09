@@ -224,8 +224,10 @@ def rc_complement_prob_mn(p):
     m = re.search(r"(\d+)-sided", p) or re.search(r"(\d+)-faced", p)
     if not m: return None
     faces = int(m.group(1))
-    k = 1                                  # min rolls so P(>=1 of a face) > 1/2
-    while 1 - (Fraction(faces - 1, faces)) ** k <= Fraction(1, 2):
+    th = re.search(r"(\d+)/(\d+)", p)      # threshold varies across instances (1/2, 3/4, ...)
+    thr = Fraction(int(th.group(1)), int(th.group(2))) if th else Fraction(1, 2)
+    k = 1                                  # min rolls so P(>=1 of a face) > thr
+    while 1 - (Fraction(faces - 1, faces)) ** k <= thr:
         k += 1
     return k
 
@@ -361,6 +363,64 @@ def rc_constrained_subset_count(p):
     return sum(1 for c in combinations(range(1, N + 1), k) if sum(c) % mod == r % mod)
 
 
+def rc_equalization_fraction(p):
+    # k full glasses + 1 partial at fill f; pour x from each full glass to equalize:
+    # x = (1-f)/(k+1); answer = m+n of the reduced fraction x.
+    m = (re.search(r"first (\d+) are full", p) or re.search(r"(\d+) completely full", p)
+         or re.search(r"(\d+) full", p))
+    fm = (re.search(r"(\d+)/(\d+) full", p) or re.search(r"at (\d+)/(\d+)", p)
+          or re.search(r"last is (\d+)/(\d+)", p) or re.search(r"one (\d+)/(\d+)", p))
+    if not (m and fm):
+        return None
+    k = int(m.group(1)); f = Fraction(int(fm.group(1)), int(fm.group(2)))
+    x = (1 - f) / (k + 1)
+    return x.numerator + x.denominator
+
+
+def _pow_exp(val, B):
+    # exact integer log_B(val): exponent if val is a power of B, else None
+    if val <= 0 or B <= 1:
+        return None
+    e = 0
+    while val % B == 0:
+        val //= B; e += 1
+    return e if val == 1 else None
+
+def _log_arg(arg, B):
+    # one log argument: a number, a power "B^e", or a product/quotient of them
+    arg = arg.replace("×", "·").replace("*", "·")
+    total, sign = 0, 1
+    for tok in re.split(r"([·/])", arg):
+        tok = tok.strip()
+        if tok == "·": sign = 1
+        elif tok == "/": sign = -1
+        elif tok:
+            mm = re.match(r"(\d+)\^(\d+)$", tok)
+            val = int(mm.group(1)) ** int(mm.group(2)) if mm else (int(tok) if tok.isdigit() else None)
+            if val is None: return None
+            e = _pow_exp(val, B)
+            if e is None: return None
+            total += sign * e; sign = 1
+    return total
+
+def rc_log_laws(p):
+    # every argument is a power of the base; answer = signed sum of exponents
+    base = re.search(r"log[_\s]*(?:base\s*)?\{?(\d+)\}?", p)
+    if not base:
+        return None
+    B = int(base.group(1))
+    pn = p.replace("plus", "+").replace("minus", "-")
+    terms = re.findall(r"([+\-]?)\s*log[_\s]*(?:base\s*)?\{?\d+\}?\s*(?:of\s+(\d+)|\(([^)]*)\))", pn)
+    if not terms:
+        return None
+    tot = 0
+    for s, ofnum, paren in terms:
+        e = _log_arg(ofnum or paren, B)
+        if e is None: return None
+        tot += -e if s == "-" else e
+    return tot
+
+
 RECOMPUTERS = {
     "continued_fraction": rc_continued_fraction,
     "custom_binary_op": rc_custom_binary_op,
@@ -389,6 +449,8 @@ RECOMPUTERS = {
     "polynomial_sign_intervals": rc_polynomial_sign_intervals,
     "algebraic_system_2eq": rc_algebraic_system_2eq,
     "constrained_subset_count": rc_constrained_subset_count,
+    "equalization_fraction": rc_equalization_fraction,
+    "log_laws": rc_log_laws,
 }
 
 
