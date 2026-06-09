@@ -10,8 +10,8 @@
    agent sessions; you are one of them.
 2. **Identify yourself.** Read `.agent_identity` at the repo root — it holds your
    tag. Use that `[tag]` on every Slack post. Two session types:
-   - **Person session** — a teammate's machine; tag = their name (`[faisal]`,
-     `[michael]`, `[cara]`, `[zaid]`). Does reasoning / planning / coding / analysis.
+   - **Person session** — a teammate's machine; tag = their badge (`[gilbert]`,
+     `[kathryne]`, `[charizard]`, `[zaid]`). Does reasoning / planning / coding / analysis.
    - **`train@lightning`** — the shared A100 (auto-detect: `/teamspace` path +
      `nvidia-smi`). Runs calibration / training / eval ONLY.
    If `.agent_identity` is missing, **ask the user who they are, then offer to
@@ -55,13 +55,13 @@ in-band problems. **The deliverable is the METHOD, not any single checkpoint.**
 
 | task area | owner |
 |---|---|
-| Experiment design, concept choice, hyperparameters | Faisal |
-| Skeleton generators, difficulty fixes, `gen_clean` | Faisal |
-| Analysis: reward curves, AMC eval, per-concept | Faisal |
-| Calibration tooling + sampling pipeline, `clean.py` | Michael |
-| Data prep: dataset build, holdout construction, repo hygiene | Michael |
-| Eval | Cara |
-| RL review | Zaid |
+| Experiment design, concept choice, hyperparameters | gilbert |
+| Skeleton generators, difficulty fixes, `gen_clean` | gilbert |
+| Analysis: reward curves, AMC eval, per-concept | gilbert |
+| Calibration tooling + sampling pipeline, `clean.py` | kathryne |
+| Data prep: dataset build, holdout construction, repo hygiene | kathryne |
+| Eval / research | charizard |
+| RL review | zaid |
 | Running GPU calibration / training / eval | `train@lightning` (executes; doesn't design) |
 
 A teammate not yet in the table still follows the person-session rules. Cross-lane
@@ -69,7 +69,7 @@ changes: propose in Slack and let the owner confirm.
 
 **Doc edit lanes (prevents merge conflicts):**
 - §1–§11 (durable): change rarely; the authoring session edits and flags in Slack.
-- **CURRENTLY DOING / TODO**: only the **doc maintainer** (default: Faisal;
+- **CURRENTLY DOING / TODO**: only the **doc maintainer** (default: gilbert;
   reassign in Slack) reconciles these — single writer for the contested region.
   Everyone else requests changes via Slack or the LOG.
 - **DAILY LOG**: append-only — all sessions append under `### date` + their `[tag]`.
@@ -108,7 +108,7 @@ messages are attributable even on a shared Slack identity.
    **Then stamp `date -u +%Y-%m-%dT%H:%M:%SZ > .last_seen`** so the next catch-up
    starts exactly where this one ended. (`train@lightning` has no user to brief —
    it reads updates and posts status.)
-4. Reconcile into this file: the **doc maintainer** (default Faisal) updates
+4. Reconcile into this file: the **doc maintainer** (default gilbert) updates
    **CURRENTLY DOING** and **TODO** to match the meeting + Updates doc. Other
    sessions do NOT edit those sections — they append to the DAILY LOG and raise
    changes in Slack. Commit + push.
@@ -140,7 +140,7 @@ context) and notes the resolution in Slack.
   Do NOT commit the MD on every small thing — batch it. Top sections: doc
   maintainer only.
 
-**Reporting to the team (Faisal, Zaid, Michael, Cara):** when you summarize a sync
+**Reporting to the team (gilbert, zaid, kathryne, charizard):** when you summarize a sync
 or a day, (a) attribute each item to its author, (b) route each task to its owner
 per §2, and (c) ground code updates in git — run `git log --oneline` and
 `git show --stat <commit>` and name the commits, files, and what actually changed,
@@ -334,7 +334,7 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
 ## 11. Roadmap
 
 Now: single-concept ablation → 3-concept ablation (AMC effect via mean_pass_rate
-on tagged subsets). Then (Michael): sample ~600 v11 @2048 → ~300 train set +
+on tagged subsets). Then (kathryne): sample ~600 v11 @2048 → ~300 train set +
 stratified holdout (3–5/concept). Phase 3: chaining (§6).
 
 ---
