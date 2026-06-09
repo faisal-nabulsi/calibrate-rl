@@ -1,0 +1,3 @@
+# Append-only sections (DAILY LOG) — keep BOTH sides on concurrent edits
+# instead of raising a conflict. Safe because the log is append-only by date+tag.
+CLAUDE.md merge=union

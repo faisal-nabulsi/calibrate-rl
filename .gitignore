@@ -250,3 +250,7 @@ completions/
 .netrc
 nohup.out
 nohup.out
+
+# agent coordination (per-machine, local-only)
+.agent_identity
+.last_seen
