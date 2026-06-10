@@ -360,23 +360,34 @@ stratified holdout (3–5/concept). Phase 3: chaining (§6).
 
 ## CURRENTLY DOING
 
-**Single-concept GRPO ablation.** Does training ONE concept to mastery move its
-AMC problem(s), and what's the reward curve in isolation? Decision pending:
-- **multi_constraint_square** — owns #59 (flipped in v10), answers vary, C knob,
-  40% goldilocks → generate ~250 for ~100 in-band.
-- **lcm_gcd_system** — cleanest curve (75% gold, varied answers, S knob), but 0
-  AMC movement (base solves #17).
+**3-concept GRPO ablation (pilot → full v12).** Superseded the single-concept plan:
+run 3 strong concepts covering **5 unsolved AMC** — inclusion_exclusion_3set (#40),
+constrained_divisor_count (#55,#75), complex_modulus_power (#13,#68).
+Pilot: calibrate **600×8 @2048 on L4** (`data/abl3_pool_v1.json`) → goldilocks filter →
+GRPO **~250 steps** → AMC `mean_pass_rate` on the 5 + reward-curve check. Then
+recalibrate full v12 → sample all → full train.
 
-Flow: gen_clean → calibrate vs base → goldilocks filter → train/holdout split →
-single-concept GRPO (tmux, fixed output_dir, log_completions, wandb id-resume) →
-per-pass + per-problem reward curve → AMC eval via mean_pass_rate (K=16).
+Decisions this round (see `generate/V12_DATASET_CHANGES.md`):
+- multi_constraint_square / lcm_gcd_system both rejected (answer-hack / no AMC headroom).
+- **gold% ≠ answer-diversity:** cmp/cdc are answer-hackable despite high gold → widened
+  in `skeleton_injector_v12.py` (cmp top-3 43%→19%, cdc 38%→30%; math unchanged, golds still verify).
+- AMC n=5 is below the noise floor → trust reward curve + mean_pass_rate, not binary flips.
 
 ## TODO
 
-- [ ] Decide concept: multi_constraint_square vs lcm_gcd_system.
-- [ ] (next)
+- [ ] Merge PR #11 (v12 spec) + #12 (v12 generator + 600-row pilot pool).
+- [ ] train@lightning: calibrate `abl3_pool_v1.json` 600×8 @2048 (L4) → `calib_abl3_2048_7B.json`. **BLOCKED: lightning unresponsive.**
+- [ ] gilbert: goldilocks filter + 3–5/concept holdout split from the calib.
+- [ ] train@lightning: GRPO pilot ~250 steps (A100) → AMC eval #13,40,55,68,75.
+- [ ] v12 full: fix log_laws + ordered_triple + constrained_subset_count; investigate triangular_filter_count; then full calibrate/sample/train.
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-10
+- [gilbert] Pivoted single-concept → **3-concept ablation** (ie3 + cdc + cmp, 5 unsolved AMC).
+- [gilbert] PR #9/#10 merged (ie3 calib script + `ie3_pool_v2` 637 rows). PR #11 (v12 change spec), #12 (`skeleton_injector_v12.py` cmp/cdc cardinality widen + `abl3_pool_v1` 600-row pilot pool) open.
+- [gilbert] Found **gold% ≠ answer-diversity** (multi_constraint_square failure mode): cmp top-3 43%→19%, cdc 38%→30% after v12 widening; triangular_filter_count flagged (never-learned in v10 matrix but "leave alone" in Doc4).
+- [gilbert] Blocked: train@lightning unresponsive on the L4 calibration handoff.
 
 ### 2026-06-08
 - [setup] Added `.mcp.json` (Slack MCP), 3-session roles, daily protocol.
