@@ -1,7 +1,9 @@
 # Single-concept ablation calibration — derived from eval/measure_v11.py with
 # ONLY config constants changed (dataset path, output path, 2048 gen length per
 # the v11 @2048 validation, repo-relative paths). Logic untouched.
-# Run from repo root on the GPU box:
+# Default dataset: data/ie3_pool_v1.json (inclusion_exclusion_3set, 344 rows,
+# landed in PR #8) — the chosen single-concept ablation pool.
+# Run from repo root on the GPU box (inside tmux):
 #   python eval/measure_single_concept.py
 import os, json
 import torch
@@ -14,12 +16,12 @@ from core.reward_func import extract_predicted_answer, extract_gold_answer, _num
 
 BASE_MODEL = os.environ.get("MODEL", "Qwen/Qwen2.5-7B-Instruct")
 _model_tag = BASE_MODEL.split("/")[-1].replace("Qwen2.5-","").replace("-Instruct","")
-DATASET_PATH = os.environ.get("DATASET", "data/single_concept_mcs_250_balanced.json")
-_OUT_PATH = os.environ.get("OUT", f"data/calib_mcs_2048_{_model_tag}.json")
+DATASET_PATH = os.environ.get("DATASET", "data/ie3_pool_v1.json")
+_OUT_PATH = os.environ.get("OUT", f"data/calib_ie3_2048_{_model_tag}.json")
 N_ROLLOUTS = 8
 GEN_BATCH = 8
 MAX_NEW_TOKENS = 2048  # validated in v11 calib: cut too-hard 16->10% and truncation 14->1%
-N_PROBLEMS = 250
+N_PROBLEMS = int(os.environ.get("N_PROBLEMS", "344"))  # full ie3 pool
 
 print("Loading model...")
 tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
