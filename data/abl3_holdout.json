@@ -1,0 +1,92 @@
+[
+  {
+    "problem": "Of the numbers 1 through 258, how many are multiples of 2, 5, or 7?",
+    "answer": "169",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 304 are divisible by 2, 3, or 5?",
+    "answer": "223",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 574 are divisible by 2, 3, or 5?",
+    "answer": "421",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 751 are divisible by 3, 5, or 7?",
+    "answer": "408",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 511 are divisible by 3, 5, or 7?",
+    "answer": "277",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1560 are greater than 6?",
+    "answer": "26",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "504 has how many positive divisors that are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 40 divisors of 1320.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1008, how many are less than 30?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 2100 are less than 40?",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=340; add up a+b across all of them.",
+    "answer": "48",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=61; add up a+b across all of them.",
+    "answer": "11",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 226 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "16",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=80; add up a+b across all of them.",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=586, what is the sum of (a+b) over every such pair?",
+    "answer": "34",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  }
+]
