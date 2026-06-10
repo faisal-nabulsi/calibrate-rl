@@ -204,8 +204,13 @@ def c_psqdiv():
 # ===================================================================
 @concept("constrained_subset_count",[1,15,27,57,81])
 def c_subsets():
-    n=random.randint(9,12); mod=random.choice([3,4,5]); mv=random.randint(0,mod-1)
-    nocons=False  # v9: single constraint only -- double was too hard, model already near-band w/ smart method
+    # v12 SCAFFOLD (kept at depth-0): shrink to small n + fixed mod 3 (size kept at 3 to
+    # preserve the skill shape) so the modular-subset-counting ATOM lands in-band and is
+    # learnable (v11: 0.10 mean / 44% too-hard -> a depth-0 ghost factory). The hard
+    # compositional AMC versions (#1,15,27,57,81) are reserved for Phase-3 chaining, which
+    # composes this learned atom with others -- depth-0 alone can't crack them anyway.
+    n=random.randint(7,11); mod=random.choice([3,4]); mv=random.randint(0,mod-1)
+    nocons=False
     def ok(c):
         if sum(c)%mod!=mv: return False
         if nocons and any(c[i+1]-c[i]==1 for i in range(2)): return False
@@ -224,15 +229,19 @@ def c_subsets():
 
 @concept("ordered_triple_constraint",[21,47])
 def c_triples():
-    N=random.randint(12,25)
+    N=random.randint(10,20)  # v12: narrowed from [12,25] (v11 0.13 mean, 54% too-hard)
     cnt=sum(1 for a in range(N+1) for b in range(a+1,N+1) if (N-a-b)>b)
     if cnt<5: return None
+    # v12 representation fix: every phrasing now states 0<=a<b<c EXPLICITLY. The v11
+    # natural-language variants ("nonnegative integers" without the 0<= bound) made the
+    # model drop the a=0 case -> a consistent count-1 error -> pr~0 ghost. Gold unchanged
+    # (rc counts 0<=a<b<c, check_dataset agrees).
     return (random.choice([
         f"How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c={N}?",
-        f"Count the strictly increasing triples (a,b,c) of nonnegative integers with a+b+c={N}.",
+        f"How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c={N}?",
         f"In how many ways can {N} be written as a+b+c with 0≤a<b<c (integers)?",
-        f"How many ordered triples (a,b,c), 0≤a<b<c, sum to {N}?",
-        f"Find the number of triples a<b<c of nonnegative integers summing to {N}.",
+        f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {N}?",
+        f"Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c={N}.",
     ]), cnt, "ordered_triple_constraint")
 
 @concept("arith_term_filter",[72])
