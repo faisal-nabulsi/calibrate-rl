@@ -1,0 +1,1400 @@
+[
+  {
+    "problem": "How many positive divisors of 1260 are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1560, how many are greater than 12?",
+    "answer": "23",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 15 divisors of 540.",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 480 are less than 30?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 360, how many are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 660 are less than 40?",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 1080.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "924 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1120, how many are greater than 6?",
+    "answer": "20",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1440 that are greater than 20.",
+    "answer": "22",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 540 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "504 has how many positive divisors that are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 20 divisors of 504.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "720 has how many positive divisors that are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1080 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 24 divisors of 480.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 2520 are greater than 12?",
+    "answer": "37",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 420 that are less than 20.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 480 are odd?",
+    "answer": "4",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 900 that are greater than 30.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 600, how many are greater than 20?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 8 divisors of 1320.",
+    "answer": "25",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 1260.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1560, how many are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 15 divisors of 960.",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 660 are less than 24?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 660 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 900, how many are greater than 8?",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1120, how many are less than 24?",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1260 has how many positive divisors that are greater than 24?",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 540, how many are greater than 10?",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1560 that are less than 40.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 30 divisors of 1560.",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 900, how many are greater than 12?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1008 are greater than 8?",
+    "answer": "23",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 2100, how many are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1260 has how many positive divisors that are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1152 has how many positive divisors that are odd?",
+    "answer": "3",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 30 divisors of 900.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 720 are less than 60?",
+    "answer": "20",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 15 divisors of 1320.",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1680 are greater than 20?",
+    "answer": "26",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "756 has how many positive divisors that are greater than 10?",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 360 that are less than 50.",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 1008.",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 24 divisors of 504.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1152, how many are odd?",
+    "answer": "3",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 840.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 15 divisors of 1680.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 792 are greater than 6?",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 840 are greater than 12?",
+    "answer": "22",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 660 are less than 15?",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 8 divisors of 1560.",
+    "answer": "25",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1680, how many are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1320 that are greater than 10.",
+    "answer": "24",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1008, how many are less than 30?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1080, how many are less than 50?",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1440 that are greater than 24.",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 960 are less than 30?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 660 are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 792.",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1440, how many are less than 15?",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 480 that are odd.",
+    "answer": "4",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 480 that are less than 20.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 12 divisors of 1320.",
+    "answer": "22",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 40 divisors of 540.",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "990 has how many positive divisors that are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1800 are greater than 12?",
+    "answer": "26",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 504 that are less than 30.",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 924 are greater than 30?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1320 are less than 50?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 420 are greater than 20?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 660, how many are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1080 has how many positive divisors that are greater than 10?",
+    "answer": "23",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 600, how many are greater than 30?",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "2100 has how many positive divisors that are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1800 are less than 15?",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1260 are less than 60?",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 480, how many are odd?",
+    "answer": "4",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 924, how many are greater than 30?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 2100, how many are greater than 6?",
+    "answer": "30",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "900 has how many positive divisors that are odd?",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "720 has how many positive divisors that are greater than 15?",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 60 divisors of 1440.",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1320, how many are less than 30?",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 630 are greater than 12?",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1120 are less than 40?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1560 are greater than 6?",
+    "answer": "26",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1120 are greater than 10?",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1008, how many are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 480, how many are less than 15?",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 900.",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 40 divisors of 1320.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 792 that are greater than 12.",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 660, how many are greater than 24?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1320 has how many positive divisors that are less than 24?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 792 are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 960 are less than 40?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 20 divisors of 480.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 720 that are odd.",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 2520, how many are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "840 has how many positive divisors that are greater than 10?",
+    "answer": "23",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1980 that are less than 50.",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1152 are less than 40?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1320 are less than 24?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 2520 that are odd.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 504.",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 15 divisors of 540.",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 630, how many are less than 24?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1320 that are less than 60.",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1008 are greater than 15?",
+    "answer": "20",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 480 that are less than 30.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 420 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1680 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 30 divisors of 600.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1440 are greater than 6?",
+    "answer": "30",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "420 has how many positive divisors that are greater than 10?",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 840 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 630 are less than 20?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "840 has how many positive divisors that are less than 60?",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1152, how many are less than 20?",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 2520, how many are greater than 6?",
+    "answer": "42",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1560, how many are greater than 24?",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 720 are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "660 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 840, how many are greater than 12?",
+    "answer": "22",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "360 has how many positive divisors that are less than 20?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 792 that are greater than 8.",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "840 has how many positive divisors that are less than 40?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 10 divisors of 504.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1152 that are greater than 20.",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 924 are less than 40?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 900 that are less than 20.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 420 are less than 30?",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1008, how many are less than 50?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 840 that are greater than 8.",
+    "answer": "24",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1152 that are greater than 8.",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1008 that are greater than 24.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 24 divisors of 900.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "540 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 10 divisors of 1320.",
+    "answer": "24",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 24 divisors of 1120.",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1980 that are odd.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "756 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1800 that are less than 40.",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 960, how many are greater than 30?",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1008 are greater than 10?",
+    "answer": "22",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 50 divisors of 756.",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 792, how many are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1320, how many are greater than 12?",
+    "answer": "22",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 540 are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "660 has how many positive divisors that are greater than 8?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 924, how many are less than 40?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1440 has how many positive divisors that are less than 30?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 900, how many are odd?",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1260 are less than 15?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1680, how many are greater than 12?",
+    "answer": "30",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1800 has how many positive divisors that are less than 40?",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 420 are less than 20?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "960 has how many positive divisors that are odd?",
+    "answer": "4",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 24 divisors of 792.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 960 that are greater than 12.",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1680, how many are less than 30?",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 720 that are greater than 8.",
+    "answer": "23",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 660 that are greater than 20.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 2520, how many are less than 15?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1440, how many are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 480 that are greater than 24.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1080 are greater than 24?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 24 divisors of 630.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 1440.",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 900 that are greater than 6.",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 24 divisors of 756.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 40 divisors of 1560.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "2520 has how many positive divisors that are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "660 has how many positive divisors that are greater than 24?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "360 has how many positive divisors that are greater than 20?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1560 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 540 are less than 40?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 900 are less than 40?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 480, how many are less than 30?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 2100 are greater than 10?",
+    "answer": "28",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 720, how many are greater than 20?",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "960 has how many positive divisors that are greater than 20?",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 720 are greater than 15?",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 990.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 420 are greater than 12?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1680 are less than 15?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 8 divisors of 540.",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 630 that are greater than 15.",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 600 are less than 40?",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 504 that are less than 15.",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1120 has how many positive divisors that are less than 30?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1440 are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1120, how many are less than 60?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 504 that are less than 60.",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 2100 are less than 40?",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1800 are less than 60?",
+    "answer": "20",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 840 that are less than 30.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 480 that are less than 50.",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 360 are greater than 30?",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 924.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1260 has how many positive divisors that are greater than 30?",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 924 that are less than 40.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "720 has how many positive divisors that are greater than 12?",
+    "answer": "20",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1120 has how many positive divisors that are less than 50?",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "792 has how many positive divisors that are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "2100 has how many positive divisors that are greater than 10?",
+    "answer": "28",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 720 that are less than 50.",
+    "answer": "20",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 630, how many are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 30 divisors of 1560.",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1680 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1260 has how many positive divisors that are less than 30?",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1800 are odd?",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1440 that are odd.",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1080 has how many positive divisors that are less than 24?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1560 that are less than 24.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1440 that are greater than 15.",
+    "answer": "25",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1560 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 504, how many are less than 40?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "630 has how many positive divisors that are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 40 divisors of 720.",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1152, how many are greater than 8?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 756 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 6 divisors of 600.",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 540 are greater than 6?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "756 has how many positive divisors that are greater than 30?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 720 are greater than 8?",
+    "answer": "23",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 8 divisors of 900.",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1260, how many are less than 15?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 540 are less than 24?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 660.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 12 divisors of 1680.",
+    "answer": "30",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  }
+]

@@ -1,0 +1,1358 @@
+[
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=538, what is the sum of (a+b) over every such pair?",
+    "answer": "26",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 37 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "7",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=205; add up a+b across all of them.",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=122, what is the sum of (a+b) over every such pair?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=569?",
+    "answer": "33",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=85?",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=353, what is the sum of (a+b) over every such pair?",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=40, what is the sum of (a+b) over every such pair?",
+    "answer": "8",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=181; add up a+b across all of them.",
+    "answer": "19",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=416?",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=37?",
+    "answer": "7",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=169?",
+    "answer": "17",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=349; add up a+b across all of them.",
+    "answer": "23",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=370?",
+    "answer": "48",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=233, what is the sum of (a+b) over every such pair?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=137.",
+    "answer": "15",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 288 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=136; add up a+b across all of them.",
+    "answer": "16",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=281, what is the sum of (a+b) over every such pair?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=89.",
+    "answer": "13",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 90 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=289?",
+    "answer": "23",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=225, what is the sum of (a+b) over every such pair?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=386?",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=109.",
+    "answer": "13",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=80?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=244?",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=296?",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=164, what is the sum of (a+b) over every such pair?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=52; add up a+b across all of them.",
+    "answer": "10",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=242, what is the sum of (a+b) over every such pair?",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=197, what is the sum of (a+b) over every such pair?",
+    "answer": "15",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 314 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 377 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 145 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=292; add up a+b across all of them.",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 562 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "32",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=586, what is the sum of (a+b) over every such pair?",
+    "answer": "34",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=509; add up a+b across all of them.",
+    "answer": "27",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=445; add up a+b across all of them.",
+    "answer": "52",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=145.",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=538?",
+    "answer": "26",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 185 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=61; add up a+b across all of them.",
+    "answer": "11",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 41 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "9",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 333 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=68; add up a+b across all of them.",
+    "answer": "10",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 468 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=180.",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=328.",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 125 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=122; add up a+b across all of them.",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=464?",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=225?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=356?",
+    "answer": "26",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=185; add up a+b across all of them.",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=421.",
+    "answer": "29",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=89, what is the sum of (a+b) over every such pair?",
+    "answer": "13",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=101; add up a+b across all of them.",
+    "answer": "11",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=522; add up a+b across all of them.",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=577.",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=493, what is the sum of (a+b) over every such pair?",
+    "answer": "56",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=317.",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=493.",
+    "answer": "56",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 442 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=458, what is the sum of (a+b) over every such pair?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=577, what is the sum of (a+b) over every such pair?",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=577?",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 226 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "16",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 101 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "11",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=362; add up a+b across all of them.",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=377, what is the sum of (a+b) over every such pair?",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=153?",
+    "answer": "15",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 100 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "14",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 136 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "16",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=145?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=442, what is the sum of (a+b) over every such pair?",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 500 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "56",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=404, what is the sum of (a+b) over every such pair?",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=257; add up a+b across all of them.",
+    "answer": "17",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=468, what is the sum of (a+b) over every such pair?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=82.",
+    "answer": "10",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=72?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=113; add up a+b across all of them.",
+    "answer": "15",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=549.",
+    "answer": "33",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=457; add up a+b across all of them.",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=509.",
+    "answer": "27",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=180?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=580; add up a+b across all of them.",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 596 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "34",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=365?",
+    "answer": "48",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=373, what is the sum of (a+b) over every such pair?",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=208; add up a+b across all of them.",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 68 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "10",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=34?",
+    "answer": "8",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=458; add up a+b across all of them.",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=488; add up a+b across all of them.",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=25, what is the sum of (a+b) over every such pair?",
+    "answer": "7",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=593, what is the sum of (a+b) over every such pair?",
+    "answer": "31",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=194, what is the sum of (a+b) over every such pair?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=73?",
+    "answer": "11",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 200 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=562.",
+    "answer": "32",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=116?",
+    "answer": "14",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=481.",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=205.",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=338; add up a+b across all of them.",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=90, what is the sum of (a+b) over every such pair?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=292.",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=340.",
+    "answer": "48",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=58, what is the sum of (a+b) over every such pair?",
+    "answer": "10",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=65.",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=162?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=370; add up a+b across all of them.",
+    "answer": "48",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=353; add up a+b across all of them.",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=233.",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=208, what is the sum of (a+b) over every such pair?",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=369?",
+    "answer": "27",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=97, what is the sum of (a+b) over every such pair?",
+    "answer": "13",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=545?",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=29, what is the sum of (a+b) over every such pair?",
+    "answer": "7",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=200; add up a+b across all of them.",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=338.",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=400; add up a+b across all of them.",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=333, what is the sum of (a+b) over every such pair?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=146.",
+    "answer": "16",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=20.",
+    "answer": "6",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=225.",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=241.",
+    "answer": "19",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=585?",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=554.",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=244; add up a+b across all of them.",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=61?",
+    "answer": "11",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=450, what is the sum of (a+b) over every such pair?",
+    "answer": "54",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=261, what is the sum of (a+b) over every such pair?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=53?",
+    "answer": "9",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=397?",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=442; add up a+b across all of them.",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=80; add up a+b across all of them.",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=72; add up a+b across all of them.",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=337, what is the sum of (a+b) over every such pair?",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=468; add up a+b across all of them.",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=482?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=50?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=80.",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=549?",
+    "answer": "33",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=466?",
+    "answer": "26",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 261 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 173 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "15",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 202 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=328; add up a+b across all of them.",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 386 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=73, what is the sum of (a+b) over every such pair?",
+    "answer": "11",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=466, what is the sum of (a+b) over every such pair?",
+    "answer": "26",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=225; add up a+b across all of them.",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=290, what is the sum of (a+b) over every such pair?",
+    "answer": "42",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 205 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=234; add up a+b across all of them.",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 592 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=512?",
+    "answer": "32",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=26?",
+    "answer": "6",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=245, what is the sum of (a+b) over every such pair?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 117 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "15",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=104, what is the sum of (a+b) over every such pair?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 229 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "17",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=505; add up a+b across all of them.",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=288; add up a+b across all of them.",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 578 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "64",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=416.",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=212, what is the sum of (a+b) over every such pair?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=232, what is the sum of (a+b) over every such pair?",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 20 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "6",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 116 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "14",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=458.",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=464, what is the sum of (a+b) over every such pair?",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=101, what is the sum of (a+b) over every such pair?",
+    "answer": "11",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=452, what is the sum of (a+b) over every such pair?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=305?",
+    "answer": "44",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=360; add up a+b across all of them.",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 50 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=298, what is the sum of (a+b) over every such pair?",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=293; add up a+b across all of them.",
+    "answer": "19",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=577; add up a+b across all of them.",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=557, what is the sum of (a+b) over every such pair?",
+    "answer": "33",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=292?",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=338?",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=145; add up a+b across all of them.",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=340, what is the sum of (a+b) over every such pair?",
+    "answer": "48",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 153 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "15",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=340; add up a+b across all of them.",
+    "answer": "48",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=226; add up a+b across all of them.",
+    "answer": "16",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=314, what is the sum of (a+b) over every such pair?",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=392; add up a+b across all of them.",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=170.",
+    "answer": "32",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 290 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "42",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=194; add up a+b across all of them.",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=37; add up a+b across all of them.",
+    "answer": "7",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 233 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=541?",
+    "answer": "31",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=333?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=274, what is the sum of (a+b) over every such pair?",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 104 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=100?",
+    "answer": "14",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 362 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=261.",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=509?",
+    "answer": "27",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=104.",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=481; add up a+b across all of them.",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=218, what is the sum of (a+b) over every such pair?",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=593.",
+    "answer": "31",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=20?",
+    "answer": "6",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=449; add up a+b across all of them.",
+    "answer": "27",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=298.",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 72 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 521 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "31",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=554, what is the sum of (a+b) over every such pair?",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=245?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=260.",
+    "answer": "40",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=272.",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 585 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=164.",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=557.",
+    "answer": "33",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=569; add up a+b across all of them.",
+    "answer": "33",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=514?",
+    "answer": "32",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=250.",
+    "answer": "42",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=457, what is the sum of (a+b) over every such pair?",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  }
+]

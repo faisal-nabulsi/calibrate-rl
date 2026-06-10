@@ -26,7 +26,7 @@ def _load(path, name):
     spec.loader.exec_module(m)
     return m
 
-inj   = _load(os.path.join(REPO, "generate/skeleton_injector_v11.py"), "inj")
+inj   = _load(os.path.join(REPO, os.environ.get("INJECTOR", "generate/skeleton_injector_v11.py")), "inj")
 clean = _load(os.path.join(REPO, "prep/clean_dataset.py"), "clean")  # for parse_cf / cf_value
 
 
