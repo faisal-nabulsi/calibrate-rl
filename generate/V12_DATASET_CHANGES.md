@@ -75,3 +75,11 @@ inclusion_exclusion_3set (63% gold, **360 distinct / top-3 2%** ✓), lcm_gcd_sy
 ## Gates before any v12 training
 1. Gold machine-verified for equalization_fraction, log_laws, complement_prob_mn — **done** (PR #6 recomputers / kathryne).
 2. After each generator change: recalibrate affected concepts @2048 → confirm **ghost fraction down** AND **answer top-3 < 15%** before the concept enters selection.
+
+## Corroboration & refinements — v10 Results Deck + v11 Calibration Report
+
+Two source docs (v10 Results Deck, v11 Calibration Report) confirm the plan above and add three usable items:
+
+1. **Authoritative per-concept v11 mean-pass** (calib report §4) drives the difficulty groups. Ablation trio: constrained_divisor_count **0.68** mean (13/15 gold — *easy-skewed*, so its v12 widening must hold difficulty, not only diversity); complex_modulus_power ~56% gold; inclusion_exclusion_3set ~63% gold. Truncation @2048: `poly_remainder` 10% (long search) + a residual **1.2% goldilocks truncation** — watch on the held-out monitor.
+2. **New "investigate" concept — triangular_filter_count.** The v10 per-concept learning matrix (Deck Slide 4c) shows it **never learned** (held-out 0.31 base → 0.25 @120, the only 🔴 flat-low), yet Doc4 left it in "leave alone" on gold% alone — the **same failure as the cdc/cmp answer-diversity catch**: a gold%-only verdict hiding a real problem. v12 should investigate (mis-phrased / mis-calibrated / genuinely too hard). The matrix also confirms Group-A hardening for the two 🔵 flat-high ghosts: divisor_sum_filter (0.94) and equalization_fraction (0.88).
+3. **AMC-eval protocol (pilot + full).** Wilson CIs (Deck Slides 17–18) show even the n=83 AMC net (+2) is **not** statistically significant; the held-out gain (+0.135) is. The 3-concept pilot's AMC signal is **n=5** (#13,40,55,68,75) — below the noise floor — so report **mean_pass_rate (K=16, continuous)** and **read transcripts**, not binary solved/flips. The deck's churn analysis shows AMC integer answers mask reasoning both ways (p67 lucky-right; p60 reasoned-right but boxed-wrong). Trust the **smooth reward curve + held-out gain**; treat AMC #13/40/55/68/75 as corroborating only.
