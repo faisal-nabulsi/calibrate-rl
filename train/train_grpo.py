@@ -97,8 +97,8 @@ EVAL_K = 16               # pass@8 ...
 EVAL_TEMP = 1.0          # ... temp 1.0 — measures the goldilocks pass-rate training should lift
 
 logger.info("Loading goldilocks train + held-out sets ...")
-train_rows = json.load(open("data/goldilocks_train_v10.json"))
-holdout_skel = json.load(open("data/goldilocks_holdout_v10.json"))
+train_rows = json.load(open(os.environ.get("TRAIN_DATA", "data/goldilocks_train_v10.json")))
+holdout_skel = json.load(open(os.environ.get("HOLDOUT_DATA", "data/goldilocks_holdout_v10.json")))
 dataset = Dataset.from_list(train_rows).map(build_prompt)
 logger.info(f"Train (goldilocks): {len(dataset)} | held-out goldilocks: {len(holdout_skel)} "
             f"| AMC: OFF (small hillclimb loop)")
@@ -123,7 +123,7 @@ training_args = GRPOConfig(
     # - 8 completions per prompt at temp=1.0 for diverse reasoning paths
     # - 1024 completion length for <think> section + answer
     num_generations=8,
-    max_completion_length=1024,
+    max_completion_length=int(os.environ.get("MAX_COMPLETION_LENGTH", "1024")),  # v12 runs set 2048 to match calibration
     # Held constant at 1.0 to MATCH the v10 calibration sampling temperature
     # (measure_v10_full.py samples at temp=1.0). Calibrating difficulty at one
     # temperature and training at another invalidates the goldilocks zone
@@ -151,7 +151,7 @@ training_args = GRPOConfig(
 
     # Training schedule
     num_train_epochs=1,
-    max_steps=120,                   # ~4.5 epochs over 106 goldilocks @ 4 prompts/step
+    max_steps=int(os.environ.get("MAX_STEPS", "120")),   # override per run (e.g. 250 for the 400-problem 3-concept pilot)
     learning_rate=5e-5,              # halved from 1e-4 for stability
     lr_scheduler_type="cosine",
     warmup_ratio=0.03,
@@ -178,7 +178,7 @@ training_args = GRPOConfig(
     save_steps=27,
     log_completions=True,            # log (prompt, completion) pairs to W&B
     num_completions_to_print=2,      # only print 2 examples to terminal
-    report_to="wandb" if os.environ.get("WANDB_TOKEN") else "none",
+    report_to="wandb" if (os.environ.get("WANDB_API_KEY") or os.environ.get("WANDB_TOKEN")) else "none",
 
     # Misc
     seed=42,
@@ -240,9 +240,9 @@ trainer.add_callback(HeldoutEvalCallback(
 
 
 # ── Train ───────────────────────────────────────────────────────────────────
-if os.environ.get("WANDB_TOKEN"):
+if os.environ.get("WANDB_API_KEY") or os.environ.get("WANDB_TOKEN"):
     import wandb
-    wandb.login(key=os.environ["WANDB_TOKEN"])
+    wandb.login(key=os.environ.get("WANDB_API_KEY") or os.environ.get("WANDB_TOKEN"))
     # If your W&B account requires a team entity, set WANDB_ENTITY env var
     if os.environ.get("WANDB_ENTITY"):
         os.environ["WANDB_ENTITY"] = os.environ["WANDB_ENTITY"]
