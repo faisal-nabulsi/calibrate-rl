@@ -273,7 +273,17 @@ def c_divfilter():
 
 @concept("divisor_sum_filter",[55])
 def c_divsumfilter():
-    n=random.randint(60,900); cond=random.choice(["odd","even"])
+    # v12: require n to have >=3 distinct ODD prime factors (Doc4 lever) so the divisor-sum
+    # needs real factorization, not a prime-power geometric-series shortcut (v11: 0.86 mean,
+    # 38% too_easy). Sample randomly (keeps answer diversity high) and reject the rest.
+    def _n_odd_pf(x):
+        return sum(1 for pr in (3,5,7,11,13,17,19,23) if x%pr==0)
+    n=None
+    for _ in range(200):
+        cand=random.randint(105,3000)
+        if _n_odd_pf(cand)>=3: n=cand; break
+    if n is None: return None
+    cond=random.choice(["odd","even"])
     ds=divisors(n)
     if cond=="odd": v=sum(d for d in ds if d%2==1)
     else: v=sum(d for d in ds if d%2==0)
@@ -361,11 +371,12 @@ def c_vietacubes():
 def c_polyrem():
     # INVERSION: given P(x) value, find x. P(x)=a x^3+b x^2+c x+d, ask which integer input gives V.
     a=random.randint(2,5); b=random.randint(-5,5); cc=random.randint(-9,9); dd=random.randint(-9,9)
-    x=random.randint(3,9)
+    x=random.randint(3,16)  # v12: widened from [3,9] (v11: only 7 distinct answers, top-3 49%)
     V=a*x**3+b*x**2+cc*x+dd
-    # ensure unique x in search range
-    hits=[t for t in range(2,15) if a*t**3+b*t**2+cc*t+dd==V]
-    if len(hits)!=1: return None
+    # uniqueness over a wide range so rc_poly_remainder (which scans x in [1,3000)) agrees:
+    # the gold x must be the ONLY positive-integer solution (poly>V for t>80 given a>=2).
+    hits=[t for t in range(1,80) if a*t**3+b*t**2+cc*t+dd==V]
+    if hits!=[x]: return None
     def fmt(co,term):
         return f"{'+' if co>=0 else '-'}{abs(co)}{term}"
     poly=f"{a}x³ {fmt(b,'x²')} {fmt(cc,'x')} {fmt(dd,'')}"
@@ -379,13 +390,17 @@ def c_polyrem():
 
 @concept("log_laws",[2,5,51,80])
 def c_loglaws():
-    base=random.choice([2,3,5]); e1=random.randint(10,16); e2=random.randint(10,16); e3=random.randint(3,8)  # v10: middle powers
+    base=random.choice([2,3,5]); e1=random.randint(10,16); e2=random.randint(10,16); e3=random.randint(3,8)
+    # v12 representation fix: every argument shown as base^e (never the computed power
+    # like log_3(1594323)), killing v11's 'free vs impossible' bimodal (17% gold:
+    # 41% too_easy + 21% too_hard). The task is now consistently applying the product/
+    # quotient log-laws. Answer e1+e2-e3 unchanged; rc_log_laws parses base^e -> verified.
     return (random.choice([
         f"Find log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}).",
-        f"What is log_{base}({base**e1}) + log_{base}({base**e2}) - log_{base}({base**e3})?",
-        f"Compute the value of log_{base}({base**e1} · {base**e2} / {base**e3}).",
-        f"Evaluate log base {base} of {base**e1}, plus log base {base} of {base**e2}, minus log base {base} of {base**e3}.",
-        f"Simplify log_{base}({base**e1}) + log_{base}({base**e2}) - log_{base}({base**e3}) to an integer.",
+        f"Compute log_{base}({base}^{e1} · {base}^{e2} / {base}^{e3}).",
+        f"Evaluate log_{base}({base}^{e1} · {base}^{e2}) - log_{base}({base}^{e3}).",
+        f"What is log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3})?",
+        f"Simplify log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}) to an integer.",
     ]), e1+e2-e3, "log_laws")
 
 @concept("infinite_product_exp",[20])
@@ -403,8 +418,15 @@ def c_infprod():
 
 @concept("roots_of_unity_sum",[23,48])
 def c_rou():
-    # COUNTING: how many complex numbers are BOTH n-th and m-th roots of unity = gcd(n,m)
-    n=random.choice([6,8,9,10,12,15,16,18,20,24]); m=random.choice([6,8,9,10,12,15,16,18,20,24])
+    # COUNTING: # complex numbers that are BOTH n-th and m-th roots of unity = gcd(n,m).
+    # v12: construct n,m with a CONTROLLED gcd so the answer spreads uniformly (a plain
+    # wider pool BACKFIRED -- coprime pairs make gcd=1 dominate). Pick g and coprime
+    # multipliers i!=j -> n=g*i, m=g*j, gcd(n,m)=g. rc recomputes gcd(n,m) from the text.
+    g=random.randint(2,12)
+    i,j=random.sample(range(2,7),2)
+    while gcd(i,j)!=1:
+        i,j=random.sample(range(2,7),2)
+    n=g*i; m=g*j
     if n==m: return None
     ans=gcd(n,m)
     return (random.choice([
@@ -442,7 +464,9 @@ def c_cmod(_cands=[]):
 @concept("complement_prob_mn",[24,61])
 def c_compprob():
     # INVERSION: fewest rolls r so P(at least one specific face) first exceeds a threshold
-    faces=random.choice([4,6,8,10,12]); thr=random.choice([Fraction(1,2),Fraction(2,3),Fraction(3,4)])
+    # v12: higher thresholds + bigger dice (v11: 0.90 mean / 64% too_easy / top-3 44%) ->
+    # larger r, harder AND more distinct. rc parses {faces}-sided + the threshold fraction.
+    faces=random.choice([4,6,8,10,12,16,20]); thr=random.choice([Fraction(2,3),Fraction(3,4),Fraction(4,5),Fraction(9,10)])
     r=1
     while 1-Fraction((faces-1)**r,faces**r)<=thr:
         r+=1
@@ -459,7 +483,9 @@ def c_compprob():
 @concept("box_diagonal_sq",[69])
 def c_boxdiag():
     # PARAM: dimensions are the 3 smallest integers each having exactly k divisors
-    k=random.choice([4,6,8,9])
+    # v12: widened k set (v11: only 4 distinct answers, top-3 75% -- each k gives one
+    # deterministic answer). Unbuildable k just return None below. rc parses "exactly k".
+    k=random.choice([4,6,8,9,10,12,14,15,16,18,20,24])
     dims=[]
     nn=2
     while len(dims)<3 and nn<500:
@@ -575,7 +601,9 @@ def c_pctcompound():
 @concept("prime_power_divisors",[75])
 def c_ppdiv():
     # INVERSION: find the smallest positive integer with exactly D divisors
-    D=random.choice([12,16,18,24,20,28,30,36])
+    # v12: widened D set (v11: 8 distinct answers, top-3 38%, 75% too_easy). Larger D ->
+    # larger smallest-n -> harder AND more distinct. rc finds smallest n with D divisors.
+    D=random.choice([12,16,18,20,24,28,30,36,40,48,60,64,72,80,90,96])
     n=1
     while ndiv(n)!=D: n+=1
     return (random.choice([
@@ -722,7 +750,9 @@ def c_distprod():
 @concept("polynomial_sign_intervals",[79])
 def c_polysign():
     # P(x) = prod (x-i)^{m_i}; removing roots leaves intervals; count where P>0
-    K=random.randint(4,7)
+    # v12: widened K (v11: only 7 distinct answers, top-3 79%) -> more intervals -> the
+    # positive-count spans a wider range. rc handles any K and any multiplicity list.
+    K=random.randint(4,10)
     mults=[random.randint(1,4) for _ in range(K)]
     # rightmost interval is always positive (leading coeff positive, even/odd handled by sign walk)
     # walk from +inf leftward: sign flips when crossing a root of ODD multiplicity
@@ -773,16 +803,12 @@ def c_equalize():
 @concept("algebraic_system_2eq",[44])
 def c_system():
     # 3x3 integer system, ask x+y+z -> genuine multi-step elimination
-    # v10 ranges (active):
-    x=random.randint(2,15); y=random.randint(2,15); z=random.randint(2,15)
+    # v12: ENABLED the v11 staged range bump (v11 calib: 0.90 mean, 59% too_easy -> raise).
+    # 2048 removed the truncation that argued for caution. rc_algebraic_system_2eq solves
+    # the system generically, so larger coeffs/values stay verified.
+    x=random.randint(5,25); y=random.randint(5,25); z=random.randint(5,25)
     def row():
-        return random.randint(1,4),random.randint(1,4),random.randint(1,4)
-    # v11 STAGED range bump (do NOT enable until 2048 calib confirms standalone >=0.80
-    # un-truncated; v10 calib showed mean_pass 0.831 but it was the worst truncation
-    # victim, so the un-truncated rate is likely higher -> bump justified). To enable,
-    # comment out the two v10 lines above and uncomment the two below:
-    #   x=random.randint(5,25); y=random.randint(5,25); z=random.randint(5,25)
-    #   def row(): return random.randint(1,7),random.randint(1,7),random.randint(1,7)
+        return random.randint(1,7),random.randint(1,7),random.randint(1,7)
     a1,b1,c1=row(); a2,b2,c2=row(); a3,b3,c3=row()
     det=a1*(b2*c3-b3*c2)-b1*(a2*c3-a3*c2)+c1*(a2*b3-a3*b2)
     if det==0: return None
@@ -833,7 +859,7 @@ def c_obtuse():
 
 @concept("lattice_points_circle",[82])
 def c_lattice():
-    R=random.randint(3,7)
+    R=random.randint(3,16)  # v12: widened from [3,7] (v11: 5 distinct answers, top-3 60%); answer deterministic per R, rc squares the bound
     cnt=sum(1 for x in range(-R,R+1) for y in range(-R,R+1) if x*x+y*y<=R*R)
     return (random.choice([
         f"How many integer-coordinate points (x,y) satisfy x²+y² ≤ {R}²?",
