@@ -1,0 +1,1502 @@
+[
+ {
+  "problem": "Find the count of perfect squares < 2080 that are divisible by 4 and have units digit 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3791, how many are divisible by 4 and end in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2015 that are divisible by 9 and have units digit 9.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2218 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2140 are both divisible by 4 and ending in 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3410 that are multiples of 4 and whose last digit is 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3806, how many are divisible by 9 and end in 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2098 are both divisible by 4 and ending in 6?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2891 are both divisible by 4 and ending in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2733, how many are divisible by 4 and end in 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3710 are divisible by 4 and end in the digit 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2053 that are divisible by 9 and have units digit 9.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2479 that are divisible by 4 and have units digit 4.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2212 are both divisible by 4 and ending in 4?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3457, how many are divisible by 4 and end in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3111 are divisible by 9 and end in the digit 6?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3221 that are divisible by 9 and have units digit 9.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2779, how many are divisible by 9 and end in 6?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3544 that are multiples of 4 and whose last digit is 4.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3175 that are divisible by 4 and have units digit 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3489 are divisible by 4 and end in the digit 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3289 that are multiples of 4 and whose last digit is 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2528 are divisible by 9 and end in the digit 1?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2510 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2281, how many are divisible by 9 and end in 6?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2663, how many are divisible by 4 and end in 4?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2160 that are multiples of 9 and whose last digit is 9.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3486 that are divisible by 4 and have units digit 4.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2244 that are multiples of 4 and whose last digit is 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2433 that are multiples of 9 and whose last digit is 9.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2413 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2811 that are multiples of 4 and whose last digit is 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3895 are divisible by 4 and end in the digit 4?",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2968, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3691 that are multiples of 9 and whose last digit is 9.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3641 are divisible by 9 and end in the digit 6?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2362 that are divisible by 9 and have units digit 6.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3972 that are multiples of 4 and whose last digit is 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3173, how many are divisible by 4 and end in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3019 are both divisible by 4 and ending in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2551 are both divisible by 4 and ending in 4?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3114 are both divisible by 4 and ending in 6?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2581 that are multiples of 9 and whose last digit is 1.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3993, how many are divisible by 4 and end in 4?",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2935 that are multiples of 4 and whose last digit is 6.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2752 that are multiples of 4 and whose last digit is 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2843 that are divisible by 4 and have units digit 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3886 that are divisible by 4 and have units digit 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2591 that are divisible by 4 and have units digit 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2010 are both divisible by 4 and ending in 6?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3079 that are multiples of 9 and whose last digit is 9.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3087, how many are divisible by 4 and end in 6?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2242 are divisible by 4 and end in the digit 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2339 that are multiples of 4 and whose last digit is 4.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3232 are both divisible by 4 and ending in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2121 that are divisible by 4 and have units digit 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3961 are divisible by 4 and end in the digit 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3848 are both divisible by 4 and ending in 4?",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3977 that are multiples of 9 and whose last digit is 9.",
+  "answer": "5",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2308 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2190 that are divisible by 4 and have units digit 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3977 that are divisible by 9 and have units digit 9.",
+  "answer": "5",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3162 that are divisible by 4 and have units digit 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2269 that are divisible by 4 and have units digit 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2214 are divisible by 9 and end in the digit 6?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2980 are divisible by 9 and end in the digit 6?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2783 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3264, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2146 are both divisible by 4 and ending in 4?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3324, how many are divisible by 4 and end in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2163 are both divisible by 4 and ending in 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2789 that are divisible by 4 and have units digit 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3083 are divisible by 9 and end in the digit 9?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3086 that are divisible by 9 and have units digit 6.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2139 that are divisible by 4 and have units digit 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2035 are divisible by 9 and end in the digit 4?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3205 are both divisible by 9 and ending in 6?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2360 that are divisible by 9 and have units digit 1.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3243, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2281 that are divisible by 9 and have units digit 6.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3353 that are divisible by 9 and have units digit 1.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2421 that are divisible by 9 and have units digit 1.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2557 are both divisible by 9 and ending in 6?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3262, how many are divisible by 9 and end in 9?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2052, how many are divisible by 4 and end in 4?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3879, how many are divisible by 4 and end in 4?",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3902 that are multiples of 9 and whose last digit is 1.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3380 that are divisible by 4 and have units digit 4.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3493 are both divisible by 4 and ending in 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2801 that are divisible by 4 and have units digit 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2064 are divisible by 4 and end in the digit 4?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3756 are divisible by 4 and end in the digit 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2766 are divisible by 4 and end in the digit 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2271 are divisible by 4 and end in the digit 4?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3224, how many are divisible by 4 and end in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3115, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2918 that are multiples of 4 and whose last digit is 6.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2776 are both divisible by 9 and ending in 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3649 are divisible by 9 and end in the digit 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3686 that are divisible by 4 and have units digit 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2913 are both divisible by 9 and ending in 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3536 are both divisible by 4 and ending in 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3568 are both divisible by 4 and ending in 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2593 that are multiples of 9 and whose last digit is 4.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2534 are both divisible by 9 and ending in 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2596, how many are divisible by 4 and end in 4?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3512 are both divisible by 4 and ending in 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2411 are both divisible by 9 and ending in 1?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3805 that are multiples of 9 and whose last digit is 1.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3750, how many are divisible by 9 and end in 9?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2173 that are multiples of 4 and whose last digit is 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2039 that are multiples of 4 and whose last digit is 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3966 that are multiples of 4 and whose last digit is 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2462 are both divisible by 4 and ending in 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3854 that are multiples of 4 and whose last digit is 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2304 that are divisible by 4 and have units digit 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3959 that are multiples of 4 and whose last digit is 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3619 that are divisible by 9 and have units digit 9.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2287 that are multiples of 9 and whose last digit is 4.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2053 that are divisible by 4 and have units digit 6.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2082 that are multiples of 4 and whose last digit is 6.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3399 are divisible by 9 and end in the digit 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2845 that are divisible by 4 and have units digit 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3897 are both divisible by 4 and ending in 4?",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2506 are both divisible by 4 and ending in 4?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2075 are divisible by 4 and end in the digit 6?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3995 are both divisible by 4 and ending in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2912 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2741 are divisible by 9 and end in the digit 9?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3261 are divisible by 4 and end in the digit 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2382, how many are divisible by 9 and end in 1?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3051 that are divisible by 9 and have units digit 6.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2277 are both divisible by 9 and ending in 1?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2790, how many are divisible by 9 and end in 9?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3269 that are multiples of 9 and whose last digit is 9.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3371 that are divisible by 9 and have units digit 6.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3158 that are multiples of 4 and whose last digit is 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2779, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3817 are divisible by 4 and end in the digit 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3510 that are divisible by 4 and have units digit 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3076 that are divisible by 9 and have units digit 4.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3093 that are divisible by 4 and have units digit 6.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3509 that are multiples of 4 and whose last digit is 4.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3004 are divisible by 9 and end in the digit 1?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2566 are divisible by 9 and end in the digit 6?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2602 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3940 that are divisible by 4 and have units digit 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3910, how many are divisible by 4 and end in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2135 that are divisible by 9 and have units digit 4.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2312 are both divisible by 4 and ending in 4?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2969, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2160 are both divisible by 4 and ending in 4?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2576 are both divisible by 9 and ending in 6?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2264 that are divisible by 4 and have units digit 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3133 are both divisible by 9 and ending in 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2850 that are multiples of 9 and whose last digit is 6.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2260 are divisible by 4 and end in the digit 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2092, how many are divisible by 4 and end in 4?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2790 are both divisible by 4 and ending in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3310 are both divisible by 4 and ending in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3572 that are divisible by 9 and have units digit 9.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2878 are both divisible by 4 and ending in 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2002 are divisible by 4 and end in the digit 6?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3118 are divisible by 4 and end in the digit 6?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3197 that are multiples of 4 and whose last digit is 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3216 are divisible by 4 and end in the digit 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2207 that are multiples of 9 and whose last digit is 4.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3494 that are divisible by 9 and have units digit 9.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3615 are both divisible by 4 and ending in 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2008 that are divisible by 9 and have units digit 1.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3720 are divisible by 9 and end in the digit 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2647 are divisible by 4 and end in the digit 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2013, how many are divisible by 4 and end in 6?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3028 are divisible by 4 and end in the digit 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3329 that are divisible by 9 and have units digit 4.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3320 that are divisible by 4 and have units digit 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3673 are divisible by 9 and end in the digit 1?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2945 are both divisible by 4 and ending in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2185 that are divisible by 4 and have units digit 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2625 are divisible by 4 and end in the digit 4?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2007 are both divisible by 9 and ending in 6?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2541 that are multiples of 4 and whose last digit is 4.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3979 that are divisible by 4 and have units digit 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2366, how many are divisible by 4 and end in 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3140 are divisible by 9 and end in the digit 1?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2700 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2635 that are multiples of 9 and whose last digit is 6.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2186, how many are divisible by 4 and end in 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3108, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2510 are divisible by 4 and end in the digit 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3076 that are divisible by 4 and have units digit 4.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2640 that are divisible by 9 and have units digit 1.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2184 that are divisible by 4 and have units digit 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2125 that are multiples of 9 and whose last digit is 9.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2917 are both divisible by 4 and ending in 6?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2873 that are divisible by 9 and have units digit 4.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2235, how many are divisible by 9 and end in 1?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2233 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2856, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2245 that are divisible by 4 and have units digit 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3903 are both divisible by 4 and ending in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3376 are divisible by 4 and end in the digit 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3647, how many are divisible by 4 and end in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3967 are divisible by 4 and end in the digit 4?",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2358 are divisible by 9 and end in the digit 9?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2107 that are divisible by 4 and have units digit 6.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3442 are divisible by 9 and end in the digit 9?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2632 are divisible by 4 and end in the digit 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3027 that are multiples of 4 and whose last digit is 6.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3087 that are divisible by 9 and have units digit 6.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3780 that are divisible by 4 and have units digit 4.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2920 are divisible by 4 and end in the digit 6?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3085 that are multiples of 4 and whose last digit is 6.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3047 that are divisible by 4 and have units digit 6.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2132 that are multiples of 4 and whose last digit is 6.",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3936, how many are divisible by 4 and end in 4?",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3136 that are multiples of 4 and whose last digit is 6.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2279 are both divisible by 4 and ending in 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3424 that are multiples of 4 and whose last digit is 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2411 are both divisible by 4 and ending in 4?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2844 that are divisible by 9 and have units digit 9.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3378 that are multiples of 4 and whose last digit is 4.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2452 are divisible by 9 and end in the digit 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3797 that are divisible by 9 and have units digit 1.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2191 that are divisible by 4 and have units digit 4.",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3123 that are divisible by 9 and have units digit 6.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3483 that are multiples of 4 and whose last digit is 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2638 that are multiples of 9 and whose last digit is 6.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3743, how many are divisible by 4 and end in 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 2996 that are multiples of 4 and whose last digit is 6.",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 3115 are divisible by 4 and end in the digit 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3787 that are multiples of 4 and whose last digit is 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3895 that are multiples of 4 and whose last digit is 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3526, how many are divisible by 4 and end in 4?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 3177, how many are divisible by 4 and end in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2168 are both divisible by 9 and ending in 4?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3146 that are multiples of 9 and whose last digit is 6.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3920 are both divisible by 4 and ending in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2213, how many are divisible by 9 and end in 4?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3928 that are divisible by 4 and have units digit 4.",
+  "answer": "13",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 2744 are both divisible by 4 and ending in 4?",
+  "answer": "11",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2738 are divisible by 4 and end in the digit 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 2273 that are divisible by 9 and have units digit 1.",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3474 are both divisible by 4 and ending in 6?",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2431 are divisible by 4 and end in the digit 6?",
+  "answer": "10",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Find the count of perfect squares < 3945 that are divisible by 4 and have units digit 6.",
+  "answer": "12",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Count perfect squares below 3642 that are multiples of 9 and whose last digit is 4.",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many perfect squares less than 2066 are divisible by 9 and end in the digit 6?",
+  "answer": "3",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "How many squares less than 3122 are both divisible by 9 and ending in 4?",
+  "answer": "4",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ },
+ {
+  "problem": "Of perfect squares under 2169, how many are divisible by 4 and end in 4?",
+  "answer": "9",
+  "skeleton_type": "multi_constraint_square",
+  "depth": 0
+ }
+]
