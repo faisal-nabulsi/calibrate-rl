@@ -367,7 +367,7 @@ Pilot: calibrate **600×8 @2048 on L4** (`data/abl3_pool_v1.json`) → goldilock
 GRPO **~250 steps** → AMC `mean_pass_rate` on the 5 + reward-curve check. Then
 recalibrate full v12 → sample all → full train.
 
-Decisions this round (see `generate/V12_DATASET_CHANGES.md`):
+Decisions this round:
 - multi_constraint_square / lcm_gcd_system both rejected (answer-hack / no AMC headroom).
 - **gold% ≠ answer-diversity:** cmp/cdc are answer-hackable despite high gold → widened
   in `skeleton_injector_v12.py` (cmp top-3 43%→19%, cdc 38%→30%; math unchanged, golds still verify).
