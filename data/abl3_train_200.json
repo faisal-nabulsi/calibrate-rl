@@ -1,0 +1,1202 @@
+[
+  {
+    "problem": "How many positive integers up to 531 are divisible by 2, 3, or 5?",
+    "answer": "389",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=205; add up a+b across all of them.",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1320, how many are less than 30?",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=554, what is the sum of (a+b) over every such pair?",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 60 divisors of 1440.",
+    "answer": "21",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 660 are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 885, how many are multiples of 3, 4, or 5?",
+    "answer": "531",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 296 are divisible by 2, 3, or 5?",
+    "answer": "217",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 237, how many integers are divisible by 3, 4, or 5?",
+    "answer": "143",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 673 are divisible by 3, 5, or 7?",
+    "answer": "365",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=37; add up a+b across all of them.",
+    "answer": "7",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=97, what is the sum of (a+b) over every such pair?",
+    "answer": "13",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "840 has how many positive divisors that are greater than 10?",
+    "answer": "23",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 480 that are less than 20.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=245, what is the sum of (a+b) over every such pair?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=481.",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 735 are divisible by 3, 5, or 7?",
+    "answer": "399",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 2520 are greater than 12?",
+    "answer": "37",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 532, how many integers are divisible by 3, 5, or 7?",
+    "answer": "289",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 316 are divisible by 2, 5, or 7?",
+    "answer": "208",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=450, what is the sum of (a+b) over every such pair?",
+    "answer": "54",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 752, how many integers are divisible by 3, 4, or 5?",
+    "answer": "451",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 473, how many are multiples of 2, 3, or 5?",
+    "answer": "346",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1320 that are less than 60.",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=404, what is the sum of (a+b) over every such pair?",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 521 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "31",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 348, how many integers are divisible by 3, 4, or 5?",
+    "answer": "208",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1440, how many are less than 15?",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 818 are divisible by 2, 5, or 7?",
+    "answer": "537",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 145 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 508 are divisible by 2, 3, or 5?",
+    "answer": "373",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1120, how many are greater than 6?",
+    "answer": "20",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 449, how many integers are divisible by 3, 5, or 7?",
+    "answer": "244",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,835] divisible by at least one of 2, 5, 7.",
+    "answer": "549",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=20.",
+    "answer": "6",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 24 divisors of 504.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 527 are divisible by 2, 3, or 7?",
+    "answer": "376",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=116?",
+    "answer": "14",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,679] divisible by at least one of 2, 3, 5.",
+    "answer": "497",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=549?",
+    "answer": "33",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=328; add up a+b across all of them.",
+    "answer": "20",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 453 are divisible by 3, 5, or 7?",
+    "answer": "246",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 500, how many are multiples of 2, 3, or 7?",
+    "answer": "357",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=458; add up a+b across all of them.",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=50?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,625] divisible by at least one of 2, 3, 5.",
+    "answer": "458",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1680, how many are greater than 12?",
+    "answer": "30",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 24 divisors of 1120.",
+    "answer": "14",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 360, how many are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 24 divisors of 900.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "1680 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1560 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 924.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=292; add up a+b across all of them.",
+    "answer": "22",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 295, how many are multiples of 3, 4, or 5?",
+    "answer": "177",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 524, how many integers are divisible by 3, 5, or 7?",
+    "answer": "284",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=164.",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=169?",
+    "answer": "17",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 792 are divisible by 2, 3, or 7?",
+    "answer": "566",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of odd divisors of 900.",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 900 are less than 40?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,880] divisible by at least one of 3, 5, 7.",
+    "answer": "478",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=522; add up a+b across all of them.",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 125 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=194, what is the sum of (a+b) over every such pair?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "756 has how many positive divisors that are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 2100, how many are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 242, how many integers are divisible by 3, 5, or 7?",
+    "answer": "131",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 325 are divisible by 3, 5, or 7?",
+    "answer": "177",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 116 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "14",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=164, what is the sum of (a+b) over every such pair?",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=400; add up a+b across all of them.",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 884 are divisible by 2, 5, or 7?",
+    "answer": "580",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "1320 has how many positive divisors that are less than 24?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=296?",
+    "answer": "24",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 279 are divisible by 2, 5, or 7?",
+    "answer": "183",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "1440 has how many positive divisors that are less than 30?",
+    "answer": "15",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 2100 are greater than 10?",
+    "answer": "28",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 559 are divisible by 3, 5, or 7?",
+    "answer": "303",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=365?",
+    "answer": "48",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 792, how many are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 12 divisors of 1320.",
+    "answer": "22",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1560 that are less than 40.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 600, how many are greater than 20?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=234; add up a+b across all of them.",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,239] divisible by at least one of 3, 5, 7.",
+    "answer": "130",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 605, how many are multiples of 2, 5, or 7?",
+    "answer": "397",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=58, what is the sum of (a+b) over every such pair?",
+    "answer": "10",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 630 are greater than 12?",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=261, what is the sum of (a+b) over every such pair?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,438] divisible by at least one of 2, 5, 7.",
+    "answer": "288",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "840 has how many positive divisors that are less than 40?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=180.",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 420 that are less than 20.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=514?",
+    "answer": "32",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1800 that are less than 40.",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,684] divisible by at least one of 3, 5, 7.",
+    "answer": "371",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=257; add up a+b across all of them.",
+    "answer": "17",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 2520 that are odd.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 561, how many integers are divisible by 3, 4, or 5?",
+    "answer": "337",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=493, what is the sum of (a+b) over every such pair?",
+    "answer": "56",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 397 are divisible by 2, 5, or 7?",
+    "answer": "260",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 615 are divisible by 2, 3, or 7?",
+    "answer": "439",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 377 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 600, how many are greater than 30?",
+    "answer": "10",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "720 has how many positive divisors that are greater than 15?",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 30 divisors of 900.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 1440 that are greater than 20.",
+    "answer": "22",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=557, what is the sum of (a+b) over every such pair?",
+    "answer": "33",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=317.",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=68; add up a+b across all of them.",
+    "answer": "10",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 660, how many are greater than 24?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 546 are divisible by 2, 3, or 7?",
+    "answer": "390",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,595] divisible by at least one of 2, 5, 7.",
+    "answer": "391",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=241.",
+    "answer": "19",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=185; add up a+b across all of them.",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=452, what is the sum of (a+b) over every such pair?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1008 are greater than 15?",
+    "answer": "20",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 15 divisors of 960.",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 878, how many integers are divisible by 3, 4, or 5?",
+    "answer": "526",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 480 that are less than 50.",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 420 that are odd.",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,489] divisible by at least one of 2, 3, 5.",
+    "answer": "359",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1080 are greater than 24?",
+    "answer": "18",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=260.",
+    "answer": "40",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 720 are greater than 15?",
+    "answer": "19",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 720 are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 24 divisors of 792.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 362, how many integers are divisible by 2, 5, or 7?",
+    "answer": "238",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 12 divisors of 1680.",
+    "answer": "30",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1260 are less than 15?",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 710, how many integers are divisible by 2, 5, or 7?",
+    "answer": "467",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 630, how many are less than 24?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 924 are less than 40?",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=109.",
+    "answer": "13",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=580; add up a+b across all of them.",
+    "answer": "60",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 777 are divisible by 2, 3, or 7?",
+    "answer": "555",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 104 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=369?",
+    "answer": "27",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1440, how many are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,652] divisible by at least one of 3, 5, 7.",
+    "answer": "354",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=200; add up a+b across all of them.",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 658 are divisible by 2, 3, or 5?",
+    "answer": "483",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 848 are divisible by 2, 3, or 5?",
+    "answer": "622",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1260 are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "660 has how many positive divisors that are greater than 24?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=72; add up a+b across all of them.",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 766, how many are multiples of 3, 4, or 5?",
+    "answer": "459",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 24 divisors of 756.",
+    "answer": "13",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,592] divisible by at least one of 3, 4, 5.",
+    "answer": "355",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=245?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the divisors of 900 that are less than 20.",
+    "answer": "11",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 382, how many are multiples of 2, 3, or 7?",
+    "answer": "273",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "630 has how many positive divisors that are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1560, how many are odd?",
+    "answer": "8",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "756 has how many positive divisors that are greater than 10?",
+    "answer": "17",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 228, how many are multiples of 2, 3, or 5?",
+    "answer": "167",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1440 are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 41 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "9",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 153 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "15",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 360 are greater than 30?",
+    "answer": "9",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=338?",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,220] divisible by at least one of 2, 3, 7.",
+    "answer": "158",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=577, what is the sum of (a+b) over every such pair?",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 924, how many are greater than 30?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=449; add up a+b across all of them.",
+    "answer": "27",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 515 are divisible by 2, 5, or 7?",
+    "answer": "339",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 791 are divisible by 3, 4, or 5?",
+    "answer": "475",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "360 has how many positive divisors that are less than 20?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 205 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "36",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the divisors of 1008, how many are odd?",
+    "answer": "6",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 384, how many are multiples of 2, 5, or 7?",
+    "answer": "252",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of greater than 24 divisors of 630.",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "How much is the combined total of a+b across all pairs of positive integers a\u2264b where a\u00b2+b\u00b2=482?",
+    "answer": "30",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=421.",
+    "answer": "29",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 340, how many are multiples of 2, 5, or 7?",
+    "answer": "223",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=509; add up a+b across all of them.",
+    "answer": "27",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=442, what is the sum of (a+b) over every such pair?",
+    "answer": "50",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=89, what is the sum of (a+b) over every such pair?",
+    "answer": "13",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive divisors of 1008 are greater than 8?",
+    "answer": "23",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Of the numbers 1 through 809, how many are multiples of 2, 3, or 5?",
+    "answer": "593",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 736 are divisible by 2, 5, or 7?",
+    "answer": "484",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 442, how many integers are divisible by 3, 5, or 7?",
+    "answer": "240",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 579 are divisible by 2, 5, or 7?",
+    "answer": "380",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 220 are divisible by 2, 3, or 7?",
+    "answer": "158",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "990 has how many positive divisors that are odd?",
+    "answer": "12",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=194; add up a+b across all of them.",
+    "answer": "18",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 381 are divisible by 3, 5, or 7?",
+    "answer": "207",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=122; add up a+b across all of them.",
+    "answer": "12",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Over all representations of 233 as a\u00b2+b\u00b2 with 0<a\u2264b, what is the total of (a+b)?",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many positive integers up to 562 are divisible by 3, 5, or 7?",
+    "answer": "305",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "For all pairs of positive integers a\u2264b with a\u00b2+b\u00b2=25, what is the sum of (a+b) over every such pair?",
+    "answer": "7",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,301] divisible by at least one of 3, 4, 5.",
+    "answer": "180",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,488] divisible by at least one of 2, 3, 7.",
+    "answer": "348",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "In the range 1 to 259, how many integers are divisible by 2, 3, or 7?",
+    "answer": "185",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find the number of less than 40 divisors of 1560.",
+    "answer": "16",
+    "skeleton_type": "constrained_divisor_count",
+    "depth": 0
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=577.",
+    "answer": "25",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  },
+  {
+    "problem": "How many integers from 1 to 670 are divisible by 2, 3, or 7?",
+    "answer": "479",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Count the integers in [1,796] divisible by at least one of 2, 3, 7.",
+    "answer": "569",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0
+  },
+  {
+    "problem": "Find every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=225; add up a+b across all of them.",
+    "answer": "21",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0
+  }
+]
