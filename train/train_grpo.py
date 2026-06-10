@@ -92,7 +92,7 @@ def build_prompt(example):
 from datasets import Dataset
 from holdout_eval import HeldoutEvalCallback
 
-EVAL_EVERY = 27          # ~1 epoch over 106 train at 4 prompts/step
+EVAL_EVERY = int(os.environ.get("EVAL_EVERY", "27"))   # holdout monitor cadence (steps)
 EVAL_K = 16               # pass@8 ...
 EVAL_TEMP = 1.0          # ... temp 1.0 — measures the goldilocks pass-rate training should lift
 
@@ -146,12 +146,12 @@ training_args = GRPOConfig(
     # ~4.5 epochs over the 106-problem goldilocks train set. Because the train
     # set is all-goldilocks, ~all of those prompts produce gradient (no
     # ghost-batching / zero-gradient waste, unlike training the full set).
-    per_device_train_batch_size=2,
-    gradient_accumulation_steps=16,  # 2 × 16 = 32 completions = 4 unique prompts/step
+    per_device_train_batch_size=int(os.environ.get("PER_DEVICE_BATCH", "2")),
+    gradient_accumulation_steps=int(os.environ.get("GRAD_ACCUM", "16")),  # default 2x16/8 = 4 prompts/step; PER_DEVICE_BATCH=1 GRAD_ACCUM=8 -> 1 prompt/step
 
     # Training schedule
-    num_train_epochs=1,
-    max_steps=int(os.environ.get("MAX_STEPS", "120")),   # override per run (e.g. 250 for the 400-problem 3-concept pilot)
+    num_train_epochs=int(os.environ.get("NUM_EPOCHS", "1")),
+    max_steps=int(os.environ.get("MAX_STEPS", "120")),   # set -1 to let NUM_EPOCHS control (e.g. 1 prompt/step over 400 -> 400 steps = 1 epoch)
     learning_rate=5e-5,              # halved from 1e-4 for stability
     lr_scheduler_type="cosine",
     warmup_ratio=0.03,
