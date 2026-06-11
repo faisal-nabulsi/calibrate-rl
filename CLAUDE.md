@@ -62,7 +62,9 @@ in-band problems. **The deliverable is the METHOD, not any single checkpoint.**
 | Data prep: dataset build, holdout construction, repo hygiene | Michael |
 | Eval | Cara |
 | RL review | Zaid |
-| Running GPU calibration / training / eval | `train@lightning` (executes; doesn't design) |
+| Running GPU calibration / training / eval (AWS L40S box) | `trainaws` (training executor; executes, doesn't design; on-demand — online only while the box is up) |
+| Sampling runs (the two AWS L4 boxes) | `sam`, `sadie` (sampling executors; on-demand — online only while their box is up, reachable ~60s after box start) |
+| Calibration-loop orchestrator processes (t3) | `autocalib` (automation home, NOT a conversational agent — don't @mention it expecting replies) |
 
 A teammate not yet in the table still follows the person-session rules. Cross-lane
 changes: propose in Slack and let the owner confirm.
