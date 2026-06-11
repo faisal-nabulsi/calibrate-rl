@@ -1,0 +1,13 @@
+{
+  "params": {
+    "num_pool": {
+      "value": [360, 420, 480, 504, 540, 600, 630, 660, 720, 756, 792, 840, 900, 924, 960,
+                990, 1008, 1080, 1120, 1152, 1260, 1320, 1440, 1560, 1680, 1800, 1980, 2100, 2520],
+      "type": "choice", "envelope": [60, 2520], "knob_class": "C"
+    },
+    "cond": {"value": ["odd", "gt", "lt"], "type": "choice", "envelope": ["odd", "gt", "lt"], "knob_class": "S"},
+    "gt_thresholds": {"value": [6, 8, 10, 12, 15, 20, 24, 30],   "type": "choice", "envelope": [2, 60],  "knob_class": "C"},
+    "lt_thresholds": {"value": [15, 20, 24, 30, 40, 50, 60],     "type": "choice", "envelope": [10, 100], "knob_class": "C"}
+  },
+  "locked": false
+}

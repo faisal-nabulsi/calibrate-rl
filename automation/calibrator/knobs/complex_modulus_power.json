@@ -1,0 +1,7 @@
+{
+  "params": {
+    "cand_range": {"value": [20, 600], "type": "const", "envelope": [20, 800], "knob_class": "num"},
+    "rep_cap":    {"value": [1, 3],    "type": "const", "envelope": [1, 4],    "knob_class": "C"}
+  },
+  "locked": false
+}

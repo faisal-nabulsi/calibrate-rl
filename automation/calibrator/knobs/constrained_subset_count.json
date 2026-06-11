@@ -1,0 +1,7 @@
+{
+  "params": {
+    "n":   {"value": [7, 11], "type": "randint", "envelope": [5, 14], "knob_class": "C"},
+    "mod": {"value": [3, 4],  "type": "choice",  "envelope": [2, 6],  "knob_class": "C"}
+  },
+  "locked": false
+}

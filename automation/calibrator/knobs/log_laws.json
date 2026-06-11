@@ -1,0 +1,9 @@
+{
+  "params": {
+    "base": {"value": [2, 3, 5], "type": "choice",  "envelope": [2, 7],  "knob_class": "S"},
+    "e1":   {"value": [10, 16],  "type": "randint", "envelope": [4, 20], "knob_class": "num"},
+    "e2":   {"value": [10, 16],  "type": "randint", "envelope": [4, 20], "knob_class": "num"},
+    "e3":   {"value": [3, 8],    "type": "randint", "envelope": [2, 12], "knob_class": "num"}
+  },
+  "locked": false
+}
