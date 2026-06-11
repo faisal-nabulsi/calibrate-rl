@@ -107,8 +107,9 @@ def _tupled(v):
 class ConceptKnobs:
     """Read-only draw interface for one concept's knob file."""
 
-    def __init__(self, concept, cfg):
+    def __init__(self, concept, cfg, bank=None):
         self.concept = concept
+        self._bank = bank
         self.locked = bool(cfg.get("locked", False))
         if "params" not in cfg or not isinstance(cfg["params"], dict):
             raise KnobError(f"{concept}: knob file needs a 'params' object")
@@ -127,15 +128,29 @@ class ConceptKnobs:
     def randint(self, param):
         """Draw exactly like the inline original: random.randint(lo, hi)."""
         lo, hi = self._spec(param, "randint")["value"]
-        return random.randint(lo, hi)
+        v = random.randint(lo, hi)
+        self._note(param, v)
+        return v
 
     def choice(self, param):
         """Draw exactly like the inline original: random.choice(pool)."""
-        return random.choice(_tupled(self._spec(param, "choice")["value"]))
+        v = random.choice(_tupled(self._spec(param, "choice")["value"]))
+        self._note(param, v)
+        return v
 
     def const(self, param):
-        """Return the configured value verbatim (no RNG consumed)."""
+        """Return the configured value verbatim (no RNG consumed).
+
+        NOT recorded in the draw log: const values are identical for every
+        row, so they can never produce a per-knob-VALUE pass-rate curve
+        (param_vs_passrate), and memoizing generators (complex_modulus_power)
+        read them only on the first call — recording would stamp row 1 only.
+        """
         return self._spec(param, "const")["value"]
+
+    def _note(self, param, value):
+        if self._bank is not None:
+            self._bank._record(self.concept, param, value)
 
 
 class KnobBank:
@@ -144,6 +159,7 @@ class KnobBank:
     def __init__(self, knob_dir=None):
         self.knob_dir = knob_dir or KNOB_DIR
         self._cache = {}
+        self._draw_log = None
 
     def __getitem__(self, concept):
         if concept not in self._cache:
@@ -153,8 +169,28 @@ class KnobBank:
                     cfg = json.load(f)
             except FileNotFoundError:
                 raise KnobError(f"no knob file for concept {concept!r} at {path}")
-            self._cache[concept] = ConceptKnobs(concept, cfg)
+            self._cache[concept] = ConceptKnobs(concept, cfg, bank=self)
         return self._cache[concept]
+
+    # ── draw recording (Phase 0 PR-2, design §2b) ─────────────────────────
+    # Value-only logging so gen_clean can stamp each generated row's drawn
+    # knob values into metadata ("knobs": {param: value}). Consumes NO RNG and
+    # changes NO draw semantics — the PR-1 seed-equivalence guarantee holds.
+
+    def start_draw_log(self):
+        """Begin recording draws. Call before invoking one generator."""
+        self._draw_log = {}
+
+    def take_draw_log(self):
+        """Return draws since start_draw_log() as {concept: {param: value}} and stop."""
+        log, self._draw_log = self._draw_log, None
+        return log or {}
+
+    def _record(self, concept, param, value):
+        if self._draw_log is not None:
+            if isinstance(value, tuple):
+                value = list(value)  # JSON-friendly
+            self._draw_log.setdefault(concept, {})[param] = value
 
 
 def apply_edit(concept, param, new_value, knob_dir=None, dry_run=False):

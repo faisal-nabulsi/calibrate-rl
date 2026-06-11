@@ -33,13 +33,32 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 from core.reward_func import (
     extract_gold_answer,
-    extract_gold_steps,
     extract_predicted_answer,
-    extract_question_numbers,
-    _extract_all_numbers,
     _normalize_number,
     _numbers_match,
 )
+
+# These three predate the current reward_func and were removed from it. They
+# are only used in the gold_label-dependent branches of classify_failure
+# (calculation_error step-matching, premise_mismatch grounding); callers that
+# pass gold_label="" (e.g. analyze_calibration --json) never reach them.
+# Inert fallbacks keep this module importable instead of dead-on-import.
+try:
+    from core.reward_func import (
+        extract_gold_steps,
+        extract_question_numbers,
+        _extract_all_numbers,
+    )
+except ImportError:
+    def extract_gold_steps(label):
+        return []
+
+    def extract_question_numbers(question):
+        return set()
+
+    def _extract_all_numbers(text):
+        return [f for f in (_normalize_number(m) for m in
+                            re.findall(r"-?\d[\d,]*\.?\d*", text)) if f is not None]
 
 
 # ── Failure classifiers ────────────────────────────────────────────────────
