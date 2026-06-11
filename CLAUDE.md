@@ -348,7 +348,7 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
 - `results/`: base 32/83, checkpoint-120 34/83, trainer_state_120step, holdout
   matrix · `training_completions/*.parquet` ×120.
 - Compute: **AWS (primary)** — L40S training box `i-07455ba55e473769d` (34.226.11.242) + 2× L4
-  sampling boxes; agents (kathryne/gilbert/charizard/trainaws) hosted on AWS 24/7. Runbook:
+  sampling boxes; agents (kathryne/gilbert/charizard/awesome-ash) hosted on AWS 24/7. Runbook:
   `AWS_SETUP_FAISAL.md`. (Earlier: Lightning A100/L4, Vast.ai, GCP `qwen7bv3training`.)
   Tracking: W&B `rl-intro`/`tiny-math-solver`.
 
@@ -377,9 +377,9 @@ which is exactly what template-overfitting would look like.
   from template-memorization. Running on the cloned L4. (`data/concept_transfer_eval.json`,
   `tools/gen_concept_eval.py`; viewer `tools/gen_holdout_compare.py`.)
 - **AWS — DONE.** L40S training box (`i-07455ba55e473769d` @ 34.226.11.242) + 2× L4 sampling
-  boxes + the `@trainaws` Slack agent are live (`AWS_SETUP_FAISAL.md`), box smoke-tested
+  boxes + the `@awesome-ash` Slack agent are live (`AWS_SETUP_FAISAL.md`), box smoke-tested
   end-to-end (calibration, GRPO, vLLM). **kathryne/gilbert/charizard now run on AWS 24/7, not
-  laptops.** GPU runs launch via `@trainaws` in Slack or `~/gpu_train.sh`.
+  laptops.** GPU runs launch via `@awesome-ash` in Slack or `~/gpu_train.sh`.
 
 **Gated on the eval:** whether to do a "final depth-0 run" (Faisal wants it; Michael
 skeptical — if depth-0 is template-only, more of it is a dead end).
@@ -392,7 +392,7 @@ one multi-step problem, calibrate to goldilocks by # steps (not bigger numbers),
 
 - [ ] [michael] concept-transfer eval is running → build the by-framing analysis when it
       lands. Verdict = does the +0.22 transfer across wording (concept) or evaporate (template)?
-- [ ] **v12 full calibration** (775×8 @2048) — run on the AWS L40S (box + `@trainaws` are live):
+- [ ] **v12 full calibration** (775×8 @2048) — run on the AWS L40S (box + `@awesome-ash` are live):
       `N_PROBLEMS=775 DATASET=data/v12_pool_full.json OUT=data/calib_v12_2048_7B.json bash tools/sample.sh`
       (~4–5h). **Still the blocker for v12 training — no `calib_v12` exists yet.**
 - [ ] [faisal] start the **depth-1 chaining generator** (design + architecture + dataset).
@@ -409,7 +409,7 @@ one multi-step problem, calibrate to goldilocks by # steps (not bigger numbers),
 - [michael] AMC transfer (3-concept ckpt-108, verified distinct from v10 — 48/83 preds differ): 32→34 (+2, McNemar p≈0.79). 5 targets 1/5 binary; **3/5 (#40/55/68) show real method improvement** → wall is composition/transfer, not method.
 - [michael] Built base-vs-trained held-out viewer (PR #21): the +0.22 held-out = **execution reliability on a shared method**, not new reasoning. Built **concept-transfer eval** (PR #23) — surface-form variation (3 concepts × 3 framings) to settle concept-vs-template; running now.
 - [michael] §7 corrections vs the actual data: ghost is **flat ~0.10** (not 8→15%); v10 held-out **peaked @81 then declined** (not the monotonic 0.537→0.672).
-- [michael] Infra: **AWS migration DONE** — L40S box + 2× L4 sampling boxes + `@trainaws` agent live; **kathryne/gilbert/charizard now run on AWS 24/7, off laptops**; box verified end-to-end (`AWS_SETUP_FAISAL.md`). Persona via generic `PERSONA_FILE` (bot-fork PR #1).
+- [michael] Infra: **AWS migration DONE** — L40S box + 2× L4 sampling boxes + `@awesome-ash` agent live; **kathryne/gilbert/charizard now run on AWS 24/7, off laptops**; box verified end-to-end (`AWS_SETUP_FAISAL.md`). Persona via generic `PERSONA_FILE` (bot-fork PR #1).
 
 ### 2026-06-08
 - [setup] Added `.mcp.json` (Slack MCP), 3-session roles, daily protocol.
