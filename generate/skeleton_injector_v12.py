@@ -48,10 +48,21 @@ R6 method inferred. Difficulty = constraint interaction + execution slip-risk.
 NOTE: difficulty here is PREDICTED. The 7B calibration run is what confirms each
 concept lands in band; nothing is claimed calibrated until measured.
 """
-import argparse, json, math, random
+import argparse, json, math, os, random, sys
 from fractions import Fraction
 from collections import Counter
 from itertools import combinations as Ccomb
+
+# Phase 0 (auto-calibrator design §2a): difficulty knobs for the loop concepts
+# (triangular_filter_count, log_laws, ordered_triple_constraint,
+# constrained_subset_count + the abl3 set) are externalized to
+# automation/calibrator/knobs/<concept>.json. K.randint/K.choice draw through
+# the SAME random.* calls the inline literals used, so identical seeds yield
+# identical problems (automation/calibrator/tests/test_knob_equivalence.py).
+# Generator math is untouched; the calibrator edits JSON only, never this file.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from automation.calibrator.knob_loader import KnobBank
+K = KnobBank()
 
 def gcd(a,b):
     while b: a,b=b,a%b
@@ -209,7 +220,8 @@ def c_subsets():
     # learnable (v11: 0.10 mean / 44% too-hard -> a depth-0 ghost factory). The hard
     # compositional AMC versions (#1,15,27,57,81) are reserved for Phase-3 chaining, which
     # composes this learned atom with others -- depth-0 alone can't crack them anyway.
-    n=random.randint(7,11); mod=random.choice([3,4]); mv=random.randint(0,mod-1)
+    kn=K["constrained_subset_count"]
+    n=kn.randint("n"); mod=kn.choice("mod"); mv=random.randint(0,mod-1)
     nocons=False
     def ok(c):
         if sum(c)%mod!=mv: return False
@@ -229,7 +241,7 @@ def c_subsets():
 
 @concept("ordered_triple_constraint",[21,47])
 def c_triples():
-    N=random.randint(10,20)  # v12: narrowed from [12,25] (v11 0.13 mean, 54% too-hard)
+    N=K["ordered_triple_constraint"].randint("N")  # v12: narrowed to [10,20] from [12,25] (v11 0.13 mean, 54% too-hard); range now in knobs/
     cnt=sum(1 for a in range(N+1) for b in range(a+1,N+1) if (N-a-b)>b)
     if cnt<5: return None
     # v12 representation fix: every phrasing now states 0<=a<b<c EXPLICITLY. The v11
@@ -264,13 +276,13 @@ def c_divfilter():
     # structurally small ints, so distinct-count stays ~20, but the distribution is
     # more uniform -> less answer-hackable. Math unchanged; rc_constrained_divisor_count
     # parses num + threshold generically, so gold verification still holds.
-    num=random.choice([360,420,480,504,540,600,630,660,720,756,792,840,900,924,960,
-                       990,1008,1080,1120,1152,1260,1320,1440,1560,1680,1800,1980,2100,2520])
-    cond=random.choice(["odd","gt","lt"])
+    kn=K["constrained_divisor_count"]
+    num=kn.choice("num_pool")
+    cond=kn.choice("cond")
     ds=divisors(num)
     if cond=="odd": cnt=sum(1 for x in ds if x%2==1); desc="odd"
-    elif cond=="gt": t=random.choice([6,8,10,12,15,20,24,30]); cnt=sum(1 for x in ds if x>t); desc=f"greater than {t}"
-    else: t=random.choice([15,20,24,30,40,50,60]); cnt=sum(1 for x in ds if x<t); desc=f"less than {t}"
+    elif cond=="gt": t=kn.choice("gt_thresholds"); cnt=sum(1 for x in ds if x>t); desc=f"greater than {t}"
+    else: t=kn.choice("lt_thresholds"); cnt=sum(1 for x in ds if x<t); desc=f"less than {t}"
     if cnt<3: return None
     return (random.choice([
         f"How many positive divisors of {num} are {desc}?",
@@ -307,7 +319,8 @@ def c_divsumfilter():
 
 @concept("triangular_filter_count",[7])
 def c_trifilter():
-    lim=random.randint(800,6000); k=random.choice([2,3,5])
+    kn=K["triangular_filter_count"]
+    lim=kn.randint("lim"); k=kn.choice("k")
     cnt=0; n=1
     while n*(n+1)//2 < lim:
         if (n*(n+1)//2)%k==0: cnt+=1
@@ -337,8 +350,9 @@ def c_geoexceed():
 
 @concept("inclusion_exclusion_3set",[40])
 def c_incexc3():
-    U=random.randint(200,900)
-    a,b,c=random.choice([(2,3,5),(3,4,5),(2,5,7),(3,5,7),(2,3,7)])
+    kn=K["inclusion_exclusion_3set"]
+    U=kn.randint("U")
+    a,b,c=kn.choice("divisor_triples")
     v=(U//a+U//b+U//c-U//lcm(a,b)-U//lcm(a,c)-U//lcm(b,c)+U//lcm(a,lcm(b,c)))
     if v<10: return None
     return (random.choice([
@@ -399,7 +413,8 @@ def c_polyrem():
 
 @concept("log_laws",[2,5,51,80])
 def c_loglaws():
-    base=random.choice([2,3,5]); e1=random.randint(10,16); e2=random.randint(10,16); e3=random.randint(3,8)
+    kn=K["log_laws"]
+    base=kn.choice("base"); e1=kn.randint("e1"); e2=kn.randint("e2"); e3=kn.randint("e3")
     # v12 representation fix: every argument shown as base^e (never the computed power
     # like log_3(1594323)), killing v11's 'free vs impossible' bimodal (17% gold:
     # 41% too_easy + 21% too_hard). The task is now consistently applying the product/
@@ -455,9 +470,12 @@ def c_cmod(_cands=[]):
     # only 14 distinct answers, top-3 = 43% -> answer-hackable, the multi_constraint_square
     # failure mode). Difficulty held constant via the 1-3 representation cap.
     if not _cands:
-        for M in range(20, 600):
+        kn=K["complex_modulus_power"]
+        clo,chi=kn.const("cand_range")   # candidate M scanned in range(clo,chi) — hi exclusive
+        rlo,rhi=kn.const("rep_cap")      # keep M with rlo..rhi representations (difficulty cap)
+        for M in range(clo, chi):
             r=[(a,b) for a in range(1,int(M**0.5)+1) for b in range(a,int(M**0.5)+1) if a*a+b*b==M]
-            if 1 <= len(r) <= 3: _cands.append(M)
+            if rlo <= len(r) <= rhi: _cands.append(M)
     N=random.choice(_cands)
     reps=[(a,b) for a in range(1,int(N**0.5)+1) for b in range(a,int(N**0.5)+1) if a*a+b*b==N]
     if not reps: return None

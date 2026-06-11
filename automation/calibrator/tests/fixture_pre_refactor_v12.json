@@ -1,0 +1,7016 @@
+{
+ "triangular_filter_count": {
+  "0": [
+   "How many triangular numbers less than 3955 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   58,
+   "triangular_filter_count"
+  ],
+  "1": [
+   "How many triangular numbers less than 1900 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   24,
+   "triangular_filter_count"
+  ],
+  "2": [
+   "How many triangular numbers less than 1263 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   24,
+   "triangular_filter_count"
+  ],
+  "3": [
+   "How many of the triangular numbers less than 2749 are divisible by 5?",
+   28,
+   "triangular_filter_count"
+  ],
+  "4": [
+   "How many triangular numbers less than 2733 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   48,
+   "triangular_filter_count"
+  ],
+  "5": [
+   "Count the triangular numbers under 5902 that are divisible by 3.",
+   72,
+   "triangular_filter_count"
+  ],
+  "6": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 5500 are multiples of 2?",
+   52,
+   "triangular_filter_count"
+  ],
+  "7": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3452 are multiples of 2?",
+   40,
+   "triangular_filter_count"
+  ],
+  "8": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2657 are multiples of 3?",
+   48,
+   "triangular_filter_count"
+  ],
+  "9": [
+   "Count the triangular numbers under 4592 that are divisible by 5.",
+   38,
+   "triangular_filter_count"
+  ],
+  "10": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 5480 are multiples of 2?",
+   52,
+   "triangular_filter_count"
+  ],
+  "11": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 4505 are multiples of 5?",
+   37,
+   "triangular_filter_count"
+  ],
+  "12": [
+   "How many of the triangular numbers less than 4687 are divisible by 3?",
+   64,
+   "triangular_filter_count"
+  ],
+  "13": [
+   "Among triangular numbers below 2921, how many are multiples of 3?",
+   50,
+   "triangular_filter_count"
+  ],
+  "14": [
+   "How many of the triangular numbers less than 1675 are divisible by 5?",
+   22,
+   "triangular_filter_count"
+  ],
+  "15": [
+   "How many of the triangular numbers less than 2511 are divisible by 2?",
+   34,
+   "triangular_filter_count"
+  ],
+  "16": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3761 are multiples of 3?",
+   57,
+   "triangular_filter_count"
+  ],
+  "17": [
+   "Count the triangular numbers under 5076 that are divisible by 3.",
+   66,
+   "triangular_filter_count"
+  ],
+  "18": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2284 are multiples of 2?",
+   33,
+   "triangular_filter_count"
+  ],
+  "19": [
+   "How many triangular numbers less than 1154 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   18,
+   "triangular_filter_count"
+  ],
+  "20": [
+   "How many triangular numbers less than 2038 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   42,
+   "triangular_filter_count"
+  ],
+  "21": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2151 are multiples of 3?",
+   43,
+   "triangular_filter_count"
+  ],
+  "22": [
+   "How many triangular numbers less than 1949 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   30,
+   "triangular_filter_count"
+  ],
+  "23": [
+   "How many triangular numbers less than 3174 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   39,
+   "triangular_filter_count"
+  ],
+  "24": [
+   "Among triangular numbers below 3936, how many are multiples of 5?",
+   34,
+   "triangular_filter_count"
+  ],
+  "25": [
+   "Among triangular numbers below 3888, how many are multiples of 2?",
+   43,
+   "triangular_filter_count"
+  ],
+  "26": [
+   "Among triangular numbers below 2460, how many are multiples of 5?",
+   27,
+   "triangular_filter_count"
+  ],
+  "27": [
+   "Count the triangular numbers under 4731 that are divisible by 5.",
+   38,
+   "triangular_filter_count"
+  ],
+  "28": [
+   "Among triangular numbers below 1725, how many are multiples of 5?",
+   22,
+   "triangular_filter_count"
+  ],
+  "29": [
+   "Count the triangular numbers under 5290 that are divisible by 2.",
+   50,
+   "triangular_filter_count"
+  ],
+  "30": [
+   "How many of the triangular numbers less than 5216 are divisible by 3?",
+   67,
+   "triangular_filter_count"
+  ],
+  "31": [
+   "How many triangular numbers less than 900 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   27,
+   "triangular_filter_count"
+  ],
+  "32": [
+   "Among triangular numbers below 1434, how many are multiples of 2?",
+   26,
+   "triangular_filter_count"
+  ],
+  "33": [
+   "Among triangular numbers below 5472, how many are multiples of 2?",
+   52,
+   "triangular_filter_count"
+  ],
+  "34": [
+   "How many of the triangular numbers less than 5133 are divisible by 3?",
+   66,
+   "triangular_filter_count"
+  ],
+  "35": [
+   "Among triangular numbers below 5294, how many are multiples of 3?",
+   68,
+   "triangular_filter_count"
+  ],
+  "36": [
+   "How many triangular numbers less than 3492 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   41,
+   "triangular_filter_count"
+  ],
+  "37": [
+   "How many of the triangular numbers less than 5778 are divisible by 2?",
+   52,
+   "triangular_filter_count"
+  ],
+  "38": [
+   "How many triangular numbers less than 4249 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   60,
+   "triangular_filter_count"
+  ],
+  "39": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2519 are multiples of 3?",
+   46,
+   "triangular_filter_count"
+  ],
+  "40": [
+   "How many of the triangular numbers less than 4556 are divisible by 5?",
+   37,
+   "triangular_filter_count"
+  ],
+  "41": [
+   "Among triangular numbers below 3921, how many are multiples of 3?",
+   58,
+   "triangular_filter_count"
+  ],
+  "42": [
+   "Count the triangular numbers under 1712 that are divisible by 2.",
+   28,
+   "triangular_filter_count"
+  ],
+  "43": [
+   "Among triangular numbers below 1115, how many are multiples of 3?",
+   30,
+   "triangular_filter_count"
+  ],
+  "44": [
+   "How many of the triangular numbers less than 4146 are divisible by 5?",
+   36,
+   "triangular_filter_count"
+  ],
+  "45": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3027 are multiples of 3?",
+   51,
+   "triangular_filter_count"
+  ],
+  "46": [
+   "How many triangular numbers less than 1425 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   34,
+   "triangular_filter_count"
+  ],
+  "47": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3682 are multiples of 2?",
+   42,
+   "triangular_filter_count"
+  ],
+  "48": [
+   "Among triangular numbers below 5290, how many are multiples of 3?",
+   68,
+   "triangular_filter_count"
+  ],
+  "49": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 1347 are multiples of 3?",
+   34,
+   "triangular_filter_count"
+  ],
+  "50": [
+   "Count the triangular numbers under 4875 that are divisible by 3.",
+   65,
+   "triangular_filter_count"
+  ],
+  "51": [
+   "How many of the triangular numbers less than 2794 are divisible by 5?",
+   29,
+   "triangular_filter_count"
+  ],
+  "52": [
+   "How many of the triangular numbers less than 2998 are divisible by 2?",
+   38,
+   "triangular_filter_count"
+  ],
+  "53": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 5855 are multiples of 2?",
+   53,
+   "triangular_filter_count"
+  ],
+  "54": [
+   "How many of the triangular numbers less than 1926 are divisible by 3?",
+   40,
+   "triangular_filter_count"
+  ],
+  "55": [
+   "Among triangular numbers below 1540, how many are multiples of 2?",
+   26,
+   "triangular_filter_count"
+  ],
+  "56": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 5385 are multiples of 2?",
+   51,
+   "triangular_filter_count"
+  ],
+  "57": [
+   "How many of the triangular numbers less than 1148 are divisible by 3?",
+   31,
+   "triangular_filter_count"
+  ],
+  "58": [
+   "Among triangular numbers below 5557, how many are multiples of 2?",
+   52,
+   "triangular_filter_count"
+  ],
+  "59": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2636 are multiples of 2?",
+   36,
+   "triangular_filter_count"
+  ],
+  "60": [
+   "How many of the triangular numbers less than 3321 are divisible by 3?",
+   53,
+   "triangular_filter_count"
+  ],
+  "61": [
+   "How many of the triangular numbers less than 4850 are divisible by 2?",
+   48,
+   "triangular_filter_count"
+  ],
+  "62": [
+   "How many triangular numbers less than 5512 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   52,
+   "triangular_filter_count"
+  ],
+  "63": [
+   "Count the triangular numbers under 4446 that are divisible by 3.",
+   62,
+   "triangular_filter_count"
+  ],
+  "64": [
+   "How many of the triangular numbers less than 4700 are divisible by 2?",
+   48,
+   "triangular_filter_count"
+  ],
+  "65": [
+   "Count the triangular numbers under 4197 that are divisible by 3.",
+   60,
+   "triangular_filter_count"
+  ],
+  "66": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 1380 are multiples of 3?",
+   34,
+   "triangular_filter_count"
+  ],
+  "67": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 1412 are multiples of 2?",
+   26,
+   "triangular_filter_count"
+  ],
+  "68": [
+   "How many of the triangular numbers less than 4620 are divisible by 5?",
+   38,
+   "triangular_filter_count"
+  ],
+  "69": [
+   "Among triangular numbers below 1105, how many are multiples of 2?",
+   22,
+   "triangular_filter_count"
+  ],
+  "70": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 1770 are multiples of 3?",
+   38,
+   "triangular_filter_count"
+  ],
+  "71": [
+   "How many of the triangular numbers less than 3452 are divisible by 5?",
+   32,
+   "triangular_filter_count"
+  ],
+  "72": [
+   "Among triangular numbers below 1401, how many are multiples of 5?",
+   20,
+   "triangular_filter_count"
+  ],
+  "73": [
+   "How many of the triangular numbers less than 3092 are divisible by 2?",
+   38,
+   "triangular_filter_count"
+  ],
+  "74": [
+   "How many triangular numbers less than 5802 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   42,
+   "triangular_filter_count"
+  ],
+  "75": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 4493 are multiples of 5?",
+   37,
+   "triangular_filter_count"
+  ],
+  "76": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3835 are multiples of 3?",
+   58,
+   "triangular_filter_count"
+  ],
+  "77": [
+   "Among triangular numbers below 2870, how many are multiples of 3?",
+   50,
+   "triangular_filter_count"
+  ],
+  "78": [
+   "Count the triangular numbers under 2337 that are divisible by 2.",
+   33,
+   "triangular_filter_count"
+  ],
+  "79": [
+   "Count the triangular numbers under 1990 that are divisible by 3.",
+   41,
+   "triangular_filter_count"
+  ],
+  "80": [
+   "How many of the triangular numbers less than 3024 are divisible by 3?",
+   51,
+   "triangular_filter_count"
+  ],
+  "81": [
+   "Count the triangular numbers under 4944 that are divisible by 3.",
+   65,
+   "triangular_filter_count"
+  ],
+  "82": [
+   "How many of the triangular numbers less than 1985 are divisible by 3?",
+   41,
+   "triangular_filter_count"
+  ],
+  "83": [
+   "How many triangular numbers less than 4864 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   65,
+   "triangular_filter_count"
+  ],
+  "84": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3123 are multiples of 2?",
+   38,
+   "triangular_filter_count"
+  ],
+  "85": [
+   "How many of the triangular numbers less than 2435 are divisible by 5?",
+   27,
+   "triangular_filter_count"
+  ],
+  "86": [
+   "Count the triangular numbers under 1054 that are divisible by 5.",
+   18,
+   "triangular_filter_count"
+  ],
+  "87": [
+   "Among triangular numbers below 1995, how many are multiples of 5?",
+   24,
+   "triangular_filter_count"
+  ],
+  "88": [
+   "Count the triangular numbers under 4056 that are divisible by 2.",
+   44,
+   "triangular_filter_count"
+  ],
+  "89": [
+   "Count the triangular numbers under 1464 that are divisible by 5.",
+   20,
+   "triangular_filter_count"
+  ],
+  "90": [
+   "How many triangular numbers less than 2468 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   27,
+   "triangular_filter_count"
+  ],
+  "91": [
+   "Among triangular numbers below 1484, how many are multiples of 5?",
+   20,
+   "triangular_filter_count"
+  ],
+  "92": [
+   "How many of the triangular numbers less than 4249 are divisible by 5?",
+   36,
+   "triangular_filter_count"
+  ],
+  "93": [
+   "Count the triangular numbers under 4849 that are divisible by 5.",
+   38,
+   "triangular_filter_count"
+  ],
+  "94": [
+   "How many triangular numbers less than 5279 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   50,
+   "triangular_filter_count"
+  ],
+  "95": [
+   "How many of the triangular numbers less than 5156 are divisible by 5?",
+   40,
+   "triangular_filter_count"
+  ],
+  "96": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3835 are multiples of 3?",
+   58,
+   "triangular_filter_count"
+  ],
+  "97": [
+   "Count the triangular numbers under 2393 that are divisible by 3.",
+   45,
+   "triangular_filter_count"
+  ],
+  "98": [
+   "How many triangular numbers less than 3719 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   34,
+   "triangular_filter_count"
+  ],
+  "99": [
+   "Among triangular numbers below 4109, how many are multiples of 3?",
+   60,
+   "triangular_filter_count"
+  ],
+  "100": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 1993 are multiples of 3?",
+   41,
+   "triangular_filter_count"
+  ],
+  "101": [
+   "How many of the triangular numbers less than 5560 are divisible by 2?",
+   52,
+   "triangular_filter_count"
+  ],
+  "102": [
+   "How many of the triangular numbers less than 2013 are divisible by 5?",
+   24,
+   "triangular_filter_count"
+  ],
+  "103": [
+   "Among triangular numbers below 4537, how many are multiples of 5?",
+   37,
+   "triangular_filter_count"
+  ],
+  "104": [
+   "Among triangular numbers below 960, how many are multiples of 2?",
+   21,
+   "triangular_filter_count"
+  ],
+  "105": [
+   "How many of the triangular numbers less than 5644 are divisible by 3?",
+   70,
+   "triangular_filter_count"
+  ],
+  "106": [
+   "How many of the triangular numbers less than 4725 are divisible by 2?",
+   48,
+   "triangular_filter_count"
+  ],
+  "107": [
+   "How many of the triangular numbers less than 2819 are divisible by 5?",
+   29,
+   "triangular_filter_count"
+  ],
+  "108": [
+   "How many triangular numbers less than 1869 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   24,
+   "triangular_filter_count"
+  ],
+  "109": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3090 are multiples of 2?",
+   38,
+   "triangular_filter_count"
+  ],
+  "110": [
+   "Among triangular numbers below 3978, how many are multiples of 5?",
+   34,
+   "triangular_filter_count"
+  ],
+  "111": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2542 are multiples of 3?",
+   46,
+   "triangular_filter_count"
+  ],
+  "112": [
+   "How many of the triangular numbers less than 4742 are divisible by 5?",
+   38,
+   "triangular_filter_count"
+  ],
+  "113": [
+   "Count the triangular numbers under 1050 that are divisible by 5.",
+   18,
+   "triangular_filter_count"
+  ],
+  "114": [
+   "How many triangular numbers less than 2773 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   28,
+   "triangular_filter_count"
+  ],
+  "115": [
+   "How many triangular numbers less than 3120 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   38,
+   "triangular_filter_count"
+  ],
+  "116": [
+   "Count the triangular numbers under 5713 that are divisible by 5.",
+   42,
+   "triangular_filter_count"
+  ],
+  "117": [
+   "Among triangular numbers below 2766, how many are multiples of 2?",
+   36,
+   "triangular_filter_count"
+  ],
+  "118": [
+   "Count the triangular numbers under 5976 that are divisible by 2.",
+   54,
+   "triangular_filter_count"
+  ],
+  "119": [
+   "How many of the triangular numbers less than 3142 are divisible by 2?",
+   38,
+   "triangular_filter_count"
+  ],
+  "120": [
+   "Among triangular numbers below 5018, how many are multiples of 2?",
+   49,
+   "triangular_filter_count"
+  ],
+  "121": [
+   "How many of the triangular numbers less than 1515 are divisible by 2?",
+   26,
+   "triangular_filter_count"
+  ],
+  "122": [
+   "How many of the triangular numbers less than 4978 are divisible by 2?",
+   49,
+   "triangular_filter_count"
+  ],
+  "123": [
+   "How many triangular numbers less than 1228 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   32,
+   "triangular_filter_count"
+  ],
+  "124": [
+   "How many triangular numbers less than 3075 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   30,
+   "triangular_filter_count"
+  ],
+  "125": [
+   "How many of the triangular numbers less than 2789 are divisible by 2?",
+   36,
+   "triangular_filter_count"
+  ],
+  "126": [
+   "How many of the triangular numbers less than 5490 are divisible by 2?",
+   52,
+   "triangular_filter_count"
+  ],
+  "127": [
+   "How many of the triangular numbers less than 1165 are divisible by 5?",
+   18,
+   "triangular_filter_count"
+  ],
+  "128": [
+   "How many of the triangular numbers less than 2738 are divisible by 3?",
+   48,
+   "triangular_filter_count"
+  ],
+  "129": [
+   "Count the triangular numbers under 5601 that are divisible by 5.",
+   42,
+   "triangular_filter_count"
+  ],
+  "130": [
+   "Count the triangular numbers under 5058 that are divisible by 3.",
+   66,
+   "triangular_filter_count"
+  ],
+  "131": [
+   "How many of the triangular numbers less than 3384 are divisible by 3?",
+   54,
+   "triangular_filter_count"
+  ],
+  "132": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 4178 are multiples of 2?",
+   44,
+   "triangular_filter_count"
+  ],
+  "133": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 4845 are multiples of 3?",
+   64,
+   "triangular_filter_count"
+  ],
+  "134": [
+   "Among triangular numbers below 4765, how many are multiples of 5?",
+   38,
+   "triangular_filter_count"
+  ],
+  "135": [
+   "How many of the triangular numbers less than 3860 are divisible by 5?",
+   34,
+   "triangular_filter_count"
+  ],
+  "136": [
+   "How many of the triangular numbers less than 5516 are divisible by 3?",
+   69,
+   "triangular_filter_count"
+  ],
+  "137": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 1392 are multiples of 2?",
+   26,
+   "triangular_filter_count"
+  ],
+  "138": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2384 are multiples of 3?",
+   45,
+   "triangular_filter_count"
+  ],
+  "139": [
+   "How many of the triangular numbers less than 812 are divisible by 5?",
+   15,
+   "triangular_filter_count"
+  ],
+  "140": [
+   "Count the triangular numbers under 1578 that are divisible by 2.",
+   27,
+   "triangular_filter_count"
+  ],
+  "141": [
+   "How many of the triangular numbers less than 5037 are divisible by 2?",
+   49,
+   "triangular_filter_count"
+  ],
+  "142": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 5572 are multiples of 5?",
+   42,
+   "triangular_filter_count"
+  ],
+  "143": [
+   "How many triangular numbers less than 2306 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   33,
+   "triangular_filter_count"
+  ],
+  "144": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 4472 are multiples of 2?",
+   46,
+   "triangular_filter_count"
+  ],
+  "145": [
+   "How many triangular numbers less than 4263 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   36,
+   "triangular_filter_count"
+  ],
+  "146": [
+   "How many of the triangular numbers less than 1892 are divisible by 2?",
+   30,
+   "triangular_filter_count"
+  ],
+  "147": [
+   "Among triangular numbers below 5758, how many are multiples of 5?",
+   42,
+   "triangular_filter_count"
+  ],
+  "148": [
+   "How many triangular numbers less than 4105 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   36,
+   "triangular_filter_count"
+  ],
+  "149": [
+   "Count the triangular numbers under 1382 that are divisible by 2.",
+   26,
+   "triangular_filter_count"
+  ],
+  "150": [
+   "Among triangular numbers below 3473, how many are multiples of 3?",
+   54,
+   "triangular_filter_count"
+  ],
+  "151": [
+   "Among triangular numbers below 4155, how many are multiples of 5?",
+   36,
+   "triangular_filter_count"
+  ],
+  "152": [
+   "Among triangular numbers below 4006, how many are multiples of 5?",
+   35,
+   "triangular_filter_count"
+  ],
+  "153": [
+   "How many triangular numbers less than 4818 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   48,
+   "triangular_filter_count"
+  ],
+  "154": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2464 are multiples of 3?",
+   46,
+   "triangular_filter_count"
+  ],
+  "155": [
+   "How many of the triangular numbers less than 5558 are divisible by 5?",
+   41,
+   "triangular_filter_count"
+  ],
+  "156": [
+   "Among triangular numbers below 4795, how many are multiples of 3?",
+   64,
+   "triangular_filter_count"
+  ],
+  "157": [
+   "Among triangular numbers below 5810, how many are multiples of 3?",
+   71,
+   "triangular_filter_count"
+  ],
+  "158": [
+   "How many triangular numbers less than 2606 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   35,
+   "triangular_filter_count"
+  ],
+  "159": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 4031 are multiples of 2?",
+   44,
+   "triangular_filter_count"
+  ],
+  "160": [
+   "Count the triangular numbers under 1803 that are divisible by 5.",
+   23,
+   "triangular_filter_count"
+  ],
+  "161": [
+   "How many of the triangular numbers less than 5045 are divisible by 2?",
+   49,
+   "triangular_filter_count"
+  ],
+  "162": [
+   "Among triangular numbers below 1239, how many are multiples of 5?",
+   19,
+   "triangular_filter_count"
+  ],
+  "163": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 5235 are multiples of 5?",
+   40,
+   "triangular_filter_count"
+  ],
+  "164": [
+   "Count the triangular numbers under 1580 that are divisible by 5.",
+   22,
+   "triangular_filter_count"
+  ],
+  "165": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 937 are multiples of 2?",
+   20,
+   "triangular_filter_count"
+  ],
+  "166": [
+   "How many of the triangular numbers less than 2264 are divisible by 5?",
+   26,
+   "triangular_filter_count"
+  ],
+  "167": [
+   "Count the triangular numbers under 2674 that are divisible by 2.",
+   36,
+   "triangular_filter_count"
+  ],
+  "168": [
+   "Count the triangular numbers under 1741 that are divisible by 5.",
+   22,
+   "triangular_filter_count"
+  ],
+  "169": [
+   "How many of the triangular numbers less than 2893 are divisible by 5?",
+   30,
+   "triangular_filter_count"
+  ],
+  "170": [
+   "Count the triangular numbers under 3626 that are divisible by 5.",
+   33,
+   "triangular_filter_count"
+  ],
+  "171": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 5402 are multiples of 3?",
+   68,
+   "triangular_filter_count"
+  ],
+  "172": [
+   "Among triangular numbers below 3687, how many are multiples of 2?",
+   42,
+   "triangular_filter_count"
+  ],
+  "173": [
+   "How many of the triangular numbers less than 3455 are divisible by 3?",
+   54,
+   "triangular_filter_count"
+  ],
+  "174": [
+   "How many triangular numbers less than 838 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   26,
+   "triangular_filter_count"
+  ],
+  "175": [
+   "How many triangular numbers less than 4436 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   46,
+   "triangular_filter_count"
+  ],
+  "176": [
+   "Among triangular numbers below 1043, how many are multiples of 2?",
+   22,
+   "triangular_filter_count"
+  ],
+  "177": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 2575 are multiples of 3?",
+   47,
+   "triangular_filter_count"
+  ],
+  "178": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 1723 are multiples of 5?",
+   22,
+   "triangular_filter_count"
+  ],
+  "179": [
+   "How many triangular numbers less than 2423 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   34,
+   "triangular_filter_count"
+  ],
+  "180": [
+   "How many triangular numbers less than 1981 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   30,
+   "triangular_filter_count"
+  ],
+  "181": [
+   "How many triangular numbers less than 5559 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   41,
+   "triangular_filter_count"
+  ],
+  "182": [
+   "Among triangular numbers below 4503, how many are multiples of 3?",
+   62,
+   "triangular_filter_count"
+  ],
+  "183": [
+   "How many triangular numbers less than 1684 are divisible by 2? (A triangular number is 1+2+...+n.)",
+   28,
+   "triangular_filter_count"
+  ],
+  "184": [
+   "Among triangular numbers below 3060, how many are multiples of 2?",
+   38,
+   "triangular_filter_count"
+  ],
+  "185": [
+   "Among triangular numbers below 1726, how many are multiples of 2?",
+   28,
+   "triangular_filter_count"
+  ],
+  "186": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3604 are multiples of 5?",
+   33,
+   "triangular_filter_count"
+  ],
+  "187": [
+   "How many of the triangular numbers less than 3677 are divisible by 3?",
+   56,
+   "triangular_filter_count"
+  ],
+  "188": [
+   "How many triangular numbers less than 2613 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   47,
+   "triangular_filter_count"
+  ],
+  "189": [
+   "Count the triangular numbers under 4760 that are divisible by 5.",
+   38,
+   "triangular_filter_count"
+  ],
+  "190": [
+   "Count the triangular numbers under 1411 that are divisible by 2.",
+   26,
+   "triangular_filter_count"
+  ],
+  "191": [
+   "How many of the triangular numbers less than 5121 are divisible by 5?",
+   40,
+   "triangular_filter_count"
+  ],
+  "192": [
+   "How many triangular numbers less than 3858 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   58,
+   "triangular_filter_count"
+  ],
+  "193": [
+   "Among triangular numbers below 5402, how many are multiples of 3?",
+   68,
+   "triangular_filter_count"
+  ],
+  "194": [
+   "How many of the triangular numbers less than 5736 are divisible by 2?",
+   52,
+   "triangular_filter_count"
+  ],
+  "195": [
+   "How many triangular numbers less than 5678 are divisible by 3? (A triangular number is 1+2+...+n.)",
+   70,
+   "triangular_filter_count"
+  ],
+  "196": [
+   "How many triangular numbers less than 4957 are divisible by 5? (A triangular number is 1+2+...+n.)",
+   39,
+   "triangular_filter_count"
+  ],
+  "197": [
+   "Among triangular numbers below 5222, how many are multiples of 2?",
+   50,
+   "triangular_filter_count"
+  ],
+  "198": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 1234 are multiples of 5?",
+   19,
+   "triangular_filter_count"
+  ],
+  "199": [
+   "The triangular numbers are 1, 3, 6, 10, .... How many below 3620 are multiples of 5?",
+   33,
+   "triangular_filter_count"
+  ]
+ },
+ "log_laws": {
+  "0": [
+   "Evaluate log_3(3^16 · 3^13) - log_3(3^3).",
+   26,
+   "log_laws"
+  ],
+  "1": [
+   "Evaluate log_2(2^14 · 2^16) - log_2(2^3).",
+   27,
+   "log_laws"
+  ],
+  "2": [
+   "Compute log_2(2^10 · 2^10 / 2^5).",
+   15,
+   "log_laws"
+  ],
+  "3": [
+   "Evaluate log_2(2^14 · 2^14) - log_2(2^4).",
+   24,
+   "log_laws"
+  ],
+  "4": [
+   "What is log_2(2^12) + log_2(2^10) - log_2(2^8)?",
+   14,
+   "log_laws"
+  ],
+  "5": [
+   "Simplify log_5(5^12) + log_5(5^15) - log_5(5^5) to an integer.",
+   22,
+   "log_laws"
+  ],
+  "6": [
+   "Evaluate log_5(5^16 · 5^10) - log_5(5^6).",
+   20,
+   "log_laws"
+  ],
+  "7": [
+   "Find log_3(3^11) + log_3(3^13) - log_3(3^8).",
+   16,
+   "log_laws"
+  ],
+  "8": [
+   "Compute log_2(2^12 · 2^13 / 2^4).",
+   21,
+   "log_laws"
+  ],
+  "9": [
+   "Compute log_3(3^14 · 3^12 / 3^5).",
+   21,
+   "log_laws"
+  ],
+  "10": [
+   "Simplify log_5(5^10) + log_5(5^13) - log_5(5^6) to an integer.",
+   17,
+   "log_laws"
+  ],
+  "11": [
+   "What is log_3(3^16) + log_3(3^14) - log_3(3^6)?",
+   24,
+   "log_laws"
+  ],
+  "12": [
+   "Evaluate log_3(3^12 · 3^15) - log_3(3^7).",
+   20,
+   "log_laws"
+  ],
+  "13": [
+   "Compute log_3(3^12 · 3^15 / 3^8).",
+   19,
+   "log_laws"
+  ],
+  "14": [
+   "Simplify log_2(2^14) + log_2(2^15) - log_2(2^8) to an integer.",
+   21,
+   "log_laws"
+  ],
+  "15": [
+   "Find log_2(2^10) + log_2(2^14) - log_2(2^8).",
+   16,
+   "log_laws"
+  ],
+  "16": [
+   "What is log_3(3^13) + log_3(3^13) - log_3(3^5)?",
+   21,
+   "log_laws"
+  ],
+  "17": [
+   "Evaluate log_5(5^13 · 5^16) - log_5(5^5).",
+   24,
+   "log_laws"
+  ],
+  "18": [
+   "Evaluate log_2(2^10 · 2^15) - log_2(2^6).",
+   19,
+   "log_laws"
+  ],
+  "19": [
+   "Find log_5(5^10) + log_5(5^16) - log_5(5^7).",
+   19,
+   "log_laws"
+  ],
+  "20": [
+   "Evaluate log_5(5^15 · 5^16) - log_5(5^4).",
+   27,
+   "log_laws"
+  ],
+  "21": [
+   "Evaluate log_2(2^13 · 2^15) - log_2(2^6).",
+   22,
+   "log_laws"
+  ],
+  "22": [
+   "What is log_2(2^11) + log_2(2^10) - log_2(2^7)?",
+   14,
+   "log_laws"
+  ],
+  "23": [
+   "Simplify log_3(3^16) + log_3(3^10) - log_3(3^3) to an integer.",
+   23,
+   "log_laws"
+  ],
+  "24": [
+   "Compute log_5(5^13 · 5^16 / 5^7).",
+   22,
+   "log_laws"
+  ],
+  "25": [
+   "Compute log_3(3^16 · 3^16 / 3^3).",
+   29,
+   "log_laws"
+  ],
+  "26": [
+   "What is log_5(5^11) + log_5(5^15) - log_5(5^4)?",
+   22,
+   "log_laws"
+  ],
+  "27": [
+   "Evaluate log_5(5^13 · 5^15) - log_5(5^5).",
+   23,
+   "log_laws"
+  ],
+  "28": [
+   "Simplify log_2(2^15) + log_2(2^11) - log_2(2^7) to an integer.",
+   19,
+   "log_laws"
+  ],
+  "29": [
+   "Simplify log_5(5^10) + log_5(5^12) - log_5(5^7) to an integer.",
+   15,
+   "log_laws"
+  ],
+  "30": [
+   "Find log_5(5^16) + log_5(5^12) - log_5(5^7).",
+   21,
+   "log_laws"
+  ],
+  "31": [
+   "Compute log_2(2^13 · 2^10 / 2^6).",
+   17,
+   "log_laws"
+  ],
+  "32": [
+   "Compute log_2(2^11 · 2^11 / 2^5).",
+   17,
+   "log_laws"
+  ],
+  "33": [
+   "Evaluate log_5(5^11 · 5^15) - log_5(5^4).",
+   22,
+   "log_laws"
+  ],
+  "34": [
+   "Compute log_5(5^12 · 5^14 / 5^3).",
+   23,
+   "log_laws"
+  ],
+  "35": [
+   "Evaluate log_5(5^12 · 5^16) - log_5(5^4).",
+   24,
+   "log_laws"
+  ],
+  "36": [
+   "Find log_3(3^10) + log_3(3^10) - log_3(3^5).",
+   15,
+   "log_laws"
+  ],
+  "37": [
+   "Simplify log_5(5^14) + log_5(5^10) - log_5(5^7) to an integer.",
+   17,
+   "log_laws"
+  ],
+  "38": [
+   "Find log_5(5^13) + log_5(5^13) - log_5(5^8).",
+   18,
+   "log_laws"
+  ],
+  "39": [
+   "Compute log_2(2^12 · 2^13 / 2^3).",
+   22,
+   "log_laws"
+  ],
+  "40": [
+   "Compute log_3(3^14 · 3^14 / 3^3).",
+   25,
+   "log_laws"
+  ],
+  "41": [
+   "What is log_3(3^12) + log_3(3^11) - log_3(3^4)?",
+   19,
+   "log_laws"
+  ],
+  "42": [
+   "Evaluate log_5(5^10 · 5^10) - log_5(5^8).",
+   12,
+   "log_laws"
+  ],
+  "43": [
+   "What is log_2(2^12) + log_2(2^15) - log_2(2^4)?",
+   23,
+   "log_laws"
+  ],
+  "44": [
+   "Find log_3(3^14) + log_3(3^14) - log_3(3^8).",
+   20,
+   "log_laws"
+  ],
+  "45": [
+   "Find log_3(3^13) + log_3(3^13) - log_3(3^5).",
+   21,
+   "log_laws"
+  ],
+  "46": [
+   "Simplify log_2(2^13) + log_2(2^10) - log_2(2^7) to an integer.",
+   16,
+   "log_laws"
+  ],
+  "47": [
+   "What is log_3(3^10) + log_3(3^13) - log_3(3^7)?",
+   16,
+   "log_laws"
+  ],
+  "48": [
+   "Simplify log_5(5^12) + log_5(5^11) - log_5(5^7) to an integer.",
+   16,
+   "log_laws"
+  ],
+  "49": [
+   "Evaluate log_2(2^12 · 2^13) - log_2(2^3).",
+   22,
+   "log_laws"
+  ],
+  "50": [
+   "Compute log_3(3^16 · 3^12 / 3^5).",
+   23,
+   "log_laws"
+  ],
+  "51": [
+   "Compute log_2(2^16 · 2^14 / 2^7).",
+   23,
+   "log_laws"
+  ],
+  "52": [
+   "What is log_3(3^10) + log_3(3^15) - log_3(3^7)?",
+   18,
+   "log_laws"
+  ],
+  "53": [
+   "Simplify log_5(5^16) + log_5(5^11) - log_5(5^6) to an integer.",
+   21,
+   "log_laws"
+  ],
+  "54": [
+   "What is log_2(2^13) + log_2(2^14) - log_2(2^5)?",
+   22,
+   "log_laws"
+  ],
+  "55": [
+   "Evaluate log_2(2^11 · 2^11) - log_2(2^8).",
+   14,
+   "log_laws"
+  ],
+  "56": [
+   "Simplify log_5(5^10) + log_5(5^13) - log_5(5^8) to an integer.",
+   15,
+   "log_laws"
+  ],
+  "57": [
+   "Find log_2(2^12) + log_2(2^14) - log_2(2^7).",
+   19,
+   "log_laws"
+  ],
+  "58": [
+   "Compute log_5(5^11 · 5^11 / 5^8).",
+   14,
+   "log_laws"
+  ],
+  "59": [
+   "Find log_2(2^10) + log_2(2^15) - log_2(2^6).",
+   19,
+   "log_laws"
+  ],
+  "60": [
+   "Evaluate log_3(3^12 · 3^14) - log_3(3^4).",
+   22,
+   "log_laws"
+  ],
+  "61": [
+   "Evaluate log_3(3^11 · 3^14) - log_3(3^4).",
+   21,
+   "log_laws"
+  ],
+  "62": [
+   "What is log_5(5^11) + log_5(5^10) - log_5(5^4)?",
+   17,
+   "log_laws"
+  ],
+  "63": [
+   "What is log_3(3^13) + log_3(3^12) - log_3(3^5)?",
+   20,
+   "log_laws"
+  ],
+  "64": [
+   "What is log_3(3^10) + log_3(3^15) - log_3(3^7)?",
+   18,
+   "log_laws"
+  ],
+  "65": [
+   "Compute log_3(3^12 · 3^12 / 3^7).",
+   17,
+   "log_laws"
+  ],
+  "66": [
+   "What is log_2(2^12) + log_2(2^13) - log_2(2^4)?",
+   21,
+   "log_laws"
+  ],
+  "67": [
+   "What is log_2(2^10) + log_2(2^16) - log_2(2^6)?",
+   20,
+   "log_laws"
+  ],
+  "68": [
+   "Simplify log_5(5^13) + log_5(5^15) - log_5(5^8) to an integer.",
+   20,
+   "log_laws"
+  ],
+  "69": [
+   "Find log_5(5^10) + log_5(5^10) - log_5(5^4).",
+   16,
+   "log_laws"
+  ],
+  "70": [
+   "What is log_2(2^12) + log_2(2^15) - log_2(2^6)?",
+   21,
+   "log_laws"
+  ],
+  "71": [
+   "Evaluate log_3(3^14 · 3^14) - log_3(3^3).",
+   25,
+   "log_laws"
+  ],
+  "72": [
+   "Compute log_2(2^16 · 2^14 / 2^8).",
+   22,
+   "log_laws"
+  ],
+  "73": [
+   "Simplify log_3(3^10) + log_3(3^14) - log_3(3^6) to an integer.",
+   18,
+   "log_laws"
+  ],
+  "74": [
+   "Evaluate log_5(5^14 · 5^16) - log_5(5^3).",
+   27,
+   "log_laws"
+  ],
+  "75": [
+   "Find log_3(3^14) + log_3(3^13) - log_3(3^6).",
+   21,
+   "log_laws"
+  ],
+  "76": [
+   "Evaluate log_3(3^13 · 3^13) - log_3(3^4).",
+   22,
+   "log_laws"
+  ],
+  "77": [
+   "Compute log_3(3^12 · 3^11 / 3^4).",
+   19,
+   "log_laws"
+  ],
+  "78": [
+   "Evaluate log_2(2^10 · 2^12) - log_2(2^8).",
+   14,
+   "log_laws"
+  ],
+  "79": [
+   "Compute log_2(2^13 · 2^12 / 2^7).",
+   18,
+   "log_laws"
+  ],
+  "80": [
+   "What is log_3(3^13) + log_3(3^14) - log_3(3^8)?",
+   19,
+   "log_laws"
+  ],
+  "81": [
+   "Simplify log_5(5^16) + log_5(5^13) - log_5(5^5) to an integer.",
+   24,
+   "log_laws"
+  ],
+  "82": [
+   "Evaluate log_2(2^16 · 2^13) - log_2(2^7).",
+   22,
+   "log_laws"
+  ],
+  "83": [
+   "Find log_3(3^16) + log_3(3^16) - log_3(3^6).",
+   26,
+   "log_laws"
+  ],
+  "84": [
+   "What is log_5(5^12) + log_5(5^16) - log_5(5^3)?",
+   25,
+   "log_laws"
+  ],
+  "85": [
+   "Evaluate log_2(2^15 · 2^14) - log_2(2^3).",
+   26,
+   "log_laws"
+  ],
+  "86": [
+   "Find log_2(2^14) + log_2(2^16) - log_2(2^5).",
+   25,
+   "log_laws"
+  ],
+  "87": [
+   "Find log_2(2^15) + log_2(2^11) - log_2(2^7).",
+   19,
+   "log_laws"
+  ],
+  "88": [
+   "Find log_3(3^11) + log_3(3^12) - log_3(3^4).",
+   19,
+   "log_laws"
+  ],
+  "89": [
+   "Evaluate log_2(2^16 · 2^14) - log_2(2^8).",
+   22,
+   "log_laws"
+  ],
+  "90": [
+   "Simplify log_2(2^15) + log_2(2^10) - log_2(2^6) to an integer.",
+   19,
+   "log_laws"
+  ],
+  "91": [
+   "Compute log_2(2^14 · 2^11 / 2^8).",
+   17,
+   "log_laws"
+  ],
+  "92": [
+   "Simplify log_3(3^14) + log_3(3^14) - log_3(3^7) to an integer.",
+   21,
+   "log_laws"
+  ],
+  "93": [
+   "Find log_3(3^14) + log_3(3^15) - log_3(3^5).",
+   24,
+   "log_laws"
+  ],
+  "94": [
+   "Evaluate log_5(5^11 · 5^10) - log_5(5^5).",
+   16,
+   "log_laws"
+  ],
+  "95": [
+   "Compute log_5(5^14 · 5^15 / 5^7).",
+   22,
+   "log_laws"
+  ],
+  "96": [
+   "Compute log_3(3^12 · 3^15 / 3^6).",
+   21,
+   "log_laws"
+  ],
+  "97": [
+   "Find log_2(2^13) + log_2(2^16) - log_2(2^5).",
+   24,
+   "log_laws"
+  ],
+  "98": [
+   "Evaluate log_3(3^14 · 3^16) - log_3(3^3).",
+   27,
+   "log_laws"
+  ],
+  "99": [
+   "Compute log_3(3^13 · 3^11 / 3^7).",
+   17,
+   "log_laws"
+  ],
+  "100": [
+   "What is log_2(2^13) + log_2(2^13) - log_2(2^4)?",
+   22,
+   "log_laws"
+  ],
+  "101": [
+   "Evaluate log_5(5^16 · 5^11) - log_5(5^7).",
+   20,
+   "log_laws"
+  ],
+  "102": [
+   "Compute log_2(2^15 · 2^14 / 2^5).",
+   24,
+   "log_laws"
+  ],
+  "103": [
+   "Compute log_5(5^13 · 5^15 / 5^8).",
+   20,
+   "log_laws"
+  ],
+  "104": [
+   "Compute log_2(2^16 · 2^11 / 2^8).",
+   19,
+   "log_laws"
+  ],
+  "105": [
+   "Find log_5(5^12) + log_5(5^14) - log_5(5^3).",
+   23,
+   "log_laws"
+  ],
+  "106": [
+   "Simplify log_5(5^13) + log_5(5^10) - log_5(5^7) to an integer.",
+   16,
+   "log_laws"
+  ],
+  "107": [
+   "What is log_2(2^14) + log_2(2^14) - log_2(2^8)?",
+   20,
+   "log_laws"
+  ],
+  "108": [
+   "What is log_2(2^15) + log_2(2^16) - log_2(2^3)?",
+   28,
+   "log_laws"
+  ],
+  "109": [
+   "Simplify log_3(3^11) + log_3(3^13) - log_3(3^6) to an integer.",
+   18,
+   "log_laws"
+  ],
+  "110": [
+   "Compute log_3(3^16 · 3^16 / 3^7).",
+   25,
+   "log_laws"
+  ],
+  "111": [
+   "What is log_2(2^12) + log_2(2^13) - log_2(2^4)?",
+   21,
+   "log_laws"
+  ],
+  "112": [
+   "Simplify log_3(3^16) + log_3(3^15) - log_3(3^7) to an integer.",
+   24,
+   "log_laws"
+  ],
+  "113": [
+   "Evaluate log_2(2^15 · 2^16) - log_2(2^8).",
+   23,
+   "log_laws"
+  ],
+  "114": [
+   "Compute log_2(2^14 · 2^10 / 2^5).",
+   19,
+   "log_laws"
+  ],
+  "115": [
+   "Simplify log_3(3^11) + log_3(3^16) - log_3(3^3) to an integer.",
+   24,
+   "log_laws"
+  ],
+  "116": [
+   "Evaluate log_5(5^14 · 5^14) - log_5(5^8).",
+   20,
+   "log_laws"
+  ],
+  "117": [
+   "What is log_2(2^11) + log_2(2^11) - log_2(2^4)?",
+   18,
+   "log_laws"
+  ],
+  "118": [
+   "Find log_5(5^15) + log_5(5^11) - log_5(5^5).",
+   21,
+   "log_laws"
+  ],
+  "119": [
+   "Simplify log_3(3^11) + log_3(3^15) - log_3(3^7) to an integer.",
+   19,
+   "log_laws"
+  ],
+  "120": [
+   "Simplify log_5(5^11) + log_5(5^11) - log_5(5^8) to an integer.",
+   14,
+   "log_laws"
+  ],
+  "121": [
+   "Compute log_2(2^11 · 2^14 / 2^6).",
+   19,
+   "log_laws"
+  ],
+  "122": [
+   "Find log_5(5^11) + log_5(5^14) - log_5(5^5).",
+   20,
+   "log_laws"
+  ],
+  "123": [
+   "Evaluate log_2(2^12 · 2^10) - log_2(2^6).",
+   16,
+   "log_laws"
+  ],
+  "124": [
+   "Find log_3(3^14) + log_3(3^10) - log_3(3^4).",
+   20,
+   "log_laws"
+  ],
+  "125": [
+   "Evaluate log_2(2^11 · 2^16) - log_2(2^7).",
+   20,
+   "log_laws"
+  ],
+  "126": [
+   "What is log_5(5^10) + log_5(5^14) - log_5(5^7)?",
+   17,
+   "log_laws"
+  ],
+  "127": [
+   "Find log_2(2^14) + log_2(2^14) - log_2(2^7).",
+   21,
+   "log_laws"
+  ],
+  "128": [
+   "Compute log_2(2^13 · 2^14 / 2^5).",
+   22,
+   "log_laws"
+  ],
+  "129": [
+   "Evaluate log_5(5^16 · 5^16) - log_5(5^7).",
+   25,
+   "log_laws"
+  ],
+  "130": [
+   "What is log_5(5^13) + log_5(5^12) - log_5(5^8)?",
+   17,
+   "log_laws"
+  ],
+  "131": [
+   "Find log_3(3^12) + log_3(3^16) - log_3(3^7).",
+   21,
+   "log_laws"
+  ],
+  "132": [
+   "Compute log_3(3^11 · 3^13 / 3^3).",
+   21,
+   "log_laws"
+  ],
+  "133": [
+   "Simplify log_3(3^12) + log_3(3^13) - log_3(3^5) to an integer.",
+   20,
+   "log_laws"
+  ],
+  "134": [
+   "Simplify log_3(3^14) + log_3(3^11) - log_3(3^8) to an integer.",
+   17,
+   "log_laws"
+  ],
+  "135": [
+   "Simplify log_5(5^12) + log_5(5^15) - log_5(5^8) to an integer.",
+   19,
+   "log_laws"
+  ],
+  "136": [
+   "What is log_5(5^13) + log_5(5^14) - log_5(5^3)?",
+   24,
+   "log_laws"
+  ],
+  "137": [
+   "Compute log_2(2^11 · 2^13 / 2^5).",
+   19,
+   "log_laws"
+  ],
+  "138": [
+   "Evaluate log_2(2^13 · 2^13) - log_2(2^8).",
+   18,
+   "log_laws"
+  ],
+  "139": [
+   "Simplify log_2(2^15) + log_2(2^14) - log_2(2^7) to an integer.",
+   22,
+   "log_laws"
+  ],
+  "140": [
+   "Simplify log_2(2^10) + log_2(2^12) - log_2(2^3) to an integer.",
+   19,
+   "log_laws"
+  ],
+  "141": [
+   "What is log_5(5^16) + log_5(5^10) - log_5(5^7)?",
+   19,
+   "log_laws"
+  ],
+  "142": [
+   "What is log_5(5^15) + log_5(5^15) - log_5(5^8)?",
+   22,
+   "log_laws"
+  ],
+  "143": [
+   "Compute log_2(2^16 · 2^10 / 2^3).",
+   23,
+   "log_laws"
+  ],
+  "144": [
+   "Compute log_3(3^10 · 3^13 / 3^3).",
+   20,
+   "log_laws"
+  ],
+  "145": [
+   "Find log_3(3^14) + log_3(3^10) - log_3(3^6).",
+   18,
+   "log_laws"
+  ],
+  "146": [
+   "Find log_2(2^11) + log_2(2^14) - log_2(2^5).",
+   20,
+   "log_laws"
+  ],
+  "147": [
+   "What is log_5(5^15) + log_5(5^11) - log_5(5^6)?",
+   20,
+   "log_laws"
+  ],
+  "148": [
+   "What is log_3(3^15) + log_3(3^15) - log_3(3^3)?",
+   27,
+   "log_laws"
+  ],
+  "149": [
+   "Compute log_2(2^10 · 2^12 / 2^6).",
+   16,
+   "log_laws"
+  ],
+  "150": [
+   "Evaluate log_3(3^13 · 3^11) - log_3(3^4).",
+   20,
+   "log_laws"
+  ],
+  "151": [
+   "Compute log_5(5^13 · 5^16 / 5^8).",
+   21,
+   "log_laws"
+  ],
+  "152": [
+   "Compute log_3(3^15 · 3^11 / 3^6).",
+   20,
+   "log_laws"
+  ],
+  "153": [
+   "What is log_3(3^10) + log_3(3^10) - log_3(3^5)?",
+   15,
+   "log_laws"
+  ],
+  "154": [
+   "What is log_2(2^16) + log_2(2^16) - log_2(2^6)?",
+   26,
+   "log_laws"
+  ],
+  "155": [
+   "What is log_5(5^14) + log_5(5^14) - log_5(5^5)?",
+   23,
+   "log_laws"
+  ],
+  "156": [
+   "Evaluate log_3(3^13 · 3^15) - log_3(3^4).",
+   24,
+   "log_laws"
+  ],
+  "157": [
+   "Find log_5(5^13) + log_5(5^11) - log_5(5^4).",
+   20,
+   "log_laws"
+  ],
+  "158": [
+   "Find log_5(5^11) + log_5(5^16) - log_5(5^3).",
+   24,
+   "log_laws"
+  ],
+  "159": [
+   "Compute log_3(3^11 · 3^15 / 3^6).",
+   20,
+   "log_laws"
+  ],
+  "160": [
+   "Compute log_2(2^14 · 2^12 / 2^6).",
+   20,
+   "log_laws"
+  ],
+  "161": [
+   "Compute log_5(5^11 · 5^14 / 5^4).",
+   21,
+   "log_laws"
+  ],
+  "162": [
+   "Simplify log_2(2^15) + log_2(2^15) - log_2(2^4) to an integer.",
+   26,
+   "log_laws"
+  ],
+  "163": [
+   "Compute log_5(5^14 · 5^13 / 5^7).",
+   20,
+   "log_laws"
+  ],
+  "164": [
+   "What is log_2(2^15) + log_2(2^12) - log_2(2^5)?",
+   22,
+   "log_laws"
+  ],
+  "165": [
+   "Find log_2(2^10) + log_2(2^15) - log_2(2^6).",
+   19,
+   "log_laws"
+  ],
+  "166": [
+   "What is log_2(2^15) + log_2(2^14) - log_2(2^6)?",
+   23,
+   "log_laws"
+  ],
+  "167": [
+   "What is log_2(2^16) + log_2(2^10) - log_2(2^5)?",
+   21,
+   "log_laws"
+  ],
+  "168": [
+   "What is log_5(5^10) + log_5(5^14) - log_5(5^5)?",
+   19,
+   "log_laws"
+  ],
+  "169": [
+   "Simplify log_3(3^14) + log_3(3^14) - log_3(3^4) to an integer.",
+   24,
+   "log_laws"
+  ],
+  "170": [
+   "Evaluate log_3(3^16 · 3^14) - log_3(3^5).",
+   25,
+   "log_laws"
+  ],
+  "171": [
+   "Simplify log_5(5^13) + log_5(5^13) - log_5(5^3) to an integer.",
+   23,
+   "log_laws"
+  ],
+  "172": [
+   "Evaluate log_3(3^11 · 3^11) - log_3(3^5).",
+   17,
+   "log_laws"
+  ],
+  "173": [
+   "Simplify log_3(3^13) + log_3(3^15) - log_3(3^8) to an integer.",
+   20,
+   "log_laws"
+  ],
+  "174": [
+   "Evaluate log_2(2^13 · 2^10) - log_2(2^6).",
+   17,
+   "log_laws"
+  ],
+  "175": [
+   "Simplify log_3(3^11) + log_3(3^10) - log_3(3^8) to an integer.",
+   13,
+   "log_laws"
+  ],
+  "176": [
+   "Find log_2(2^10) + log_2(2^16) - log_2(2^4).",
+   22,
+   "log_laws"
+  ],
+  "177": [
+   "Compute log_2(2^13 · 2^13 / 2^7).",
+   19,
+   "log_laws"
+  ],
+  "178": [
+   "Compute log_2(2^14 · 2^13 / 2^8).",
+   19,
+   "log_laws"
+  ],
+  "179": [
+   "Find log_2(2^10) + log_2(2^16) - log_2(2^3).",
+   23,
+   "log_laws"
+  ],
+  "180": [
+   "Simplify log_2(2^10) + log_2(2^15) - log_2(2^3) to an integer.",
+   22,
+   "log_laws"
+  ],
+  "181": [
+   "Evaluate log_5(5^15 · 5^10) - log_5(5^3).",
+   22,
+   "log_laws"
+  ],
+  "182": [
+   "Evaluate log_3(3^12 · 3^11) - log_3(3^4).",
+   19,
+   "log_laws"
+  ],
+  "183": [
+   "Evaluate log_2(2^10 · 2^15) - log_2(2^3).",
+   22,
+   "log_laws"
+  ],
+  "184": [
+   "Evaluate log_3(3^10 · 3^11) - log_3(3^8).",
+   13,
+   "log_laws"
+  ],
+  "185": [
+   "Simplify log_2(2^11) + log_2(2^11) - log_2(2^5) to an integer.",
+   17,
+   "log_laws"
+  ],
+  "186": [
+   "What is log_3(3^15) + log_3(3^13) - log_3(3^7)?",
+   21,
+   "log_laws"
+  ],
+  "187": [
+   "Compute log_3(3^16 · 3^13 / 3^7).",
+   22,
+   "log_laws"
+  ],
+  "188": [
+   "Find log_5(5^16) + log_5(5^11) - log_5(5^5).",
+   22,
+   "log_laws"
+  ],
+  "189": [
+   "Compute log_3(3^16 · 3^15 / 3^5).",
+   26,
+   "log_laws"
+  ],
+  "190": [
+   "Evaluate log_2(2^11 · 2^16) - log_2(2^5).",
+   22,
+   "log_laws"
+  ],
+  "191": [
+   "Simplify log_5(5^16) + log_5(5^14) - log_5(5^7) to an integer.",
+   23,
+   "log_laws"
+  ],
+  "192": [
+   "What is log_3(3^16) + log_3(3^12) - log_3(3^3)?",
+   25,
+   "log_laws"
+  ],
+  "193": [
+   "Evaluate log_5(5^13 · 5^16) - log_5(5^4).",
+   25,
+   "log_laws"
+  ],
+  "194": [
+   "Evaluate log_5(5^10 · 5^14) - log_5(5^4).",
+   20,
+   "log_laws"
+  ],
+  "195": [
+   "Compute log_5(5^13 · 5^10 / 5^8).",
+   15,
+   "log_laws"
+  ],
+  "196": [
+   "Find log_5(5^14) + log_5(5^15) - log_5(5^8).",
+   21,
+   "log_laws"
+  ],
+  "197": [
+   "Find log_5(5^10) + log_5(5^11) - log_5(5^4).",
+   17,
+   "log_laws"
+  ],
+  "198": [
+   "Find log_2(2^14) + log_2(2^15) - log_2(2^6).",
+   23,
+   "log_laws"
+  ],
+  "199": [
+   "Evaluate log_3(3^15 · 3^13) - log_3(3^5).",
+   23,
+   "log_laws"
+  ]
+ },
+ "ordered_triple_constraint": {
+  "0": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "1": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=12.",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "2": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=10?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "3": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=13.",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "4": [
+   "In how many ways can 13 be written as a+b+c with 0≤a<b<c (integers)?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "5": [
+   "In how many ways can 19 be written as a+b+c with 0≤a<b<c (integers)?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "6": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "7": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "8": [
+   "In how many ways can 13 be written as a+b+c with 0≤a<b<c (integers)?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "9": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=17.",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "10": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "11": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=17.",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "12": [
+   "In how many ways can 17 be written as a+b+c with 0≤a<b<c (integers)?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "13": [
+   "In how many ways can 14 be written as a+b+c with 0≤a<b<c (integers)?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "14": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=11.",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "15": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "16": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "17": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "18": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "19": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=20?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "20": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=20?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "21": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "22": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "23": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "24": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=16.",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "25": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "26": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "27": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 20?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "28": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "29": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "30": [
+   "In how many ways can 18 be written as a+b+c with 0≤a<b<c (integers)?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "31": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 10?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "32": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "33": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "34": [
+   "In how many ways can 18 be written as a+b+c with 0≤a<b<c (integers)?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "35": [
+   "In how many ways can 18 be written as a+b+c with 0≤a<b<c (integers)?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "36": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "37": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=20.",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "38": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 20?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "39": [
+   "In how many ways can 13 be written as a+b+c with 0≤a<b<c (integers)?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "40": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=17.",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "41": [
+   "In how many ways can 16 be written as a+b+c with 0≤a<b<c (integers)?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "42": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=20?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "43": [
+   "In how many ways can 10 be written as a+b+c with 0≤a<b<c (integers)?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "44": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=16.",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "45": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "46": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "47": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "48": [
+   "In how many ways can 18 be written as a+b+c with 0≤a<b<c (integers)?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "49": [
+   "In how many ways can 11 be written as a+b+c with 0≤a<b<c (integers)?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "50": [
+   "In how many ways can 17 be written as a+b+c with 0≤a<b<c (integers)?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "51": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=13.",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "52": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "53": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "54": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "55": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "56": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "57": [
+   "In how many ways can 10 be written as a+b+c with 0≤a<b<c (integers)?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "58": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "59": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "60": [
+   "In how many ways can 14 be written as a+b+c with 0≤a<b<c (integers)?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "61": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "62": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "63": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "64": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "65": [
+   "In how many ways can 16 be written as a+b+c with 0≤a<b<c (integers)?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "66": [
+   "In how many ways can 11 be written as a+b+c with 0≤a<b<c (integers)?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "67": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "68": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=17.",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "69": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=20?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "70": [
+   "In how many ways can 11 be written as a+b+c with 0≤a<b<c (integers)?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "71": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=15.",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "72": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=11.",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "73": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "74": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=19.",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "75": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=17.",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "76": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "77": [
+   "In how many ways can 14 be written as a+b+c with 0≤a<b<c (integers)?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "78": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "79": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "80": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "81": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "82": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "83": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "84": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "85": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=13.",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "86": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=10.",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "87": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "88": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "89": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=11.",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "90": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "91": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=11.",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "92": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=16.",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "93": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=17.",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "94": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "95": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=18.",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "96": [
+   "In how many ways can 15 be written as a+b+c with 0≤a<b<c (integers)?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "97": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "98": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=15.",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "99": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "100": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "101": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "102": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=12.",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "103": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "104": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=10?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "105": [
+   "In how many ways can 19 be written as a+b+c with 0≤a<b<c (integers)?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "106": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "107": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=13.",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "108": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "109": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "110": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=16.",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "111": [
+   "In how many ways can 13 be written as a+b+c with 0≤a<b<c (integers)?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "112": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=17.",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "113": [
+   "In how many ways can 10 be written as a+b+c with 0≤a<b<c (integers)?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "114": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=13.",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "115": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "116": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=19.",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "117": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "118": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=20?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "119": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "120": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "121": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "122": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "123": [
+   "In how many ways can 10 be written as a+b+c with 0≤a<b<c (integers)?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "124": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=14.",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "125": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "126": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "127": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=10.",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "128": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "129": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=19.",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "130": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "131": [
+   "In how many ways can 15 be written as a+b+c with 0≤a<b<c (integers)?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "132": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "133": [
+   "In how many ways can 17 be written as a+b+c with 0≤a<b<c (integers)?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "134": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=17.",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "135": [
+   "In how many ways can 20 be written as a+b+c with 0≤a<b<c (integers)?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "136": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "137": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "138": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "139": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=10.",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "140": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "141": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "142": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "143": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "144": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "145": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=16.",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "146": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "147": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "148": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "149": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "150": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "151": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "152": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "153": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "154": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "155": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=19.",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "156": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "157": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "158": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=20?",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "159": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=16?",
+   21,
+   "ordered_triple_constraint"
+  ],
+  "160": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=11.",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "161": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "162": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=10?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "163": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=18.",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "164": [
+   "In how many ways can 11 be written as a+b+c with 0≤a<b<c (integers)?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "165": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=10?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "166": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=12.",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "167": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "168": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=11.",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "169": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=14.",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "170": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=15.",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "171": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "172": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "173": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "174": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 10?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "175": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=17?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "176": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=10?",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "177": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "178": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=11.",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "179": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=13?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "180": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=12?",
+   12,
+   "ordered_triple_constraint"
+  ],
+  "181": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "182": [
+   "In how many ways can 17 be written as a+b+c with 0≤a<b<c (integers)?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "183": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "184": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=14?",
+   16,
+   "ordered_triple_constraint"
+  ],
+  "185": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "186": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "187": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 15?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "188": [
+   "In how many ways can 13 be written as a+b+c with 0≤a<b<c (integers)?",
+   14,
+   "ordered_triple_constraint"
+  ],
+  "189": [
+   "In how many ways can 17 be written as a+b+c with 0≤a<b<c (integers)?",
+   24,
+   "ordered_triple_constraint"
+  ],
+  "190": [
+   "How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c=11?",
+   10,
+   "ordered_triple_constraint"
+  ],
+  "191": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=18.",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "192": [
+   "In how many ways can 15 be written as a+b+c with 0≤a<b<c (integers)?",
+   19,
+   "ordered_triple_constraint"
+  ],
+  "193": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "194": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "195": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 19?",
+   30,
+   "ordered_triple_constraint"
+  ],
+  "196": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=20.",
+   33,
+   "ordered_triple_constraint"
+  ],
+  "197": [
+   "How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c=18?",
+   27,
+   "ordered_triple_constraint"
+  ],
+  "198": [
+   "Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c=10.",
+   8,
+   "ordered_triple_constraint"
+  ],
+  "199": [
+   "How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to 15?",
+   19,
+   "ordered_triple_constraint"
+  ]
+ },
+ "constrained_subset_count": {
+  "0": [
+   "Count the 3-element subsets of the first 10 positive integers with sum ≡ 0 (mod 4).",
+   30,
+   "constrained_subset_count"
+  ],
+  "1": [
+   "How many 3-element subsets of {1,2,...,8} have a sum that leaves remainder 1 when divided by 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "2": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 0 (mod 3).",
+   13,
+   "constrained_subset_count"
+  ],
+  "3": [
+   "How many 3-element subsets of {1..8} sum to 1 more than a multiple of 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "4": [
+   "How many size-3 subsets of {1..8} have sum ≡ 0 mod 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "5": [
+   "How many 3-element subsets of {1..11} sum to 2 more than a multiple of 4?",
+   43,
+   "constrained_subset_count"
+  ],
+  "6": [
+   "Count the 3-element subsets of the first 11 positive integers with sum ≡ 1 (mod 3).",
+   54,
+   "constrained_subset_count"
+  ],
+  "7": [
+   "How many 3-element subsets of {1,2,...,9} have a sum that leaves remainder 1 when divided by 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "8": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "9": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "10": [
+   "How many size-3 subsets of {1..11} have sum ≡ 1 mod 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "11": [
+   "How many 3-element subsets of {1..10} sum to 3 more than a multiple of 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "12": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "13": [
+   "From {1,...,9}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 4?",
+   20,
+   "constrained_subset_count"
+  ],
+  "14": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 1 (mod 3).",
+   11,
+   "constrained_subset_count"
+  ],
+  "15": [
+   "How many 3-element subsets of {1,2,...,8} have a sum that leaves remainder 2 when divided by 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "16": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 3 (mod 4).",
+   20,
+   "constrained_subset_count"
+  ],
+  "17": [
+   "Count the 3-element subsets of the first 11 positive integers with sum ≡ 2 (mod 4).",
+   43,
+   "constrained_subset_count"
+  ],
+  "18": [
+   "How many size-3 subsets of {1..8} have sum ≡ 2 mod 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "19": [
+   "From {1,...,7}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "20": [
+   "Count the 3-element subsets of the first 8 positive integers with sum ≡ 0 (mod 4).",
+   14,
+   "constrained_subset_count"
+  ],
+  "21": [
+   "Count the 3-element subsets of the first 8 positive integers with sum ≡ 3 (mod 4).",
+   14,
+   "constrained_subset_count"
+  ],
+  "22": [
+   "How many 3-element subsets of {1..8} sum to 0 more than a multiple of 3?",
+   20,
+   "constrained_subset_count"
+  ],
+  "23": [
+   "How many 3-element subsets of {1..9} sum to 0 more than a multiple of 3?",
+   30,
+   "constrained_subset_count"
+  ],
+  "24": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 3?",
+   42,
+   "constrained_subset_count"
+  ],
+  "25": [
+   "Count the 3-element subsets of the first 10 positive integers with sum ≡ 0 (mod 3).",
+   42,
+   "constrained_subset_count"
+  ],
+  "26": [
+   "How many 3-element subsets of {1..8} sum to 1 more than a multiple of 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "27": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "28": [
+   "How many 3-element subsets of {1..7} sum to 2 more than a multiple of 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "29": [
+   "How many 3-element subsets of {1..11} sum to 1 more than a multiple of 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "30": [
+   "How many 3-element subsets of {1..11} sum to 0 more than a multiple of 4?",
+   42,
+   "constrained_subset_count"
+  ],
+  "31": [
+   "How many size-3 subsets of {1..7} have sum ≡ 0 mod 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "32": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 0 (mod 3).",
+   13,
+   "constrained_subset_count"
+  ],
+  "33": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "34": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 4?",
+   42,
+   "constrained_subset_count"
+  ],
+  "35": [
+   "Count the 3-element subsets of the first 11 positive integers with sum ≡ 1 (mod 4).",
+   40,
+   "constrained_subset_count"
+  ],
+  "36": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 0 (mod 3).",
+   30,
+   "constrained_subset_count"
+  ],
+  "37": [
+   "How many 3-element subsets of {1..11} sum to 2 more than a multiple of 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "38": [
+   "How many 3-element subsets of {1,2,...,10} have a sum that leaves remainder 0 when divided by 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "39": [
+   "How many 3-element subsets of {1,2,...,8} have a sum that leaves remainder 3 when divided by 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "40": [
+   "Count the 3-element subsets of the first 10 positive integers with sum ≡ 0 (mod 3).",
+   42,
+   "constrained_subset_count"
+  ],
+  "41": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "42": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 2 (mod 3).",
+   11,
+   "constrained_subset_count"
+  ],
+  "43": [
+   "How many size-3 subsets of {1..7} have sum ≡ 1 mod 4?",
+   8,
+   "constrained_subset_count"
+  ],
+  "44": [
+   "How many size-3 subsets of {1..10} have sum ≡ 0 mod 3?",
+   42,
+   "constrained_subset_count"
+  ],
+  "45": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 3 (mod 4).",
+   20,
+   "constrained_subset_count"
+  ],
+  "46": [
+   "How many 3-element subsets of {1..7} sum to 0 more than a multiple of 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "47": [
+   "How many 3-element subsets of {1..9} sum to 1 more than a multiple of 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "48": [
+   "How many 3-element subsets of {1..11} sum to 1 more than a multiple of 4?",
+   40,
+   "constrained_subset_count"
+  ],
+  "49": [
+   "How many 3-element subsets of {1,2,...,7} have a sum that leaves remainder 3 when divided by 4?",
+   8,
+   "constrained_subset_count"
+  ],
+  "50": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "51": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 3?",
+   20,
+   "constrained_subset_count"
+  ],
+  "52": [
+   "How many 3-element subsets of {1..9} sum to 2 more than a multiple of 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "53": [
+   "How many 3-element subsets of {1..11} sum to 1 more than a multiple of 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "54": [
+   "How many size-3 subsets of {1..8} have sum ≡ 2 mod 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "55": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 0 (mod 3).",
+   13,
+   "constrained_subset_count"
+  ],
+  "56": [
+   "How many 3-element subsets of {1..11} sum to 1 more than a multiple of 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "57": [
+   "From {1,...,7}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "58": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 3?",
+   57,
+   "constrained_subset_count"
+  ],
+  "59": [
+   "How many size-3 subsets of {1..8} have sum ≡ 2 mod 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "60": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 1 (mod 4).",
+   20,
+   "constrained_subset_count"
+  ],
+  "61": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "62": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 3?",
+   57,
+   "constrained_subset_count"
+  ],
+  "63": [
+   "Count the 3-element subsets of the first 10 positive integers with sum ≡ 2 (mod 4).",
+   30,
+   "constrained_subset_count"
+  ],
+  "64": [
+   "How many 3-element subsets of {1..10} sum to 2 more than a multiple of 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "65": [
+   "How many 3-element subsets of {1..10} sum to 2 more than a multiple of 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "66": [
+   "From {1,...,7}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   8,
+   "constrained_subset_count"
+  ],
+  "67": [
+   "How many size-3 subsets of {1..7} have sum ≡ 1 mod 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "68": [
+   "How many 3-element subsets of {1..10} sum to 2 more than a multiple of 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "69": [
+   "How many 3-element subsets of {1,2,...,7} have a sum that leaves remainder 0 when divided by 3?",
+   13,
+   "constrained_subset_count"
+  ],
+  "70": [
+   "How many size-3 subsets of {1..7} have sum ≡ 3 mod 4?",
+   8,
+   "constrained_subset_count"
+  ],
+  "71": [
+   "From {1,...,9}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "72": [
+   "How many 3-element subsets of {1..7} sum to 1 more than a multiple of 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "73": [
+   "How many size-3 subsets of {1..9} have sum ≡ 2 mod 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "74": [
+   "How many 3-element subsets of {1,2,...,11} have a sum that leaves remainder 1 when divided by 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "75": [
+   "How many 3-element subsets of {1,2,...,10} have a sum that leaves remainder 3 when divided by 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "76": [
+   "From {1,...,9}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   20,
+   "constrained_subset_count"
+  ],
+  "77": [
+   "From {1,...,9}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 4?",
+   20,
+   "constrained_subset_count"
+  ],
+  "78": [
+   "Count the 3-element subsets of the first 8 positive integers with sum ≡ 1 (mod 3).",
+   18,
+   "constrained_subset_count"
+  ],
+  "79": [
+   "How many 3-element subsets of {1..8} sum to 2 more than a multiple of 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "80": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 3 (mod 4).",
+   20,
+   "constrained_subset_count"
+  ],
+  "81": [
+   "How many 3-element subsets of {1..11} sum to 2 more than a multiple of 4?",
+   43,
+   "constrained_subset_count"
+  ],
+  "82": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "83": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "84": [
+   "How many 3-element subsets of {1,2,...,9} have a sum that leaves remainder 1 when divided by 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "85": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "86": [
+   "How many 3-element subsets of {1,2,...,7} have a sum that leaves remainder 0 when divided by 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "87": [
+   "How many 3-element subsets of {1,2,...,8} have a sum that leaves remainder 2 when divided by 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "88": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "89": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 1 (mod 4).",
+   8,
+   "constrained_subset_count"
+  ],
+  "90": [
+   "How many 3-element subsets of {1..8} sum to 1 more than a multiple of 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "91": [
+   "From {1,...,7}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "92": [
+   "How many 3-element subsets of {1..10} sum to 0 more than a multiple of 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "93": [
+   "How many 3-element subsets of {1,2,...,10} have a sum that leaves remainder 0 when divided by 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "94": [
+   "Count the 3-element subsets of the first 11 positive integers with sum ≡ 0 (mod 3).",
+   57,
+   "constrained_subset_count"
+  ],
+  "95": [
+   "How many 3-element subsets of {1,2,...,11} have a sum that leaves remainder 1 when divided by 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "96": [
+   "From {1,...,9}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   20,
+   "constrained_subset_count"
+  ],
+  "97": [
+   "How many 3-element subsets of {1,2,...,8} have a sum that leaves remainder 2 when divided by 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "98": [
+   "How many size-3 subsets of {1..9} have sum ≡ 1 mod 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "99": [
+   "How many 3-element subsets of {1..10} sum to 1 more than a multiple of 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "100": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "101": [
+   "Count the 3-element subsets of the first 11 positive integers with sum ≡ 2 (mod 3).",
+   54,
+   "constrained_subset_count"
+  ],
+  "102": [
+   "How many 3-element subsets of {1..8} sum to 1 more than a multiple of 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "103": [
+   "How many 3-element subsets of {1,2,...,10} have a sum that leaves remainder 2 when divided by 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "104": [
+   "From {1,...,7}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "105": [
+   "How many 3-element subsets of {1,2,...,11} have a sum that leaves remainder 0 when divided by 4?",
+   42,
+   "constrained_subset_count"
+  ],
+  "106": [
+   "How many 3-element subsets of {1..10} sum to 2 more than a multiple of 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "107": [
+   "Count the 3-element subsets of the first 8 positive integers with sum ≡ 3 (mod 4).",
+   14,
+   "constrained_subset_count"
+  ],
+  "108": [
+   "How many size-3 subsets of {1..8} have sum ≡ 2 mod 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "109": [
+   "How many size-3 subsets of {1..9} have sum ≡ 1 mod 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "110": [
+   "How many size-3 subsets of {1..10} have sum ≡ 1 mod 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "111": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "112": [
+   "How many size-3 subsets of {1..10} have sum ≡ 3 mod 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "113": [
+   "How many size-3 subsets of {1..7} have sum ≡ 0 mod 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "114": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "115": [
+   "How many 3-element subsets of {1..9} sum to 0 more than a multiple of 3?",
+   30,
+   "constrained_subset_count"
+  ],
+  "116": [
+   "How many 3-element subsets of {1,2,...,11} have a sum that leaves remainder 0 when divided by 4?",
+   42,
+   "constrained_subset_count"
+  ],
+  "117": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 3?",
+   20,
+   "constrained_subset_count"
+  ],
+  "118": [
+   "Count the 3-element subsets of the first 8 positive integers with sum ≡ 0 (mod 4).",
+   14,
+   "constrained_subset_count"
+  ],
+  "119": [
+   "How many 3-element subsets of {1..9} sum to 2 more than a multiple of 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "120": [
+   "How many 3-element subsets of {1..11} sum to 0 more than a multiple of 3?",
+   57,
+   "constrained_subset_count"
+  ],
+  "121": [
+   "How many size-3 subsets of {1..7} have sum ≡ 2 mod 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "122": [
+   "Count the 3-element subsets of the first 11 positive integers with sum ≡ 2 (mod 3).",
+   54,
+   "constrained_subset_count"
+  ],
+  "123": [
+   "How many size-3 subsets of {1..7} have sum ≡ 0 mod 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "124": [
+   "How many 3-element subsets of {1,2,...,9} have a sum that leaves remainder 0 when divided by 3?",
+   30,
+   "constrained_subset_count"
+  ],
+  "125": [
+   "Count the 3-element subsets of the first 8 positive integers with sum ≡ 2 (mod 3).",
+   18,
+   "constrained_subset_count"
+  ],
+  "126": [
+   "How many 3-element subsets of {1..11} sum to 2 more than a multiple of 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "127": [
+   "How many 3-element subsets of {1,2,...,7} have a sum that leaves remainder 0 when divided by 3?",
+   13,
+   "constrained_subset_count"
+  ],
+  "128": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "129": [
+   "How many size-3 subsets of {1..11} have sum ≡ 0 mod 4?",
+   42,
+   "constrained_subset_count"
+  ],
+  "130": [
+   "How many size-3 subsets of {1..11} have sum ≡ 2 mod 4?",
+   43,
+   "constrained_subset_count"
+  ],
+  "131": [
+   "How many size-3 subsets of {1..9} have sum ≡ 0 mod 4?",
+   22,
+   "constrained_subset_count"
+  ],
+  "132": [
+   "How many 3-element subsets of {1,2,...,10} have a sum that leaves remainder 1 when divided by 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "133": [
+   "Count the 3-element subsets of the first 10 positive integers with sum ≡ 3 (mod 4).",
+   30,
+   "constrained_subset_count"
+  ],
+  "134": [
+   "How many 3-element subsets of {1..10} sum to 2 more than a multiple of 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "135": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 3 (mod 4).",
+   20,
+   "constrained_subset_count"
+  ],
+  "136": [
+   "How many size-3 subsets of {1..11} have sum ≡ 0 mod 4?",
+   42,
+   "constrained_subset_count"
+  ],
+  "137": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 1 (mod 3).",
+   11,
+   "constrained_subset_count"
+  ],
+  "138": [
+   "Count the 3-element subsets of the first 8 positive integers with sum ≡ 3 (mod 4).",
+   14,
+   "constrained_subset_count"
+  ],
+  "139": [
+   "How many 3-element subsets of {1..7} sum to 0 more than a multiple of 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "140": [
+   "How many 3-element subsets of {1,2,...,7} have a sum that leaves remainder 1 when divided by 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "141": [
+   "How many size-3 subsets of {1..11} have sum ≡ 2 mod 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "142": [
+   "How many size-3 subsets of {1..11} have sum ≡ 1 mod 4?",
+   40,
+   "constrained_subset_count"
+  ],
+  "143": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 3?",
+   20,
+   "constrained_subset_count"
+  ],
+  "144": [
+   "How many 3-element subsets of {1,2,...,10} have a sum that leaves remainder 1 when divided by 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "145": [
+   "How many 3-element subsets of {1,2,...,10} have a sum that leaves remainder 1 when divided by 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "146": [
+   "Count the 3-element subsets of the first 8 positive integers with sum ≡ 2 (mod 3).",
+   18,
+   "constrained_subset_count"
+  ],
+  "147": [
+   "How many size-3 subsets of {1..11} have sum ≡ 1 mod 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "148": [
+   "How many size-3 subsets of {1..10} have sum ≡ 2 mod 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "149": [
+   "How many size-3 subsets of {1..7} have sum ≡ 1 mod 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "150": [
+   "From {1,...,9}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 4?",
+   20,
+   "constrained_subset_count"
+  ],
+  "151": [
+   "Count the 3-element subsets of the first 10 positive integers with sum ≡ 1 (mod 3).",
+   39,
+   "constrained_subset_count"
+  ],
+  "152": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "153": [
+   "Count the 3-element subsets of the first 10 positive integers with sum ≡ 0 (mod 3).",
+   42,
+   "constrained_subset_count"
+  ],
+  "154": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "155": [
+   "How many 3-element subsets of {1..11} sum to 3 more than a multiple of 4?",
+   40,
+   "constrained_subset_count"
+  ],
+  "156": [
+   "Count the 3-element subsets of the first 10 positive integers with sum ≡ 1 (mod 4).",
+   30,
+   "constrained_subset_count"
+  ],
+  "157": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 4?",
+   40,
+   "constrained_subset_count"
+  ],
+  "158": [
+   "How many size-3 subsets of {1..8} have sum ≡ 0 mod 3?",
+   20,
+   "constrained_subset_count"
+  ],
+  "159": [
+   "How many size-3 subsets of {1..10} have sum ≡ 2 mod 3?",
+   39,
+   "constrained_subset_count"
+  ],
+  "160": [
+   "From {1,...,7}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   8,
+   "constrained_subset_count"
+  ],
+  "161": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "162": [
+   "From {1,...,7}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "163": [
+   "How many size-3 subsets of {1..11} have sum ≡ 1 mod 4?",
+   40,
+   "constrained_subset_count"
+  ],
+  "164": [
+   "How many size-3 subsets of {1..7} have sum ≡ 2 mod 4?",
+   10,
+   "constrained_subset_count"
+  ],
+  "165": [
+   "How many size-3 subsets of {1..7} have sum ≡ 2 mod 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "166": [
+   "How many 3-element subsets of {1,2,...,8} have a sum that leaves remainder 3 when divided by 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "167": [
+   "How many size-3 subsets of {1..8} have sum ≡ 1 mod 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "168": [
+   "From {1,...,7}, how many ways to choose 3 numbers whose sum is congruent to 3 modulo 4?",
+   8,
+   "constrained_subset_count"
+  ],
+  "169": [
+   "How many 3-element subsets of {1..9} sum to 2 more than a multiple of 3?",
+   27,
+   "constrained_subset_count"
+  ],
+  "170": [
+   "How many 3-element subsets of {1,2,...,9} have a sum that leaves remainder 2 when divided by 4?",
+   22,
+   "constrained_subset_count"
+  ],
+  "171": [
+   "How many 3-element subsets of {1,2,...,11} have a sum that leaves remainder 3 when divided by 4?",
+   40,
+   "constrained_subset_count"
+  ],
+  "172": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 0 (mod 3).",
+   30,
+   "constrained_subset_count"
+  ],
+  "173": [
+   "From {1,...,9}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 4?",
+   22,
+   "constrained_subset_count"
+  ],
+  "174": [
+   "How many size-3 subsets of {1..7} have sum ≡ 0 mod 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "175": [
+   "How many 3-element subsets of {1..10} sum to 0 more than a multiple of 3?",
+   42,
+   "constrained_subset_count"
+  ],
+  "176": [
+   "How many 3-element subsets of {1,2,...,7} have a sum that leaves remainder 0 when divided by 3?",
+   13,
+   "constrained_subset_count"
+  ],
+  "177": [
+   "How many 3-element subsets of {1..8} sum to 3 more than a multiple of 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "178": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 1 (mod 4).",
+   8,
+   "constrained_subset_count"
+  ],
+  "179": [
+   "How many 3-element subsets of {1,2,...,8} have a sum that leaves remainder 0 when divided by 3?",
+   20,
+   "constrained_subset_count"
+  ],
+  "180": [
+   "How many 3-element subsets of {1,2,...,8} have a sum that leaves remainder 2 when divided by 3?",
+   18,
+   "constrained_subset_count"
+  ],
+  "181": [
+   "Count the 3-element subsets of the first 11 positive integers with sum ≡ 0 (mod 3).",
+   57,
+   "constrained_subset_count"
+  ],
+  "182": [
+   "From {1,...,10}, how many ways to choose 3 numbers whose sum is congruent to 1 modulo 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "183": [
+   "How many 3-element subsets of {1,2,...,7} have a sum that leaves remainder 2 when divided by 3?",
+   11,
+   "constrained_subset_count"
+  ],
+  "184": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 0 (mod 3).",
+   30,
+   "constrained_subset_count"
+  ],
+  "185": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 0 (mod 3).",
+   13,
+   "constrained_subset_count"
+  ],
+  "186": [
+   "How many 3-element subsets of {1,2,...,9} have a sum that leaves remainder 3 when divided by 4?",
+   20,
+   "constrained_subset_count"
+  ],
+  "187": [
+   "How many 3-element subsets of {1..9} sum to 1 more than a multiple of 4?",
+   20,
+   "constrained_subset_count"
+  ],
+  "188": [
+   "From {1,...,8}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 4?",
+   14,
+   "constrained_subset_count"
+  ],
+  "189": [
+   "How many 3-element subsets of {1..10} sum to 1 more than a multiple of 4?",
+   30,
+   "constrained_subset_count"
+  ],
+  "190": [
+   "Count the 3-element subsets of the first 7 positive integers with sum ≡ 1 (mod 3).",
+   11,
+   "constrained_subset_count"
+  ],
+  "191": [
+   "How many size-3 subsets of {1..11} have sum ≡ 1 mod 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "192": [
+   "How many size-3 subsets of {1..9} have sum ≡ 0 mod 4?",
+   22,
+   "constrained_subset_count"
+  ],
+  "193": [
+   "Count the 3-element subsets of the first 11 positive integers with sum ≡ 1 (mod 4).",
+   40,
+   "constrained_subset_count"
+  ],
+  "194": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 2 modulo 3?",
+   54,
+   "constrained_subset_count"
+  ],
+  "195": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 4?",
+   42,
+   "constrained_subset_count"
+  ],
+  "196": [
+   "How many size-3 subsets of {1..11} have sum ≡ 0 mod 3?",
+   57,
+   "constrained_subset_count"
+  ],
+  "197": [
+   "From {1,...,11}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 3?",
+   57,
+   "constrained_subset_count"
+  ],
+  "198": [
+   "How many size-3 subsets of {1..7} have sum ≡ 0 mod 4?",
+   9,
+   "constrained_subset_count"
+  ],
+  "199": [
+   "Count the 3-element subsets of the first 9 positive integers with sum ≡ 2 (mod 4).",
+   22,
+   "constrained_subset_count"
+  ]
+ },
+ "inclusion_exclusion_3set": {
+  "0": [
+   "How many integers from 1 to 594 are divisible by 3, 5, or 7?",
+   322,
+   "inclusion_exclusion_3set"
+  ],
+  "1": [
+   "How many integers from 1 to 337 are divisible by 2, 3, or 7?",
+   240,
+   "inclusion_exclusion_3set"
+  ],
+  "2": [
+   "How many integers from 1 to 257 are divisible by 2, 3, or 5?",
+   188,
+   "inclusion_exclusion_3set"
+  ],
+  "3": [
+   "In the range 1 to 443, how many integers are divisible by 2, 3, or 7?",
+   316,
+   "inclusion_exclusion_3set"
+  ],
+  "4": [
+   "How many integers from 1 to 441 are divisible by 2, 5, or 7?",
+   290,
+   "inclusion_exclusion_3set"
+  ],
+  "5": [
+   "Of the numbers 1 through 837, how many are multiples of 2, 5, or 7?",
+   550,
+   "inclusion_exclusion_3set"
+  ],
+  "6": [
+   "How many positive integers up to 787 are divisible by 2, 3, or 5?",
+   577,
+   "inclusion_exclusion_3set"
+  ],
+  "7": [
+   "How many positive integers up to 531 are divisible by 3, 4, or 5?",
+   318,
+   "inclusion_exclusion_3set"
+  ],
+  "8": [
+   "How many positive integers up to 432 are divisible by 2, 5, or 7?",
+   284,
+   "inclusion_exclusion_3set"
+  ],
+  "9": [
+   "Of the numbers 1 through 674, how many are multiples of 2, 3, or 7?",
+   481,
+   "inclusion_exclusion_3set"
+  ],
+  "10": [
+   "How many positive integers up to 785 are divisible by 2, 3, or 5?",
+   576,
+   "inclusion_exclusion_3set"
+  ],
+  "11": [
+   "How many positive integers up to 663 are divisible by 2, 3, or 7?",
+   473,
+   "inclusion_exclusion_3set"
+  ],
+  "12": [
+   "In the range 1 to 685, how many integers are divisible by 2, 5, or 7?",
+   450,
+   "inclusion_exclusion_3set"
+  ],
+  "13": [
+   "Count the integers in [1,465] divisible by at least one of 2, 5, 7.",
+   305,
+   "inclusion_exclusion_3set"
+  ],
+  "14": [
+   "In the range 1 to 309, how many integers are divisible by 2, 3, or 7?",
+   221,
+   "inclusion_exclusion_3set"
+  ],
+  "15": [
+   "In the range 1 to 413, how many integers are divisible by 2, 3, or 5?",
+   302,
+   "inclusion_exclusion_3set"
+  ],
+  "16": [
+   "How many positive integers up to 570 are divisible by 3, 5, or 7?",
+   309,
+   "inclusion_exclusion_3set"
+  ],
+  "17": [
+   "Of the numbers 1 through 734, how many are multiples of 3, 5, or 7?",
+   398,
+   "inclusion_exclusion_3set"
+  ],
+  "18": [
+   "How many positive integers up to 385 are divisible by 2, 3, or 5?",
+   282,
+   "inclusion_exclusion_3set"
+  ],
+  "19": [
+   "In the range 1 to 893, how many integers are divisible by 2, 3, or 5?",
+   654,
+   "inclusion_exclusion_3set"
+  ],
+  "20": [
+   "How many integers from 1 to 354 are divisible by 2, 5, or 7?",
+   232,
+   "inclusion_exclusion_3set"
+  ],
+  "21": [
+   "How many positive integers up to 368 are divisible by 3, 5, or 7?",
+   199,
+   "inclusion_exclusion_3set"
+  ],
+  "22": [
+   "How many integers from 1 to 343 are divisible by 3, 4, or 5?",
+   205,
+   "inclusion_exclusion_3set"
+  ],
+  "23": [
+   "How many integers from 1 to 496 are divisible by 2, 3, or 5?",
+   364,
+   "inclusion_exclusion_3set"
+  ],
+  "24": [
+   "Count the integers in [1,592] divisible by at least one of 2, 3, 7.",
+   423,
+   "inclusion_exclusion_3set"
+  ],
+  "25": [
+   "Count the integers in [1,586] divisible by at least one of 2, 3, 5.",
+   430,
+   "inclusion_exclusion_3set"
+  ],
+  "26": [
+   "How many positive integers up to 407 are divisible by 3, 4, or 5?",
+   243,
+   "inclusion_exclusion_3set"
+  ],
+  "27": [
+   "Of the numbers 1 through 864, how many are multiples of 3, 5, or 7?",
+   469,
+   "inclusion_exclusion_3set"
+  ],
+  "28": [
+   "In the range 1 to 315, how many integers are divisible by 3, 4, or 5?",
+   189,
+   "inclusion_exclusion_3set"
+  ],
+  "29": [
+   "Of the numbers 1 through 761, how many are multiples of 2, 3, or 5?",
+   558,
+   "inclusion_exclusion_3set"
+  ],
+  "30": [
+   "In the range 1 to 752, how many integers are divisible by 2, 5, or 7?",
+   494,
+   "inclusion_exclusion_3set"
+  ],
+  "31": [
+   "How many integers from 1 to 212 are divisible by 3, 5, or 7?",
+   114,
+   "inclusion_exclusion_3set"
+  ],
+  "32": [
+   "Count the integers in [1,279] divisible by at least one of 3, 4, 5.",
+   167,
+   "inclusion_exclusion_3set"
+  ],
+  "33": [
+   "Count the integers in [1,784] divisible by at least one of 3, 4, 5.",
+   470,
+   "inclusion_exclusion_3set"
+  ],
+  "34": [
+   "In the range 1 to 741, how many integers are divisible by 2, 5, or 7?",
+   486,
+   "inclusion_exclusion_3set"
+  ],
+  "35": [
+   "Count the integers in [1,761] divisible by at least one of 2, 5, 7.",
+   499,
+   "inclusion_exclusion_3set"
+  ],
+  "36": [
+   "How many integers from 1 to 536 are divisible by 2, 3, or 5?",
+   393,
+   "inclusion_exclusion_3set"
+  ],
+  "37": [
+   "How many integers from 1 to 898 are divisible by 2, 3, or 7?",
+   642,
+   "inclusion_exclusion_3set"
+  ],
+  "38": [
+   "How many positive integers up to 854 are divisible by 3, 5, or 7?",
+   464,
+   "inclusion_exclusion_3set"
+  ],
+  "39": [
+   "How many positive integers up to 414 are divisible by 2, 5, or 7?",
+   272,
+   "inclusion_exclusion_3set"
+  ],
+  "40": [
+   "In the range 1 to 669, how many integers are divisible by 2, 3, or 7?",
+   478,
+   "inclusion_exclusion_3set"
+  ],
+  "41": [
+   "Count the integers in [1,590] divisible by at least one of 2, 5, 7.",
+   388,
+   "inclusion_exclusion_3set"
+  ],
+  "42": [
+   "How many integers from 1 to 854 are divisible by 2, 3, or 5?",
+   626,
+   "inclusion_exclusion_3set"
+  ],
+  "43": [
+   "Count the integers in [1,239] divisible by at least one of 2, 5, 7.",
+   157,
+   "inclusion_exclusion_3set"
+  ],
+  "44": [
+   "In the range 1 to 618, how many integers are divisible by 2, 3, or 7?",
+   441,
+   "inclusion_exclusion_3set"
+  ],
+  "45": [
+   "How many positive integers up to 478 are divisible by 3, 5, or 7?",
+   260,
+   "inclusion_exclusion_3set"
+  ],
+  "46": [
+   "How many integers from 1 to 278 are divisible by 3, 5, or 7?",
+   150,
+   "inclusion_exclusion_3set"
+  ],
+  "47": [
+   "How many positive integers up to 560 are divisible by 2, 3, or 5?",
+   410,
+   "inclusion_exclusion_3set"
+  ],
+  "48": [
+   "Count the integers in [1,761] divisible by at least one of 2, 5, 7.",
+   499,
+   "inclusion_exclusion_3set"
+  ],
+  "49": [
+   "How many positive integers up to 268 are divisible by 2, 5, or 7?",
+   176,
+   "inclusion_exclusion_3set"
+  ],
+  "50": [
+   "Of the numbers 1 through 709, how many are multiples of 2, 5, or 7?",
+   466,
+   "inclusion_exclusion_3set"
+  ],
+  "51": [
+   "In the range 1 to 449, how many integers are divisible by 2, 3, or 7?",
+   320,
+   "inclusion_exclusion_3set"
+  ],
+  "52": [
+   "In the range 1 to 474, how many integers are divisible by 2, 3, or 5?",
+   347,
+   "inclusion_exclusion_3set"
+  ],
+  "53": [
+   "How many positive integers up to 831 are divisible by 3, 4, or 5?",
+   498,
+   "inclusion_exclusion_3set"
+  ],
+  "54": [
+   "In the range 1 to 340, how many integers are divisible by 3, 5, or 7?",
+   185,
+   "inclusion_exclusion_3set"
+  ],
+  "55": [
+   "Count the integers in [1,292] divisible by at least one of 3, 4, 5.",
+   175,
+   "inclusion_exclusion_3set"
+  ],
+  "56": [
+   "How many positive integers up to 773 are divisible by 2, 3, or 5?",
+   566,
+   "inclusion_exclusion_3set"
+  ],
+  "57": [
+   "In the range 1 to 243, how many integers are divisible by 2, 5, or 7?",
+   159,
+   "inclusion_exclusion_3set"
+  ],
+  "58": [
+   "Count the integers in [1,794] divisible by at least one of 3, 4, 5.",
+   476,
+   "inclusion_exclusion_3set"
+  ],
+  "59": [
+   "How many positive integers up to 429 are divisible by 2, 3, or 5?",
+   315,
+   "inclusion_exclusion_3set"
+  ],
+  "60": [
+   "In the range 1 to 515, how many integers are divisible by 2, 5, or 7?",
+   339,
+   "inclusion_exclusion_3set"
+  ],
+  "61": [
+   "In the range 1 to 706, how many integers are divisible by 3, 4, or 5?",
+   423,
+   "inclusion_exclusion_3set"
+  ],
+  "62": [
+   "How many integers from 1 to 789 are divisible by 3, 4, or 5?",
+   474,
+   "inclusion_exclusion_3set"
+  ],
+  "63": [
+   "Of the numbers 1 through 655, how many are multiples of 3, 5, or 7?",
+   356,
+   "inclusion_exclusion_3set"
+  ],
+  "64": [
+   "In the range 1 to 687, how many integers are divisible by 2, 3, or 5?",
+   504,
+   "inclusion_exclusion_3set"
+  ],
+  "65": [
+   "Of the numbers 1 through 624, how many are multiples of 2, 5, or 7?",
+   410,
+   "inclusion_exclusion_3set"
+  ],
+  "66": [
+   "How many positive integers up to 272 are divisible by 2, 5, or 7?",
+   178,
+   "inclusion_exclusion_3set"
+  ],
+  "67": [
+   "How many positive integers up to 276 are divisible by 2, 3, or 5?",
+   203,
+   "inclusion_exclusion_3set"
+  ],
+  "68": [
+   "How many integers from 1 to 677 are divisible by 2, 3, or 7?",
+   483,
+   "inclusion_exclusion_3set"
+  ],
+  "69": [
+   "How many integers from 1 to 900 are divisible by 2, 3, or 5?",
+   660,
+   "inclusion_exclusion_3set"
+  ],
+  "70": [
+   "How many positive integers up to 321 are divisible by 2, 5, or 7?",
+   210,
+   "inclusion_exclusion_3set"
+  ],
+  "71": [
+   "In the range 1 to 531, how many integers are divisible by 2, 3, or 7?",
+   379,
+   "inclusion_exclusion_3set"
+  ],
+  "72": [
+   "Count the integers in [1,275] divisible by at least one of 2, 3, 7.",
+   196,
+   "inclusion_exclusion_3set"
+  ],
+  "73": [
+   "In the range 1 to 486, how many integers are divisible by 2, 3, or 5?",
+   357,
+   "inclusion_exclusion_3set"
+  ],
+  "74": [
+   "How many integers from 1 to 825 are divisible by 2, 3, or 7?",
+   589,
+   "inclusion_exclusion_3set"
+  ],
+  "75": [
+   "How many positive integers up to 661 are divisible by 2, 3, or 7?",
+   471,
+   "inclusion_exclusion_3set"
+  ],
+  "76": [
+   "How many positive integers up to 579 are divisible by 3, 5, or 7?",
+   314,
+   "inclusion_exclusion_3set"
+  ],
+  "77": [
+   "Count the integers in [1,458] divisible by at least one of 2, 5, 7.",
+   301,
+   "inclusion_exclusion_3set"
+  ],
+  "78": [
+   "Of the numbers 1 through 392, how many are multiples of 2, 3, or 5?",
+   287,
+   "inclusion_exclusion_3set"
+  ],
+  "79": [
+   "Of the numbers 1 through 348, how many are multiples of 3, 5, or 7?",
+   189,
+   "inclusion_exclusion_3set"
+  ],
+  "80": [
+   "In the range 1 to 478, how many integers are divisible by 3, 5, or 7?",
+   260,
+   "inclusion_exclusion_3set"
+  ],
+  "81": [
+   "Of the numbers 1 through 718, how many are multiples of 3, 5, or 7?",
+   389,
+   "inclusion_exclusion_3set"
+  ],
+  "82": [
+   "In the range 1 to 348, how many integers are divisible by 3, 5, or 7?",
+   189,
+   "inclusion_exclusion_3set"
+  ],
+  "83": [
+   "How many integers from 1 to 708 are divisible by 3, 5, or 7?",
+   384,
+   "inclusion_exclusion_3set"
+  ],
+  "84": [
+   "How many positive integers up to 490 are divisible by 2, 3, or 5?",
+   360,
+   "inclusion_exclusion_3set"
+  ],
+  "85": [
+   "How many integers from 1 to 404 are divisible by 2, 3, or 7?",
+   288,
+   "inclusion_exclusion_3set"
+  ],
+  "86": [
+   "Of the numbers 1 through 231, how many are multiples of 2, 3, or 7?",
+   165,
+   "inclusion_exclusion_3set"
+  ],
+  "87": [
+   "In the range 1 to 349, how many integers are divisible by 3, 4, or 5?",
+   208,
+   "inclusion_exclusion_3set"
+  ],
+  "88": [
+   "Of the numbers 1 through 607, how many are multiples of 3, 4, or 5?",
+   364,
+   "inclusion_exclusion_3set"
+  ],
+  "89": [
+   "Of the numbers 1 through 283, how many are multiples of 2, 3, or 7?",
+   201,
+   "inclusion_exclusion_3set"
+  ],
+  "90": [
+   "How many positive integers up to 408 are divisible by 2, 3, or 5?",
+   299,
+   "inclusion_exclusion_3set"
+  ],
+  "91": [
+   "Count the integers in [1,285] divisible by at least one of 2, 3, 7.",
+   203,
+   "inclusion_exclusion_3set"
+  ],
+  "92": [
+   "In the range 1 to 631, how many integers are divisible by 2, 3, or 7?",
+   450,
+   "inclusion_exclusion_3set"
+  ],
+  "93": [
+   "Of the numbers 1 through 706, how many are multiples of 2, 3, or 7?",
+   504,
+   "inclusion_exclusion_3set"
+  ],
+  "94": [
+   "How many integers from 1 to 759 are divisible by 3, 4, or 5?",
+   455,
+   "inclusion_exclusion_3set"
+  ],
+  "95": [
+   "In the range 1 to 744, how many integers are divisible by 2, 3, or 7?",
+   531,
+   "inclusion_exclusion_3set"
+  ],
+  "96": [
+   "How many positive integers up to 579 are divisible by 2, 5, or 7?",
+   380,
+   "inclusion_exclusion_3set"
+  ],
+  "97": [
+   "Of the numbers 1 through 399, how many are multiples of 3, 5, or 7?",
+   216,
+   "inclusion_exclusion_3set"
+  ],
+  "98": [
+   "How many integers from 1 to 564 are divisible by 2, 3, or 7?",
+   403,
+   "inclusion_exclusion_3set"
+  ],
+  "99": [
+   "Count the integers in [1,613] divisible by at least one of 3, 5, 7.",
+   332,
+   "inclusion_exclusion_3set"
+  ],
+  "100": [
+   "How many positive integers up to 349 are divisible by 3, 5, or 7?",
+   189,
+   "inclusion_exclusion_3set"
+  ],
+  "101": [
+   "In the range 1 to 795, how many integers are divisible by 3, 4, or 5?",
+   477,
+   "inclusion_exclusion_3set"
+  ],
+  "102": [
+   "Of the numbers 1 through 351, how many are multiples of 2, 3, or 7?",
+   251,
+   "inclusion_exclusion_3set"
+  ],
+  "103": [
+   "How many integers from 1 to 667 are divisible by 3, 4, or 5?",
+   400,
+   "inclusion_exclusion_3set"
+  ],
+  "104": [
+   "Count the integers in [1,220] divisible by at least one of 3, 4, 5.",
+   132,
+   "inclusion_exclusion_3set"
+  ],
+  "105": [
+   "In the range 1 to 805, how many integers are divisible by 2, 5, or 7?",
+   529,
+   "inclusion_exclusion_3set"
+  ],
+  "106": [
+   "In the range 1 to 690, how many integers are divisible by 2, 3, or 5?",
+   506,
+   "inclusion_exclusion_3set"
+  ],
+  "107": [
+   "In the range 1 to 452, how many integers are divisible by 2, 3, or 7?",
+   322,
+   "inclusion_exclusion_3set"
+  ],
+  "108": [
+   "How many positive integers up to 333 are divisible by 2, 3, or 5?",
+   244,
+   "inclusion_exclusion_3set"
+  ],
+  "109": [
+   "How many positive integers up to 486 are divisible by 3, 4, or 5?",
+   292,
+   "inclusion_exclusion_3set"
+  ],
+  "110": [
+   "Count the integers in [1,597] divisible by at least one of 2, 3, 7.",
+   427,
+   "inclusion_exclusion_3set"
+  ],
+  "111": [
+   "How many positive integers up to 417 are divisible by 2, 5, or 7?",
+   274,
+   "inclusion_exclusion_3set"
+  ],
+  "112": [
+   "In the range 1 to 692, how many integers are divisible by 2, 3, or 7?",
+   494,
+   "inclusion_exclusion_3set"
+  ],
+  "113": [
+   "How many integers from 1 to 231 are divisible by 2, 5, or 7?",
+   152,
+   "inclusion_exclusion_3set"
+  ],
+  "114": [
+   "How many integers from 1 to 446 are divisible by 2, 3, or 7?",
+   318,
+   "inclusion_exclusion_3set"
+  ],
+  "115": [
+   "How many integers from 1 to 490 are divisible by 3, 4, or 5?",
+   295,
+   "inclusion_exclusion_3set"
+  ],
+  "116": [
+   "Of the numbers 1 through 814, how many are multiples of 2, 3, or 7?",
+   582,
+   "inclusion_exclusion_3set"
+  ],
+  "117": [
+   "Count the integers in [1,445] divisible by at least one of 3, 4, 5.",
+   267,
+   "inclusion_exclusion_3set"
+  ],
+  "118": [
+   "Of the numbers 1 through 847, how many are multiples of 3, 4, or 5?",
+   508,
+   "inclusion_exclusion_3set"
+  ],
+  "119": [
+   "In the range 1 to 492, how many integers are divisible by 3, 4, or 5?",
+   296,
+   "inclusion_exclusion_3set"
+  ],
+  "120": [
+   "Count the integers in [1,727] divisible by at least one of 3, 4, 5.",
+   436,
+   "inclusion_exclusion_3set"
+  ],
+  "121": [
+   "In the range 1 to 289, how many integers are divisible by 3, 4, or 5?",
+   172,
+   "inclusion_exclusion_3set"
+  ],
+  "122": [
+   "In the range 1 to 722, how many integers are divisible by 3, 4, or 5?",
+   432,
+   "inclusion_exclusion_3set"
+  ],
+  "123": [
+   "How many integers from 1 to 253 are divisible by 2, 5, or 7?",
+   165,
+   "inclusion_exclusion_3set"
+  ],
+  "124": [
+   "How many integers from 1 to 484 are divisible by 2, 3, or 7?",
+   346,
+   "inclusion_exclusion_3set"
+  ],
+  "125": [
+   "In the range 1 to 448, how many integers are divisible by 3, 4, or 5?",
+   269,
+   "inclusion_exclusion_3set"
+  ],
+  "126": [
+   "In the range 1 to 786, how many integers are divisible by 2, 3, or 5?",
+   577,
+   "inclusion_exclusion_3set"
+  ],
+  "127": [
+   "In the range 1 to 245, how many integers are divisible by 2, 3, or 7?",
+   175,
+   "inclusion_exclusion_3set"
+  ],
+  "128": [
+   "In the range 1 to 442, how many integers are divisible by 3, 5, or 7?",
+   240,
+   "inclusion_exclusion_3set"
+  ],
+  "129": [
+   "Of the numbers 1 through 800, how many are multiples of 2, 3, or 7?",
+   571,
+   "inclusion_exclusion_3set"
+  ],
+  "130": [
+   "Of the numbers 1 through 732, how many are multiples of 3, 5, or 7?",
+   398,
+   "inclusion_exclusion_3set"
+  ],
+  "131": [
+   "In the range 1 to 523, how many integers are divisible by 2, 5, or 7?",
+   343,
+   "inclusion_exclusion_3set"
+  ],
+  "132": [
+   "How many positive integers up to 622 are divisible by 3, 4, or 5?",
+   373,
+   "inclusion_exclusion_3set"
+  ],
+  "133": [
+   "How many positive integers up to 705 are divisible by 2, 5, or 7?",
+   463,
+   "inclusion_exclusion_3set"
+  ],
+  "134": [
+   "Count the integers in [1,695] divisible by at least one of 2, 3, 7.",
+   496,
+   "inclusion_exclusion_3set"
+  ],
+  "135": [
+   "In the range 1 to 885, how many integers are divisible by 2, 5, or 7?",
+   581,
+   "inclusion_exclusion_3set"
+  ],
+  "136": [
+   "In the range 1 to 789, how many integers are divisible by 3, 5, or 7?",
+   428,
+   "inclusion_exclusion_3set"
+  ],
+  "137": [
+   "How many positive integers up to 274 are divisible by 3, 4, or 5?",
+   164,
+   "inclusion_exclusion_3set"
+  ],
+  "138": [
+   "How many positive integers up to 398 are divisible by 3, 5, or 7?",
+   215,
+   "inclusion_exclusion_3set"
+  ],
+  "139": [
+   "In the range 1 to 201, how many integers are divisible by 2, 3, or 7?",
+   143,
+   "inclusion_exclusion_3set"
+  ],
+  "140": [
+   "Of the numbers 1 through 297, how many are multiples of 2, 3, or 5?",
+   218,
+   "inclusion_exclusion_3set"
+  ],
+  "141": [
+   "In the range 1 to 729, how many integers are divisible by 2, 3, or 5?",
+   535,
+   "inclusion_exclusion_3set"
+  ],
+  "142": [
+   "Count the integers in [1,796] divisible by at least one of 3, 5, 7.",
+   432,
+   "inclusion_exclusion_3set"
+  ],
+  "143": [
+   "How many integers from 1 to 388 are divisible by 2, 3, or 5?",
+   285,
+   "inclusion_exclusion_3set"
+  ],
+  "144": [
+   "How many positive integers up to 659 are divisible by 2, 3, or 5?",
+   483,
+   "inclusion_exclusion_3set"
+  ],
+  "145": [
+   "How many integers from 1 to 632 are divisible by 2, 3, or 7?",
+   451,
+   "inclusion_exclusion_3set"
+  ],
+  "146": [
+   "In the range 1 to 336, how many integers are divisible by 3, 4, or 5?",
+   202,
+   "inclusion_exclusion_3set"
+  ],
+  "147": [
+   "How many positive integers up to 819 are divisible by 3, 4, or 5?",
+   491,
+   "inclusion_exclusion_3set"
+  ],
+  "148": [
+   "How many positive integers up to 613 are divisible by 2, 3, or 5?",
+   449,
+   "inclusion_exclusion_3set"
+  ],
+  "149": [
+   "Of the numbers 1 through 272, how many are multiples of 2, 3, or 5?",
+   199,
+   "inclusion_exclusion_3set"
+  ],
+  "150": [
+   "Count the integers in [1,534] divisible by at least one of 3, 5, 7.",
+   290,
+   "inclusion_exclusion_3set"
+  ],
+  "151": [
+   "Of the numbers 1 through 619, how many are multiples of 3, 4, or 5?",
+   371,
+   "inclusion_exclusion_3set"
+  ],
+  "152": [
+   "How many positive integers up to 600 are divisible by 3, 4, or 5?",
+   360,
+   "inclusion_exclusion_3set"
+  ],
+  "153": [
+   "How many integers from 1 to 702 are divisible by 2, 3, or 5?",
+   515,
+   "inclusion_exclusion_3set"
+  ],
+  "154": [
+   "How many positive integers up to 408 are divisible by 3, 5, or 7?",
+   221,
+   "inclusion_exclusion_3set"
+  ],
+  "155": [
+   "In the range 1 to 794, how many integers are divisible by 2, 3, or 7?",
+   567,
+   "inclusion_exclusion_3set"
+  ],
+  "156": [
+   "Count the integers in [1,699] divisible by at least one of 3, 5, 7.",
+   379,
+   "inclusion_exclusion_3set"
+  ],
+  "157": [
+   "Count the integers in [1,826] divisible by at least one of 3, 5, 7.",
+   448,
+   "inclusion_exclusion_3set"
+  ],
+  "158": [
+   "How many integers from 1 to 900 are divisible by 3, 4, or 5?",
+   540,
+   "inclusion_exclusion_3set"
+  ],
+  "159": [
+   "How many positive integers up to 603 are divisible by 3, 4, or 5?",
+   361,
+   "inclusion_exclusion_3set"
+  ],
+  "160": [
+   "Of the numbers 1 through 325, how many are multiples of 2, 3, or 7?",
+   231,
+   "inclusion_exclusion_3set"
+  ],
+  "161": [
+   "In the range 1 to 730, how many integers are divisible by 3, 4, or 5?",
+   439,
+   "inclusion_exclusion_3set"
+  ],
+  "162": [
+   "In the range 1 to 254, how many integers are divisible by 3, 4, or 5?",
+   152,
+   "inclusion_exclusion_3set"
+  ],
+  "163": [
+   "How many positive integers up to 754 are divisible by 2, 3, or 7?",
+   539,
+   "inclusion_exclusion_3set"
+  ],
+  "164": [
+   "Of the numbers 1 through 297, how many are multiples of 2, 5, or 7?",
+   195,
+   "inclusion_exclusion_3set"
+  ],
+  "165": [
+   "How many positive integers up to 217 are divisible by 2, 3, or 5?",
+   159,
+   "inclusion_exclusion_3set"
+  ],
+  "166": [
+   "How many positive integers up to 383 are divisible by 2, 3, or 7?",
+   273,
+   "inclusion_exclusion_3set"
+  ],
+  "167": [
+   "Of the numbers 1 through 434, how many are multiples of 2, 3, or 5?",
+   318,
+   "inclusion_exclusion_3set"
+  ],
+  "168": [
+   "Of the numbers 1 through 317, how many are multiples of 2, 3, or 7?",
+   226,
+   "inclusion_exclusion_3set"
+  ],
+  "169": [
+   "In the range 1 to 461, how many integers are divisible by 2, 3, or 7?",
+   329,
+   "inclusion_exclusion_3set"
+  ],
+  "170": [
+   "Of the numbers 1 through 553, how many are multiples of 2, 3, or 7?",
+   395,
+   "inclusion_exclusion_3set"
+  ],
+  "171": [
+   "How many positive integers up to 775 are divisible by 3, 5, or 7?",
+   421,
+   "inclusion_exclusion_3set"
+  ],
+  "172": [
+   "Count the integers in [1,560] divisible by at least one of 3, 4, 5.",
+   336,
+   "inclusion_exclusion_3set"
+  ],
+  "173": [
+   "In the range 1 to 531, how many integers are divisible by 3, 5, or 7?",
+   288,
+   "inclusion_exclusion_3set"
+  ],
+  "174": [
+   "How many integers from 1 to 204 are divisible by 3, 5, or 7?",
+   111,
+   "inclusion_exclusion_3set"
+  ],
+  "175": [
+   "How many integers from 1 to 654 are divisible by 3, 4, or 5?",
+   392,
+   "inclusion_exclusion_3set"
+  ],
+  "176": [
+   "Count the integers in [1,230] divisible by at least one of 2, 3, 5.",
+   168,
+   "inclusion_exclusion_3set"
+  ],
+  "177": [
+   "How many positive integers up to 421 are divisible by 3, 5, or 7?",
+   228,
+   "inclusion_exclusion_3set"
+  ],
+  "178": [
+   "How many positive integers up to 315 are divisible by 2, 3, or 7?",
+   225,
+   "inclusion_exclusion_3set"
+  ],
+  "179": [
+   "How many integers from 1 to 402 are divisible by 2, 3, or 5?",
+   295,
+   "inclusion_exclusion_3set"
+  ],
+  "180": [
+   "How many integers from 1 to 347 are divisible by 2, 3, or 5?",
+   254,
+   "inclusion_exclusion_3set"
+  ],
+  "181": [
+   "How many integers from 1 to 794 are divisible by 2, 3, or 5?",
+   582,
+   "inclusion_exclusion_3set"
+  ],
+  "182": [
+   "Count the integers in [1,662] divisible by at least one of 2, 5, 7.",
+   435,
+   "inclusion_exclusion_3set"
+  ],
+  "183": [
+   "How many integers from 1 to 310 are divisible by 2, 3, or 5?",
+   228,
+   "inclusion_exclusion_3set"
+  ],
+  "184": [
+   "Count the integers in [1,482] divisible by at least one of 2, 3, 5.",
+   353,
+   "inclusion_exclusion_3set"
+  ],
+  "185": [
+   "Count the integers in [1,315] divisible by at least one of 3, 4, 5.",
+   189,
+   "inclusion_exclusion_3set"
+  ],
+  "186": [
+   "In the range 1 to 550, how many integers are divisible by 3, 5, or 7?",
+   299,
+   "inclusion_exclusion_3set"
+  ],
+  "187": [
+   "In the range 1 to 559, how many integers are divisible by 3, 5, or 7?",
+   303,
+   "inclusion_exclusion_3set"
+  ],
+  "188": [
+   "How many integers from 1 to 426 are divisible by 2, 5, or 7?",
+   280,
+   "inclusion_exclusion_3set"
+  ],
+  "189": [
+   "Count the integers in [1,695] divisible by at least one of 2, 5, 7.",
+   457,
+   "inclusion_exclusion_3set"
+  ],
+  "190": [
+   "Of the numbers 1 through 276, how many are multiples of 3, 4, or 5?",
+   166,
+   "inclusion_exclusion_3set"
+  ],
+  "191": [
+   "In the range 1 to 740, how many integers are divisible by 2, 3, or 7?",
+   528,
+   "inclusion_exclusion_3set"
+  ],
+  "192": [
+   "How many integers from 1 to 582 are divisible by 2, 5, or 7?",
+   383,
+   "inclusion_exclusion_3set"
+  ],
+  "193": [
+   "Count the integers in [1,775] divisible by at least one of 3, 5, 7.",
+   421,
+   "inclusion_exclusion_3set"
+  ],
+  "194": [
+   "In the range 1 to 817, how many integers are divisible by 2, 3, or 5?",
+   599,
+   "inclusion_exclusion_3set"
+  ],
+  "195": [
+   "How many integers from 1 to 809 are divisible by 3, 5, or 7?",
+   438,
+   "inclusion_exclusion_3set"
+  ],
+  "196": [
+   "How many integers from 1 to 864 are divisible by 2, 3, or 7?",
+   617,
+   "inclusion_exclusion_3set"
+  ],
+  "197": [
+   "Count the integers in [1,752] divisible by at least one of 2, 3, 5.",
+   551,
+   "inclusion_exclusion_3set"
+  ],
+  "198": [
+   "How many positive integers up to 254 are divisible by 2, 3, or 7?",
+   181,
+   "inclusion_exclusion_3set"
+  ],
+  "199": [
+   "Of the numbers 1 through 552, how many are multiples of 3, 5, or 7?",
+   300,
+   "inclusion_exclusion_3set"
+  ]
+ },
+ "constrained_divisor_count": {
+  "0": [
+   "How many positive divisors of 2100 are greater than 24?",
+   23,
+   "constrained_divisor_count"
+  ],
+  "1": [
+   "How many positive divisors of 540 are less than 60?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "2": [
+   "How many positive divisors of 2100 are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "3": [
+   "Of the divisors of 660, how many are less than 40?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "4": [
+   "660 has how many positive divisors that are greater than 8?",
+   18,
+   "constrained_divisor_count"
+  ],
+  "5": [
+   "Find the number of greater than 20 divisors of 1152.",
+   14,
+   "constrained_divisor_count"
+  ],
+  "6": [
+   "How many positive divisors of 1800 are less than 60?",
+   20,
+   "constrained_divisor_count"
+  ],
+  "7": [
+   "792 has how many positive divisors that are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "8": [
+   "Of the divisors of 660, how many are greater than 24?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "9": [
+   "Count the divisors of 960 that are less than 24.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "10": [
+   "1120 has how many positive divisors that are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "11": [
+   "960 has how many positive divisors that are less than 60?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "12": [
+   "Of the divisors of 990, how many are greater than 20?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "13": [
+   "Of the divisors of 720, how many are greater than 10?",
+   21,
+   "constrained_divisor_count"
+  ],
+  "14": [
+   "Find the number of less than 50 divisors of 504.",
+   16,
+   "constrained_divisor_count"
+  ],
+  "15": [
+   "Find the number of odd divisors of 630.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "16": [
+   "Count the divisors of 840 that are greater than 30.",
+   15,
+   "constrained_divisor_count"
+  ],
+  "17": [
+   "Count the divisors of 1008 that are greater than 15.",
+   20,
+   "constrained_divisor_count"
+  ],
+  "18": [
+   "600 has how many positive divisors that are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "19": [
+   "Find the number of odd divisors of 1320.",
+   8,
+   "constrained_divisor_count"
+  ],
+  "20": [
+   "Of the divisors of 2520, how many are less than 50?",
+   24,
+   "constrained_divisor_count"
+  ],
+  "21": [
+   "Count the divisors of 600 that are greater than 24.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "22": [
+   "How many positive divisors of 540 are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "23": [
+   "How many positive divisors of 1680 are greater than 8?",
+   32,
+   "constrained_divisor_count"
+  ],
+  "24": [
+   "Of the divisors of 1440, how many are greater than 10?",
+   27,
+   "constrained_divisor_count"
+  ],
+  "25": [
+   "Of the divisors of 900, how many are odd?",
+   9,
+   "constrained_divisor_count"
+  ],
+  "26": [
+   "Of the divisors of 1560, how many are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "27": [
+   "Count the divisors of 1260 that are greater than 15.",
+   24,
+   "constrained_divisor_count"
+  ],
+  "28": [
+   "Find the number of less than 20 divisors of 504.",
+   11,
+   "constrained_divisor_count"
+  ],
+  "29": [
+   "Count the divisors of 1080 that are odd.",
+   8,
+   "constrained_divisor_count"
+  ],
+  "30": [
+   "Find the number of greater than 6 divisors of 1080.",
+   26,
+   "constrained_divisor_count"
+  ],
+  "31": [
+   "360 has how many positive divisors that are greater than 8?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "32": [
+   "Of the divisors of 480, how many are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "33": [
+   "Of the divisors of 1120, how many are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "34": [
+   "Of the divisors of 1008, how many are greater than 6?",
+   25,
+   "constrained_divisor_count"
+  ],
+  "35": [
+   "Count the divisors of 1080 that are greater than 10.",
+   23,
+   "constrained_divisor_count"
+  ],
+  "36": [
+   "How many positive divisors of 792 are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "37": [
+   "Find the number of less than 15 divisors of 1320.",
+   10,
+   "constrained_divisor_count"
+  ],
+  "38": [
+   "How many positive divisors of 1260 are greater than 24?",
+   21,
+   "constrained_divisor_count"
+  ],
+  "39": [
+   "How many positive divisors of 630 are greater than 24?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "40": [
+   "How many positive divisors of 960 are less than 40?",
+   15,
+   "constrained_divisor_count"
+  ],
+  "41": [
+   "Of the divisors of 900, how many are greater than 12?",
+   18,
+   "constrained_divisor_count"
+  ],
+  "42": [
+   "How many positive divisors of 1260 are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "43": [
+   "420 has how many positive divisors that are greater than 10?",
+   16,
+   "constrained_divisor_count"
+  ],
+  "44": [
+   "How many positive divisors of 924 are less than 40?",
+   13,
+   "constrained_divisor_count"
+  ],
+  "45": [
+   "Count the divisors of 720 that are greater than 30.",
+   14,
+   "constrained_divisor_count"
+  ],
+  "46": [
+   "2520 has how many positive divisors that are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "47": [
+   "840 has how many positive divisors that are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "48": [
+   "Find the number of greater than 10 divisors of 1080.",
+   23,
+   "constrained_divisor_count"
+  ],
+  "49": [
+   "How many positive divisors of 480 are greater than 24?",
+   11,
+   "constrained_divisor_count"
+  ],
+  "50": [
+   "Of the divisors of 990, how many are greater than 20?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "51": [
+   "Of the divisors of 660, how many are less than 40?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "52": [
+   "Find the number of odd divisors of 720.",
+   6,
+   "constrained_divisor_count"
+  ],
+  "53": [
+   "1152 has how many positive divisors that are odd?",
+   3,
+   "constrained_divisor_count"
+  ],
+  "54": [
+   "540 has how many positive divisors that are greater than 15?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "55": [
+   "Of the divisors of 480, how many are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "56": [
+   "2100 has how many positive divisors that are less than 15?",
+   10,
+   "constrained_divisor_count"
+  ],
+  "57": [
+   "Of the divisors of 420, how many are greater than 6?",
+   18,
+   "constrained_divisor_count"
+  ],
+  "58": [
+   "Of the divisors of 1120, how many are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "59": [
+   "660 has how many positive divisors that are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "60": [
+   "Count the divisors of 756 that are greater than 10.",
+   17,
+   "constrained_divisor_count"
+  ],
+  "61": [
+   "Find the number of odd divisors of 990.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "62": [
+   "How many positive divisors of 1120 are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "63": [
+   "Count the divisors of 960 that are greater than 15.",
+   18,
+   "constrained_divisor_count"
+  ],
+  "64": [
+   "Find the number of odd divisors of 990.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "65": [
+   "Find the number of greater than 15 divisors of 924.",
+   15,
+   "constrained_divisor_count"
+  ],
+  "66": [
+   "Of the divisors of 480, how many are greater than 24?",
+   11,
+   "constrained_divisor_count"
+  ],
+  "67": [
+   "480 has how many positive divisors that are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "68": [
+   "Find the number of greater than 8 divisors of 1560.",
+   25,
+   "constrained_divisor_count"
+  ],
+  "69": [
+   "How many positive divisors of 1320 are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "70": [
+   "504 has how many positive divisors that are greater than 30?",
+   10,
+   "constrained_divisor_count"
+  ],
+  "71": [
+   "How many positive divisors of 792 are less than 40?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "72": [
+   "Of the divisors of 480, how many are less than 50?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "73": [
+   "Find the number of odd divisors of 720.",
+   6,
+   "constrained_divisor_count"
+  ],
+  "74": [
+   "How many positive divisors of 2100 are less than 40?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "75": [
+   "960 has how many positive divisors that are less than 30?",
+   13,
+   "constrained_divisor_count"
+  ],
+  "76": [
+   "Of the divisors of 840, how many are greater than 24?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "77": [
+   "Of the divisors of 1800, how many are greater than 20?",
+   23,
+   "constrained_divisor_count"
+  ],
+  "78": [
+   "How many positive divisors of 1980 are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "79": [
+   "Find the number of greater than 20 divisors of 540.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "80": [
+   "Count the divisors of 720 that are greater than 24.",
+   15,
+   "constrained_divisor_count"
+  ],
+  "81": [
+   "Find the number of greater than 20 divisors of 1008.",
+   18,
+   "constrained_divisor_count"
+  ],
+  "82": [
+   "Of the divisors of 540, how many are greater than 15?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "83": [
+   "Of the divisors of 990, how many are greater than 8?",
+   19,
+   "constrained_divisor_count"
+  ],
+  "84": [
+   "1560 has how many positive divisors that are greater than 6?",
+   26,
+   "constrained_divisor_count"
+  ],
+  "85": [
+   "How many positive divisors of 630 are less than 40?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "86": [
+   "Find the number of odd divisors of 1800.",
+   9,
+   "constrained_divisor_count"
+  ],
+  "87": [
+   "Find the number of less than 20 divisors of 540.",
+   11,
+   "constrained_divisor_count"
+  ],
+  "88": [
+   "Count the divisors of 900 that are odd.",
+   9,
+   "constrained_divisor_count"
+  ],
+  "89": [
+   "Count the divisors of 480 that are less than 50.",
+   17,
+   "constrained_divisor_count"
+  ],
+  "90": [
+   "630 has how many positive divisors that are less than 15?",
+   9,
+   "constrained_divisor_count"
+  ],
+  "91": [
+   "Of the divisors of 480, how many are less than 20?",
+   11,
+   "constrained_divisor_count"
+  ],
+  "92": [
+   "Find the number of less than 40 divisors of 924.",
+   13,
+   "constrained_divisor_count"
+  ],
+  "93": [
+   "How many positive divisors of 2100 are greater than 20?",
+   24,
+   "constrained_divisor_count"
+  ],
+  "94": [
+   "How many positive divisors of 1080 are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "95": [
+   "Find the number of less than 40 divisors of 1680.",
+   19,
+   "constrained_divisor_count"
+  ],
+  "96": [
+   "Of the divisors of 840, how many are greater than 24?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "97": [
+   "How many positive divisors of 630 are greater than 20?",
+   13,
+   "constrained_divisor_count"
+  ],
+  "98": [
+   "How many positive divisors of 840 are less than 60?",
+   21,
+   "constrained_divisor_count"
+  ],
+  "99": [
+   "Find the number of greater than 12 divisors of 900.",
+   18,
+   "constrained_divisor_count"
+  ],
+  "100": [
+   "Of the divisors of 540, how many are greater than 30?",
+   10,
+   "constrained_divisor_count"
+  ],
+  "101": [
+   "Find the number of odd divisors of 1120.",
+   4,
+   "constrained_divisor_count"
+  ],
+  "102": [
+   "Count the divisors of 540 that are less than 40.",
+   15,
+   "constrained_divisor_count"
+  ],
+  "103": [
+   "How many positive divisors of 1440 are greater than 12?",
+   26,
+   "constrained_divisor_count"
+  ],
+  "104": [
+   "Of the divisors of 360, how many are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "105": [
+   "Find the number of less than 24 divisors of 2520.",
+   16,
+   "constrained_divisor_count"
+  ],
+  "106": [
+   "Find the number of greater than 6 divisors of 1440.",
+   30,
+   "constrained_divisor_count"
+  ],
+  "107": [
+   "660 has how many positive divisors that are less than 40?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "108": [
+   "How many positive divisors of 540 are less than 60?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "109": [
+   "720 has how many positive divisors that are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "110": [
+   "900 has how many positive divisors that are less than 20?",
+   11,
+   "constrained_divisor_count"
+  ],
+  "111": [
+   "Count the divisors of 1980 that are odd.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "112": [
+   "Find the number of less than 40 divisors of 990.",
+   13,
+   "constrained_divisor_count"
+  ],
+  "113": [
+   "Count the divisors of 360 that are less than 60.",
+   18,
+   "constrained_divisor_count"
+  ],
+  "114": [
+   "Count the divisors of 660 that are less than 15.",
+   9,
+   "constrained_divisor_count"
+  ],
+  "115": [
+   "How many positive divisors of 2520 are greater than 12?",
+   37,
+   "constrained_divisor_count"
+  ],
+  "116": [
+   "Find the number of less than 40 divisors of 1980.",
+   17,
+   "constrained_divisor_count"
+  ],
+  "117": [
+   "Of the divisors of 660, how many are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "118": [
+   "Count the divisors of 1440 that are less than 20.",
+   13,
+   "constrained_divisor_count"
+  ],
+  "119": [
+   "Find the number of odd divisors of 756.",
+   8,
+   "constrained_divisor_count"
+  ],
+  "120": [
+   "Of the divisors of 1008, how many are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "121": [
+   "Find the number of odd divisors of 480.",
+   4,
+   "constrained_divisor_count"
+  ],
+  "122": [
+   "Find the number of odd divisors of 1008.",
+   6,
+   "constrained_divisor_count"
+  ],
+  "123": [
+   "420 has how many positive divisors that are greater than 8?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "124": [
+   "Of the divisors of 720, how many are less than 15?",
+   10,
+   "constrained_divisor_count"
+  ],
+  "125": [
+   "Of the divisors of 2520, how many are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "126": [
+   "Find the number of odd divisors of 1120.",
+   4,
+   "constrained_divisor_count"
+  ],
+  "127": [
+   "Find the number of less than 40 divisors of 420.",
+   16,
+   "constrained_divisor_count"
+  ],
+  "128": [
+   "2100 has how many positive divisors that are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "129": [
+   "How many positive divisors of 1120 are less than 24?",
+   10,
+   "constrained_divisor_count"
+  ],
+  "130": [
+   "1008 has how many positive divisors that are greater than 15?",
+   20,
+   "constrained_divisor_count"
+  ],
+  "131": [
+   "792 has how many positive divisors that are greater than 8?",
+   18,
+   "constrained_divisor_count"
+  ],
+  "132": [
+   "924 has how many positive divisors that are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "133": [
+   "Count the divisors of 990 that are greater than 30.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "134": [
+   "Find the number of less than 20 divisors of 990.",
+   10,
+   "constrained_divisor_count"
+  ],
+  "135": [
+   "1320 has how many positive divisors that are greater than 15?",
+   21,
+   "constrained_divisor_count"
+  ],
+  "136": [
+   "1120 has how many positive divisors that are greater than 6?",
+   20,
+   "constrained_divisor_count"
+  ],
+  "137": [
+   "480 has how many positive divisors that are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "138": [
+   "Count the divisors of 630 that are greater than 30.",
+   11,
+   "constrained_divisor_count"
+  ],
+  "139": [
+   "Find the number of less than 40 divisors of 360.",
+   16,
+   "constrained_divisor_count"
+  ],
+  "140": [
+   "How many positive divisors of 1680 are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "141": [
+   "Find the number of odd divisors of 1008.",
+   6,
+   "constrained_divisor_count"
+  ],
+  "142": [
+   "1120 has how many positive divisors that are less than 50?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "143": [
+   "How many positive divisors of 600 are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "144": [
+   "960 has how many positive divisors that are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "145": [
+   "2100 has how many positive divisors that are greater than 6?",
+   30,
+   "constrained_divisor_count"
+  ],
+  "146": [
+   "Find the number of odd divisors of 540.",
+   8,
+   "constrained_divisor_count"
+  ],
+  "147": [
+   "1152 has how many positive divisors that are less than 20?",
+   10,
+   "constrained_divisor_count"
+  ],
+  "148": [
+   "How many positive divisors of 900 are less than 50?",
+   16,
+   "constrained_divisor_count"
+  ],
+  "149": [
+   "Count the divisors of 480 that are odd.",
+   4,
+   "constrained_divisor_count"
+  ],
+  "150": [
+   "Of the divisors of 1980, how many are greater than 24?",
+   22,
+   "constrained_divisor_count"
+  ],
+  "151": [
+   "Count the divisors of 1440 that are greater than 12.",
+   26,
+   "constrained_divisor_count"
+  ],
+  "152": [
+   "1680 has how many positive divisors that are greater than 10?",
+   31,
+   "constrained_divisor_count"
+  ],
+  "153": [
+   "How many positive divisors of 990 are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "154": [
+   "Of the divisors of 630, how many are greater than 30?",
+   11,
+   "constrained_divisor_count"
+  ],
+  "155": [
+   "Count the divisors of 1120 that are less than 40.",
+   13,
+   "constrained_divisor_count"
+  ],
+  "156": [
+   "Count the divisors of 990 that are greater than 12.",
+   16,
+   "constrained_divisor_count"
+  ],
+  "157": [
+   "Of the divisors of 1152, how many are greater than 12?",
+   16,
+   "constrained_divisor_count"
+  ],
+  "158": [
+   "How many positive divisors of 1320 are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "159": [
+   "900 has how many positive divisors that are odd?",
+   9,
+   "constrained_divisor_count"
+  ],
+  "160": [
+   "504 has how many positive divisors that are less than 24?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "161": [
+   "Find the number of odd divisors of 1008.",
+   6,
+   "constrained_divisor_count"
+  ],
+  "162": [
+   "Of the divisors of 420, how many are less than 50?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "163": [
+   "Find the number of less than 30 divisors of 1080.",
+   15,
+   "constrained_divisor_count"
+  ],
+  "164": [
+   "Count the divisors of 504 that are less than 24.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "165": [
+   "360 has how many positive divisors that are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "166": [
+   "600 has how many positive divisors that are less than 40?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "167": [
+   "Count the divisors of 660 that are odd.",
+   8,
+   "constrained_divisor_count"
+  ],
+  "168": [
+   "Find the number of odd divisors of 1560.",
+   8,
+   "constrained_divisor_count"
+  ],
+  "169": [
+   "Of the divisors of 720, how many are less than 40?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "170": [
+   "Count the divisors of 1800 that are greater than 20.",
+   23,
+   "constrained_divisor_count"
+  ],
+  "171": [
+   "1800 has how many positive divisors that are less than 30?",
+   15,
+   "constrained_divisor_count"
+  ],
+  "172": [
+   "Of the divisors of 840, how many are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "173": [
+   "Of the divisors of 792, how many are greater than 20?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "174": [
+   "1800 has how many positive divisors that are odd?",
+   9,
+   "constrained_divisor_count"
+  ],
+  "175": [
+   "How many positive divisors of 960 are odd?",
+   4,
+   "constrained_divisor_count"
+  ],
+  "176": [
+   "Of the divisors of 360, how many are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "177": [
+   "Find the number of greater than 24 divisors of 630.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "178": [
+   "Of the divisors of 504, how many are less than 30?",
+   14,
+   "constrained_divisor_count"
+  ],
+  "179": [
+   "How many positive divisors of 2520 are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "180": [
+   "How many positive divisors of 540 are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "181": [
+   "How many positive divisors of 1120 are less than 15?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "182": [
+   "Of the divisors of 960, how many are greater than 12?",
+   19,
+   "constrained_divisor_count"
+  ],
+  "183": [
+   "How many positive divisors of 504 are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "184": [
+   "Of the divisors of 720, how many are odd?",
+   6,
+   "constrained_divisor_count"
+  ],
+  "185": [
+   "Of the divisors of 2520, how many are odd?",
+   12,
+   "constrained_divisor_count"
+  ],
+  "186": [
+   "Find the number of less than 30 divisors of 792.",
+   12,
+   "constrained_divisor_count"
+  ],
+  "187": [
+   "Find the number of greater than 10 divisors of 840.",
+   23,
+   "constrained_divisor_count"
+  ],
+  "188": [
+   "Of the divisors of 1800, how many are less than 60?",
+   20,
+   "constrained_divisor_count"
+  ],
+  "189": [
+   "Of the divisors of 990, how many are less than 24?",
+   11,
+   "constrained_divisor_count"
+  ],
+  "190": [
+   "Count the divisors of 480 that are odd.",
+   4,
+   "constrained_divisor_count"
+  ],
+  "191": [
+   "Find the number of less than 60 divisors of 1680.",
+   23,
+   "constrained_divisor_count"
+  ],
+  "192": [
+   "840 has how many positive divisors that are greater than 8?",
+   24,
+   "constrained_divisor_count"
+  ],
+  "193": [
+   "Count the divisors of 1080 that are greater than 10.",
+   23,
+   "constrained_divisor_count"
+  ],
+  "194": [
+   "Find the number of less than 15 divisors of 1980.",
+   10,
+   "constrained_divisor_count"
+  ],
+  "195": [
+   "Of the divisors of 1152, how many are greater than 6?",
+   19,
+   "constrained_divisor_count"
+  ],
+  "196": [
+   "How many positive divisors of 1260 are less than 50?",
+   21,
+   "constrained_divisor_count"
+  ],
+  "197": [
+   "Of the divisors of 1080, how many are odd?",
+   8,
+   "constrained_divisor_count"
+  ],
+  "198": [
+   "420 has how many positive divisors that are less than 50?",
+   17,
+   "constrained_divisor_count"
+  ],
+  "199": [
+   "Count the divisors of 840 that are less than 30.",
+   16,
+   "constrained_divisor_count"
+  ]
+ },
+ "complex_modulus_power": {
+  "0": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=317.",
+   25,
+   "complex_modulus_power"
+  ],
+  "1": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=117?",
+   15,
+   "complex_modulus_power"
+  ],
+  "2": [
+   "For all pairs of positive integers a≤b with a²+b²=61, what is the sum of (a+b) over every such pair?",
+   11,
+   "complex_modulus_power"
+  ],
+  "3": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=200?",
+   36,
+   "complex_modulus_power"
+  ],
+  "4": [
+   "Over all representations of 200 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   36,
+   "complex_modulus_power"
+  ],
+  "5": [
+   "Over all representations of 521 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   31,
+   "complex_modulus_power"
+  ],
+  "6": [
+   "For all pairs of positive integers a≤b with a²+b²=477, what is the sum of (a+b) over every such pair?",
+   27,
+   "complex_modulus_power"
+  ],
+  "7": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=269; add up a+b across all of them.",
+   23,
+   "complex_modulus_power"
+  ],
+  "8": [
+   "Over all representations of 194 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   18,
+   "complex_modulus_power"
+  ],
+  "9": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=388?",
+   26,
+   "complex_modulus_power"
+  ],
+  "10": [
+   "For all pairs of positive integers a≤b with a²+b²=477, what is the sum of (a+b) over every such pair?",
+   27,
+   "complex_modulus_power"
+  ],
+  "11": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=373?",
+   25,
+   "complex_modulus_power"
+  ],
+  "12": [
+   "Over all representations of 394 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   28,
+   "complex_modulus_power"
+  ],
+  "13": [
+   "Over all representations of 221 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   40,
+   "complex_modulus_power"
+  ],
+  "14": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=100?",
+   14,
+   "complex_modulus_power"
+  ],
+  "15": [
+   "For all pairs of positive integers a≤b with a²+b²=178, what is the sum of (a+b) over every such pair?",
+   16,
+   "complex_modulus_power"
+  ],
+  "16": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=296.",
+   24,
+   "complex_modulus_power"
+  ],
+  "17": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=433.",
+   29,
+   "complex_modulus_power"
+  ],
+  "18": [
+   "For all pairs of positive integers a≤b with a²+b²=157, what is the sum of (a+b) over every such pair?",
+   17,
+   "complex_modulus_power"
+  ],
+  "19": [
+   "For all pairs of positive integers a≤b with a²+b²=569, what is the sum of (a+b) over every such pair?",
+   33,
+   "complex_modulus_power"
+  ],
+  "20": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=578; add up a+b across all of them.",
+   64,
+   "complex_modulus_power"
+  ],
+  "21": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=146.",
+   16,
+   "complex_modulus_power"
+  ],
+  "22": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=122; add up a+b across all of them.",
+   12,
+   "complex_modulus_power"
+  ],
+  "23": [
+   "For all pairs of positive integers a≤b with a²+b²=242, what is the sum of (a+b) over every such pair?",
+   22,
+   "complex_modulus_power"
+  ],
+  "24": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=596.",
+   34,
+   "complex_modulus_power"
+  ],
+  "25": [
+   "For all pairs of positive integers a≤b with a²+b²=313, what is the sum of (a+b) over every such pair?",
+   25,
+   "complex_modulus_power"
+  ],
+  "26": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=170; add up a+b across all of them.",
+   32,
+   "complex_modulus_power"
+  ],
+  "27": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=545.",
+   60,
+   "complex_modulus_power"
+  ],
+  "28": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=101; add up a+b across all of them.",
+   11,
+   "complex_modulus_power"
+  ],
+  "29": [
+   "For all pairs of positive integers a≤b with a²+b²=457, what is the sum of (a+b) over every such pair?",
+   25,
+   "complex_modulus_power"
+  ],
+  "30": [
+   "Over all representations of 450 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   54,
+   "complex_modulus_power"
+  ],
+  "31": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=29.",
+   7,
+   "complex_modulus_power"
+  ],
+  "32": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=74; add up a+b across all of them.",
+   12,
+   "complex_modulus_power"
+  ],
+  "33": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=477; add up a+b across all of them.",
+   27,
+   "complex_modulus_power"
+  ],
+  "34": [
+   "Over all representations of 442 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   50,
+   "complex_modulus_power"
+  ],
+  "35": [
+   "Over all representations of 457 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   25,
+   "complex_modulus_power"
+  ],
+  "36": [
+   "For all pairs of positive integers a≤b with a²+b²=274, what is the sum of (a+b) over every such pair?",
+   22,
+   "complex_modulus_power"
+  ],
+  "37": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=577?",
+   25,
+   "complex_modulus_power"
+  ],
+  "38": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=538.",
+   26,
+   "complex_modulus_power"
+  ],
+  "39": [
+   "Over all representations of 178 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   16,
+   "complex_modulus_power"
+  ],
+  "40": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=386?",
+   24,
+   "complex_modulus_power"
+  ],
+  "41": [
+   "Over all representations of 314 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   22,
+   "complex_modulus_power"
+  ],
+  "42": [
+   "For all pairs of positive integers a≤b with a²+b²=538, what is the sum of (a+b) over every such pair?",
+   26,
+   "complex_modulus_power"
+  ],
+  "43": [
+   "Over all representations of 45 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   9,
+   "complex_modulus_power"
+  ],
+  "44": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=338?",
+   50,
+   "complex_modulus_power"
+  ],
+  "45": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=229.",
+   17,
+   "complex_modulus_power"
+  ],
+  "46": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=74.",
+   12,
+   "complex_modulus_power"
+  ],
+  "47": [
+   "For all pairs of positive integers a≤b with a²+b²=292, what is the sum of (a+b) over every such pair?",
+   22,
+   "complex_modulus_power"
+  ],
+  "48": [
+   "Over all representations of 457 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   25,
+   "complex_modulus_power"
+  ],
+  "49": [
+   "Over all representations of 72 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   12,
+   "complex_modulus_power"
+  ],
+  "50": [
+   "Over all representations of 409 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   23,
+   "complex_modulus_power"
+  ],
+  "51": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=205?",
+   36,
+   "complex_modulus_power"
+  ],
+  "52": [
+   "For all pairs of positive integers a≤b with a²+b²=226, what is the sum of (a+b) over every such pair?",
+   16,
+   "complex_modulus_power"
+  ],
+  "53": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=514; add up a+b across all of them.",
+   32,
+   "complex_modulus_power"
+  ],
+  "54": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=122.",
+   12,
+   "complex_modulus_power"
+  ],
+  "55": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=89; add up a+b across all of them.",
+   13,
+   "complex_modulus_power"
+  ],
+  "56": [
+   "For all pairs of positive integers a≤b with a²+b²=464, what is the sum of (a+b) over every such pair?",
+   28,
+   "complex_modulus_power"
+  ],
+  "57": [
+   "Over all representations of 50 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   18,
+   "complex_modulus_power"
+  ],
+  "58": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=482; add up a+b across all of them.",
+   30,
+   "complex_modulus_power"
+  ],
+  "59": [
+   "For all pairs of positive integers a≤b with a²+b²=193, what is the sum of (a+b) over every such pair?",
+   19,
+   "complex_modulus_power"
+  ],
+  "60": [
+   "Over all representations of 257 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   17,
+   "complex_modulus_power"
+  ],
+  "61": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=405; add up a+b across all of them.",
+   27,
+   "complex_modulus_power"
+  ],
+  "62": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=481; add up a+b across all of them.",
+   60,
+   "complex_modulus_power"
+  ],
+  "63": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=369.",
+   27,
+   "complex_modulus_power"
+  ],
+  "64": [
+   "For all pairs of positive integers a≤b with a²+b²=394, what is the sum of (a+b) over every such pair?",
+   28,
+   "complex_modulus_power"
+  ],
+  "65": [
+   "Over all representations of 346 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   26,
+   "complex_modulus_power"
+  ],
+  "66": [
+   "Over all representations of 73 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   11,
+   "complex_modulus_power"
+  ],
+  "67": [
+   "For all pairs of positive integers a≤b with a²+b²=74, what is the sum of (a+b) over every such pair?",
+   12,
+   "complex_modulus_power"
+  ],
+  "68": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=389?",
+   27,
+   "complex_modulus_power"
+  ],
+  "69": [
+   "For all pairs of positive integers a≤b with a²+b²=578, what is the sum of (a+b) over every such pair?",
+   64,
+   "complex_modulus_power"
+  ],
+  "70": [
+   "Over all representations of 106 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   14,
+   "complex_modulus_power"
+  ],
+  "71": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=269?",
+   23,
+   "complex_modulus_power"
+  ],
+  "72": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=73?",
+   11,
+   "complex_modulus_power"
+  ],
+  "73": [
+   "For all pairs of positive integers a≤b with a²+b²=233, what is the sum of (a+b) over every such pair?",
+   21,
+   "complex_modulus_power"
+  ],
+  "74": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=512?",
+   32,
+   "complex_modulus_power"
+  ],
+  "75": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=373?",
+   25,
+   "complex_modulus_power"
+  ],
+  "76": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=305.",
+   44,
+   "complex_modulus_power"
+  ],
+  "77": [
+   "Over all representations of 212 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   18,
+   "complex_modulus_power"
+  ],
+  "78": [
+   "For all pairs of positive integers a≤b with a²+b²=162, what is the sum of (a+b) over every such pair?",
+   18,
+   "complex_modulus_power"
+  ],
+  "79": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=128.",
+   16,
+   "complex_modulus_power"
+  ],
+  "80": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=229.",
+   17,
+   "complex_modulus_power"
+  ],
+  "81": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=416.",
+   24,
+   "complex_modulus_power"
+  ],
+  "82": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=128.",
+   16,
+   "complex_modulus_power"
+  ],
+  "83": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=409.",
+   23,
+   "complex_modulus_power"
+  ],
+  "84": [
+   "For all pairs of positive integers a≤b with a²+b²=234, what is the sum of (a+b) over every such pair?",
+   18,
+   "complex_modulus_power"
+  ],
+  "85": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=170?",
+   32,
+   "complex_modulus_power"
+  ],
+  "86": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=40?",
+   8,
+   "complex_modulus_power"
+  ],
+  "87": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=128; add up a+b across all of them.",
+   16,
+   "complex_modulus_power"
+  ],
+  "88": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=328; add up a+b across all of them.",
+   20,
+   "complex_modulus_power"
+  ],
+  "89": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=80?",
+   12,
+   "complex_modulus_power"
+  ],
+  "90": [
+   "For all pairs of positive integers a≤b with a²+b²=173, what is the sum of (a+b) over every such pair?",
+   15,
+   "complex_modulus_power"
+  ],
+  "91": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=82?",
+   10,
+   "complex_modulus_power"
+  ],
+  "92": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=349?",
+   23,
+   "complex_modulus_power"
+  ],
+  "93": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=405?",
+   27,
+   "complex_modulus_power"
+  ],
+  "94": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=452; add up a+b across all of them.",
+   30,
+   "complex_modulus_power"
+  ],
+  "95": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=445?",
+   52,
+   "complex_modulus_power"
+  ],
+  "96": [
+   "Over all representations of 305 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   44,
+   "complex_modulus_power"
+  ],
+  "97": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=164.",
+   18,
+   "complex_modulus_power"
+  ],
+  "98": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=293?",
+   19,
+   "complex_modulus_power"
+  ],
+  "99": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=337.",
+   25,
+   "complex_modulus_power"
+  ],
+  "100": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=128.",
+   16,
+   "complex_modulus_power"
+  ],
+  "101": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=482; add up a+b across all of them.",
+   30,
+   "complex_modulus_power"
+  ],
+  "102": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=128?",
+   16,
+   "complex_modulus_power"
+  ],
+  "103": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=596.",
+   34,
+   "complex_modulus_power"
+  ],
+  "104": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=34; add up a+b across all of them.",
+   8,
+   "complex_modulus_power"
+  ],
+  "105": [
+   "Over all representations of 490 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   28,
+   "complex_modulus_power"
+  ],
+  "106": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=593.",
+   31,
+   "complex_modulus_power"
+  ],
+  "107": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=208?",
+   20,
+   "complex_modulus_power"
+  ],
+  "108": [
+   "For all pairs of positive integers a≤b with a²+b²=116, what is the sum of (a+b) over every such pair?",
+   14,
+   "complex_modulus_power"
+  ],
+  "109": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=233; add up a+b across all of them.",
+   21,
+   "complex_modulus_power"
+  ],
+  "110": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=320?",
+   24,
+   "complex_modulus_power"
+  ],
+  "111": [
+   "Over all representations of 180 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   18,
+   "complex_modulus_power"
+  ],
+  "112": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=400?",
+   28,
+   "complex_modulus_power"
+  ],
+  "113": [
+   "Over all representations of 40 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   8,
+   "complex_modulus_power"
+  ],
+  "114": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=202?",
+   20,
+   "complex_modulus_power"
+  ],
+  "115": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=234; add up a+b across all of them.",
+   18,
+   "complex_modulus_power"
+  ],
+  "116": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=500?",
+   56,
+   "complex_modulus_power"
+  ],
+  "117": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=202; add up a+b across all of them.",
+   20,
+   "complex_modulus_power"
+  ],
+  "118": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=596; add up a+b across all of them.",
+   34,
+   "complex_modulus_power"
+  ],
+  "119": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=241; add up a+b across all of them.",
+   19,
+   "complex_modulus_power"
+  ],
+  "120": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=424; add up a+b across all of them.",
+   28,
+   "complex_modulus_power"
+  ],
+  "121": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=85; add up a+b across all of them.",
+   24,
+   "complex_modulus_power"
+  ],
+  "122": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=421; add up a+b across all of them.",
+   29,
+   "complex_modulus_power"
+  ],
+  "123": [
+   "Over all representations of 58 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   10,
+   "complex_modulus_power"
+  ],
+  "124": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=233?",
+   21,
+   "complex_modulus_power"
+  ],
+  "125": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=205; add up a+b across all of them.",
+   36,
+   "complex_modulus_power"
+  ],
+  "126": [
+   "For all pairs of positive integers a≤b with a²+b²=477, what is the sum of (a+b) over every such pair?",
+   27,
+   "complex_modulus_power"
+  ],
+  "127": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=52?",
+   10,
+   "complex_modulus_power"
+  ],
+  "128": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=200.",
+   36,
+   "complex_modulus_power"
+  ],
+  "129": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=488?",
+   24,
+   "complex_modulus_power"
+  ],
+  "130": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=433.",
+   29,
+   "complex_modulus_power"
+  ],
+  "131": [
+   "Over all representations of 261 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   21,
+   "complex_modulus_power"
+  ],
+  "132": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=340; add up a+b across all of them.",
+   48,
+   "complex_modulus_power"
+  ],
+  "133": [
+   "Over all representations of 405 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   27,
+   "complex_modulus_power"
+  ],
+  "134": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=400?",
+   28,
+   "complex_modulus_power"
+  ],
+  "135": [
+   "Over all representations of 562 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   32,
+   "complex_modulus_power"
+  ],
+  "136": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=481.",
+   60,
+   "complex_modulus_power"
+  ],
+  "137": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=73; add up a+b across all of them.",
+   11,
+   "complex_modulus_power"
+  ],
+  "138": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=164.",
+   18,
+   "complex_modulus_power"
+  ],
+  "139": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=20?",
+   6,
+   "complex_modulus_power"
+  ],
+  "140": [
+   "For all pairs of positive integers a≤b with a²+b²=90, what is the sum of (a+b) over every such pair?",
+   12,
+   "complex_modulus_power"
+  ],
+  "141": [
+   "For all pairs of positive integers a≤b with a²+b²=425, what is the sum of (a+b) over every such pair?",
+   81,
+   "complex_modulus_power"
+  ],
+  "142": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=485.",
+   54,
+   "complex_modulus_power"
+  ],
+  "143": [
+   "For all pairs of positive integers a≤b with a²+b²=160, what is the sum of (a+b) over every such pair?",
+   16,
+   "complex_modulus_power"
+  ],
+  "144": [
+   "For all pairs of positive integers a≤b with a²+b²=370, what is the sum of (a+b) over every such pair?",
+   48,
+   "complex_modulus_power"
+  ],
+  "145": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=353?",
+   25,
+   "complex_modulus_power"
+  ],
+  "146": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=117; add up a+b across all of them.",
+   15,
+   "complex_modulus_power"
+  ],
+  "147": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=505; add up a+b across all of them.",
+   60,
+   "complex_modulus_power"
+  ],
+  "148": [
+   "For all pairs of positive integers a≤b with a²+b²=337, what is the sum of (a+b) over every such pair?",
+   25,
+   "complex_modulus_power"
+  ],
+  "149": [
+   "For all pairs of positive integers a≤b with a²+b²=73, what is the sum of (a+b) over every such pair?",
+   11,
+   "complex_modulus_power"
+  ],
+  "150": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=272.",
+   20,
+   "complex_modulus_power"
+  ],
+  "151": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=592.",
+   28,
+   "complex_modulus_power"
+  ],
+  "152": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=325; add up a+b across all of them.",
+   67,
+   "complex_modulus_power"
+  ],
+  "153": [
+   "For all pairs of positive integers a≤b with a²+b²=404, what is the sum of (a+b) over every such pair?",
+   22,
+   "complex_modulus_power"
+  ],
+  "154": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=173.",
+   15,
+   "complex_modulus_power"
+  ],
+  "155": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=482?",
+   30,
+   "complex_modulus_power"
+  ],
+  "156": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=401.",
+   21,
+   "complex_modulus_power"
+  ],
+  "157": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=512.",
+   32,
+   "complex_modulus_power"
+  ],
+  "158": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=578; add up a+b across all of them.",
+   64,
+   "complex_modulus_power"
+  ],
+  "159": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=325; add up a+b across all of them.",
+   67,
+   "complex_modulus_power"
+  ],
+  "160": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=109?",
+   13,
+   "complex_modulus_power"
+  ],
+  "161": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=425; add up a+b across all of them.",
+   81,
+   "complex_modulus_power"
+  ],
+  "162": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=58; add up a+b across all of them.",
+   10,
+   "complex_modulus_power"
+  ],
+  "163": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=450?",
+   54,
+   "complex_modulus_power"
+  ],
+  "164": [
+   "Over all representations of 90 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   12,
+   "complex_modulus_power"
+  ],
+  "165": [
+   "For all pairs of positive integers a≤b with a²+b²=32, what is the sum of (a+b) over every such pair?",
+   8,
+   "complex_modulus_power"
+  ],
+  "166": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=153?",
+   15,
+   "complex_modulus_power"
+  ],
+  "167": [
+   "For all pairs of positive integers a≤b with a²+b²=194, what is the sum of (a+b) over every such pair?",
+   18,
+   "complex_modulus_power"
+  ],
+  "168": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=104?",
+   12,
+   "complex_modulus_power"
+  ],
+  "169": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=218?",
+   20,
+   "complex_modulus_power"
+  ],
+  "170": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=289?",
+   23,
+   "complex_modulus_power"
+  ],
+  "171": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=464.",
+   28,
+   "complex_modulus_power"
+  ],
+  "172": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=292; add up a+b across all of them.",
+   22,
+   "complex_modulus_power"
+  ],
+  "173": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=269.",
+   23,
+   "complex_modulus_power"
+  ],
+  "174": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=25.",
+   7,
+   "complex_modulus_power"
+  ],
+  "175": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=369; add up a+b across all of them.",
+   27,
+   "complex_modulus_power"
+  ],
+  "176": [
+   "For all pairs of positive integers a≤b with a²+b²=40, what is the sum of (a+b) over every such pair?",
+   8,
+   "complex_modulus_power"
+  ],
+  "177": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=181.",
+   19,
+   "complex_modulus_power"
+  ],
+  "178": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=101?",
+   11,
+   "complex_modulus_power"
+  ],
+  "179": [
+   "For all pairs of positive integers a≤b with a²+b²=169, what is the sum of (a+b) over every such pair?",
+   17,
+   "complex_modulus_power"
+  ],
+  "180": [
+   "For all pairs of positive integers a≤b with a²+b²=125, what is the sum of (a+b) over every such pair?",
+   28,
+   "complex_modulus_power"
+  ],
+  "181": [
+   "For all pairs of positive integers a≤b with a²+b²=482, what is the sum of (a+b) over every such pair?",
+   30,
+   "complex_modulus_power"
+  ],
+  "182": [
+   "Over all representations of 373 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   25,
+   "complex_modulus_power"
+  ],
+  "183": [
+   "For all pairs of positive integers a≤b with a²+b²=100, what is the sum of (a+b) over every such pair?",
+   14,
+   "complex_modulus_power"
+  ],
+  "184": [
+   "For all pairs of positive integers a≤b with a²+b²=232, what is the sum of (a+b) over every such pair?",
+   20,
+   "complex_modulus_power"
+  ],
+  "185": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=101; add up a+b across all of them.",
+   11,
+   "complex_modulus_power"
+  ],
+  "186": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=288.",
+   24,
+   "complex_modulus_power"
+  ],
+  "187": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=290.",
+   42,
+   "complex_modulus_power"
+  ],
+  "188": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=592; add up a+b across all of them.",
+   28,
+   "complex_modulus_power"
+  ],
+  "189": [
+   "Over all representations of 400 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   28,
+   "complex_modulus_power"
+  ],
+  "190": [
+   "Find every pair of positive integers a≤b satisfying a²+b²=74; add up a+b across all of them.",
+   12,
+   "complex_modulus_power"
+  ],
+  "191": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=442?",
+   50,
+   "complex_modulus_power"
+  ],
+  "192": [
+   "Over all representations of 306 as a²+b² with 0<a≤b, what is the total of (a+b)?",
+   24,
+   "complex_modulus_power"
+  ],
+  "193": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=464.",
+   28,
+   "complex_modulus_power"
+  ],
+  "194": [
+   "For all pairs of positive integers a≤b with a²+b²=505, what is the sum of (a+b) over every such pair?",
+   60,
+   "complex_modulus_power"
+  ],
+  "195": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=493.",
+   56,
+   "complex_modulus_power"
+  ],
+  "196": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=545?",
+   60,
+   "complex_modulus_power"
+  ],
+  "197": [
+   "For all pairs of positive integers a≤b with a²+b²=450, what is the sum of (a+b) over every such pair?",
+   54,
+   "complex_modulus_power"
+  ],
+  "198": [
+   "How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²=58?",
+   10,
+   "complex_modulus_power"
+  ],
+  "199": [
+   "Sum a+b over all positive-integer pairs (a≤b) with a²+b²=289.",
+   23,
+   "complex_modulus_power"
+  ]
+ }
+}

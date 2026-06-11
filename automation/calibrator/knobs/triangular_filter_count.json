@@ -1,0 +1,7 @@
+{
+  "params": {
+    "lim": {"value": [800, 6000], "type": "randint", "envelope": [500, 8000], "knob_class": "num"},
+    "k":   {"value": [2, 3, 5],   "type": "choice",  "envelope": [2, 7],      "knob_class": "C"}
+  },
+  "locked": false
+}
