@@ -360,23 +360,53 @@ stratified holdout (3–5/concept). Phase 3: chaining (§6).
 
 ## CURRENTLY DOING
 
-**Single-concept GRPO ablation.** Does training ONE concept to mastery move its
-AMC problem(s), and what's the reward curve in isolation? Decision pending:
-- **multi_constraint_square** — owns #59 (flipped in v10), answers vary, C knob,
-  40% goldilocks → generate ~250 for ~100 in-band.
-- **lcm_gcd_system** — cleanest curve (75% gold, varied answers, S knob), but 0
-  AMC movement (base solves #17).
+**3-concept ablation analyzed → testing concept-vs-template; depth-1 is the next build.**
+Honest verdict from v10 + the 3-concept (abl3) run: **the loop teaches concepts
+in-distribution and improves reasoning method, but does NOT transfer to the compositional
+AMC problems.** 3-concept ckpt-108: AMC 32→34 (+2, McNemar p≈0.79 = noise); the 5 targets
+move 1/5 binary (#68, which also flipped in v10 → not attributable) but **3/5 (#40/55/68)
+show real *method* improvement**. Held-out is clean (0.571→0.850 @ step 100) — but a
+base-vs-trained viewer showed the gain is **execution reliability on a shared method**,
+which is exactly what template-overfitting would look like.
 
-Flow: gen_clean → calibrate vs base → goldilocks filter → train/holdout split →
-single-concept GRPO (tmux, fixed output_dir, log_completions, wandb id-resume) →
-per-pass + per-problem reward curve → AMC eval via mean_pass_rate (K=16).
+**In flight now:**
+- **concept-transfer eval** (Michael) — 3 concepts × 3 surface framings, matched difficulty
+  (A=original anchor / B=word-problem / C=alternate-question) to separate concept-learning
+  from template-memorization. Running on the cloned L4. (`data/concept_transfer_eval.json`,
+  `tools/gen_concept_eval.py`; viewer `tools/gen_holdout_compare.py`.)
+- **AWS migration** — g6e.xlarge L40S box live (`AWS_SETUP_FAISAL.md`); needs a ~40-min
+  Michael+Faisal session (Parts A+C: IAM keys + @trainaws app) before it runs jobs / hosts
+  the agents 24/7.
+
+**Gated on the eval:** whether to do a "final depth-0 run" (Faisal wants it; Michael
+skeptical — if depth-0 is template-only, more of it is a dead end).
+
+**Next big build (agreed): depth-1 chaining generator** — compose 2+ atomic concepts into
+one multi-step problem, calibrate to goldilocks by # steps (not bigger numbers), pilot
+`constrained_subset_count`, target #55 / #75. This is the real AMC lever.
 
 ## TODO
 
-- [ ] Decide concept: multi_constraint_square vs lcm_gcd_system.
-- [ ] (next)
+- [ ] [michael] concept-transfer eval is running → build the by-framing analysis when it
+      lands. Verdict = does the +0.22 transfer across wording (concept) or evaporate (template)?
+- [ ] [michael+faisal] AWS session (~40 min): `AWS_SETUP_FAISAL.md` Parts A+C → then the
+      **v12 full calibration** (775×8 @2048 on the L40S, ~4–5h). **It never ran (died with
+      lightning); no `calib_v12` exists anywhere → it's the blocker for v12 training.**
+- [ ] [faisal] start the **depth-1 chaining generator** (design + architecture + dataset).
+- [ ] [faisal] merge persona PR `faisal-nabulsi/claude-code-slack-bot#1` → set `PERSONA_FILE`
+      per bot for the AWS move.
+- [ ] HOLD the big "final depth-0 run" until the concept-transfer eval result is in.
+- [ ] [gilbert] v12 train-set build + training kickoff once calib lands (~100 steps / 3 concepts).
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-11
+- [michael] Deep W&B reward-curve analysis (v10 + 3-concept): batch confirmed (v10 = 4 prompts/step, 3-concept = 2); v10 train-correctness real but weak (+0.19, slope t≈3.9, R²=0.11, KL 0.0045); 3-concept +0.21 (0.60→0.81).
+- [michael] Held-out: v10 0.49→0.72@step81→0.66@120 — clean +0.15 broad gain (9/12 concepts up) but **over-trained past step 81** (train↑/held-out↓ divergence; NOT the lightning resume — the seam was clean: KL/grad/epoch continuous). 3-concept 0.571→0.850@100→0.783@150 (clean generalization; corrected an earlier W&B-bar misread that had looked like overfit).
+- [michael] AMC transfer (3-concept ckpt-108, verified distinct from v10 — 48/83 preds differ): 32→34 (+2, McNemar p≈0.79). 5 targets 1/5 binary; **3/5 (#40/55/68) show real method improvement** → wall is composition/transfer, not method.
+- [michael] Built base-vs-trained held-out viewer (PR #21): the +0.22 held-out = **execution reliability on a shared method**, not new reasoning. Built **concept-transfer eval** (PR #23) — surface-form variation (3 concepts × 3 framings) to settle concept-vs-template; running now.
+- [michael] §7 corrections vs the actual data: ghost is **flat ~0.10** (not 8→15%); v10 held-out **peaked @81 then declined** (not the monotonic 0.537→0.672).
+- [michael] Infra: AWS g6e.xlarge **L40S box live** + full stack verified (`AWS_SETUP_FAISAL.md`); persona PR #1 to Faisal's bot fork (generic `PERSONA_FILE`); kathryne self-heals on wake (sleepwatcher).
 
 ### 2026-06-08
 - [setup] Added `.mcp.json` (Slack MCP), 3-session roles, daily protocol.
