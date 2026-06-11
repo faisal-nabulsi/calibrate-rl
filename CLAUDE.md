@@ -348,44 +348,58 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
   `core/reward_func.py` · `eval_amc_baseline.py` · `measure_environment.py` ·
   `train/train_grpo.py` (8 completions/prompt, 4 prompts/step).
 - `data/`: goldilocks_train_v10 (106), holdout_v10 (12), calib_v10_7B (300),
-  skeleton_dataset_v11_clean, calib_v11_2048_7B (500×8).
+  skeleton_dataset_v11_clean, calib_v11_2048_7B (500×8), abl3_pool_v1 (600),
+  abl3_train_200 (200) + abl3_holdout (15), v12_pool_full.
 - `results/`: base 32/83, checkpoint-120 34/83, trainer_state_120step, holdout
-  matrix · `training_completions/*.parquet` ×120.
+  matrix · `training_completions/*.parquet` ×120 · abl3_v12_200 trainer_state
+  (→ step 162) + holdout log.
 - Compute: Lightning A100/L4 (primary), Vast.ai (eval), GCP (earlier; VM
   `qwen7bv3training` stopped). Tracking: W&B `rl-intro`/`tiny-math-solver`.
 
 ## 11. Roadmap
 
-Now: single-concept ablation → 3-concept ablation (AMC effect via mean_pass_rate
-on tagged subsets). Then (Michael): sample ~600 v11 @2048 → ~300 train set +
-stratified holdout (3–5/concept). Phase 3: chaining (§6).
+Now: 3-concept ablation pilot trained (200 steps) — AMC eval + v12 full sampling
+in parallel (AMC effect via mean_pass_rate on tagged subsets). Then: v12 full
+calibrate → ~300 train set + stratified holdout (3–5/concept) → full train.
+Phase 3: chaining (§6).
 
 ---
 
 ## CURRENTLY DOING
 
-**3-concept GRPO ablation (pilot → full v12).** Superseded the single-concept plan:
-run 3 strong concepts covering **5 unsolved AMC** — inclusion_exclusion_3set (#40),
+**3-concept ablation: pilot trained + analyzed → AMC eval + v12 full sampling running
+in parallel.** The 3 concepts cover **5 unsolved AMC** — inclusion_exclusion_3set (#40),
 constrained_divisor_count (#55,#75), complex_modulus_power (#13,#68).
-Pilot: calibrate **600×8 @2048 on L4** (`data/abl3_pool_v1.json`) → goldilocks filter →
-GRPO **~250 steps** → AMC `mean_pass_rate` on the 5 + reward-curve check. Then
-recalibrate full v12 → sample all → full train.
+Pilot pipeline completed: 600×8 @2048 calib → goldilocks → `abl3_train_200` (200) +
+`abl3_holdout` (15) → GRPO 200 steps (`checkpoint/abl3_v12_200`).
+**Analysis (trainer state through step 162): reward curve healthy** — train reward
+0.70→0.84→0.87→0.91 by 40-step block (correctness 0.60→0.81), holdout `mean_pass_rate`
+0.571 (base) → 0.767 (step 50) → 0.850 (100) → 0.783 (150), n=15. Caveat: ghost batches
+(`frac_reward_zero_std`) climb 15%→38% by end-of-run — same saturation shape as v10, so
+~200 steps is the right budget for this set.
+In flight now: (a) **AMC eval** of the pilot checkpoint (`mean_pass_rate` on #13,40,55,68,75
++ full 83, watch partner-only regression); (b) **v12 full dataset sampling**
+(`data/v12_pool_full.json`).
 
-Decisions this round:
-- multi_constraint_square / lcm_gcd_system both rejected (answer-hack / no AMC headroom).
-- **gold% ≠ answer-diversity:** cmp/cdc are answer-hackable despite high gold → widened
-  in `skeleton_injector_v12.py` (cmp top-3 43%→19%, cdc 38%→30%; math unchanged, golds still verify).
+Decisions still operative:
+- multi_constraint_square / lcm_gcd_system rejected (answer-hack / no AMC headroom).
+- **gold% ≠ answer-diversity:** cmp/cdc widened in `skeleton_injector_v12.py`
+  (cmp top-3 43%→19%, cdc 38%→30%; math unchanged, golds still verify).
 - AMC n=5 is below the noise floor → trust reward curve + mean_pass_rate, not binary flips.
 
 ## TODO
 
-- [ ] Merge PR #11 (v12 spec) + #12 (v12 generator + 600-row pilot pool).
-- [ ] train@lightning: calibrate `abl3_pool_v1.json` 600×8 @2048 (L4) → `calib_abl3_2048_7B.json`. **BLOCKED: lightning unresponsive.**
-- [ ] gilbert: goldilocks filter + 3–5/concept holdout split from the calib.
-- [ ] train@lightning: GRPO pilot ~250 steps (A100) → AMC eval #13,40,55,68,75.
-- [ ] v12 full: fix log_laws + ordered_triple + constrained_subset_count; investigate triangular_filter_count; then full calibrate/sample/train.
+- [ ] Analyze AMC eval when it finishes: `mean_pass_rate` on #13,40,55,68,75 vs base + full-83 sweep; confirm depth-1 partner-only set didn't regress (v10 lost 2 there).
+- [ ] When v12 full sampling finishes: calibrate → goldilocks filter + stratified 3–5/concept holdout → full v12 train (gate on pilot AMC verdict).
+- [ ] Pin down why trainer state stops at step 162/200 (resume seam vs early stop) before quoting "200-step" numbers externally.
+- [ ] v12 full prerequisites: fix log_laws + ordered_triple + constrained_subset_count phrasing; investigate triangular_filter_count (never-learned in v10 matrix vs "leave alone" in Doc4).
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-11
+- [gilbert] **Analyzed the 3-concept (abl3 v12) 200-step GRPO pilot** (artifacts: `results/abl3_v12_200_trainer_state.json` through step 162, `results/abl3_v12_200_holdout.txt`): reward 0.70→0.91 by 40-step block (correctness 0.60→0.81); holdout mean_pass_rate 0.571→0.767→0.850→0.783 at steps 0/50/100/150 (n=15). Curve is clean; ghost batches climb 15%→38% late — v10-style saturation, supports ~200-step budget.
+- [gilbert] **Running in parallel now:** AMC eval of the pilot checkpoint (#13,40,55,68,75 mean_pass_rate + full 83) and v12 full dataset sampling (`v12_pool_full.json`).
+- [gilbert] Landed since yesterday: PR #12 (v12 generator + pilot pool), #14 (abl3 train/holdout splits + v12_pool_full), #15–#17 (Phase 0: knobs/*.json externalization, --json calib report, static_checks.py gate). Lightning blockage resolved — calib + pilot both ran.
 
 ### 2026-06-10
 - [gilbert] Pivoted single-concept → **3-concept ablation** (ie3 + cdc + cmp, 5 unsolved AMC).
