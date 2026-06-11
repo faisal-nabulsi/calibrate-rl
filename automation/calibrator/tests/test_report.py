@@ -174,8 +174,33 @@ def test_build_report():
     print("PASS build_report: all §2b fields hand-verified; nulls without --pool")
 
 
+# ── 4. known numbers on the real in-repo calib data ─────────────────────────
+
+def test_known_numbers():
+    """The report must reproduce the documented v10/v11 calibration facts:
+    v11 goldilocks 48% + truncation ~1%, v10 truncation ~14% (CLAUDE.md §7,
+    the '2048 cut truncation 14->1%' finding). Skips if data files absent."""
+    v10 = os.path.join(REPO, "data/calib_v10_7B.json")
+    v11 = os.path.join(REPO, "data/calib_v11_2048_7B.json")
+    if not (os.path.exists(v10) and os.path.exists(v11)):
+        print("SKIP known numbers: calib data files not present")
+        return
+    ac = _load(os.path.join(REPO, "analysis/analyze_calibration.py"), "ac_known")
+
+    r11 = ac.build_report(json.load(open(v11)), v11)
+    assert r11["n_problems"] == 500 and r11["rollouts"] == 8
+    assert r11["overall"]["zone_frac"]["goldilocks"] == 0.48      # the documented 48%
+    assert r11["overall"]["truncation_rate"] == 0.0095            # the documented ~1%
+    assert r11["overall"]["mean_pass"] == 0.55                    # CLAUDE.md §7
+
+    r10 = ac.build_report(json.load(open(v10)), v10)
+    assert r10["overall"]["truncation_rate"] == 0.13              # the documented ~14%
+    print("PASS known numbers: v11 goldilocks 48.0% / trunc 0.95%, v10 trunc 13.0%")
+
+
 if __name__ == "__main__":
     test_recorder()
     test_gen_clean_stamping()
     test_build_report()
+    test_known_numbers()
     print("ALL PASS")
