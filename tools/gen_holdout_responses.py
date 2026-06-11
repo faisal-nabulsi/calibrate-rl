@@ -15,7 +15,7 @@ Each output row: {problem, skeleton_type, gold, correct, pass_rate, responses[],
 gen_holdout_compare.py then reads two of these and builds the side-by-side viewer.
 NOTE: needs the SAME base model + temp + max_new_tokens as calibration/training.
 """
-import os, sys, json
+import os, sys, json, time
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, REPO)
 import numpy as np, torch
@@ -46,6 +46,7 @@ if CHECKPOINT:
 model.eval()
 
 results = []
+t0 = time.time()
 for i, item in enumerate(data):
     problem = item["problem"]; gold = str(item.get("answer", item.get("gold"))).strip()
     concept = item.get("skeleton_type", "unknown")
@@ -67,7 +68,9 @@ for i, item in enumerate(data):
     results.append({"problem": problem, "skeleton_type": concept, "gold": gold,
                     "correct": nc, "pass_rate": nc / N_ROLLOUTS,
                     "responses": texts, "rewards": rewards})
-    print(f"[{i+1}/{len(data)}] {nc}/{N_ROLLOUTS} | {concept} | {problem[:50]}", flush=True)
+    done = i + 1; el = time.time() - t0
+    print(f"[{done}/{len(data)}] {nc}/{N_ROLLOUTS} | {el/60:.1f}m elapsed, ~{el/done*(len(data)-done)/60:.0f}m left "
+          f"| {concept} | {problem[:42]}", flush=True)
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 json.dump(results, open(OUT, "w"))
