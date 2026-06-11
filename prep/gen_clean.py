@@ -41,17 +41,29 @@ def generate(concept, n, seed):
         [c for c in gens if c not in inj.DEPTH1_PARTNERS]
         if concept == "all" else [concept]
     )
+    # Phase 0 PR-2 (design §2b): if the injector draws through a KnobBank
+    # (v12+ exposes it as module-level `K`), record each row's drawn knob
+    # values and stamp them into row metadata. Automatic for knob-driven
+    # concepts; non-knob concepts simply record nothing and get no field.
+    bank = getattr(inj, "K", None)
+    can_record = hasattr(bank, "start_draw_log")
     rows = []
     for name in targets:
         fn = gens[name]
         made, guard = 0, 0
         while made < n and guard < n * 200:           # guard against low-cardinality generators
             guard += 1
+            if can_record:
+                bank.start_draw_log()
             r = fn()
+            draws = bank.take_draw_log().get(name, {}) if can_record else {}
             if r is None:
                 continue
-            rows.append({"problem": r[0], "answer": str(r[1]),
-                         "skeleton_type": name, "depth": 0})
+            row = {"problem": r[0], "answer": str(r[1]),
+                   "skeleton_type": name, "depth": 0}
+            if draws:
+                row["knobs"] = draws
+            rows.append(row)
             made += 1
     return rows
 
@@ -96,10 +108,30 @@ def main():
     from collections import Counter
     by_c = Counter(r["skeleton_type"] for r in deduped)
     ans  = Counter(r["skeleton_type"] for r in deduped)  # placeholder
+
+    # Phase 0 PR-2 (design §2b): gen-stats sidecar. dedupe_survival is a
+    # gen-time fact, so it rides next to the pool, not inside it (the row list
+    # stays a plain list for every downstream consumer).
+    raw_by_c = Counter(r["skeleton_type"] for r in raw)
+    meta = {
+        "generated_by": "prep/gen_clean.py",
+        "injector": os.environ.get("INJECTOR", "generate/skeleton_injector_v11.py"),
+        "seed": args.seed,
+        "requested_per_concept": args.n,
+        "concepts": {
+            c: {"raw": raw_by_c[c], "kept": by_c.get(c, 0),
+                "survival": round(by_c.get(c, 0) / raw_by_c[c], 4)}
+            for c in sorted(raw_by_c)
+        },
+    }
+    meta_path = os.path.splitext(args.out)[0] + ".meta.json"
+    json.dump(meta, open(meta_path, "w"), indent=2)
+
     print(f"generated (raw):            {len(raw)}")
     print(f"continued_fraction golds fixed: {fixed}" + (f"  (UNPARSED: {unparsed})" if unparsed else ""))
     print(f"duplicate rows removed:     {dropped}")
     print(f"-> {args.out}: {len(deduped)} unique rows")
+    print(f"-> {meta_path}: gen-stats sidecar (dedupe survival per concept)")
     for c, k in by_c.most_common():
         n_ans = len(set(r["answer"] for r in deduped if r["skeleton_type"] == c))
         print(f"     {c:<28} {k:>4} rows   {n_ans:>3} distinct answers")
