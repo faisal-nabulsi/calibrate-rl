@@ -42,7 +42,7 @@ for i, problem in enumerate(problems):
     inputs = tokenizer(text_input, return_tensors="pt").input_ids.to(model.device)
     with torch.no_grad():
         output = model.generate(
-            inputs, max_new_tokens=1024,   # == training completion length
+            inputs, max_new_tokens=2048,   # == training completion length
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id
         )
