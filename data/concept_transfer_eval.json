@@ -126,64 +126,43 @@
   "framing": "C_alternate"
  },
  {
-  "problem": "How many positive integers from 1 to 796 are divisible by 2, 5, or 6?",
-  "answer": "478",
-  "skeleton_type": "ie3__A_original",
-  "concept": "ie3",
-  "framing": "A_original"
- },
- {
-  "problem": "A hallway has 796 lockers numbered 1 through 796. A locker gets a sticker if its number is divisible by 2, 5, or 6. How many lockers get a sticker?",
-  "answer": "478",
-  "skeleton_type": "ie3__B_wordproblem",
-  "concept": "ie3",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "How many integers from 1 to 796 are divisible by none of 2, 5, or 6?",
-  "answer": "318",
-  "skeleton_type": "ie3__C_alternate",
-  "concept": "ie3",
-  "framing": "C_alternate"
- },
- {
-  "problem": "How many positive integers from 1 to 250 are divisible by 2, 3, or 7?",
-  "answer": "179",
-  "skeleton_type": "ie3__A_original",
-  "concept": "ie3",
-  "framing": "A_original"
- },
- {
-  "problem": "A hallway has 250 lockers numbered 1 through 250. A locker gets a sticker if its number is divisible by 2, 3, or 7. How many lockers get a sticker?",
-  "answer": "179",
-  "skeleton_type": "ie3__B_wordproblem",
-  "concept": "ie3",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "How many integers from 1 to 250 are divisible by none of 2, 3, or 7?",
-  "answer": "71",
-  "skeleton_type": "ie3__C_alternate",
-  "concept": "ie3",
-  "framing": "C_alternate"
- },
- {
-  "problem": "How many positive divisors of 720 are greater than 20?",
-  "answer": "16",
+  "problem": "How many positive divisors of 1200 are greater than 10?",
+  "answer": "22",
   "skeleton_type": "cdc__A_original",
   "concept": "cdc",
   "framing": "A_original"
  },
  {
-  "problem": "720 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 720 exactly. In how many ways can this be done with more than 20 tiles per row?",
-  "answer": "16",
+  "problem": "1200 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 1200 exactly. In how many ways can this be done with more than 10 tiles per row?",
+  "answer": "22",
   "skeleton_type": "cdc__B_wordproblem",
   "concept": "cdc",
   "framing": "B_wordproblem"
  },
  {
-  "problem": "How many positive divisors of 720 are 20 or fewer?",
-  "answer": "14",
+  "problem": "How many positive divisors of 1200 are 10 or fewer?",
+  "answer": "8",
+  "skeleton_type": "cdc__C_alternate",
+  "concept": "cdc",
+  "framing": "C_alternate"
+ },
+ {
+  "problem": "How many positive divisors of 2100 are greater than 6?",
+  "answer": "30",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "2100 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 2100 exactly. In how many ways can this be done with more than 6 tiles per row?",
+  "answer": "30",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive divisors of 2100 are 6 or fewer?",
+  "answer": "6",
   "skeleton_type": "cdc__C_alternate",
   "concept": "cdc",
   "framing": "C_alternate"
@@ -273,231 +252,126 @@
   "framing": "C_alternate"
  },
  {
-  "problem": "How many positive divisors of 1320 are greater than 8?",
-  "answer": "25",
-  "skeleton_type": "cdc__A_original",
-  "concept": "cdc",
-  "framing": "A_original"
- },
- {
-  "problem": "1320 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 1320 exactly. In how many ways can this be done with more than 8 tiles per row?",
-  "answer": "25",
-  "skeleton_type": "cdc__B_wordproblem",
-  "concept": "cdc",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "How many positive divisors of 1320 are 8 or fewer?",
-  "answer": "7",
-  "skeleton_type": "cdc__C_alternate",
-  "concept": "cdc",
-  "framing": "C_alternate"
- },
- {
-  "problem": "How many positive divisors of 1560 are greater than 15?",
-  "answer": "21",
-  "skeleton_type": "cdc__A_original",
-  "concept": "cdc",
-  "framing": "A_original"
- },
- {
-  "problem": "1560 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 1560 exactly. In how many ways can this be done with more than 15 tiles per row?",
-  "answer": "21",
-  "skeleton_type": "cdc__B_wordproblem",
-  "concept": "cdc",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "How many positive divisors of 1560 are 15 or fewer?",
-  "answer": "11",
-  "skeleton_type": "cdc__C_alternate",
-  "concept": "cdc",
-  "framing": "C_alternate"
- },
- {
-  "problem": "How many positive divisors of 720 are greater than 16?",
-  "answer": "18",
-  "skeleton_type": "cdc__A_original",
-  "concept": "cdc",
-  "framing": "A_original"
- },
- {
-  "problem": "720 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 720 exactly. In how many ways can this be done with more than 16 tiles per row?",
-  "answer": "18",
-  "skeleton_type": "cdc__B_wordproblem",
-  "concept": "cdc",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "How many positive divisors of 720 are 16 or fewer?",
-  "answer": "12",
-  "skeleton_type": "cdc__C_alternate",
-  "concept": "cdc",
-  "framing": "C_alternate"
- },
- {
-  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 549; add up (a+b) over all such pairs.",
-  "answer": "33",
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 493; add up (a+b) over all such pairs.",
+  "answer": "56",
   "skeleton_type": "cmp__A_original",
   "concept": "cmp",
   "framing": "A_original"
  },
  {
-  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 549. Over all such triangles, find the total of (a+b).",
-  "answer": "33",
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 493. Over all such triangles, find the total of (a+b).",
+  "answer": "56",
   "skeleton_type": "cmp__B_wordproblem",
   "concept": "cmp",
   "framing": "B_wordproblem"
  },
  {
-  "problem": "In how many ways can 549 be written as a² + b² with positive integers a ≤ b?",
-  "answer": "1",
-  "skeleton_type": "cmp__C_alternate",
-  "concept": "cmp",
-  "framing": "C_alternate"
- },
- {
-  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 260; add up (a+b) over all such pairs.",
-  "answer": "40",
-  "skeleton_type": "cmp__A_original",
-  "concept": "cmp",
-  "framing": "A_original"
- },
- {
-  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 260. Over all such triangles, find the total of (a+b).",
-  "answer": "40",
-  "skeleton_type": "cmp__B_wordproblem",
-  "concept": "cmp",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "In how many ways can 260 be written as a² + b² with positive integers a ≤ b?",
+  "problem": "In how many ways can 493 be written as a² + b² with positive integers a ≤ b?",
   "answer": "2",
   "skeleton_type": "cmp__C_alternate",
   "concept": "cmp",
   "framing": "C_alternate"
  },
  {
-  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 145; add up (a+b) over all such pairs.",
-  "answer": "30",
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 292; add up (a+b) over all such pairs.",
+  "answer": "22",
   "skeleton_type": "cmp__A_original",
   "concept": "cmp",
   "framing": "A_original"
  },
  {
-  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 145. Over all such triangles, find the total of (a+b).",
-  "answer": "30",
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 292. Over all such triangles, find the total of (a+b).",
+  "answer": "22",
   "skeleton_type": "cmp__B_wordproblem",
   "concept": "cmp",
   "framing": "B_wordproblem"
  },
  {
-  "problem": "In how many ways can 145 be written as a² + b² with positive integers a ≤ b?",
+  "problem": "In how many ways can 292 be written as a² + b² with positive integers a ≤ b?",
+  "answer": "1",
+  "skeleton_type": "cmp__C_alternate",
+  "concept": "cmp",
+  "framing": "C_alternate"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 445; add up (a+b) over all such pairs.",
+  "answer": "52",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 445. Over all such triangles, find the total of (a+b).",
+  "answer": "52",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "In how many ways can 445 be written as a² + b² with positive integers a ≤ b?",
   "answer": "2",
   "skeleton_type": "cmp__C_alternate",
   "concept": "cmp",
   "framing": "C_alternate"
  },
  {
-  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 306; add up (a+b) over all such pairs.",
-  "answer": "24",
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 325; add up (a+b) over all such pairs.",
+  "answer": "67",
   "skeleton_type": "cmp__A_original",
   "concept": "cmp",
   "framing": "A_original"
  },
  {
-  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 306. Over all such triangles, find the total of (a+b).",
-  "answer": "24",
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 325. Over all such triangles, find the total of (a+b).",
+  "answer": "67",
   "skeleton_type": "cmp__B_wordproblem",
   "concept": "cmp",
   "framing": "B_wordproblem"
  },
  {
-  "problem": "In how many ways can 306 be written as a² + b² with positive integers a ≤ b?",
+  "problem": "In how many ways can 325 be written as a² + b² with positive integers a ≤ b?",
+  "answer": "3",
+  "skeleton_type": "cmp__C_alternate",
+  "concept": "cmp",
+  "framing": "C_alternate"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 388; add up (a+b) over all such pairs.",
+  "answer": "26",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 388. Over all such triangles, find the total of (a+b).",
+  "answer": "26",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "In how many ways can 388 be written as a² + b² with positive integers a ≤ b?",
   "answer": "1",
   "skeleton_type": "cmp__C_alternate",
   "concept": "cmp",
   "framing": "C_alternate"
  },
  {
-  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 68; add up (a+b) over all such pairs.",
-  "answer": "10",
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 98; add up (a+b) over all such pairs.",
+  "answer": "14",
   "skeleton_type": "cmp__A_original",
   "concept": "cmp",
   "framing": "A_original"
  },
  {
-  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 68. Over all such triangles, find the total of (a+b).",
-  "answer": "10",
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 98. Over all such triangles, find the total of (a+b).",
+  "answer": "14",
   "skeleton_type": "cmp__B_wordproblem",
   "concept": "cmp",
   "framing": "B_wordproblem"
  },
  {
-  "problem": "In how many ways can 68 be written as a² + b² with positive integers a ≤ b?",
-  "answer": "1",
-  "skeleton_type": "cmp__C_alternate",
-  "concept": "cmp",
-  "framing": "C_alternate"
- },
- {
-  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 90; add up (a+b) over all such pairs.",
-  "answer": "12",
-  "skeleton_type": "cmp__A_original",
-  "concept": "cmp",
-  "framing": "A_original"
- },
- {
-  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 90. Over all such triangles, find the total of (a+b).",
-  "answer": "12",
-  "skeleton_type": "cmp__B_wordproblem",
-  "concept": "cmp",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "In how many ways can 90 be written as a² + b² with positive integers a ≤ b?",
-  "answer": "1",
-  "skeleton_type": "cmp__C_alternate",
-  "concept": "cmp",
-  "framing": "C_alternate"
- },
- {
-  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 202; add up (a+b) over all such pairs.",
-  "answer": "20",
-  "skeleton_type": "cmp__A_original",
-  "concept": "cmp",
-  "framing": "A_original"
- },
- {
-  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 202. Over all such triangles, find the total of (a+b).",
-  "answer": "20",
-  "skeleton_type": "cmp__B_wordproblem",
-  "concept": "cmp",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "In how many ways can 202 be written as a² + b² with positive integers a ≤ b?",
-  "answer": "1",
-  "skeleton_type": "cmp__C_alternate",
-  "concept": "cmp",
-  "framing": "C_alternate"
- },
- {
-  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 178; add up (a+b) over all such pairs.",
-  "answer": "16",
-  "skeleton_type": "cmp__A_original",
-  "concept": "cmp",
-  "framing": "A_original"
- },
- {
-  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 178. Over all such triangles, find the total of (a+b).",
-  "answer": "16",
-  "skeleton_type": "cmp__B_wordproblem",
-  "concept": "cmp",
-  "framing": "B_wordproblem"
- },
- {
-  "problem": "In how many ways can 178 be written as a² + b² with positive integers a ≤ b?",
+  "problem": "In how many ways can 98 be written as a² + b² with positive integers a ≤ b?",
   "answer": "1",
   "skeleton_type": "cmp__C_alternate",
   "concept": "cmp",
