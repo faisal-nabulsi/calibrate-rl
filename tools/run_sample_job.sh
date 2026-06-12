@@ -64,6 +64,7 @@ slack_post() {
 # success AND failure — a failed job must not leave the box burning money.
 finish() {
   local code="$1" msg="$2"
+  [ -n "${HEARTBEAT_PID:-}" ] && kill "$HEARTBEAT_PID" 2>/dev/null
   if [ "$code" -eq 0 ]; then
     echo "job $JOB_ID done — $msg"
     slack_post ":white_check_mark: job \`$JOB_ID\` done — $msg"
@@ -168,6 +169,14 @@ for p in "${PREP_CMDS[@]+"${PREP_CMDS[@]}"}"; do
     finish 1 "pool build failed: $p"
   fi
 done
+
+# Progress heartbeat: post the latest progress line every 30 min so a
+# multi-hour job is never a black box. Killed in finish().
+( while sleep 1800; do
+    line="$(grep -oE '\[[0-9]+/[0-9]+\].*' "$LOG" 2>/dev/null | tail -1)"
+    slack_post ":hourglass_flowing_sand: job \`$JOB_ID\` progress: ${line:-running, no per-problem line yet}"
+  done ) &
+HEARTBEAT_PID=$!
 
 echo "+ env ${RUN_ENV[*]} $RUN_CMD" >> "$LOG"
 if ! env "${RUN_ENV[@]}" $RUN_CMD >> "$LOG" 2>&1; then
