@@ -62,9 +62,15 @@ in-band problems. **The deliverable is the METHOD, not any single checkpoint.**
 | Data prep: dataset build, holdout construction, repo hygiene | Michael |
 | Eval | Cara |
 | RL review | Zaid |
-| Running GPU calibration / training / eval (AWS L40S box) | `awesome-ash` (training executor; executes, doesn't design; Slack listener lives on the t3 — always reachable; hands on the L40S, which is a pure worker that runs a job poller on boot) |
-| Sampling runs (the two AWS L4 boxes) | `sam`, `sadie` (sampling executors; Slack listeners live on the t3 — always reachable; hands on the L4s, which are pure workers that run job pollers on boot) |
+| Running GPU calibration / training / eval (AWS L40S box) | `awesome-ash` (training executor; executes, doesn't design; lives ON the L40S — on-demand, online only while the box is up) |
+| Sampling runs (the two AWS L4 boxes) | `sam`, `sadie` (sampling executors; live ON their L4 boxes — on-demand, online only while their box is up, reachable ~60s after box start) |
 | Calibration-loop orchestrator processes (t3) | `thinkrock` (automation home, NOT a conversational agent — don't @mention it expecting replies) |
+
+**GPU-box agents (sam, sadie, awesome-ash) live ON their boxes** — Slack listeners
+are NOT centralized on the t3. Wake ritual: after a box boots, verify its agent
+answers a "hi" in Slack — if silent, a human re-enables events on that bot's Slack
+app page. GPU-box agents run under pm2 with `--max-restarts 5` so a broken install
+can't crash-loop (crash bursts are what get Slack events disabled).
 
 A teammate not yet in the table still follows the person-session rules. Cross-lane
 changes: propose in Slack and let the owner confirm.
