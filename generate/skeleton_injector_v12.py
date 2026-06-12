@@ -99,6 +99,16 @@ def sieve(L):
     return ok
 ISPRIME=sieve(2_000_000)
 
+# ── depth-1 oracle helpers ───────────────────────────────────────────────────
+# Single source of truth for each concept's gold, so composites compose the SAME
+# oracle (Addendum A.1: oracles compose -> composite gold exact by construction,
+# no math re-derived). The parent generators below call these too; output stays
+# byte-identical so test_knob_equivalence still passes.
+def _loglaws_gold(e1, e2, e3):
+    return e1 + e2 - e3
+def _triples_gold(N):
+    return sum(1 for a in range(N+1) for b in range(a+1, N+1) if (N-a-b) > b)
+
 PROBLEMS=[]
 REGISTRY=[]
 # concepts that are irreducibly one-step at depth-0; reserved as depth-1 ride-along partners
@@ -242,7 +252,7 @@ def c_subsets():
 @concept("ordered_triple_constraint",[21,47])
 def c_triples():
     N=K["ordered_triple_constraint"].randint("N")  # v12: narrowed to [10,20] from [12,25] (v11 0.13 mean, 54% too-hard); range now in knobs/
-    cnt=sum(1 for a in range(N+1) for b in range(a+1,N+1) if (N-a-b)>b)
+    cnt=_triples_gold(N)
     if cnt<5: return None
     # v12 representation fix: every phrasing now states 0<=a<b<c EXPLICITLY. The v11
     # natural-language variants ("nonnegative integers" without the 0<= bound) made the
@@ -255,6 +265,39 @@ def c_triples():
         f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {N}?",
         f"Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c={N}.",
     ]), cnt, "ordered_triple_constraint")
+
+# ===================================================================
+# DEPTH-1 CHAINING (Addendum A) — composites compose parent oracles
+# ===================================================================
+@concept("chain_log_laws__ordered_triple_constraint",[21,47])
+def c_chain_loglaws_triples():
+    # Pilot composite (Addendum A), Option-A draw: sample the TARGET N FIRST (uniform,
+    # in-band) so composite answers stay FLAT, then DERIVE a log expression whose value
+    # e1+e2-e3 == N. Review fix (PR #41): the old draw set N = e1+e2-e3, a bell-shaped
+    # sum clipped at 25 -> top3 0.388 (answer-hack shape) AND mass in ordered_triple's
+    # too-hard 21-25 band. Inverting the draw flattens answers and centers N in-band; the
+    # num-no-widening rule means this initial spread is the only shot at it.
+    # Oracles still compose: gold := _triples_gold(N), exact by construction. Surface EMBEDS
+    # the log (model must evaluate it to recover N), never a "first/then" recipe.
+    kn=K["chain_log_laws__ordered_triple_constraint"]
+    N=kn.randint("N")                                  # flat target -> flat composite answers
+    gold=_triples_gold(N)                              # B's oracle on the (embedded) value
+    if gold<5: return None                             # B's own validity guard
+    base=kn.choice("base"); e3=kn.randint("e3")
+    s=N+e3                                              # need e1+e2 = N+e3  ->  e1+e2-e3 = N
+    lo=max(4, s-20); hi=min(20, s-4)                   # keep e1,e2 inside log_laws's [4,20] envelope
+    if lo>hi: return None
+    e1=random.randint(lo,hi); e2=s-e1
+    expr=f"log_{base}({base}^{e1} · {base}^{e2} / {base}^{e3})"   # evaluates to N; embedded
+    prob=random.choice([
+        f"How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c = {expr}?",
+        f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {expr}?",
+        f"In how many ways can {expr} be written as a+b+c with 0≤a<b<c (integers)?",
+        f"Count the integer triples (a,b,c) with 0≤a<b<c whose sum equals {expr}.",
+    ])
+    meta={"depth":1,"chain":{"components":["log_laws","ordered_triple_constraint"],
+                              "fed_param":"N","intermediate_gold":N}}
+    return (prob, gold, "chain_log_laws__ordered_triple_constraint", meta)
 
 @concept("arith_term_filter",[72])
 def c_arithfilter():
@@ -425,7 +468,7 @@ def c_loglaws():
         f"Evaluate log_{base}({base}^{e1} · {base}^{e2}) - log_{base}({base}^{e3}).",
         f"What is log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3})?",
         f"Simplify log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}) to an integer.",
-    ]), e1+e2-e3, "log_laws")
+    ]), _loglaws_gold(e1,e2,e3), "log_laws")
 
 @concept("infinite_product_exp",[20])
 def c_infprod():
