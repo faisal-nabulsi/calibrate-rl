@@ -27,6 +27,20 @@ PENDING="$BUCKET/pending/$AGENT"
 SPEC_KEY="$(aws s3 ls "$PENDING/" 2>/dev/null | awk '$NF ~ /\.json$/ {print $NF}' | sort | head -1)"
 if [ -z "$SPEC_KEY" ]; then
   echo "no pending job for $AGENT — leaving the box up"
+  # Idle-box guard: a systemd worker boot (AGENT_NAME from env) with nothing queued
+  # means the box is up burning money — page the owners. Skip hand-started interactive
+  # sessions (no AGENT_NAME → hostname fallback), which are intentional. Boot-time check
+  # only; a continuous "idle >N min across all boxes" alarm belongs in the orchestrator
+  # monitor (see CLAUDE.md TODO).
+  if [ -n "${AGENT_NAME:-}" ] && [ -n "${SLACK_WEBHOOK_URL:-}" ]; then
+    OWNER_SLACK_ID="U0B9661M6J2"   # faisal
+    M="$(printf '%s\n' ${ESCALATE_SLACK_IDS:-${ESCALATE:-}} "$OWNER_SLACK_ID" \
+       | awk 'NF && !seen[$0]++ {printf "<@%s> ", $0}')"
+    curl -sf -X POST -H 'Content-type: application/json' \
+      --data "$(python3 -c 'import json,sys;print(json.dumps({"text":sys.argv[1]}))' \
+        "[$AGENT] :warning: box is UP with nothing queued — idle and burning money. Stop it or queue work. ${M}")" \
+      "$SLACK_WEBHOOK_URL" >/dev/null || true
+  fi
   exit 0
 fi
 

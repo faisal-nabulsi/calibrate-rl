@@ -59,6 +59,14 @@ JOB_ID="$(basename "$SPEC_URI" .json)"
 LOG="logs/job_${JOB_ID}.log"
 mkdir -p logs data
 
+# Escalation recipients for failure pages: a deduped, space-separated list of Slack
+# IDs rendered as <@id> mentions (mentions trigger mobile push; channel posts don't).
+# Configurable via env ESCALATE_SLACK_IDS (or the legacy single ESCALATE); the project
+# OWNER is always included so a human is paged even before a box env is updated.
+OWNER_SLACK_ID="U0B9661M6J2"   # faisal
+ESCALATE_MENTIONS="$(printf '%s\n' ${ESCALATE_SLACK_IDS:-${ESCALATE:-}} "$OWNER_SLACK_ID" \
+  | awk 'NF && !seen[$0]++ {printf "<@%s> ", $0}')"
+
 slack_post() {
   [ -n "${SLACK_WEBHOOK_URL:-}" ] || return 0
   [ "$DRY_RUN" -eq 1 ] && return 0
@@ -77,7 +85,7 @@ finish() {
   else
     echo "job $JOB_ID FAILED — $msg" >&2
     slack_post ":x: job \`$JOB_ID\` FAILED — $msg (log: $LOG_URI)
-DIAGNOSE NEEDED <@$ESCALATE> — auto-triage exhausted or not applicable; box is self-stopping, logs are synced."
+DIAGNOSE NEEDED ${ESCALATE_MENTIONS}— auto-triage exhausted or not applicable; box is self-stopping, logs are synced."
   fi
   if [ "$NO_SHUTDOWN" -eq 0 ]; then
     # Stop the box's resident Slack agent first so it dies gracefully (its
