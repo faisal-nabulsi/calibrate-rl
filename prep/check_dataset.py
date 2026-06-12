@@ -460,6 +460,8 @@ def rc_chain_prime_power_divisors__constrained_divisor_count(p):
     N = 1
     while num_divisors(N) != D:
         N += 1
+        if N > 10**6:          # bounded (mirrors the generator guard); awkward D -> unverifiable
+            return None
     return _cdc_from_text(p, N)
 
 def rc_chain_constrained_divisor_count__modular_exponent(p):

@@ -119,6 +119,19 @@ def _cdc_count(N, cond, t):
     return sum(1 for x in ds if x < t)            # lt
 def _cdc_desc(cond, t):
     return "odd" if cond == "odd" else (f"greater than {t}" if cond == "gt" else f"less than {t}")
+def _smallest_with_ndiv(D, cap=10**6):
+    """Smallest positive integer with exactly D divisors, or None if it exceeds cap.
+    The cap BOUNDS the search: prime / awkward D (envelope is [4,200]) have an
+    enormous smallest-N (D=97 -> 2^96) and the bare `while ndiv(n)!=D: n+=1` loop
+    would hang the generator — and autocalib edits the D knob unattended
+    (charizard #42 flag 1). Consumes no RNG; for every in-use D the answer is well
+    under cap, so output is byte-identical to the old loop (test_knob_equivalence)."""
+    n = 1
+    while ndiv(n) != D:
+        n += 1
+        if n > cap:
+            return None
+    return n
 
 PROBLEMS=[]
 REGISTRY=[]
@@ -320,8 +333,8 @@ def c_chain_ppd_cdc():
     # Oracles compose -> gold exact. Surface EMBEDS A's quantity (model must compute N), no recipe.
     kn=K["chain_prime_power_divisors__constrained_divisor_count"]
     D=kn.choice("D")
-    N=1
-    while ndiv(N)!=D: N+=1
+    N=_smallest_with_ndiv(D)                           # bounded search (charizard #42 flag 1)
+    if N is None: return None
     nlo,nhi=K["constrained_divisor_count"].params["num_pool"]["envelope"]  # feed-legal: READ B's
     if not (nlo<=N<=nhi): return None                  # envelope, never hard-code (kathryne #42 fix2)
     cond=kn.choice("cond")                             # knob locks cond to {gt,lt}: "odd" count
@@ -743,8 +756,8 @@ def c_ppdiv():
     # v12: widened D set (v11: 8 distinct answers, top-3 38%, 75% too_easy). Larger D ->
     # larger smallest-n -> harder AND more distinct. rc finds smallest n with D divisors.
     D=K["prime_power_divisors"].choice("D")
-    n=1
-    while ndiv(n)!=D: n+=1
+    n=_smallest_with_ndiv(D)                          # bounded search (charizard #42 flag 1)
+    if n is None: return None                         # awkward D (huge smallest-N) -> resample
     return (random.choice([
         f"What is the smallest positive integer with exactly {D} divisors?",
         f"Find the least positive integer having exactly {D} positive divisors.",
