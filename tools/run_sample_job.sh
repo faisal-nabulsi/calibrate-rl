@@ -31,6 +31,9 @@
 set -uo pipefail   # deliberately no -e: failures must reach the fail-post + shutdown path
 cd "$(dirname "$0")/.."
 
+# GPU deps live in the box's rl-venv (torch/transformers); systemd gives us bare PATH.
+[ -f "$HOME/rl-venv/bin/activate" ] && source "$HOME/rl-venv/bin/activate"
+
 SPEC_URI=""
 NO_SHUTDOWN=0
 DRY_RUN=0
