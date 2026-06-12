@@ -1,0 +1,1262 @@
+[
+ {
+  "problem": "How many positive integers from 1 to 531 are divisible by 2, 3, or 5?",
+  "answer": "389",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 531 lockers numbered 1 through 531. A locker gets a sticker if its number is divisible by 2, 3, or 5. How many lockers get a sticker?",
+  "answer": "389",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 531, and n is divisible by 2, 3, or 5 }. What is |S|?",
+  "answer": "389",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 531. It clicks on each integer that is a multiple of 2, 3, or 5. How many clicks total?",
+  "answer": "389",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 531 inclusive that are a multiple of at least one of 2, 3, and 5.",
+  "answer": "389",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 274 are divisible by 2, 4, or 6?",
+  "answer": "137",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 274 lockers numbered 1 through 274. A locker gets a sticker if its number is divisible by 2, 4, or 6. How many lockers get a sticker?",
+  "answer": "137",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 274, and n is divisible by 2, 4, or 6 }. What is |S|?",
+  "answer": "137",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 274. It clicks on each integer that is a multiple of 2, 4, or 6. How many clicks total?",
+  "answer": "137",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 274 inclusive that are a multiple of at least one of 2, 4, and 6.",
+  "answer": "137",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 796 are divisible by 2, 3, or 6?",
+  "answer": "531",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 796 lockers numbered 1 through 796. A locker gets a sticker if its number is divisible by 2, 3, or 6. How many lockers get a sticker?",
+  "answer": "531",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 796, and n is divisible by 2, 3, or 6 }. What is |S|?",
+  "answer": "531",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 796. It clicks on each integer that is a multiple of 2, 3, or 6. How many clicks total?",
+  "answer": "531",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 796 inclusive that are a multiple of at least one of 2, 3, and 6.",
+  "answer": "531",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 238 are divisible by 2, 5, or 6?",
+  "answer": "143",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 238 lockers numbered 1 through 238. A locker gets a sticker if its number is divisible by 2, 5, or 6. How many lockers get a sticker?",
+  "answer": "143",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 238, and n is divisible by 2, 5, or 6 }. What is |S|?",
+  "answer": "143",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 238. It clicks on each integer that is a multiple of 2, 5, or 6. How many clicks total?",
+  "answer": "143",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 238 inclusive that are a multiple of at least one of 2, 5, and 6.",
+  "answer": "143",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 271 are divisible by 2, 3, or 5?",
+  "answer": "198",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 271 lockers numbered 1 through 271. A locker gets a sticker if its number is divisible by 2, 3, or 5. How many lockers get a sticker?",
+  "answer": "198",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 271, and n is divisible by 2, 3, or 5 }. What is |S|?",
+  "answer": "198",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 271. It clicks on each integer that is a multiple of 2, 3, or 5. How many clicks total?",
+  "answer": "198",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 271 inclusive that are a multiple of at least one of 2, 3, and 5.",
+  "answer": "198",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 260 are divisible by 2, 3, or 6?",
+  "answer": "173",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 260 lockers numbered 1 through 260. A locker gets a sticker if its number is divisible by 2, 3, or 6. How many lockers get a sticker?",
+  "answer": "173",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 260, and n is divisible by 2, 3, or 6 }. What is |S|?",
+  "answer": "173",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 260. It clicks on each integer that is a multiple of 2, 3, or 6. How many clicks total?",
+  "answer": "173",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 260 inclusive that are a multiple of at least one of 2, 3, and 6.",
+  "answer": "173",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 796 are divisible by 2, 5, or 6?",
+  "answer": "478",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 796 lockers numbered 1 through 796. A locker gets a sticker if its number is divisible by 2, 5, or 6. How many lockers get a sticker?",
+  "answer": "478",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 796, and n is divisible by 2, 5, or 6 }. What is |S|?",
+  "answer": "478",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 796. It clicks on each integer that is a multiple of 2, 5, or 6. How many clicks total?",
+  "answer": "478",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 796 inclusive that are a multiple of at least one of 2, 5, and 6.",
+  "answer": "478",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 250 are divisible by 2, 3, or 7?",
+  "answer": "179",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 250 lockers numbered 1 through 250. A locker gets a sticker if its number is divisible by 2, 3, or 7. How many lockers get a sticker?",
+  "answer": "179",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 250, and n is divisible by 2, 3, or 7 }. What is |S|?",
+  "answer": "179",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 250. It clicks on each integer that is a multiple of 2, 3, or 7. How many clicks total?",
+  "answer": "179",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 250 inclusive that are a multiple of at least one of 2, 3, and 7.",
+  "answer": "179",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 496 are divisible by 2, 3, or 5?",
+  "answer": "364",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 496 lockers numbered 1 through 496. A locker gets a sticker if its number is divisible by 2, 3, or 5. How many lockers get a sticker?",
+  "answer": "364",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 496, and n is divisible by 2, 3, or 5 }. What is |S|?",
+  "answer": "364",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 496. It clicks on each integer that is a multiple of 2, 3, or 5. How many clicks total?",
+  "answer": "364",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 496 inclusive that are a multiple of at least one of 2, 3, and 5.",
+  "answer": "364",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 784 are divisible by 3, 4, or 6?",
+  "answer": "392",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 784 lockers numbered 1 through 784. A locker gets a sticker if its number is divisible by 3, 4, or 6. How many lockers get a sticker?",
+  "answer": "392",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 784, and n is divisible by 3, 4, or 6 }. What is |S|?",
+  "answer": "392",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 784. It clicks on each integer that is a multiple of 3, 4, or 6. How many clicks total?",
+  "answer": "392",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 784 inclusive that are a multiple of at least one of 3, 4, and 6.",
+  "answer": "392",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 305 are divisible by 3, 6, or 7?",
+  "answer": "130",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 305 lockers numbered 1 through 305. A locker gets a sticker if its number is divisible by 3, 6, or 7. How many lockers get a sticker?",
+  "answer": "130",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 305, and n is divisible by 3, 6, or 7 }. What is |S|?",
+  "answer": "130",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 305. It clicks on each integer that is a multiple of 3, 6, or 7. How many clicks total?",
+  "answer": "130",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 305 inclusive that are a multiple of at least one of 3, 6, and 7.",
+  "answer": "130",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive integers from 1 to 581 are divisible by 2, 6, or 7?",
+  "answer": "332",
+  "skeleton_type": "ie3__A_original",
+  "concept": "ie3",
+  "framing": "A_original"
+ },
+ {
+  "problem": "A hallway has 581 lockers numbered 1 through 581. A locker gets a sticker if its number is divisible by 2, 6, or 7. How many lockers get a sticker?",
+  "answer": "332",
+  "skeleton_type": "ie3__B_wordproblem",
+  "concept": "ie3",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let S = { n : 1 ≤ n ≤ 581, and n is divisible by 2, 6, or 7 }. What is |S|?",
+  "answer": "332",
+  "skeleton_type": "ie3__C_setbuilder",
+  "concept": "ie3",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A counter starts at 0 and steps through the integers 1, 2, …, 581. It clicks on each integer that is a multiple of 2, 6, or 7. How many clicks total?",
+  "answer": "332",
+  "skeleton_type": "ie3__D_scenario",
+  "concept": "ie3",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Count the integers between 1 and 581 inclusive that are a multiple of at least one of 2, 6, and 7.",
+  "answer": "332",
+  "skeleton_type": "ie3__E_paraphrase",
+  "concept": "ie3",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 5280 are greater than 44?",
+  "answer": "28",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "5280 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 5280 exactly. In how many ways can this be done with more than 44 tiles per row?",
+  "answer": "28",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 5280 and d > 44?",
+  "answer": "28",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 5280 players into equal-sized groups, and the group size has to divide 5280 evenly. How many allowed group sizes are larger than 44?",
+  "answer": "28",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 5280, how many exceed 44?",
+  "answer": "28",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 3120 are greater than 48?",
+  "answer": "21",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "3120 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 3120 exactly. In how many ways can this be done with more than 48 tiles per row?",
+  "answer": "21",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 3120 and d > 48?",
+  "answer": "21",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 3120 players into equal-sized groups, and the group size has to divide 3120 evenly. How many allowed group sizes are larger than 48?",
+  "answer": "21",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 3120, how many exceed 48?",
+  "answer": "21",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 7800 are greater than 25?",
+  "answer": "34",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "7800 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 7800 exactly. In how many ways can this be done with more than 25 tiles per row?",
+  "answer": "34",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 7800 and d > 25?",
+  "answer": "34",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 7800 players into equal-sized groups, and the group size has to divide 7800 evenly. How many allowed group sizes are larger than 25?",
+  "answer": "34",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 7800, how many exceed 25?",
+  "answer": "34",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 6240 are greater than 48?",
+  "answer": "28",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "6240 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 6240 exactly. In how many ways can this be done with more than 48 tiles per row?",
+  "answer": "28",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 6240 and d > 48?",
+  "answer": "28",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 6240 players into equal-sized groups, and the group size has to divide 6240 evenly. How many allowed group sizes are larger than 48?",
+  "answer": "28",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 6240, how many exceed 48?",
+  "answer": "28",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 3960 are greater than 40?",
+  "answer": "28",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "3960 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 3960 exactly. In how many ways can this be done with more than 40 tiles per row?",
+  "answer": "28",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 3960 and d > 40?",
+  "answer": "28",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 3960 players into equal-sized groups, and the group size has to divide 3960 evenly. How many allowed group sizes are larger than 40?",
+  "answer": "28",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 3960, how many exceed 40?",
+  "answer": "28",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 14040 are greater than 60?",
+  "answer": "39",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "14040 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 14040 exactly. In how many ways can this be done with more than 60 tiles per row?",
+  "answer": "39",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 14040 and d > 60?",
+  "answer": "39",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 14040 players into equal-sized groups, and the group size has to divide 14040 evenly. How many allowed group sizes are larger than 60?",
+  "answer": "39",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 14040, how many exceed 60?",
+  "answer": "39",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 23400 are greater than 10?",
+  "answer": "63",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "23400 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 23400 exactly. In how many ways can this be done with more than 10 tiles per row?",
+  "answer": "63",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 23400 and d > 10?",
+  "answer": "63",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 23400 players into equal-sized groups, and the group size has to divide 23400 evenly. How many allowed group sizes are larger than 10?",
+  "answer": "63",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 23400, how many exceed 10?",
+  "answer": "63",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 9360 are greater than 12?",
+  "answer": "50",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "9360 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 9360 exactly. In how many ways can this be done with more than 12 tiles per row?",
+  "answer": "50",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 9360 and d > 12?",
+  "answer": "50",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 9360 players into equal-sized groups, and the group size has to divide 9360 evenly. How many allowed group sizes are larger than 12?",
+  "answer": "50",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 9360, how many exceed 12?",
+  "answer": "50",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 11880 are greater than 33?",
+  "answer": "45",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "11880 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 11880 exactly. In how many ways can this be done with more than 33 tiles per row?",
+  "answer": "45",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 11880 and d > 33?",
+  "answer": "45",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 11880 players into equal-sized groups, and the group size has to divide 11880 evenly. How many allowed group sizes are larger than 33?",
+  "answer": "45",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 11880, how many exceed 33?",
+  "answer": "45",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 25200 are greater than 14?",
+  "answer": "78",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "25200 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 25200 exactly. In how many ways can this be done with more than 14 tiles per row?",
+  "answer": "78",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 25200 and d > 14?",
+  "answer": "78",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 25200 players into equal-sized groups, and the group size has to divide 25200 evenly. How many allowed group sizes are larger than 14?",
+  "answer": "78",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 25200, how many exceed 14?",
+  "answer": "78",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 5280 are greater than 16?",
+  "answer": "36",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "5280 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 5280 exactly. In how many ways can this be done with more than 16 tiles per row?",
+  "answer": "36",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 5280 and d > 16?",
+  "answer": "36",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 5280 players into equal-sized groups, and the group size has to divide 5280 evenly. How many allowed group sizes are larger than 16?",
+  "answer": "36",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 5280, how many exceed 16?",
+  "answer": "36",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "How many positive divisors of 5040 are greater than 35?",
+  "answer": "39",
+  "skeleton_type": "cdc__A_original",
+  "concept": "cdc",
+  "framing": "A_original"
+ },
+ {
+  "problem": "5040 identical tiles are arranged in a single rectangle; the number of tiles per row must divide 5040 exactly. In how many ways can this be done with more than 35 tiles per row?",
+  "answer": "39",
+  "skeleton_type": "cdc__B_wordproblem",
+  "concept": "cdc",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "How many positive integers d satisfy both d divides 5040 and d > 35?",
+  "answer": "39",
+  "skeleton_type": "cdc__C_setbuilder",
+  "concept": "cdc",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "A coach must split 5040 players into equal-sized groups, and the group size has to divide 5040 evenly. How many allowed group sizes are larger than 35?",
+  "answer": "39",
+  "skeleton_type": "cdc__D_scenario",
+  "concept": "cdc",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "Among the positive divisors of 5040, how many exceed 35?",
+  "answer": "39",
+  "skeleton_type": "cdc__E_paraphrase",
+  "concept": "cdc",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 325; add up (a+b) over all such pairs.",
+  "answer": "67",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 325. Over all such triangles, find the total of (a+b).",
+  "answer": "67",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 325 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "67",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √325 from the origin. Add up a+b over all marked points.",
+  "answer": "67",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 325 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "67",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 377; add up (a+b) over all such pairs.",
+  "answer": "50",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 377. Over all such triangles, find the total of (a+b).",
+  "answer": "50",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 377 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "50",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √377 from the origin. Add up a+b over all marked points.",
+  "answer": "50",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 377 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "50",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 241; add up (a+b) over all such pairs.",
+  "answer": "19",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 241. Over all such triangles, find the total of (a+b).",
+  "answer": "19",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 241 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "19",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √241 from the origin. Add up a+b over all marked points.",
+  "answer": "19",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 241 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "19",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 450; add up (a+b) over all such pairs.",
+  "answer": "54",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 450. Over all such triangles, find the total of (a+b).",
+  "answer": "54",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 450 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "54",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √450 from the origin. Add up a+b over all marked points.",
+  "answer": "54",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 450 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "54",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 370; add up (a+b) over all such pairs.",
+  "answer": "48",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 370. Over all such triangles, find the total of (a+b).",
+  "answer": "48",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 370 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "48",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √370 from the origin. Add up a+b over all marked points.",
+  "answer": "48",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 370 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "48",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 260; add up (a+b) over all such pairs.",
+  "answer": "40",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 260. Over all such triangles, find the total of (a+b).",
+  "answer": "40",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 260 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "40",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √260 from the origin. Add up a+b over all marked points.",
+  "answer": "40",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 260 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "40",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 333; add up (a+b) over all such pairs.",
+  "answer": "21",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 333. Over all such triangles, find the total of (a+b).",
+  "answer": "21",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 333 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "21",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √333 from the origin. Add up a+b over all marked points.",
+  "answer": "21",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 333 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "21",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 369; add up (a+b) over all such pairs.",
+  "answer": "27",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 369. Over all such triangles, find the total of (a+b).",
+  "answer": "27",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 369 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "27",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √369 from the origin. Add up a+b over all marked points.",
+  "answer": "27",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 369 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "27",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 68; add up (a+b) over all such pairs.",
+  "answer": "10",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 68. Over all such triangles, find the total of (a+b).",
+  "answer": "10",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 68 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "10",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √68 from the origin. Add up a+b over all marked points.",
+  "answer": "10",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 68 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "10",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 90; add up (a+b) over all such pairs.",
+  "answer": "12",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 90. Over all such triangles, find the total of (a+b).",
+  "answer": "12",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 90 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "12",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √90 from the origin. Add up a+b over all marked points.",
+  "answer": "12",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 90 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "12",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 202; add up (a+b) over all such pairs.",
+  "answer": "20",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 202. Over all such triangles, find the total of (a+b).",
+  "answer": "20",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 202 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "20",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √202 from the origin. Add up a+b over all marked points.",
+  "answer": "20",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 202 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "20",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ },
+ {
+  "problem": "Find every pair of positive integers a ≤ b with a² + b² = 178; add up (a+b) over all such pairs.",
+  "answer": "16",
+  "skeleton_type": "cmp__A_original",
+  "concept": "cmp",
+  "framing": "A_original"
+ },
+ {
+  "problem": "An integer-sided right triangle has legs a ≤ b and its hypotenuse squared equals 178. Over all such triangles, find the total of (a+b).",
+  "answer": "16",
+  "skeleton_type": "cmp__B_wordproblem",
+  "concept": "cmp",
+  "framing": "B_wordproblem"
+ },
+ {
+  "problem": "Let T = { (a,b) : 1 ≤ a ≤ b and a² + b² = 178 }. Compute the sum of (a+b) over all (a,b) in T.",
+  "answer": "16",
+  "skeleton_type": "cmp__C_setbuilder",
+  "concept": "cmp",
+  "framing": "C_setbuilder"
+ },
+ {
+  "problem": "On a grid, mark every point (a,b) with 1 ≤ a ≤ b that lies exactly √178 from the origin. Add up a+b over all marked points.",
+  "answer": "16",
+  "skeleton_type": "cmp__D_scenario",
+  "concept": "cmp",
+  "framing": "D_scenario"
+ },
+ {
+  "problem": "For each way to write 178 as a² + b² with integers 1 ≤ a ≤ b, take a+b; report the total over all such ways.",
+  "answer": "16",
+  "skeleton_type": "cmp__E_paraphrase",
+  "concept": "cmp",
+  "framing": "E_paraphrase"
+ }
+]
