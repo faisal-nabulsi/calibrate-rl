@@ -61,7 +61,7 @@ from itertools import combinations as Ccomb
 # identical problems (automation/calibrator/tests/test_knob_equivalence.py).
 # Generator math is untouched; the calibrator edits JSON only, never this file.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from automation.calibrator.knob_loader import KnobBank
+from automation.calibrator.knob_loader import KnobBank, KnobError
 K = KnobBank()
 
 def gcd(a,b):
@@ -119,6 +119,15 @@ def _cdc_count(N, cond, t):
     return sum(1 for x in ds if x < t)            # lt
 def _cdc_desc(cond, t):
     return "odd" if cond == "odd" else (f"greater than {t}" if cond == "gt" else f"less than {t}")
+def _parent_envelope(concept, param):
+    """Read a parent concept's knob envelope for a chain feed-legal gate, raising a
+    CLEAR error if the knob file / param / envelope key is absent — instead of a bare
+    KeyError deep in a generator (charizard #42 nit 2). The static gate exercises this
+    path, so a missing parent knob fails loud at gen time, not silently."""
+    try:
+        return K[concept].params[param]["envelope"]
+    except (KnobError, KeyError, TypeError) as e:
+        raise KnobError(f"chain feed-gate needs {concept}.{param} envelope: {e}")
 def _smallest_with_ndiv(D, cap=10**6):
     """Smallest positive integer with exactly D divisors, or None if it exceeds cap.
     The cap BOUNDS the search: prime / awkward D (envelope is [4,200]) have an
@@ -333,9 +342,13 @@ def c_chain_ppd_cdc():
     # Oracles compose -> gold exact. Surface EMBEDS A's quantity (model must compute N), no recipe.
     kn=K["chain_prime_power_divisors__constrained_divisor_count"]
     D=kn.choice("D")
+    # D envelope tightened to the live span [12,48] (kathryne #42 nit 1): a plain [lo,hi]
+    # can't capture the full valid-D set (it's non-contiguous — e.g. D=13 -> N=4096 > 2520),
+    # so any residual in-span dead D is caught SAFELY below (bounded search -> resample,
+    # then the cdc-envelope gate), never a hang or wrong data.
     N=_smallest_with_ndiv(D)                           # bounded search (charizard #42 flag 1)
     if N is None: return None
-    nlo,nhi=K["constrained_divisor_count"].params["num_pool"]["envelope"]  # feed-legal: READ B's
+    nlo,nhi=_parent_envelope("constrained_divisor_count","num_pool")  # feed-legal: READ B's
     if not (nlo<=N<=nhi): return None                  # envelope, never hard-code (kathryne #42 fix2)
     cond=kn.choice("cond")                             # knob locks cond to {gt,lt}: "odd" count
     t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
@@ -364,7 +377,7 @@ def c_chain_cdc_modexp():
     num=kn.choice("num_pool"); cond=kn.choice("cond")
     t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
     e=_cdc_count(num,cond,t)                            # A's oracle (cdc) -> B's exponent
-    elo,ehi=K["modular_exponent"].params["e"]["envelope"]   # feed-legal: READ B's e envelope,
+    elo,ehi=_parent_envelope("modular_exponent","e")    # feed-legal: READ B's e envelope,
     if not (elo<=e<=ehi): return None                   # never hard-code (kathryne #42 fix2)
     a=kn.randint("a"); m=kn.randint("m")
     ans=pow(a,e,m)                                      # B's oracle (modexp)
