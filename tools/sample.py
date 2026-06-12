@@ -115,6 +115,12 @@ for idx, item in enumerate(todo):
         "mean_abs_advantage": float(np.mean(np.abs(adv))),
         "max_advantage": float(max(rewards) - mean), "advantage_std": float(np.std(rewards)),
         "zone": zone, "rollout_rewards": rewards, "rollout_texts": texts,
+        # carry depth-1 chain metadata through so the composition-gap analysis has the
+        # intermediate gold g_A directly (chain.intermediate_gold) instead of re-parsing
+        # it from the problem text — needed for intermediate_hit_rate. No-op for depth-0.
+        **({"chain": item["chain"]} if "chain" in item else {}),
+        **({"depth": item["depth"]} if "depth" in item else {}),
+        **({"knobs": item["knobs"]} if "knobs" in item else {}),
     })
     dt = time.time() - _t0
     avg = (time.time() - _t_run) / (idx + 1)
