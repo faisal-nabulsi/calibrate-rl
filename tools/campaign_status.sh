@@ -61,11 +61,11 @@ if [[ -z "$STATUS_JSON" ]]; then
 fi
 
 # Pretty-print the fields that matter. python3 (always present) over jq (maybe not).
-echo "$STATUS_JSON" | python3 - "$RUN_DIR" << 'PYEOF'
-import json, sys
+STATUS_JSON="$STATUS_JSON" python3 - "$RUN_DIR" << 'PYEOF'
+import json, os, sys
 
 run_dir = sys.argv[1]
-s = json.load(sys.stdin)
+s = json.loads(os.environ["STATUS_JSON"])
 
 def g(k, d="?"): return s.get(k, d)
 
