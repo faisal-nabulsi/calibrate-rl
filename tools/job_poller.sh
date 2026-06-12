@@ -11,6 +11,8 @@
 # (someone started it by hand for interactive work).
 set -uo pipefail
 cd "$(dirname "$0")/.."
+# Always run the latest merged tooling — boxes boot rarely and would go stale.
+git pull -q origin main 2>/dev/null || true
 
 AGENT="${AGENT_NAME:-$(hostname)}"
 BUCKET="${JOB_BUCKET:-s3://calibrate-rl-agent}"
