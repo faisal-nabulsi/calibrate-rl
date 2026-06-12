@@ -21,7 +21,7 @@ is_s3() { [[ "$RUNS_URI" == s3://* ]]; }
 
 list_runs() {
   if is_s3; then
-    aws s3 ls "${RUNS_URI}/" | awk '{print $2}' | tr -d '/'
+    aws s3 ls "${RUNS_URI}/" | awk '/ PRE /{print $2}' | tr -d '/'
   else
     ls -1 "$RUNS_URI" 2>/dev/null
   fi
