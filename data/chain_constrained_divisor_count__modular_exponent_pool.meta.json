@@ -1,0 +1,13 @@
+{
+  "generated_by": "prep/gen_clean.py",
+  "injector": "generate/skeleton_injector_v12.py",
+  "seed": 42,
+  "requested_per_concept": 120,
+  "concepts": {
+    "chain_constrained_divisor_count__modular_exponent": {
+      "raw": 120,
+      "kept": 120,
+      "survival": 1.0
+    }
+  }
+}

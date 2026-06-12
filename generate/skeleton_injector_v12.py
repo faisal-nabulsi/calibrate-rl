@@ -108,6 +108,17 @@ def _loglaws_gold(e1, e2, e3):
     return e1 + e2 - e3
 def _triples_gold(N):
     return sum(1 for a in range(N+1) for b in range(a+1, N+1) if (N-a-b) > b)
+def _cdc_count(N, cond, t):
+    """constrained_divisor_count oracle: # divisors of N that are odd / >t / <t.
+    Same logic as c_divfilter; shared so composites with cdc as the target compose
+    the exact gold (Addendum A.1). New helper — does NOT touch c_divfilter, so
+    test_knob_equivalence still holds."""
+    ds = divisors(N)
+    if cond == "odd": return sum(1 for x in ds if x % 2 == 1)
+    if cond == "gt":  return sum(1 for x in ds if x > t)
+    return sum(1 for x in ds if x < t)            # lt
+def _cdc_desc(cond, t):
+    return "odd" if cond == "odd" else (f"greater than {t}" if cond == "gt" else f"less than {t}")
 
 PROBLEMS=[]
 REGISTRY=[]
@@ -299,6 +310,60 @@ def c_chain_loglaws_triples():
     meta={"depth":1,"chain":{"components":["log_laws","ordered_triple_constraint"],
                               "fed_param":"N","intermediate_gold":N}}
     return (prob, gold, "chain_log_laws__ordered_triple_constraint", meta)
+
+@concept("chain_prime_power_divisors__constrained_divisor_count",[75])
+def c_chain_ppd_cdc():
+    # Depth-1 composite (Addendum A) — AMC #75 = prime_power_divisors x constrained_divisor_count.
+    # A = ppd: N := smallest int with exactly D divisors. N is divisor-RICH by construction, so
+    # it auto-satisfies the num_pool "must have rich divisor structure" caveat (chain_compat
+    # semantic_caveats[0]) — the one risk of cdc-as-target is eliminated for free. B = cdc on N.
+    # Oracles compose -> gold exact. Surface EMBEDS A's quantity (model must compute N), no recipe.
+    kn=K["chain_prime_power_divisors__constrained_divisor_count"]
+    D=kn.choice("D")
+    N=1
+    while ndiv(N)!=D: N+=1
+    if not (60<=N<=5000): return None                  # land in cdc's num band; awkward D resampled
+    cond=kn.choice("cond")                             # knob locks cond to {gt,lt}: "odd" count
+    t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
+    cnt=_cdc_count(N,cond,t); desc=_cdc_desc(cond,t)
+    if cnt<3: return None                              # cdc's own validity guard
+    expr=f"the smallest positive integer with exactly {D} positive divisors"
+    prob=random.choice([
+        f"Let N be {expr}. How many positive divisors of N are {desc}?",
+        f"Suppose N is {expr}. Of the positive divisors of N, how many are {desc}?",
+        f"Let N denote {expr}. Count the positive divisors of N that are {desc}.",
+        f"If N is {expr}, find the number of positive divisors of N that are {desc}.",
+    ])
+    meta={"depth":1,"chain":{"components":["prime_power_divisors","constrained_divisor_count"],
+                              "fed_param":"num_pool","intermediate_gold":N}}
+    return (prob, cnt, "chain_prime_power_divisors__constrained_divisor_count", meta)
+
+@concept("chain_constrained_divisor_count__modular_exponent",[55])
+def c_chain_cdc_modexp():
+    # Depth-1 composite (Addendum A) — AMC #55 ingredients constrained_divisor_count x
+    # modular_exponent (pairs-only v1; divisor_sum_filter is the 3rd ingredient, deferred to
+    # the 3-way wave). Direction cdc->modexp.e (compat-map VALID edge, frac 0.84): A=cdc count
+    # becomes B=modexp's EXPONENT. modexp is the high-entropy TARGET, so composite answers stay
+    # diverse (cdc-as-target collapses to small divisor counts: top3 0.59 -> rejected). Oracles
+    # compose -> gold exact. Surface EMBEDS the divisor count as e (model must compute it).
+    kn=K["chain_constrained_divisor_count__modular_exponent"]
+    num=kn.choice("num_pool"); cond=kn.choice("cond")
+    t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
+    e=_cdc_count(num,cond,t)                            # A's oracle (cdc) -> B's exponent
+    if not (4<=e<=20): return None                      # must fit modexp's e band [4,20]
+    a=kn.randint("a"); m=kn.randint("m")
+    ans=pow(a,e,m)                                      # B's oracle (modexp)
+    if ans<5: return None                               # modexp's own validity guard
+    desc=_cdc_desc(cond,t)
+    prob=random.choice([
+        f"Let e be the number of positive divisors of {num} that are {desc}. What is the remainder when {a}^e is divided by {m}?",
+        f"Suppose e is the number of positive divisors of {num} that are {desc}. Find {a}^e mod {m}.",
+        f"Let e denote how many positive divisors of {num} are {desc}. Compute the remainder when {a}^e is divided by {m}.",
+        f"If e is the count of {desc} positive divisors of {num}, what is the remainder when {a}^e is divided by {m}?",
+    ])
+    meta={"depth":1,"chain":{"components":["constrained_divisor_count","modular_exponent"],
+                              "fed_param":"e","intermediate_gold":e}}
+    return (prob, ans, "chain_constrained_divisor_count__modular_exponent", meta)
 
 @concept("arith_term_filter",[72])
 def c_arithfilter():

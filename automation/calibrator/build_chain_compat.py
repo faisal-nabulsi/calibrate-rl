@@ -46,11 +46,12 @@ MIN_DISTINCT = 5
 
 # §5/§6 transfer targets: AMC #55 = modular_exponent x constrained_divisor_count
 # x divisor_sum_filter; #75 = constrained_divisor_count x prime_power_divisors.
-# Of those ingredients only constrained_divisor_count is knob-wired today, so a
-# pair is tagged when it includes it; the missing partners are listed so the
-# gap is explicit in the artifact.
-AMC_TARGET_CONCEPTS = {"constrained_divisor_count": [55, 75]}
-AMC_MISSING_PARTNERS = ["modular_exponent", "divisor_sum_filter", "prime_power_divisors"]
+# All #55/#75 ingredients are now knob-wired (PR #42), so each is tagged with the
+# AMC problem(s) it feeds — the v1 map could only tag constrained_divisor_count.
+AMC_TARGET_CONCEPTS = {"constrained_divisor_count": [55, 75],
+                       "modular_exponent": [55], "divisor_sum_filter": [55],
+                       "prime_power_divisors": [75]}
+AMC_MISSING_PARTNERS = []
 
 
 def load_knobs():

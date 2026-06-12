@@ -1,0 +1,2469 @@
+[
+  {
+    "problem": "Let e denote how many positive divisors of 1260 are odd. Compute the remainder when 2^e is divided by 239.",
+    "answer": "33",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 1260,
+      "cond": "odd",
+      "a": 2,
+      "m": 239
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 660 that are odd. What is the remainder when 4^e is divided by 238?",
+    "answer": "86",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 660,
+      "cond": "odd",
+      "a": 4,
+      "m": 238
+    }
+  },
+  {
+    "problem": "If e is the count of less than 40 positive divisors of 1320, what is the remainder when 3^e is divided by 201?",
+    "answer": "159",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 3,
+      "m": 201
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 420 that are odd. Find 3^e mod 105.",
+    "answer": "51",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 420,
+      "cond": "odd",
+      "a": 3,
+      "m": 105
+    }
+  },
+  {
+    "problem": "If e is the count of less than 15 positive divisors of 1008, what is the remainder when 5^e is divided by 233?",
+    "answer": "129",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 10
+    },
+    "knobs": {
+      "num_pool": 1008,
+      "cond": "lt",
+      "lt_thresholds": 15,
+      "a": 5,
+      "m": 233
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 660 that are greater than 15. Find 2^e mod 244.",
+    "answer": "36",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 14
+    },
+    "knobs": {
+      "num_pool": 660,
+      "cond": "gt",
+      "gt_thresholds": 15,
+      "a": 2,
+      "m": 244
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 720 are odd. Compute the remainder when 5^e is divided by 295.",
+    "answer": "285",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 720,
+      "cond": "odd",
+      "a": 5,
+      "m": 295
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 504 are odd. Compute the remainder when 8^e is divided by 74.",
+    "answer": "36",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 504,
+      "cond": "odd",
+      "a": 8,
+      "m": 74
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1800 that are odd. What is the remainder when 9^e is divided by 187?",
+    "answer": "60",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 9
+    },
+    "knobs": {
+      "num_pool": 1800,
+      "cond": "odd",
+      "a": 9,
+      "m": 187
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 900 are odd. Compute the remainder when 6^e is divided by 262.",
+    "answer": "128",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 9
+    },
+    "knobs": {
+      "num_pool": 900,
+      "cond": "odd",
+      "a": 6,
+      "m": 262
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1120 that are odd. Find 3^e mod 61.",
+    "answer": "20",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 4
+    },
+    "knobs": {
+      "num_pool": 1120,
+      "cond": "odd",
+      "a": 3,
+      "m": 61
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 2100 are odd. Compute the remainder when 3^e is divided by 147.",
+    "answer": "36",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 2100,
+      "cond": "odd",
+      "a": 3,
+      "m": 147
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 960 are less than 60. Compute the remainder when 7^e is divided by 91.",
+    "answer": "63",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "num_pool": 960,
+      "cond": "lt",
+      "lt_thresholds": 60,
+      "a": 7,
+      "m": 91
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 840 that are odd. What is the remainder when 6^e is divided by 229?",
+    "answer": "130",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 840,
+      "cond": "odd",
+      "a": 6,
+      "m": 229
+    }
+  },
+  {
+    "problem": "If e is the count of less than 20 positive divisors of 1152, what is the remainder when 5^e is divided by 91?",
+    "answer": "51",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 10
+    },
+    "knobs": {
+      "num_pool": 1152,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 5,
+      "m": 91
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 900 that are greater than 12. What is the remainder when 7^e is divided by 265?",
+    "answer": "259",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "num_pool": 900,
+      "cond": "gt",
+      "gt_thresholds": 12,
+      "a": 7,
+      "m": 265
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 660 are odd. Compute the remainder when 7^e is divided by 152.",
+    "answer": "49",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 660,
+      "cond": "odd",
+      "a": 7,
+      "m": 152
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 480, what is the remainder when 7^e is divided by 104?",
+    "answer": "9",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 4
+    },
+    "knobs": {
+      "num_pool": 480,
+      "cond": "odd",
+      "a": 7,
+      "m": 104
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 540, what is the remainder when 6^e is divided by 241?",
+    "answer": "87",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 540,
+      "cond": "odd",
+      "a": 6,
+      "m": 241
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 2520 that are less than 30. Find 7^e mod 106.",
+    "answer": "47",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "num_pool": 2520,
+      "cond": "lt",
+      "lt_thresholds": 30,
+      "a": 7,
+      "m": 106
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1680 that are odd. Find 3^e mod 89.",
+    "answer": "64",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1680,
+      "cond": "odd",
+      "a": 3,
+      "m": 89
+    }
+  },
+  {
+    "problem": "If e is the count of less than 30 positive divisors of 1800, what is the remainder when 3^e is divided by 148?",
+    "answer": "11",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "num_pool": 1800,
+      "cond": "lt",
+      "lt_thresholds": 30,
+      "a": 3,
+      "m": 148
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1152 that are greater than 15. What is the remainder when 2^e is divided by 224?",
+    "answer": "128",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 1152,
+      "cond": "gt",
+      "gt_thresholds": 15,
+      "a": 2,
+      "m": 224
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 1320 are less than 60. Compute the remainder when 6^e is divided by 246.",
+    "answer": "198",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "lt",
+      "lt_thresholds": 60,
+      "a": 6,
+      "m": 246
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 504 that are greater than 24. What is the remainder when 4^e is divided by 166?",
+    "answer": "148",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 504,
+      "cond": "gt",
+      "gt_thresholds": 24,
+      "a": 4,
+      "m": 166
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1560 that are less than 24. What is the remainder when 4^e is divided by 179?",
+    "answer": "83",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 1560,
+      "cond": "lt",
+      "lt_thresholds": 24,
+      "a": 4,
+      "m": 179
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 2100 are less than 24. Compute the remainder when 5^e is divided by 89.",
+    "answer": "40",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 13
+    },
+    "knobs": {
+      "num_pool": 2100,
+      "cond": "lt",
+      "lt_thresholds": 24,
+      "a": 5,
+      "m": 89
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 1680 are odd. Compute the remainder when 2^e is divided by 203.",
+    "answer": "53",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1680,
+      "cond": "odd",
+      "a": 2,
+      "m": 203
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 990 are odd. Compute the remainder when 3^e is divided by 287.",
+    "answer": "204",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 990,
+      "cond": "odd",
+      "a": 3,
+      "m": 287
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 420, what is the remainder when 3^e is divided by 71?",
+    "answer": "29",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 420,
+      "cond": "odd",
+      "a": 3,
+      "m": 71
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 1980, what is the remainder when 4^e is divided by 82?",
+    "answer": "16",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 1980,
+      "cond": "odd",
+      "a": 4,
+      "m": 82
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 2100 that are less than 30. Find 5^e mod 287.",
+    "answer": "237",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "num_pool": 2100,
+      "cond": "lt",
+      "lt_thresholds": 30,
+      "a": 5,
+      "m": 287
+    }
+  },
+  {
+    "problem": "If e is the count of less than 24 positive divisors of 1320, what is the remainder when 9^e is divided by 280?",
+    "answer": "9",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 13
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "lt",
+      "lt_thresholds": 24,
+      "a": 9,
+      "m": 280
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 504 are odd. Compute the remainder when 5^e is divided by 66.",
+    "answer": "49",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 504,
+      "cond": "odd",
+      "a": 5,
+      "m": 66
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 360 that are less than 40. Find 5^e mod 200.",
+    "answer": "25",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 360,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 5,
+      "m": 200
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 360 that are odd. What is the remainder when 2^e is divided by 108?",
+    "answer": "64",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 360,
+      "cond": "odd",
+      "a": 2,
+      "m": 108
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 2520 that are odd. Find 7^e mod 68.",
+    "answer": "13",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 2520,
+      "cond": "odd",
+      "a": 7,
+      "m": 68
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 720 that are less than 30. Find 5^e mod 188.",
+    "answer": "41",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "num_pool": 720,
+      "cond": "lt",
+      "lt_thresholds": 30,
+      "a": 5,
+      "m": 188
+    }
+  },
+  {
+    "problem": "If e is the count of less than 40 positive divisors of 1560, what is the remainder when 9^e is divided by 112?",
+    "answer": "65",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 1560,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 9,
+      "m": 112
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 504, what is the remainder when 8^e is divided by 140?",
+    "answer": "64",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 504,
+      "cond": "odd",
+      "a": 8,
+      "m": 140
+    }
+  },
+  {
+    "problem": "If e is the count of greater than 6 positive divisors of 924, what is the remainder when 3^e is divided by 65?",
+    "answer": "42",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "num_pool": 924,
+      "cond": "gt",
+      "gt_thresholds": 6,
+      "a": 3,
+      "m": 65
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 660, what is the remainder when 5^e is divided by 187?",
+    "answer": "169",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 660,
+      "cond": "odd",
+      "a": 5,
+      "m": 187
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 540 that are greater than 10. Find 6^e mod 168.",
+    "answer": "120",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 540,
+      "cond": "gt",
+      "gt_thresholds": 10,
+      "a": 6,
+      "m": 168
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 2100 that are odd. What is the remainder when 9^e is divided by 256?",
+    "answer": "225",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 2100,
+      "cond": "odd",
+      "a": 9,
+      "m": 256
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 420 that are less than 40. What is the remainder when 2^e is divided by 298?",
+    "answer": "274",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 420,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 2,
+      "m": 298
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 1680, what is the remainder when 4^e is divided by 154?",
+    "answer": "86",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1680,
+      "cond": "odd",
+      "a": 4,
+      "m": 154
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 990 that are odd. What is the remainder when 8^e is divided by 281?",
+    "answer": "279",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 990,
+      "cond": "odd",
+      "a": 8,
+      "m": 281
+    }
+  },
+  {
+    "problem": "If e is the count of greater than 6 positive divisors of 600, what is the remainder when 8^e is divided by 117?",
+    "answer": "64",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "num_pool": 600,
+      "cond": "gt",
+      "gt_thresholds": 6,
+      "a": 8,
+      "m": 117
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 756 that are odd. What is the remainder when 2^e is divided by 198?",
+    "answer": "58",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 756,
+      "cond": "odd",
+      "a": 2,
+      "m": 198
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1008 that are odd. What is the remainder when 4^e is divided by 67?",
+    "answer": "9",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 1008,
+      "cond": "odd",
+      "a": 4,
+      "m": 67
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1320 that are odd. Find 8^e mod 80.",
+    "answer": "16",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "odd",
+      "a": 8,
+      "m": 80
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 1120 are less than 15. Compute the remainder when 3^e is divided by 157.",
+    "answer": "124",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1120,
+      "cond": "lt",
+      "lt_thresholds": 15,
+      "a": 3,
+      "m": 157
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 720 are odd. Compute the remainder when 7^e is divided by 111.",
+    "answer": "100",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 720,
+      "cond": "odd",
+      "a": 7,
+      "m": 111
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 900 are odd. Compute the remainder when 6^e is divided by 167.",
+    "answer": "81",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 9
+    },
+    "knobs": {
+      "num_pool": 900,
+      "cond": "odd",
+      "a": 6,
+      "m": 167
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1680 that are odd. What is the remainder when 2^e is divided by 167?",
+    "answer": "89",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1680,
+      "cond": "odd",
+      "a": 2,
+      "m": 167
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 480 are less than 20. Compute the remainder when 6^e is divided by 83.",
+    "answer": "72",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 480,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 6,
+      "m": 83
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 756 are odd. Compute the remainder when 9^e is divided by 263.",
+    "answer": "196",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 756,
+      "cond": "odd",
+      "a": 9,
+      "m": 263
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 1152 are less than 40. Compute the remainder when 2^e is divided by 220.",
+    "answer": "52",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 13
+    },
+    "knobs": {
+      "num_pool": 1152,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 2,
+      "m": 220
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1320 that are odd. What is the remainder when 4^e is divided by 117?",
+    "answer": "16",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "odd",
+      "a": 4,
+      "m": 117
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 756 are less than 20. Compute the remainder when 7^e is divided by 102.",
+    "answer": "19",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 10
+    },
+    "knobs": {
+      "num_pool": 756,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 7,
+      "m": 102
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 420 that are odd. Find 7^e mod 247.",
+    "answer": "68",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 420,
+      "cond": "odd",
+      "a": 7,
+      "m": 247
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1560 that are greater than 24. What is the remainder when 2^e is divided by 78?",
+    "answer": "50",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "num_pool": 1560,
+      "cond": "gt",
+      "gt_thresholds": 24,
+      "a": 2,
+      "m": 78
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 2520 are less than 20. Compute the remainder when 2^e is divided by 263.",
+    "answer": "78",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 14
+    },
+    "knobs": {
+      "num_pool": 2520,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 2,
+      "m": 263
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1120 that are less than 20. What is the remainder when 8^e is divided by 82?",
+    "answer": "46",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 9
+    },
+    "knobs": {
+      "num_pool": 1120,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 8,
+      "m": 82
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 756 that are greater than 6. Find 7^e mod 103.",
+    "answer": "91",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "num_pool": 756,
+      "cond": "gt",
+      "gt_thresholds": 6,
+      "a": 7,
+      "m": 103
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 1320, what is the remainder when 7^e is divided by 249?",
+    "answer": "202",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "odd",
+      "a": 7,
+      "m": 249
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1152 that are less than 20. Find 5^e mod 271.",
+    "answer": "140",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 10
+    },
+    "knobs": {
+      "num_pool": 1152,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 5,
+      "m": 271
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1800 that are odd. Find 8^e mod 56.",
+    "answer": "8",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 9
+    },
+    "knobs": {
+      "num_pool": 1800,
+      "cond": "odd",
+      "a": 8,
+      "m": 56
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1560 that are greater than 24. Find 5^e mod 118.",
+    "answer": "15",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "num_pool": 1560,
+      "cond": "gt",
+      "gt_thresholds": 24,
+      "a": 5,
+      "m": 118
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1800 that are less than 15. What is the remainder when 8^e is divided by 273?",
+    "answer": "64",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 10
+    },
+    "knobs": {
+      "num_pool": 1800,
+      "cond": "lt",
+      "lt_thresholds": 15,
+      "a": 8,
+      "m": 273
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 630 that are greater than 20. Find 6^e mod 260.",
+    "answer": "136",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 13
+    },
+    "knobs": {
+      "num_pool": 630,
+      "cond": "gt",
+      "gt_thresholds": 20,
+      "a": 6,
+      "m": 260
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 660 are odd. Compute the remainder when 5^e is divided by 152.",
+    "answer": "137",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 660,
+      "cond": "odd",
+      "a": 5,
+      "m": 152
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 720, what is the remainder when 6^e is divided by 139?",
+    "answer": "91",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 720,
+      "cond": "odd",
+      "a": 6,
+      "m": 139
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 1320 are less than 24. Compute the remainder when 2^e is divided by 79.",
+    "answer": "55",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 13
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "lt",
+      "lt_thresholds": 24,
+      "a": 2,
+      "m": 79
+    }
+  },
+  {
+    "problem": "If e is the count of less than 24 positive divisors of 600, what is the remainder when 2^e is divided by 77?",
+    "answer": "46",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 600,
+      "cond": "lt",
+      "lt_thresholds": 24,
+      "a": 2,
+      "m": 77
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 792 that are greater than 8. Find 8^e mod 280.",
+    "answer": "64",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "num_pool": 792,
+      "cond": "gt",
+      "gt_thresholds": 8,
+      "a": 8,
+      "m": 280
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 720 that are odd. Find 8^e mod 50.",
+    "answer": "44",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 720,
+      "cond": "odd",
+      "a": 8,
+      "m": 50
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 1320 are greater than 20. Compute the remainder when 3^e is divided by 234.",
+    "answer": "9",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "gt",
+      "gt_thresholds": 20,
+      "a": 3,
+      "m": 234
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 1008 are greater than 24. Compute the remainder when 7^e is divided by 153.",
+    "answer": "52",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 1008,
+      "cond": "gt",
+      "gt_thresholds": 24,
+      "a": 7,
+      "m": 153
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 1080, what is the remainder when 5^e is divided by 157?",
+    "answer": "9",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1080,
+      "cond": "odd",
+      "a": 5,
+      "m": 157
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1320 that are less than 20. What is the remainder when 6^e is divided by 153?",
+    "answer": "90",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 6,
+      "m": 153
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 756 are greater than 12. Compute the remainder when 8^e is divided by 251.",
+    "answer": "63",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 756,
+      "cond": "gt",
+      "gt_thresholds": 12,
+      "a": 8,
+      "m": 251
+    }
+  },
+  {
+    "problem": "If e is the count of greater than 30 positive divisors of 960, what is the remainder when 5^e is divided by 180?",
+    "answer": "25",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 14
+    },
+    "knobs": {
+      "num_pool": 960,
+      "cond": "gt",
+      "gt_thresholds": 30,
+      "a": 5,
+      "m": 180
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 1800 are less than 20. Compute the remainder when 3^e is divided by 122.",
+    "answer": "9",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 1800,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 3,
+      "m": 122
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 480 that are odd. Find 6^e mod 107.",
+    "answer": "12",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 4
+    },
+    "knobs": {
+      "num_pool": 480,
+      "cond": "odd",
+      "a": 6,
+      "m": 107
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 540, what is the remainder when 2^e is divided by 112?",
+    "answer": "32",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 540,
+      "cond": "odd",
+      "a": 2,
+      "m": 112
+    }
+  },
+  {
+    "problem": "If e is the count of greater than 12 positive divisors of 960, what is the remainder when 8^e is divided by 176?",
+    "answer": "128",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "num_pool": 960,
+      "cond": "gt",
+      "gt_thresholds": 12,
+      "a": 8,
+      "m": 176
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 660 that are odd. What is the remainder when 2^e is divided by 278?",
+    "answer": "256",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 660,
+      "cond": "odd",
+      "a": 2,
+      "m": 278
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 600 that are less than 40. Find 9^e mod 62.",
+    "answer": "7",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 14
+    },
+    "knobs": {
+      "num_pool": 600,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 9,
+      "m": 62
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 2100, what is the remainder when 9^e is divided by 84?",
+    "answer": "57",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 2100,
+      "cond": "odd",
+      "a": 9,
+      "m": 84
+    }
+  },
+  {
+    "problem": "If e is the count of less than 40 positive divisors of 1320, what is the remainder when 7^e is divided by 293?",
+    "answer": "90",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 1320,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 7,
+      "m": 293
+    }
+  },
+  {
+    "problem": "If e is the count of less than 40 positive divisors of 1152, what is the remainder when 8^e is divided by 262?",
+    "answer": "42",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 13
+    },
+    "knobs": {
+      "num_pool": 1152,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 8,
+      "m": 262
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 2520 are odd. Compute the remainder when 9^e is divided by 165.",
+    "answer": "81",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 2520,
+      "cond": "odd",
+      "a": 9,
+      "m": 165
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 1680, what is the remainder when 6^e is divided by 246?",
+    "answer": "174",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1680,
+      "cond": "odd",
+      "a": 6,
+      "m": 246
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 480 are less than 24. Compute the remainder when 5^e is divided by 119.",
+    "answer": "106",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 480,
+      "cond": "lt",
+      "lt_thresholds": 24,
+      "a": 5,
+      "m": 119
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 792 that are less than 15. Find 4^e mod 88.",
+    "answer": "80",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 9
+    },
+    "knobs": {
+      "num_pool": 792,
+      "cond": "lt",
+      "lt_thresholds": 15,
+      "a": 4,
+      "m": 88
+    }
+  },
+  {
+    "problem": "If e is the count of less than 20 positive divisors of 900, what is the remainder when 5^e is divided by 66?",
+    "answer": "5",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 900,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 5,
+      "m": 66
+    }
+  },
+  {
+    "problem": "If e is the count of greater than 24 positive divisors of 630, what is the remainder when 2^e is divided by 269?",
+    "answer": "61",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 630,
+      "cond": "gt",
+      "gt_thresholds": 24,
+      "a": 2,
+      "m": 269
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 990, what is the remainder when 7^e is divided by 126?",
+    "answer": "91",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 990,
+      "cond": "odd",
+      "a": 7,
+      "m": 126
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 990, what is the remainder when 6^e is divided by 161?",
+    "answer": "29",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 990,
+      "cond": "odd",
+      "a": 6,
+      "m": 161
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 360 that are greater than 20. Find 8^e mod 235.",
+    "answer": "37",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 360,
+      "cond": "gt",
+      "gt_thresholds": 20,
+      "a": 8,
+      "m": 235
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1152 that are less than 15. What is the remainder when 8^e is divided by 201?",
+    "answer": "148",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 1152,
+      "cond": "lt",
+      "lt_thresholds": 15,
+      "a": 8,
+      "m": 201
+    }
+  },
+  {
+    "problem": "If e is the count of less than 30 positive divisors of 480, what is the remainder when 4^e is divided by 271?",
+    "answer": "50",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 13
+    },
+    "knobs": {
+      "num_pool": 480,
+      "cond": "lt",
+      "lt_thresholds": 30,
+      "a": 4,
+      "m": 271
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 600 are odd. Compute the remainder when 6^e is divided by 147.",
+    "answer": "57",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 6
+    },
+    "knobs": {
+      "num_pool": 600,
+      "cond": "odd",
+      "a": 6,
+      "m": 147
+    }
+  },
+  {
+    "problem": "If e is the count of greater than 20 positive divisors of 630, what is the remainder when 7^e is divided by 244?",
+    "answer": "55",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 13
+    },
+    "knobs": {
+      "num_pool": 630,
+      "cond": "gt",
+      "gt_thresholds": 20,
+      "a": 7,
+      "m": 244
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 720 that are greater than 15. What is the remainder when 3^e is divided by 170?",
+    "answer": "27",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "num_pool": 720,
+      "cond": "gt",
+      "gt_thresholds": 15,
+      "a": 3,
+      "m": 170
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 1560 that are less than 15. What is the remainder when 7^e is divided by 107?",
+    "answer": "64",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 10
+    },
+    "knobs": {
+      "num_pool": 1560,
+      "cond": "lt",
+      "lt_thresholds": 15,
+      "a": 7,
+      "m": 107
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1680 that are less than 15. Find 2^e mod 293.",
+    "answer": "290",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 1680,
+      "cond": "lt",
+      "lt_thresholds": 15,
+      "a": 2,
+      "m": 293
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 630 that are odd. Find 4^e mod 111.",
+    "answer": "10",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 630,
+      "cond": "odd",
+      "a": 4,
+      "m": 111
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 990 are less than 15. Compute the remainder when 5^e is divided by 169.",
+    "answer": "66",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 990,
+      "cond": "lt",
+      "lt_thresholds": 15,
+      "a": 5,
+      "m": 169
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1152 that are less than 50. Find 3^e mod 249.",
+    "answer": "177",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 14
+    },
+    "knobs": {
+      "num_pool": 1152,
+      "cond": "lt",
+      "lt_thresholds": 50,
+      "a": 3,
+      "m": 249
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 756 are odd. Compute the remainder when 2^e is divided by 287.",
+    "answer": "256",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 8
+    },
+    "knobs": {
+      "num_pool": 756,
+      "cond": "odd",
+      "a": 2,
+      "m": 287
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1120 that are less than 30. Find 8^e mod 291.",
+    "answer": "167",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 1120,
+      "cond": "lt",
+      "lt_thresholds": 30,
+      "a": 8,
+      "m": 291
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 480 are less than 50. Compute the remainder when 5^e is divided by 76.",
+    "answer": "61",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "num_pool": 480,
+      "cond": "lt",
+      "lt_thresholds": 50,
+      "a": 5,
+      "m": 76
+    }
+  },
+  {
+    "problem": "Let e be the number of positive divisors of 2100 that are less than 40. What is the remainder when 3^e is divided by 253?",
+    "answer": "108",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "num_pool": 2100,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 3,
+      "m": 253
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 840 are less than 30. Compute the remainder when 7^e is divided by 67.",
+    "answer": "35",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "num_pool": 840,
+      "cond": "lt",
+      "lt_thresholds": 30,
+      "a": 7,
+      "m": 67
+    }
+  },
+  {
+    "problem": "Let e denote how many positive divisors of 960 are less than 20. Compute the remainder when 8^e is divided by 95.",
+    "answer": "12",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 11
+    },
+    "knobs": {
+      "num_pool": 960,
+      "cond": "lt",
+      "lt_thresholds": 20,
+      "a": 8,
+      "m": 95
+    }
+  },
+  {
+    "problem": "If e is the count of less than 60 positive divisors of 1152, what is the remainder when 9^e is divided by 169?",
+    "answer": "29",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 14
+    },
+    "knobs": {
+      "num_pool": 1152,
+      "cond": "lt",
+      "lt_thresholds": 60,
+      "a": 9,
+      "m": 169
+    }
+  },
+  {
+    "problem": "Suppose e is the number of positive divisors of 1980 that are less than 40. Find 6^e mod 132.",
+    "answer": "96",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "num_pool": 1980,
+      "cond": "lt",
+      "lt_thresholds": 40,
+      "a": 6,
+      "m": 132
+    }
+  },
+  {
+    "problem": "If e is the count of odd positive divisors of 1980, what is the remainder when 6^e is divided by 275?",
+    "answer": "36",
+    "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "constrained_divisor_count",
+        "modular_exponent"
+      ],
+      "fed_param": "e",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "num_pool": 1980,
+      "cond": "odd",
+      "a": 6,
+      "m": 275
+    }
+  }
+]

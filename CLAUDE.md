@@ -414,6 +414,14 @@ decision (Faisal wants it; Michael skeptical).
   #55/#75 ingredients** — `modular_exponent` / `divisor_sum_filter` / `prime_power_divisors`
   → `knobs/*.json`, equivalence test green (2000 draws byte-identical across 10 concepts) — so
   the #55/#75 composites build on the same machinery next.
+  Then **built the two #55/#75 composites** (re-ran `build_chain_compat` → `chain_compat_v2.json`,
+  76 valid edges incl. the new ingredients; only feed-LEGAL edges used):
+  **#55 = `chain_constrained_divisor_count__modular_exponent`** (cdc count → modexp *exponent*;
+  modexp is the high-entropy TARGET) and **#75 = `chain_prime_power_divisors__constrained_divisor_count`**
+  (smallest-N-with-D-divisors → count its gt/lt divisors). Key finding: **cdc-as-target collapses**
+  (divisor counts cluster → top3 0.59) so #55 flips to modexp-as-target (top3 0.105); #75 drops the
+  clustered "odd" branch (top3 0.40→0.19). **Both PASS the full static gate** (golds 100% via new
+  recomputers, dedupe ≥0.945, top3 ≤0.222); 120-row pilot pools generated + gold-verified.
   **Curriculum (Faisal, settled):** SEQUENTIAL — train depth-0 first so the model knows the
   atoms, *then* depth-1. So depth-1 must be calibrated against the **depth-0-trained model**
   (doesn't exist yet) → base sampling is a **DIAGNOSTIC only** (composition gap: does base do
@@ -433,12 +441,13 @@ decision (Faisal wants it; Michael skeptical).
       + pilot pool → **#41 merged** (#37/#38 also merged). Calibration deferred (curriculum-gated).
 - [x] [gilbert] knob-wire the 3 #55/#75 ingredients (`modular_exponent` / `divisor_sum_filter` /
       `prime_power_divisors`) — knobs + equivalence test green → PR open.
-- [ ] [gilbert] build the **#55/#75 composites** on the now-wired ingredients
-      (`chain_modular_exponent__constrained_divisor_count`, `chain_constrained_divisor_count__prime_power_divisors`)
-      → calibrate to goldilocks by # steps (NOT number size). Calib waits for the depth-0 model.
-- [ ] [gilbert] **overnight base DIAGNOSTIC** — sample the depth-1 pilot pool on base Qwen-7B to
-      measure the composition gap (intermediate_hit_rate: atoms solved vs composition solved).
-      Label base, NOT the depth-1 train set (curriculum needs the depth-0 model for real calib).
+- [x] [gilbert] built the **#55/#75 composites** (feed-legal edges from `chain_compat_v2.json`):
+      `chain_constrained_divisor_count__modular_exponent` (#55) + `chain_prime_power_divisors__constrained_divisor_count`
+      (#75) → both PASS the static gate (golds 100%, dedupe ≥0.945, top3 ≤0.222) + recomputers +
+      120-row pools. On PR #42. Goldilocks calib still waits for the depth-0 model (curriculum).
+- [ ] [gilbert] **overnight base DIAGNOSTIC** — sample the depth-1 pools on base Qwen-7B (now 3
+      composites: pilot + #55 + #75) to measure the composition gap (intermediate_hit_rate: atoms
+      solved vs composition solved). Label base, NOT the depth-1 train set (curriculum needs depth-0).
 - [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
       does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
       final depth-0 decision.
@@ -457,6 +466,7 @@ decision (Faisal wants it; Michael skeptical).
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
 ### 2026-06-11
+- [gilbert] **Built the two #55/#75 depth-1 composites** (PR #42): re-ran `build_chain_compat` with the now-wired ingredients → `chain_compat_v2.json` (76 valid edges vs 16; the v1 map had ZERO edges for modexp/dsf/ppd since they weren't wired yet). Used only feed-legal edges. **#55 = `chain_constrained_divisor_count__modular_exponent`** (cdc count → modexp exponent), **#75 = `chain_prime_power_divisors__constrained_divisor_count`** (smallest-N-with-D-divisors → count its gt/lt divisors). **Finding: cdc-as-target collapses** (divisor counts cluster, top3 0.59) → #55 uses modexp as the high-entropy target (top3 0.105); #75 drops the clustered "odd" branch (top3 0.40→0.19). Both PASS the full static gate (golds 100% via 2 new recomputers in `check_dataset.py`, dedupe ≥0.945, top3 ≤0.222); 120-row pools generated + independently gold-verified. Calib still gated on the depth-0 model.
 - [gilbert] **Depth-1 pilot composite merged (#41):** `chain_log_laws__ordered_triple_constraint` (oracle composition, embed-not-announce, `knobs/chain_*.json` + pilot pool; static gate green via Option-A draw-N-first → top3 0.235; kathryne's recomputer landed in `check_dataset.py`).
 - [gilbert] **Knob-wired the 3 #55/#75 ingredients** — `modular_exponent` (a/e/m), `divisor_sum_filter` (n/cond), `prime_power_divisors` (D) → externalized to `knobs/*.json`, generators draw via `K[...]`. Equivalence test extended to 10 concepts: **2000 seed-draws byte-identical** (fixture captured pre-wire from inline; modexp `m` = `choice(range(50,300))` ≡ `randint(50,299)`, same single `_randbelow(250)` draw). Draw-logging stamps `knobs` metadata. → PR.
 - [gilbert] **Curriculum settled with Faisal: SEQUENTIAL** (depth-0 first, then depth-1) → depth-1 calibration must use the depth-0-trained model (not yet built); base sampling is a **diagnostic** (composition gap), never the depth-1 train set. Overnight: base-sample the pilot pool for the composition-gap signal.

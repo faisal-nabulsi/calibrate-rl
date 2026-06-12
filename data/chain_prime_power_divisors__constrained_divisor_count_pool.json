@@ -1,0 +1,2263 @@
+[
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 20 positive divisors. Of the positive divisors of N, how many are greater than 7?",
+    "answer": "14",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 240
+    },
+    "knobs": {
+      "D": 20,
+      "cond": "gt",
+      "gt_thresholds": 7
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 12 positive divisors, find the number of positive divisors of N that are greater than 15.",
+    "answer": "3",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "gt",
+      "gt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 16 positive divisors. How many positive divisors of N are greater than 14?",
+    "answer": "7",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "gt",
+      "gt_thresholds": 14
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 45 positive divisors, find the number of positive divisors of N that are greater than 20.",
+    "answer": "31",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "gt",
+      "gt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 18 positive divisors. Count the positive divisors of N that are less than 40.",
+    "answer": "14",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 180
+    },
+    "knobs": {
+      "D": 18,
+      "cond": "lt",
+      "lt_thresholds": 40
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 15 positive divisors. Count the positive divisors of N that are less than 24.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 144
+    },
+    "knobs": {
+      "D": 15,
+      "cond": "lt",
+      "lt_thresholds": 24
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 14 positive divisors. Count the positive divisors of N that are greater than 24.",
+    "answer": "5",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 192
+    },
+    "knobs": {
+      "D": 14,
+      "cond": "gt",
+      "gt_thresholds": 24
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 12 positive divisors. How many positive divisors of N are greater than 10?",
+    "answer": "5",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "gt",
+      "gt_thresholds": 10
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 28 positive divisors. Count the positive divisors of N that are less than 40.",
+    "answer": "15",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 960
+    },
+    "knobs": {
+      "D": 28,
+      "cond": "lt",
+      "lt_thresholds": 40
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 36 positive divisors. How many positive divisors of N are greater than 10?",
+    "answer": "27",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1260
+    },
+    "knobs": {
+      "D": 36,
+      "cond": "gt",
+      "gt_thresholds": 10
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 45 positive divisors. Count the positive divisors of N that are less than 48.",
+    "answer": "20",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "lt",
+      "lt_thresholds": 48
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 48 positive divisors. How many positive divisors of N are greater than 20?",
+    "answer": "33",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2520
+    },
+    "knobs": {
+      "D": 48,
+      "cond": "gt",
+      "gt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 18 positive divisors. Of the positive divisors of N, how many are less than 12?",
+    "answer": "8",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 180
+    },
+    "knobs": {
+      "D": 18,
+      "cond": "lt",
+      "lt_thresholds": 12
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 12 positive divisors, find the number of positive divisors of N that are less than 20.",
+    "answer": "9",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "lt",
+      "lt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 28 positive divisors. Count the positive divisors of N that are greater than 9.",
+    "answer": "21",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 960
+    },
+    "knobs": {
+      "D": 28,
+      "cond": "gt",
+      "gt_thresholds": 9
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 16 positive divisors. How many positive divisors of N are less than 60?",
+    "answer": "14",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "lt",
+      "lt_thresholds": 60
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 15 positive divisors, find the number of positive divisors of N that are greater than 6.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 144
+    },
+    "knobs": {
+      "D": 15,
+      "cond": "gt",
+      "gt_thresholds": 6
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 30 positive divisors. Of the positive divisors of N, how many are less than 48?",
+    "answer": "19",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 720
+    },
+    "knobs": {
+      "D": 30,
+      "cond": "lt",
+      "lt_thresholds": 48
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 27 positive divisors. How many positive divisors of N are greater than 7?",
+    "answer": "21",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 900
+    },
+    "knobs": {
+      "D": 27,
+      "cond": "gt",
+      "gt_thresholds": 7
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 27 positive divisors. How many positive divisors of N are less than 20?",
+    "answer": "11",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 900
+    },
+    "knobs": {
+      "D": 27,
+      "cond": "lt",
+      "lt_thresholds": 20
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 16 positive divisors, find the number of positive divisors of N that are less than 18.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "lt",
+      "lt_thresholds": 18
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 30 positive divisors. Count the positive divisors of N that are less than 15.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 720
+    },
+    "knobs": {
+      "D": 30,
+      "cond": "lt",
+      "lt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 14 positive divisors. Count the positive divisors of N that are greater than 20.",
+    "answer": "6",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 192
+    },
+    "knobs": {
+      "D": 14,
+      "cond": "gt",
+      "gt_thresholds": 20
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 48 positive divisors, find the number of positive divisors of N that are less than 40.",
+    "answer": "21",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2520
+    },
+    "knobs": {
+      "D": 48,
+      "cond": "lt",
+      "lt_thresholds": 40
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 28 positive divisors, find the number of positive divisors of N that are greater than 6.",
+    "answer": "22",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 960
+    },
+    "knobs": {
+      "D": 28,
+      "cond": "gt",
+      "gt_thresholds": 6
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 12 positive divisors. Of the positive divisors of N, how many are greater than 18?",
+    "answer": "3",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "gt",
+      "gt_thresholds": 18
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 32 positive divisors, find the number of positive divisors of N that are greater than 10.",
+    "answer": "23",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 840
+    },
+    "knobs": {
+      "D": 32,
+      "cond": "gt",
+      "gt_thresholds": 10
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 36 positive divisors. How many positive divisors of N are less than 36?",
+    "answer": "18",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1260
+    },
+    "knobs": {
+      "D": 36,
+      "cond": "lt",
+      "lt_thresholds": 36
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 12 positive divisors. Count the positive divisors of N that are less than 48.",
+    "answer": "11",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "lt",
+      "lt_thresholds": 48
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 12 positive divisors. Of the positive divisors of N, how many are less than 28?",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "lt",
+      "lt_thresholds": 28
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 36 positive divisors. Count the positive divisors of N that are greater than 20.",
+    "answer": "22",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1260
+    },
+    "knobs": {
+      "D": 36,
+      "cond": "gt",
+      "gt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 42 positive divisors. How many positive divisors of N are greater than 14?",
+    "answer": "32",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "gt",
+      "gt_thresholds": 14
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 24 positive divisors. Count the positive divisors of N that are greater than 6.",
+    "answer": "18",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 360
+    },
+    "knobs": {
+      "D": 24,
+      "cond": "gt",
+      "gt_thresholds": 6
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 15 positive divisors. Count the positive divisors of N that are greater than 15.",
+    "answer": "7",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 144
+    },
+    "knobs": {
+      "D": 15,
+      "cond": "gt",
+      "gt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 40 positive divisors. Count the positive divisors of N that are greater than 5.",
+    "answer": "35",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1680
+    },
+    "knobs": {
+      "D": 40,
+      "cond": "gt",
+      "gt_thresholds": 5
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 24 positive divisors. Of the positive divisors of N, how many are greater than 4?",
+    "answer": "20",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 360
+    },
+    "knobs": {
+      "D": 24,
+      "cond": "gt",
+      "gt_thresholds": 4
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 48 positive divisors, find the number of positive divisors of N that are greater than 5.",
+    "answer": "43",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2520
+    },
+    "knobs": {
+      "D": 48,
+      "cond": "gt",
+      "gt_thresholds": 5
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 45 positive divisors, find the number of positive divisors of N that are greater than 6.",
+    "answer": "39",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "gt",
+      "gt_thresholds": 6
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 45 positive divisors, find the number of positive divisors of N that are greater than 8.",
+    "answer": "38",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "gt",
+      "gt_thresholds": 8
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 16 positive divisors. Count the positive divisors of N that are greater than 20.",
+    "answer": "5",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "gt",
+      "gt_thresholds": 20
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 30 positive divisors, find the number of positive divisors of N that are less than 30.",
+    "answer": "15",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 720
+    },
+    "knobs": {
+      "D": 30,
+      "cond": "lt",
+      "lt_thresholds": 30
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 12 positive divisors. How many positive divisors of N are greater than 7?",
+    "answer": "6",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "gt",
+      "gt_thresholds": 7
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 27 positive divisors. Of the positive divisors of N, how many are greater than 15?",
+    "answer": "17",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 900
+    },
+    "knobs": {
+      "D": 27,
+      "cond": "gt",
+      "gt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 48 positive divisors. How many positive divisors of N are greater than 4?",
+    "answer": "44",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2520
+    },
+    "knobs": {
+      "D": 48,
+      "cond": "gt",
+      "gt_thresholds": 4
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 18 positive divisors. Count the positive divisors of N that are greater than 4.",
+    "answer": "14",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 180
+    },
+    "knobs": {
+      "D": 18,
+      "cond": "gt",
+      "gt_thresholds": 4
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 42 positive divisors, find the number of positive divisors of N that are greater than 8.",
+    "answer": "35",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "gt",
+      "gt_thresholds": 8
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 16 positive divisors, find the number of positive divisors of N that are greater than 20.",
+    "answer": "5",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "gt",
+      "gt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 18 positive divisors. Of the positive divisors of N, how many are less than 28?",
+    "answer": "12",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 180
+    },
+    "knobs": {
+      "D": 18,
+      "cond": "lt",
+      "lt_thresholds": 28
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 12 positive divisors, find the number of positive divisors of N that are greater than 18.",
+    "answer": "3",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "gt",
+      "gt_thresholds": 18
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 28 positive divisors, find the number of positive divisors of N that are less than 28.",
+    "answer": "13",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 960
+    },
+    "knobs": {
+      "D": 28,
+      "cond": "lt",
+      "lt_thresholds": 28
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 12 positive divisors. Count the positive divisors of N that are greater than 10.",
+    "answer": "5",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "gt",
+      "gt_thresholds": 10
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 12 positive divisors. Of the positive divisors of N, how many are greater than 7?",
+    "answer": "6",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "gt",
+      "gt_thresholds": 7
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 45 positive divisors, find the number of positive divisors of N that are less than 15.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "lt",
+      "lt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 15 positive divisors. Of the positive divisors of N, how many are less than 30?",
+    "answer": "11",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 144
+    },
+    "knobs": {
+      "D": 15,
+      "cond": "lt",
+      "lt_thresholds": 30
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 36 positive divisors. How many positive divisors of N are greater than 4?",
+    "answer": "32",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1260
+    },
+    "knobs": {
+      "D": 36,
+      "cond": "gt",
+      "gt_thresholds": 4
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 18 positive divisors, find the number of positive divisors of N that are greater than 10.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 180
+    },
+    "knobs": {
+      "D": 18,
+      "cond": "gt",
+      "gt_thresholds": 10
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 40 positive divisors, find the number of positive divisors of N that are greater than 30.",
+    "answer": "22",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1680
+    },
+    "knobs": {
+      "D": 40,
+      "cond": "gt",
+      "gt_thresholds": 30
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 15 positive divisors, find the number of positive divisors of N that are less than 10.",
+    "answer": "7",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 144
+    },
+    "knobs": {
+      "D": 15,
+      "cond": "lt",
+      "lt_thresholds": 10
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 20 positive divisors, find the number of positive divisors of N that are less than 20.",
+    "answer": "11",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 240
+    },
+    "knobs": {
+      "D": 20,
+      "cond": "lt",
+      "lt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 45 positive divisors. Of the positive divisors of N, how many are less than 15?",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "lt",
+      "lt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 24 positive divisors. How many positive divisors of N are greater than 4?",
+    "answer": "20",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 360
+    },
+    "knobs": {
+      "D": 24,
+      "cond": "gt",
+      "gt_thresholds": 4
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 27 positive divisors, find the number of positive divisors of N that are greater than 4.",
+    "answer": "23",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 900
+    },
+    "knobs": {
+      "D": 27,
+      "cond": "gt",
+      "gt_thresholds": 4
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 42 positive divisors. How many positive divisors of N are greater than 4?",
+    "answer": "38",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "gt",
+      "gt_thresholds": 4
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 15 positive divisors. How many positive divisors of N are greater than 15?",
+    "answer": "7",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 144
+    },
+    "knobs": {
+      "D": 15,
+      "cond": "gt",
+      "gt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 48 positive divisors. How many positive divisors of N are greater than 15?",
+    "answer": "35",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2520
+    },
+    "knobs": {
+      "D": 48,
+      "cond": "gt",
+      "gt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 32 positive divisors. Of the positive divisors of N, how many are less than 20?",
+    "answer": "12",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 840
+    },
+    "knobs": {
+      "D": 32,
+      "cond": "lt",
+      "lt_thresholds": 20
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 27 positive divisors, find the number of positive divisors of N that are greater than 8.",
+    "answer": "21",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 900
+    },
+    "knobs": {
+      "D": 27,
+      "cond": "gt",
+      "gt_thresholds": 8
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 14 positive divisors. Count the positive divisors of N that are less than 30.",
+    "answer": "9",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 192
+    },
+    "knobs": {
+      "D": 14,
+      "cond": "lt",
+      "lt_thresholds": 30
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 36 positive divisors. Of the positive divisors of N, how many are greater than 5?",
+    "answer": "31",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1260
+    },
+    "knobs": {
+      "D": 36,
+      "cond": "gt",
+      "gt_thresholds": 5
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 42 positive divisors. Count the positive divisors of N that are less than 15.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "lt",
+      "lt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 18 positive divisors. Of the positive divisors of N, how many are less than 20?",
+    "answer": "11",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 180
+    },
+    "knobs": {
+      "D": 18,
+      "cond": "lt",
+      "lt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 36 positive divisors. How many positive divisors of N are less than 40?",
+    "answer": "19",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1260
+    },
+    "knobs": {
+      "D": 36,
+      "cond": "lt",
+      "lt_thresholds": 40
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 45 positive divisors. How many positive divisors of N are less than 48?",
+    "answer": "20",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "lt",
+      "lt_thresholds": 48
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 14 positive divisors. How many positive divisors of N are less than 12?",
+    "answer": "6",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 192
+    },
+    "knobs": {
+      "D": 14,
+      "cond": "lt",
+      "lt_thresholds": 12
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 45 positive divisors. Count the positive divisors of N that are greater than 8.",
+    "answer": "38",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "gt",
+      "gt_thresholds": 8
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 16 positive divisors. Count the positive divisors of N that are less than 18.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "lt",
+      "lt_thresholds": 18
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 42 positive divisors. How many positive divisors of N are less than 20?",
+    "answer": "13",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "lt",
+      "lt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 32 positive divisors. How many positive divisors of N are less than 10?",
+    "answer": "8",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 840
+    },
+    "knobs": {
+      "D": 32,
+      "cond": "lt",
+      "lt_thresholds": 10
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 27 positive divisors. Count the positive divisors of N that are greater than 18.",
+    "answer": "16",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 900
+    },
+    "knobs": {
+      "D": 27,
+      "cond": "gt",
+      "gt_thresholds": 18
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 15 positive divisors, find the number of positive divisors of N that are less than 36.",
+    "answer": "11",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 144
+    },
+    "knobs": {
+      "D": 15,
+      "cond": "lt",
+      "lt_thresholds": 36
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 45 positive divisors. How many positive divisors of N are greater than 5?",
+    "answer": "40",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "gt",
+      "gt_thresholds": 5
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 14 positive divisors. Count the positive divisors of N that are greater than 30.",
+    "answer": "5",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 192
+    },
+    "knobs": {
+      "D": 14,
+      "cond": "gt",
+      "gt_thresholds": 30
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 48 positive divisors. Of the positive divisors of N, how many are greater than 10?",
+    "answer": "38",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2520
+    },
+    "knobs": {
+      "D": 48,
+      "cond": "gt",
+      "gt_thresholds": 10
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 24 positive divisors. Count the positive divisors of N that are less than 10.",
+    "answer": "8",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 360
+    },
+    "knobs": {
+      "D": 24,
+      "cond": "lt",
+      "lt_thresholds": 10
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 16 positive divisors. How many positive divisors of N are greater than 18?",
+    "answer": "6",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "gt",
+      "gt_thresholds": 18
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 28 positive divisors. Of the positive divisors of N, how many are less than 40?",
+    "answer": "15",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 960
+    },
+    "knobs": {
+      "D": 28,
+      "cond": "lt",
+      "lt_thresholds": 40
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 18 positive divisors. Of the positive divisors of N, how many are greater than 24?",
+    "answer": "6",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 180
+    },
+    "knobs": {
+      "D": 18,
+      "cond": "gt",
+      "gt_thresholds": 24
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 32 positive divisors. Count the positive divisors of N that are greater than 6.",
+    "answer": "26",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 840
+    },
+    "knobs": {
+      "D": 32,
+      "cond": "gt",
+      "gt_thresholds": 6
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 32 positive divisors. Of the positive divisors of N, how many are greater than 8?",
+    "answer": "24",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 840
+    },
+    "knobs": {
+      "D": 32,
+      "cond": "gt",
+      "gt_thresholds": 8
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 12 positive divisors, find the number of positive divisors of N that are less than 10.",
+    "answer": "6",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "lt",
+      "lt_thresholds": 10
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 18 positive divisors, find the number of positive divisors of N that are greater than 30.",
+    "answer": "5",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 180
+    },
+    "knobs": {
+      "D": 18,
+      "cond": "gt",
+      "gt_thresholds": 30
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 28 positive divisors. Of the positive divisors of N, how many are less than 18?",
+    "answer": "11",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 960
+    },
+    "knobs": {
+      "D": 28,
+      "cond": "lt",
+      "lt_thresholds": 18
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 16 positive divisors. Count the positive divisors of N that are less than 24.",
+    "answer": "11",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "lt",
+      "lt_thresholds": 24
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 20 positive divisors, find the number of positive divisors of N that are less than 48.",
+    "answer": "15",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 240
+    },
+    "knobs": {
+      "D": 20,
+      "cond": "lt",
+      "lt_thresholds": 48
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 45 positive divisors. How many positive divisors of N are less than 10?",
+    "answer": "8",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "lt",
+      "lt_thresholds": 10
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 20 positive divisors. Count the positive divisors of N that are greater than 15.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 240
+    },
+    "knobs": {
+      "D": 20,
+      "cond": "gt",
+      "gt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 12 positive divisors. Count the positive divisors of N that are less than 24.",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "lt",
+      "lt_thresholds": 24
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 32 positive divisors. Of the positive divisors of N, how many are greater than 10?",
+    "answer": "23",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 840
+    },
+    "knobs": {
+      "D": 32,
+      "cond": "gt",
+      "gt_thresholds": 10
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 20 positive divisors, find the number of positive divisors of N that are greater than 20.",
+    "answer": "8",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 240
+    },
+    "knobs": {
+      "D": 20,
+      "cond": "gt",
+      "gt_thresholds": 20
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 42 positive divisors, find the number of positive divisors of N that are greater than 9.",
+    "answer": "34",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "gt",
+      "gt_thresholds": 9
+    }
+  },
+  {
+    "problem": "Let N be the smallest positive integer with exactly 27 positive divisors. How many positive divisors of N are less than 48?",
+    "answer": "16",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 900
+    },
+    "knobs": {
+      "D": 27,
+      "cond": "lt",
+      "lt_thresholds": 48
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 24 positive divisors, find the number of positive divisors of N that are less than 48.",
+    "answer": "18",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 360
+    },
+    "knobs": {
+      "D": 24,
+      "cond": "lt",
+      "lt_thresholds": 48
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 27 positive divisors. Count the positive divisors of N that are less than 60.",
+    "answer": "17",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 900
+    },
+    "knobs": {
+      "D": 27,
+      "cond": "lt",
+      "lt_thresholds": 60
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 45 positive divisors, find the number of positive divisors of N that are greater than 7.",
+    "answer": "39",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 3600
+    },
+    "knobs": {
+      "D": 45,
+      "cond": "gt",
+      "gt_thresholds": 7
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 30 positive divisors. Count the positive divisors of N that are greater than 15.",
+    "answer": "19",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 720
+    },
+    "knobs": {
+      "D": 30,
+      "cond": "gt",
+      "gt_thresholds": 15
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 30 positive divisors. Count the positive divisors of N that are greater than 8.",
+    "answer": "23",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 720
+    },
+    "knobs": {
+      "D": 30,
+      "cond": "gt",
+      "gt_thresholds": 8
+    }
+  },
+  {
+    "problem": "Let N denote the smallest positive integer with exactly 16 positive divisors. Count the positive divisors of N that are less than 40.",
+    "answer": "13",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 120
+    },
+    "knobs": {
+      "D": 16,
+      "cond": "lt",
+      "lt_thresholds": 40
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 36 positive divisors. Of the positive divisors of N, how many are less than 30?",
+    "answer": "16",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1260
+    },
+    "knobs": {
+      "D": 36,
+      "cond": "lt",
+      "lt_thresholds": 30
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 42 positive divisors. Of the positive divisors of N, how many are less than 60?",
+    "answer": "21",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "lt",
+      "lt_thresholds": 60
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 24 positive divisors. Of the positive divisors of N, how many are less than 12?",
+    "answer": "9",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 360
+    },
+    "knobs": {
+      "D": 24,
+      "cond": "lt",
+      "lt_thresholds": 12
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 24 positive divisors. Of the positive divisors of N, how many are greater than 24?",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 360
+    },
+    "knobs": {
+      "D": 24,
+      "cond": "gt",
+      "gt_thresholds": 24
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 14 positive divisors. Of the positive divisors of N, how many are greater than 4?",
+    "answer": "10",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 192
+    },
+    "knobs": {
+      "D": 14,
+      "cond": "gt",
+      "gt_thresholds": 4
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 40 positive divisors, find the number of positive divisors of N that are greater than 12.",
+    "answer": "30",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1680
+    },
+    "knobs": {
+      "D": 40,
+      "cond": "gt",
+      "gt_thresholds": 12
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 48 positive divisors, find the number of positive divisors of N that are greater than 20.",
+    "answer": "33",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2520
+    },
+    "knobs": {
+      "D": 48,
+      "cond": "gt",
+      "gt_thresholds": 20
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 40 positive divisors. Of the positive divisors of N, how many are less than 18?",
+    "answer": "13",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 1680
+    },
+    "knobs": {
+      "D": 40,
+      "cond": "lt",
+      "lt_thresholds": 18
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 12 positive divisors. Of the positive divisors of N, how many are less than 18?",
+    "answer": "9",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "lt",
+      "lt_thresholds": 18
+    }
+  },
+  {
+    "problem": "Suppose N is the smallest positive integer with exactly 42 positive divisors. Of the positive divisors of N, how many are less than 10?",
+    "answer": "8",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "lt",
+      "lt_thresholds": 10
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 12 positive divisors, find the number of positive divisors of N that are less than 15.",
+    "answer": "8",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 60
+    },
+    "knobs": {
+      "D": 12,
+      "cond": "lt",
+      "lt_thresholds": 15
+    }
+  },
+  {
+    "problem": "If N is the smallest positive integer with exactly 42 positive divisors, find the number of positive divisors of N that are less than 30.",
+    "answer": "15",
+    "skeleton_type": "chain_prime_power_divisors__constrained_divisor_count",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "prime_power_divisors",
+        "constrained_divisor_count"
+      ],
+      "fed_param": "num_pool",
+      "intermediate_gold": 2880
+    },
+    "knobs": {
+      "D": 42,
+      "cond": "lt",
+      "lt_thresholds": 30
+    }
+  }
+]
