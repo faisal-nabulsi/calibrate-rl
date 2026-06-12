@@ -69,7 +69,8 @@ finish() {
     slack_post ":white_check_mark: job \`$JOB_ID\` done — $msg"
   else
     echo "job $JOB_ID FAILED — $msg" >&2
-    slack_post ":x: job \`$JOB_ID\` FAILED — $msg (log: $LOG_URI)"
+    slack_post ":x: job \`$JOB_ID\` FAILED — $msg (log: $LOG_URI)
+DIAGNOSE NEEDED <@$ESCALATE> — auto-triage exhausted or not applicable; box is self-stopping, logs are synced."
   fi
   if [ "$NO_SHUTDOWN" -eq 0 ]; then
     # Stop the box's resident Slack agent first so it dies gracefully (its
@@ -172,6 +173,29 @@ echo "+ env ${RUN_ENV[*]} $RUN_CMD" >> "$LOG"
 if ! env "${RUN_ENV[@]}" $RUN_CMD >> "$LOG" 2>&1; then
   aws s3 cp "$LOG" "$LOG_URI" >/dev/null 2>&1 || true
   finish 1 "$RUN_CMD exited non-zero"
+fi
+
+# Self-check: a zero-exit run can still produce broken output. Verify before
+# declaring success — a bad file that syncs cleanly poisons downstream work.
+if [ "$JOB_TYPE" = "sample" ]; then
+  CHECK_MSG="$(python3 - "$OUT" "${JOB_N:-0}" <<'PYCHECK'
+import json, sys
+path, want = sys.argv[1], int(sys.argv[2])
+try:
+    rows = json.load(open(path))
+    assert isinstance(rows, list) and rows, "output is not a non-empty list"
+    assert all(isinstance(r, dict) for r in rows), "non-dict rows present"
+    if want: assert len(rows) >= 0.9 * want, f"only {len(rows)}/{want} rows"
+    print(f"OK {len(rows)} rows")
+except Exception as e:
+    print(f"FAIL {e}")
+PYCHECK
+)"
+  echo "self-check: $CHECK_MSG" >> "$LOG"
+  case "$CHECK_MSG" in FAIL*)
+    aws s3 cp "$LOG" "$LOG_URI" >/dev/null 2>&1 || true
+    finish 1 "output self-check failed: $CHECK_MSG"
+  esac
 fi
 
 if ! $SYNC_CMD >> "$LOG" 2>&1; then
