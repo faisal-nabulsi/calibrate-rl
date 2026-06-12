@@ -1,0 +1,1998 @@
+{
+  "schema_version": 1,
+  "calib_file": "data/calib_v12_2048_7B.json",
+  "knob_dir": "automation/calibrator/knobs",
+  "rules": {
+    "min_frac_in_envelope": 0.5,
+    "min_distinct_in_envelope": 5,
+    "note": "frac < 1.0 is usable because the chain generator resamples A until its answer fits B's envelope; distinct guards the v2 intermediate-collapse failure. Answer stats come from the per-concept calib sample (~9-24 problems) \u2014 coarse."
+  },
+  "semantic_caveats": [
+    {
+      "target": "constrained_divisor_count.num_pool",
+      "note": "pool is curated highly-composite numbers; the envelope admits any integer in [60, 2520], but feeding e.g. a prime collapses the divisor structure to a degenerate problem. A composite using this edge must resample A until the fed value has rich divisor structure (or the loop will see ghosts)."
+    }
+  ],
+  "amc_transfer_note": {
+    "targets": {
+      "55": [
+        "modular_exponent",
+        "constrained_divisor_count",
+        "divisor_sum_filter"
+      ],
+      "75": [
+        "constrained_divisor_count",
+        "prime_power_divisors"
+      ]
+    },
+    "knob_wired_today": [
+      "complex_modulus_power",
+      "constrained_divisor_count",
+      "constrained_subset_count",
+      "inclusion_exclusion_3set",
+      "log_laws",
+      "ordered_triple_constraint",
+      "triangular_filter_count"
+    ],
+    "missing_partners": [
+      "modular_exponent",
+      "divisor_sum_filter",
+      "prime_power_divisors"
+    ]
+  },
+  "concepts": {
+    "complex_modulus_power": {
+      "n_calib_problems": 23,
+      "mean_pass_rate": 0.6033,
+      "zone_frac": {
+        "borderline": 0.3913,
+        "goldilocks": 0.4783,
+        "too_easy": 0.087,
+        "too_hard": 0.0435
+      },
+      "answers": {
+        "n": 23,
+        "n_non_int": 0,
+        "min": 6,
+        "max": 60,
+        "median": 28,
+        "distinct": 14
+      }
+    },
+    "constrained_divisor_count": {
+      "n_calib_problems": 19,
+      "mean_pass_rate": 0.7961,
+      "zone_frac": {
+        "borderline": 0.3684,
+        "goldilocks": 0.2105,
+        "too_easy": 0.4211
+      },
+      "answers": {
+        "n": 19,
+        "n_non_int": 0,
+        "min": 4,
+        "max": 22,
+        "median": 13,
+        "distinct": 11
+      }
+    },
+    "constrained_subset_count": {
+      "n_calib_problems": 22,
+      "mean_pass_rate": 0.1534,
+      "zone_frac": {
+        "borderline": 0.4091,
+        "goldilocks": 0.3182,
+        "too_hard": 0.2727
+      },
+      "answers": {
+        "n": 22,
+        "n_non_int": 0,
+        "min": 8,
+        "max": 43,
+        "median": 27.0,
+        "distinct": 10
+      }
+    },
+    "inclusion_exclusion_3set": {
+      "n_calib_problems": 22,
+      "mean_pass_rate": 0.3295,
+      "zone_frac": {
+        "borderline": 0.1818,
+        "goldilocks": 0.6818,
+        "too_hard": 0.1364
+      },
+      "answers": {
+        "n": 22,
+        "n_non_int": 0,
+        "min": 176,
+        "max": 587,
+        "median": 374.0,
+        "distinct": 21
+      }
+    },
+    "log_laws": {
+      "n_calib_problems": 21,
+      "mean_pass_rate": 1.0,
+      "zone_frac": {
+        "too_easy": 1.0
+      },
+      "answers": {
+        "n": 21,
+        "n_non_int": 0,
+        "min": 14,
+        "max": 27,
+        "median": 19,
+        "distinct": 12
+      }
+    },
+    "ordered_triple_constraint": {
+      "n_calib_problems": 9,
+      "mean_pass_rate": 0.4444,
+      "zone_frac": {
+        "borderline": 0.4444,
+        "goldilocks": 0.5556
+      },
+      "answers": {
+        "n": 9,
+        "n_non_int": 0,
+        "min": 8,
+        "max": 33,
+        "median": 21,
+        "distinct": 8
+      }
+    },
+    "triangular_filter_count": {
+      "n_calib_problems": 24,
+      "mean_pass_rate": 0.4896,
+      "zone_frac": {
+        "borderline": 0.2083,
+        "goldilocks": 0.75,
+        "too_hard": 0.0417
+      },
+      "answers": {
+        "n": 24,
+        "n_non_int": 0,
+        "min": 19,
+        "max": 66,
+        "median": 34.0,
+        "distinct": 19
+      }
+    }
+  },
+  "n_pairs_checked": 102,
+  "n_valid": 16,
+  "valid_pairs": [
+    {
+      "A": "complex_modulus_power",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "frac_in_envelope": 1.0,
+      "distinct_in_envelope": 14,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "frac_in_envelope": 0.9565,
+      "distinct_in_envelope": 13,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "constrained_subset_count",
+      "param": "n",
+      "frac_in_envelope": 0.6316,
+      "distinct_in_envelope": 5,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "log_laws",
+      "param": "e1",
+      "frac_in_envelope": 0.8421,
+      "distinct_in_envelope": 9,
+      "knob_class": "num",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "log_laws",
+      "param": "e2",
+      "frac_in_envelope": 0.8421,
+      "distinct_in_envelope": 9,
+      "knob_class": "num",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "ordered_triple_constraint",
+      "param": "N",
+      "frac_in_envelope": 0.8421,
+      "distinct_in_envelope": 9,
+      "knob_class": "num",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "frac_in_envelope": 1.0,
+      "distinct_in_envelope": 10,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "frac_in_envelope": 0.9545,
+      "distinct_in_envelope": 9,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "constrained_divisor_count",
+      "param": "num_pool",
+      "frac_in_envelope": 1.0,
+      "distinct_in_envelope": 21,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "log_laws",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "frac_in_envelope": 1.0,
+      "distinct_in_envelope": 12,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "log_laws",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "frac_in_envelope": 1.0,
+      "distinct_in_envelope": 12,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "log_laws",
+      "B": "ordered_triple_constraint",
+      "param": "N",
+      "frac_in_envelope": 0.9048,
+      "distinct_in_envelope": 10,
+      "knob_class": "num"
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "frac_in_envelope": 1.0,
+      "distinct_in_envelope": 8,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "frac_in_envelope": 0.8889,
+      "distinct_in_envelope": 7,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "frac_in_envelope": 0.9167,
+      "distinct_in_envelope": 17,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "frac_in_envelope": 1.0,
+      "distinct_in_envelope": 19,
+      "knob_class": "C",
+      "amc_targets": [
+        55,
+        75
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "A": "complex_modulus_power",
+      "B": "constrained_divisor_count",
+      "param": "num_pool",
+      "feedable": true,
+      "frac_in_envelope": 0.2174,
+      "n_answers": 23,
+      "n_in_envelope": 5,
+      "distinct_in_envelope": 1,
+      "envelope": [
+        60,
+        2520
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "constrained_divisor_count",
+      "param": "cond",
+      "feedable": false,
+      "reason": "categorical pool (strings), no scalar feed",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 1.0,
+      "n_answers": 23,
+      "n_in_envelope": 23,
+      "distinct_in_envelope": 14,
+      "envelope": [
+        2,
+        60
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 0.9565,
+      "n_answers": 23,
+      "n_in_envelope": 22,
+      "distinct_in_envelope": 13,
+      "envelope": [
+        10,
+        100
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "constrained_subset_count",
+      "param": "n",
+      "feedable": true,
+      "frac_in_envelope": 0.087,
+      "n_answers": 23,
+      "n_in_envelope": 2,
+      "distinct_in_envelope": 2,
+      "envelope": [
+        5,
+        14
+      ],
+      "param_type": "randint",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "constrained_subset_count",
+      "param": "mod",
+      "feedable": true,
+      "frac_in_envelope": 0.0435,
+      "n_answers": 23,
+      "n_in_envelope": 1,
+      "distinct_in_envelope": 1,
+      "envelope": [
+        2,
+        6
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "inclusion_exclusion_3set",
+      "param": "U",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 23,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        100,
+        1200
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "inclusion_exclusion_3set",
+      "param": "divisor_triples",
+      "feedable": false,
+      "reason": "structured options (tuples), no scalar feed"
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "log_laws",
+      "param": "base",
+      "feedable": true,
+      "frac_in_envelope": 0.0435,
+      "n_answers": 23,
+      "n_in_envelope": 1,
+      "distinct_in_envelope": 1,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "S",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "log_laws",
+      "param": "e1",
+      "feedable": true,
+      "frac_in_envelope": 0.3043,
+      "n_answers": 23,
+      "n_in_envelope": 7,
+      "distinct_in_envelope": 5,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "log_laws",
+      "param": "e2",
+      "feedable": true,
+      "frac_in_envelope": 0.3043,
+      "n_answers": 23,
+      "n_in_envelope": 7,
+      "distinct_in_envelope": 5,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "log_laws",
+      "param": "e3",
+      "feedable": true,
+      "frac_in_envelope": 0.087,
+      "n_answers": 23,
+      "n_in_envelope": 2,
+      "distinct_in_envelope": 2,
+      "envelope": [
+        2,
+        12
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "ordered_triple_constraint",
+      "param": "N",
+      "feedable": true,
+      "frac_in_envelope": 0.4348,
+      "n_answers": 23,
+      "n_in_envelope": 10,
+      "distinct_in_envelope": 7,
+      "envelope": [
+        8,
+        25
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "triangular_filter_count",
+      "param": "lim",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 23,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        500,
+        8000
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "complex_modulus_power",
+      "B": "triangular_filter_count",
+      "param": "k",
+      "feedable": true,
+      "frac_in_envelope": 0.0435,
+      "n_answers": 23,
+      "n_in_envelope": 1,
+      "distinct_in_envelope": 1,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "complex_modulus_power",
+      "param": "cand_range",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "complex_modulus_power",
+      "param": "rep_cap",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "constrained_subset_count",
+      "param": "n",
+      "feedable": true,
+      "frac_in_envelope": 0.6316,
+      "n_answers": 19,
+      "n_in_envelope": 12,
+      "distinct_in_envelope": 5,
+      "envelope": [
+        5,
+        14
+      ],
+      "param_type": "randint",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "constrained_subset_count",
+      "param": "mod",
+      "feedable": true,
+      "frac_in_envelope": 0.1579,
+      "n_answers": 19,
+      "n_in_envelope": 3,
+      "distinct_in_envelope": 2,
+      "envelope": [
+        2,
+        6
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "inclusion_exclusion_3set",
+      "param": "U",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 19,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        100,
+        1200
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "inclusion_exclusion_3set",
+      "param": "divisor_triples",
+      "feedable": false,
+      "reason": "structured options (tuples), no scalar feed",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "log_laws",
+      "param": "base",
+      "feedable": true,
+      "frac_in_envelope": 0.1579,
+      "n_answers": 19,
+      "n_in_envelope": 3,
+      "distinct_in_envelope": 2,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "S",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "log_laws",
+      "param": "e1",
+      "feedable": true,
+      "frac_in_envelope": 0.8421,
+      "n_answers": 19,
+      "n_in_envelope": 16,
+      "distinct_in_envelope": 9,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "log_laws",
+      "param": "e2",
+      "feedable": true,
+      "frac_in_envelope": 0.8421,
+      "n_answers": 19,
+      "n_in_envelope": 16,
+      "distinct_in_envelope": 9,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "log_laws",
+      "param": "e3",
+      "feedable": true,
+      "frac_in_envelope": 0.4737,
+      "n_answers": 19,
+      "n_in_envelope": 9,
+      "distinct_in_envelope": 4,
+      "envelope": [
+        2,
+        12
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "ordered_triple_constraint",
+      "param": "N",
+      "feedable": true,
+      "frac_in_envelope": 0.8421,
+      "n_answers": 19,
+      "n_in_envelope": 16,
+      "distinct_in_envelope": 9,
+      "envelope": [
+        8,
+        25
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "triangular_filter_count",
+      "param": "lim",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 19,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        500,
+        8000
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_divisor_count",
+      "B": "triangular_filter_count",
+      "param": "k",
+      "feedable": true,
+      "frac_in_envelope": 0.1579,
+      "n_answers": 19,
+      "n_in_envelope": 3,
+      "distinct_in_envelope": 2,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "complex_modulus_power",
+      "param": "cand_range",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "complex_modulus_power",
+      "param": "rep_cap",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "constrained_divisor_count",
+      "param": "num_pool",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        60,
+        2520
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "constrained_divisor_count",
+      "param": "cond",
+      "feedable": false,
+      "reason": "categorical pool (strings), no scalar feed",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 1.0,
+      "n_answers": 22,
+      "n_in_envelope": 22,
+      "distinct_in_envelope": 10,
+      "envelope": [
+        2,
+        60
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 0.9545,
+      "n_answers": 22,
+      "n_in_envelope": 21,
+      "distinct_in_envelope": 9,
+      "envelope": [
+        10,
+        100
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "inclusion_exclusion_3set",
+      "param": "U",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        100,
+        1200
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "inclusion_exclusion_3set",
+      "param": "divisor_triples",
+      "feedable": false,
+      "reason": "structured options (tuples), no scalar feed"
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "log_laws",
+      "param": "base",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "S",
+      "valid": false
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "log_laws",
+      "param": "e1",
+      "feedable": true,
+      "frac_in_envelope": 0.3636,
+      "n_answers": 22,
+      "n_in_envelope": 8,
+      "distinct_in_envelope": 4,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "log_laws",
+      "param": "e2",
+      "feedable": true,
+      "frac_in_envelope": 0.3636,
+      "n_answers": 22,
+      "n_in_envelope": 8,
+      "distinct_in_envelope": 4,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "log_laws",
+      "param": "e3",
+      "feedable": true,
+      "frac_in_envelope": 0.1364,
+      "n_answers": 22,
+      "n_in_envelope": 3,
+      "distinct_in_envelope": 2,
+      "envelope": [
+        2,
+        12
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "ordered_triple_constraint",
+      "param": "N",
+      "feedable": true,
+      "frac_in_envelope": 0.4545,
+      "n_answers": 22,
+      "n_in_envelope": 10,
+      "distinct_in_envelope": 5,
+      "envelope": [
+        8,
+        25
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "triangular_filter_count",
+      "param": "lim",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        500,
+        8000
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "constrained_subset_count",
+      "B": "triangular_filter_count",
+      "param": "k",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "complex_modulus_power",
+      "param": "cand_range",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "complex_modulus_power",
+      "param": "rep_cap",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "constrained_divisor_count",
+      "param": "num_pool",
+      "feedable": true,
+      "frac_in_envelope": 1.0,
+      "n_answers": 22,
+      "n_in_envelope": 22,
+      "distinct_in_envelope": 21,
+      "envelope": [
+        60,
+        2520
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "constrained_divisor_count",
+      "param": "cond",
+      "feedable": false,
+      "reason": "categorical pool (strings), no scalar feed",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        60
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        10,
+        100
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "constrained_subset_count",
+      "param": "n",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        5,
+        14
+      ],
+      "param_type": "randint",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "constrained_subset_count",
+      "param": "mod",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        6
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "log_laws",
+      "param": "base",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "S",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "log_laws",
+      "param": "e1",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "log_laws",
+      "param": "e2",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "log_laws",
+      "param": "e3",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        12
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "ordered_triple_constraint",
+      "param": "N",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        8,
+        25
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "triangular_filter_count",
+      "param": "lim",
+      "feedable": true,
+      "frac_in_envelope": 0.1364,
+      "n_answers": 22,
+      "n_in_envelope": 3,
+      "distinct_in_envelope": 3,
+      "envelope": [
+        500,
+        8000
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "inclusion_exclusion_3set",
+      "B": "triangular_filter_count",
+      "param": "k",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 22,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "log_laws",
+      "B": "complex_modulus_power",
+      "param": "cand_range",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "log_laws",
+      "B": "complex_modulus_power",
+      "param": "rep_cap",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "log_laws",
+      "B": "constrained_divisor_count",
+      "param": "num_pool",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 21,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        60,
+        2520
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "log_laws",
+      "B": "constrained_divisor_count",
+      "param": "cond",
+      "feedable": false,
+      "reason": "categorical pool (strings), no scalar feed",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "log_laws",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 1.0,
+      "n_answers": 21,
+      "n_in_envelope": 21,
+      "distinct_in_envelope": 12,
+      "envelope": [
+        2,
+        60
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "log_laws",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 1.0,
+      "n_answers": 21,
+      "n_in_envelope": 21,
+      "distinct_in_envelope": 12,
+      "envelope": [
+        10,
+        100
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "log_laws",
+      "B": "constrained_subset_count",
+      "param": "n",
+      "feedable": true,
+      "frac_in_envelope": 0.0476,
+      "n_answers": 21,
+      "n_in_envelope": 1,
+      "distinct_in_envelope": 1,
+      "envelope": [
+        5,
+        14
+      ],
+      "param_type": "randint",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "log_laws",
+      "B": "constrained_subset_count",
+      "param": "mod",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 21,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        6
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "log_laws",
+      "B": "inclusion_exclusion_3set",
+      "param": "U",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 21,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        100,
+        1200
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "log_laws",
+      "B": "inclusion_exclusion_3set",
+      "param": "divisor_triples",
+      "feedable": false,
+      "reason": "structured options (tuples), no scalar feed"
+    },
+    {
+      "A": "log_laws",
+      "B": "ordered_triple_constraint",
+      "param": "N",
+      "feedable": true,
+      "frac_in_envelope": 0.9048,
+      "n_answers": 21,
+      "n_in_envelope": 19,
+      "distinct_in_envelope": 10,
+      "envelope": [
+        8,
+        25
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": true
+    },
+    {
+      "A": "log_laws",
+      "B": "triangular_filter_count",
+      "param": "lim",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 21,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        500,
+        8000
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "log_laws",
+      "B": "triangular_filter_count",
+      "param": "k",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 21,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "complex_modulus_power",
+      "param": "cand_range",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "complex_modulus_power",
+      "param": "rep_cap",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "constrained_divisor_count",
+      "param": "num_pool",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 9,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        60,
+        2520
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "constrained_divisor_count",
+      "param": "cond",
+      "feedable": false,
+      "reason": "categorical pool (strings), no scalar feed",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 1.0,
+      "n_answers": 9,
+      "n_in_envelope": 9,
+      "distinct_in_envelope": 8,
+      "envelope": [
+        2,
+        60
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 0.8889,
+      "n_answers": 9,
+      "n_in_envelope": 8,
+      "distinct_in_envelope": 7,
+      "envelope": [
+        10,
+        100
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "constrained_subset_count",
+      "param": "n",
+      "feedable": true,
+      "frac_in_envelope": 0.3333,
+      "n_answers": 9,
+      "n_in_envelope": 3,
+      "distinct_in_envelope": 3,
+      "envelope": [
+        5,
+        14
+      ],
+      "param_type": "randint",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "constrained_subset_count",
+      "param": "mod",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 9,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        6
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "inclusion_exclusion_3set",
+      "param": "U",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 9,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        100,
+        1200
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "inclusion_exclusion_3set",
+      "param": "divisor_triples",
+      "feedable": false,
+      "reason": "structured options (tuples), no scalar feed"
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "log_laws",
+      "param": "base",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 9,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "S",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "log_laws",
+      "param": "e1",
+      "feedable": true,
+      "frac_in_envelope": 0.4444,
+      "n_answers": 9,
+      "n_in_envelope": 4,
+      "distinct_in_envelope": 4,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "log_laws",
+      "param": "e2",
+      "feedable": true,
+      "frac_in_envelope": 0.4444,
+      "n_answers": 9,
+      "n_in_envelope": 4,
+      "distinct_in_envelope": 4,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "log_laws",
+      "param": "e3",
+      "feedable": true,
+      "frac_in_envelope": 0.2222,
+      "n_answers": 9,
+      "n_in_envelope": 2,
+      "distinct_in_envelope": 2,
+      "envelope": [
+        2,
+        12
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "triangular_filter_count",
+      "param": "lim",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 9,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        500,
+        8000
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "ordered_triple_constraint",
+      "B": "triangular_filter_count",
+      "param": "k",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 9,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "complex_modulus_power",
+      "param": "cand_range",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "complex_modulus_power",
+      "param": "rep_cap",
+      "feedable": false,
+      "reason": "const: range-valued constant, not a per-problem draw"
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "constrained_divisor_count",
+      "param": "num_pool",
+      "feedable": true,
+      "frac_in_envelope": 0.0833,
+      "n_answers": 24,
+      "n_in_envelope": 2,
+      "distinct_in_envelope": 2,
+      "envelope": [
+        60,
+        2520
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "constrained_divisor_count",
+      "param": "cond",
+      "feedable": false,
+      "reason": "categorical pool (strings), no scalar feed",
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "constrained_divisor_count",
+      "param": "gt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 0.9167,
+      "n_answers": 24,
+      "n_in_envelope": 22,
+      "distinct_in_envelope": 17,
+      "envelope": [
+        2,
+        60
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "constrained_divisor_count",
+      "param": "lt_thresholds",
+      "feedable": true,
+      "frac_in_envelope": 1.0,
+      "n_answers": 24,
+      "n_in_envelope": 24,
+      "distinct_in_envelope": 19,
+      "envelope": [
+        10,
+        100
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": true,
+      "amc_targets": [
+        55,
+        75
+      ]
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "constrained_subset_count",
+      "param": "n",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 24,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        5,
+        14
+      ],
+      "param_type": "randint",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "constrained_subset_count",
+      "param": "mod",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 24,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        6
+      ],
+      "param_type": "choice",
+      "knob_class": "C",
+      "valid": false
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "inclusion_exclusion_3set",
+      "param": "U",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 24,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        100,
+        1200
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "inclusion_exclusion_3set",
+      "param": "divisor_triples",
+      "feedable": false,
+      "reason": "structured options (tuples), no scalar feed"
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "log_laws",
+      "param": "base",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 24,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        7
+      ],
+      "param_type": "choice",
+      "knob_class": "S",
+      "valid": false
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "log_laws",
+      "param": "e1",
+      "feedable": true,
+      "frac_in_envelope": 0.0417,
+      "n_answers": 24,
+      "n_in_envelope": 1,
+      "distinct_in_envelope": 1,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "log_laws",
+      "param": "e2",
+      "feedable": true,
+      "frac_in_envelope": 0.0417,
+      "n_answers": 24,
+      "n_in_envelope": 1,
+      "distinct_in_envelope": 1,
+      "envelope": [
+        4,
+        20
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "log_laws",
+      "param": "e3",
+      "feedable": true,
+      "frac_in_envelope": 0.0,
+      "n_answers": 24,
+      "n_in_envelope": 0,
+      "distinct_in_envelope": 0,
+      "envelope": [
+        2,
+        12
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    },
+    {
+      "A": "triangular_filter_count",
+      "B": "ordered_triple_constraint",
+      "param": "N",
+      "feedable": true,
+      "frac_in_envelope": 0.1667,
+      "n_answers": 24,
+      "n_in_envelope": 4,
+      "distinct_in_envelope": 3,
+      "envelope": [
+        8,
+        25
+      ],
+      "param_type": "randint",
+      "knob_class": "num",
+      "valid": false
+    }
+  ]
+}
