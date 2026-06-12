@@ -64,7 +64,7 @@ in-band problems. **The deliverable is the METHOD, not any single checkpoint.**
 | RL review | Zaid |
 | Running GPU calibration / training / eval (AWS L40S box) | `awesome-ash` (training executor; executes, doesn't design; Slack listener lives on the t3 — always reachable; hands on the L40S, which is a pure worker that runs a job poller on boot) |
 | Sampling runs (the two AWS L4 boxes) | `sam`, `sadie` (sampling executors; Slack listeners live on the t3 — always reachable; hands on the L4s, which are pure workers that run job pollers on boot) |
-| Calibration-loop orchestrator processes (t3) | `autocalib` (automation home, NOT a conversational agent — don't @mention it expecting replies) |
+| Calibration-loop orchestrator processes (t3) | `thinkrock` (automation home, NOT a conversational agent — don't @mention it expecting replies) |
 
 A teammate not yet in the table still follows the person-session rules. Cross-lane
 changes: propose in Slack and let the owner confirm.
