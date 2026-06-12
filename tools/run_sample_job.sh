@@ -72,6 +72,13 @@ finish() {
     slack_post ":x: job \`$JOB_ID\` FAILED — $msg (log: $LOG_URI)"
   fi
   if [ "$NO_SHUTDOWN" -eq 0 ]; then
+    # Stop the box's resident Slack agent first so it dies gracefully (its
+    # SIGINT handler disconnects Socket Mode) — a hard death with the box
+    # counts against Slack's delivery-failure budget and can get the app's
+    # events disabled. Best-effort: a missing pm2/process never blocks poweroff.
+    if command -v pm2 >/dev/null 2>&1; then
+      pm2 stop "${AGENT_PM2_NAME:-$AGENT}" >/dev/null 2>&1 || pm2 stop all >/dev/null 2>&1 || true
+    fi
     echo "powering off in 1 minute (--no-shutdown to keep the box up)"
     sudo shutdown -h +1
   fi
