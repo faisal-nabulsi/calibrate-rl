@@ -62,9 +62,15 @@ in-band problems. **The deliverable is the METHOD, not any single checkpoint.**
 | Data prep: dataset build, holdout construction, repo hygiene | Michael |
 | Eval | Cara |
 | RL review | Zaid |
-| Running GPU calibration / training / eval (AWS L40S box) | `trainaws` (training executor; executes, doesn't design; on-demand — online only while the box is up) |
-| Sampling runs (the two AWS L4 boxes) | `sam`, `sadie` (sampling executors; on-demand — online only while their box is up, reachable ~60s after box start) |
-| Calibration-loop orchestrator processes (t3) | `autocalib` (automation home, NOT a conversational agent — don't @mention it expecting replies) |
+| Running GPU calibration / training / eval (AWS L40S box) | `awesome-ash` (training executor; executes, doesn't design; lives ON the L40S — on-demand, online only while the box is up) |
+| Sampling runs (the two AWS L4 boxes) | `sam`, `sadie` (sampling executors; live ON their L4 boxes — on-demand, online only while their box is up, reachable ~60s after box start) |
+| Calibration-loop orchestrator processes (t3) | `thinkrock` (automation home, NOT a conversational agent — don't @mention it expecting replies) |
+
+**GPU-box agents (sam, sadie, awesome-ash) live ON their boxes** — Slack listeners
+are NOT centralized on the t3. Wake ritual: after a box boots, verify its agent
+answers a "hi" in Slack — if silent, a human re-enables events on that bot's Slack
+app page. GPU-box agents run under pm2 with `--max-restarts 5` so a broken install
+can't crash-loop (crash bursts are what get Slack events disabled).
 
 A teammate not yet in the table still follows the person-session rules. Cross-lane
 changes: propose in Slack and let the owner confirm.
@@ -84,12 +90,13 @@ state. Slack does NOT sync files — `git pull` to get another session's edits.
 **Talking to other agents:** you can reach another agent directly with an `@mention`
 in #calibrate-rl-agents (e.g. `@charizard` for the eval session). Don't hesitate to
 do so when you need something from their lane or when a human instructs you to — it's
-a normal way to hand off or ask a question. Guardrails are built in: bot-to-bot
-exchanges are **read-only** (you can read the repo and Slack but not edit files, run
-mutating commands, or push during a bot-initiated turn) and **capped at 4 hops** so a
-chain always terminates. Anything that writes/pushes/trains still needs a human — ask
-in the channel and let a person do it. Don't @mention another agent with no purpose;
-reach out to get something done, not to chatter.
+a normal way to hand off or ask a question. Guardrails are built in: **spontaneous
+bot-to-bot exchanges are read-only** (read the repo and Slack, but no file edits,
+mutating commands, or pushes); **human-rooted chains** (tagged `[chain:<root_ts>]`,
+where the root message is verified human-authored) may do work — files, commands,
+propose-pr — but never instance start/stop or merging on a bot-initiated turn.
+Chains are **capped at 5 hops** so they always terminate. Don't @mention another
+agent with no purpose; reach out to get something done, not to chatter.
 
 **Landing code — agents NEVER push to `main`.** `main` is protected (PR + human
 approval required), so a direct push will be rejected anyway. To land changes, run
@@ -312,6 +319,16 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
 - No concept has both clean calibration AND AMC headroom (see §5).
 - For 1–3 concept interventions, use `mean_pass_rate` on the tagged AMC subset,
   not the binary solved count.
+- **Time-box failing operations:** if a check/search/fetch fails twice, or a
+  referenced spec isn't found within ~2 min, STOP, report what you tried, and
+  ask — no retry-loops or history deep-searches. A fast :x: is a correct outcome.
+- New Slack agent → its bot ID goes in `AGENT_BOTS` in `slack-handler.ts` or the
+  guards don't cover it.
+- Bot-to-bot chains: only human-rooted chains may do work; spontaneous exchanges
+  are read-only.
+- Self-tests/status checks report findings without fixing unless told.
+- Humans: before pm2-restarting an agent, check for its in-flight "Working…" —
+  restart kills tasks silently.
 
 ## 9. Operating rules
 
