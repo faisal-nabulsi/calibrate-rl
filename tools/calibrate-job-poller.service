@@ -1,0 +1,28 @@
+# calibrate-job-poller.service — run the S3 job poller once per boot.
+#
+# Install on a GPU box (sam / sadie / awesome-ash):
+#   sudo tee /etc/calibrate-rl-job.env >/dev/null <<'EOF'
+#   AGENT_NAME=sam
+#   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
+#   EOF
+#   sudo cp tools/calibrate-job-poller.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable calibrate-job-poller
+#
+# Type=simple (not oneshot): a sampling/training job runs for hours and must not
+# block the boot transaction. run_sample_job.sh powers the box off when done.
+
+[Unit]
+Description=CalibrateRL boot job poller (claims a pending S3 job spec and runs it)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ec2-user
+EnvironmentFile=-/etc/calibrate-rl-job.env
+WorkingDirectory=/home/ec2-user/calibrate-rl
+ExecStart=/usr/bin/bash /home/ec2-user/calibrate-rl/tools/job_poller.sh
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
