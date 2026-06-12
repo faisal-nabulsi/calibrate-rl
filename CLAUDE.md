@@ -424,6 +424,8 @@ one multi-step problem, calibrate to goldilocks by # steps (not bigger numbers),
       per bot for the AWS move.
 - [ ] HOLD the big "final depth-0 run" until the concept-transfer eval result is in.
 - [ ] [gilbert] v12 train-set build + training kickoff once calib lands (~100 steps / 3 concepts).
+- [ ] Switch the agents to the Claude Max subscription instead of API credits — we have
+      plenty of Max usage headroom, would save API spend. **(faisal, bring up next meeting)**
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
