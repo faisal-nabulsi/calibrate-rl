@@ -282,6 +282,63 @@ constrained_subset_count (already a composition). (3) Target #55 (modular_expone
 × prime_power_divisors). (4) Sample → goldilocks → train ~300 steps → AMC eval via
 `mean_pass_rate`; confirm partner-only set didn't regress.
 
+### 6a. Why we built exactly these 3 chains (first wave) — selection rationale
+
+We deliberately built **3 chains, not 19+**. The reasoning, in order:
+
+**1. WHAT a chain is (so the "19 partners" confusion doesn't recur).** The 19
+partners in the table above are *atomic ingredients held in reserve* — they are
+NOT chains. A chain is a *composition of two atomic concepts* (A's answer feeds
+B's parameter). You do not get "one chain per partner"; a chain is a *pair*, and
+most pairs aren't even usable (see #3). Our 3 chains compose **§5 depth-0
+concepts**, not the 19 partners.
+
+**2. WHICH targets, and why (#55, #75, + a pilot).**
+   - Depth-0 has **plateaued** — the model masters atoms, they drift out of the
+     goldilocks band, and further depth-0 training teaches nothing. The remaining
+     AMC failures are **compositional**.
+   - The real headroom is the **~22 covered-but-unsolved** AMC problems (a depth-0
+     concept is relevant, but the problem needs composition). **#55 and #75 are
+     exactly these** — high-value, currently-failed, composition-shaped.
+   - We did NOT target the 19 partners' AMC problems: **base already solves 16/23**
+     of the "partner-only" set, so chaining to cover them wins ~nothing.
+   - The **pilot** (`chain_log_laws__ordered_triple_constraint`) is a machinery
+     proof-of-concept (first chain, #41): it validates the whole pipeline —
+     oracle-composition (gold exact by construction), embed-not-announce surface,
+     recomputer verification, static-gate — before we spend effort on the real
+     targets.
+
+**3. WHY those specific compositions + directions (engineering constraints).**
+   - Chains must be **feed-legal**: A's answer distribution must legally fit B's
+     parameter envelope. The compat map (`chain_compat_v2.json`) checked **337**
+     (A,B,param) edges; only **76 are valid**. We could not pick arbitrarily.
+   - **Pairs-only v1:** #55's full decomposition is 3 concepts (modexp × cdc ×
+     divisor_sum_filter); we shipped the modexp × cdc pair and **wired dsf but
+     deferred it to the 3-way wave**.
+   - **Direction is chosen for answer-diversity (goldilocks), not arbitrarily.**
+     `constrained_divisor_count`-as-target *collapses* (divisor counts cluster →
+     top3 0.59, answer-hackable). So **#55 flips** to modexp-as-target (cdc count →
+     exponent; top3 0.105). **#75 keeps** cdc-as-target but drops the clustered
+     "odd" branch (top3 0.40→0.19) and feeds a divisor-rich N (smallest int with D
+     divisors) so cdc never sees a degenerate (prime) input.
+
+**4. WHY only 3 right now (not the whole menu).** It is a deliberate first wave to
+   answer the make-or-break question **before** scaling: *does training on
+   compositions transfer to compositional AMC?* The base-model diagnostic measures
+   this directly — the **composition gap** (per-composite `intermediate_hit_rate`
+   high but final pass low ⇒ "the model can do the steps but can't chain them" ⇒
+   exactly what depth-1 training should fix). Each chain is also real, non-trivial
+   work (generator + knob + recomputer + static-gate pass + calibration), and
+   depth-1 calibration is **curriculum-gated** on the depth-0 model (sequential:
+   train depth-0 first), which doesn't exist yet. Building 19 chains before knowing
+   any transfers would be wasted.
+
+**5. The plan IS to expand.** The 76 valid edges are the menu. If the diagnostic +
+   the first depth-1 training run show transfer, we scale into more pairs and 3-way
+   chains (e.g. the full #55 with divisor_sum_filter) to cover more of the ~22
+   compositional AMC problems. Today: 3 chains ≈ 4 AMC problems (#21/#47/#55/#75) —
+   small **on purpose**; it is the proof-of-concept, not the finish line.
+
 ## 7. v10 results
 
 **Reward.** Raw `train/reward` looks flat but is confounded (batch composition,
@@ -464,6 +521,10 @@ decision (Faisal wants it; Michael skeptical).
       plenty of Max usage headroom, would save API spend. **(faisal, bring up next meeting)**
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-12
+- [gilbert] Documented the **chain-selection rationale** (§6a): why 3 chains not 19 — partners are atomic ingredients (not chains); targets #55/#75 are the covered-but-unsolved compositional headroom (partner-only AMC is mostly base-solved, not the prize); directions chosen for answer-diversity (cdc-as-target collapses → #55 flips to modexp-target, #75 drops "odd"); only 76/337 (A,B,param) edges are feed-legal; 3 = deliberate first wave to test composition→AMC transfer before scaling.
+- [gilbert] **#42/#44/#45/#46 all merged**; sam pulled to `c8b6f76` (chain `intermediate_gold` passthrough + worker auto-`git pull` before each job). Base composition-gap **diagnostic queued** (`pending/sam/chain_depth1_base_diag_300.json`): combined depth-1 pool, n=300 (shuffle → ~100/100/99 across the 3 composites), 8 rollouts @2048, transcripts saved. Pilot-only run died with no output; the 300-q supersedes it.
 
 ### 2026-06-11
 - [gilbert] **PR #42 reviewed by kathryne + charizard — both :white_check_mark:, all flags closed.** kathryne (recomputers): regexes text-derived + 6 hand-recomputed golds exact; flagged 3 (dead D {8,9,10}; #75 N gate hard-coded 5000 vs cdc envelope 2520 → D=42/45 leaked illegal; #55 template-4 broken english on gt/lt) → fixed `1c440ad`. charizard (direction/embed): verified, OK-to-merge; flagged 4 incl. the sharp one — **unbounded `while ndiv(n)!=D` search hangs on awkward D (D=97→2^96) under autocalib** → fixed `62adafa` (bounded `_smallest_with_ndiv` cap 10^6, mirrored in recomputer) + #75 cond envelope shrunk to ["gt","lt"] (durable odd-drop). Equivalence still 2000/2000 byte-identical; gate PASS; pools byte-identical (fixes output-preserving). Clear to merge → sam.
