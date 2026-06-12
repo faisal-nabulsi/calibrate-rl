@@ -483,6 +483,22 @@ decision (Faisal wants it; Michael skeptical).
   atoms, *then* depth-1. So depth-1 must be calibrated against the **depth-0-trained model**
   (doesn't exist yet) → base sampling is a **DIAGNOSTIC only** (composition gap: does base do
   the atoms but fail to compose?), never the depth-1 train set. Real calib waits for depth-0.
+- **Depth-1 base diagnostic RUNNING (06-12).** All composite work merged: #42 (knob-wire 3
+  ingredients + composites + pools + `chain_compat_v2`), #44 (kathryne nits), #46 (chain
+  `intermediate_gold` passthrough + worker auto-`git pull`), #47 (§6a rationale). The base
+  composition-gap diagnostic is in flight on sam — combined depth-1 pool, **n=300 (~100/100/99
+  across the 3 composites; `sample.py` shuffles, so no order skew), 8 rollouts @2048**,
+  `intermediate_gold` + transcripts captured → `s3://calibrate-rl-agent/runs/chain_depth1_base_diag_300/`;
+  self-stops on completion. **gilbert pulls + analyzes** (per-composite `intermediate_hit_rate` ×
+  `pass_rate`) when it lands → PR findings. (The earlier pilot-only run died with no output;
+  the 300-q supersedes it. See §6a for the full why-these-3-chains rationale.)
+- **Alerting / fleet hardened (06-12).** Worker boxes self-`git pull` before each job (#46) so
+  they never run a stale checkout; #45 added job self-check + a `DIAGNOSE NEEDED` failure page;
+  #48 makes hand-runs source `/etc/calibrate-rl-job.env` (so a manual `job_poller.sh` resolves
+  `AGENT_NAME`/webhook instead of the wrong host prefix — the silent-handoff footgun), renders
+  failure pages to a **deduped recipient list that always includes the owner (faisal)**, and
+  adds a **boot-time idle-box page** (a worker that boots with nothing queued pings the owners).
+  Michael added an orchestrator monitor that pages on a **queued-but-unclaimed** spec.
 - **Fleet ops hardened:** GPU job runner `tools/run_sample_job.sh` (S3 spec → sample/train →
   sync → Slack → self-stop) + systemd boot pollers for sam/sadie/awesome-ash (#36),
   smoke-tested on sam including the auto-triage retry path; `tools/campaign_status.sh`
@@ -502,9 +518,20 @@ decision (Faisal wants it; Michael skeptical).
       `chain_constrained_divisor_count__modular_exponent` (#55) + `chain_prime_power_divisors__constrained_divisor_count`
       (#75) → both PASS the static gate (golds 100%, dedupe ≥0.945, top3 ≤0.222) + recomputers +
       120-row pools. On PR #42. Goldilocks calib still waits for the depth-0 model (curriculum).
-- [ ] [gilbert] **overnight base DIAGNOSTIC** — sample the depth-1 pools on base Qwen-7B (now 3
-      composites: pilot + #55 + #75) to measure the composition gap (intermediate_hit_rate: atoms
-      solved vs composition solved). Label base, NOT the depth-1 train set (curriculum needs depth-0).
+- [~] [gilbert] base composition-gap **DIAGNOSTIC running on sam** (300×8@2048, combined depth-1
+      pool, `intermediate_gold` captured). When it lands in `runs/chain_depth1_base_diag_300/`:
+      pull + compute per-composite `intermediate_hit_rate` × `pass_rate` (does base do the atoms
+      but fail to compose?) → **PR the findings**. Base diagnostic only, NOT the depth-1 train set.
+- [ ] [michael] extend the orchestrator monitor (gilbert shipped the in-repo halves in #48 —
+      failure-page recipient list + boot-time idle page): (a) add faisal (`U0B9661M6J2`) to the
+      monitor's page recipients; (b) add a **continuous idle-box alarm** (any box running >N min
+      with nothing pending AND nothing running → page faisal+michael) — the boot-time check in
+      `job_poller.sh` doesn't catch boxes that go idle later (e.g. after a manual kill).
+- [ ] [boxes] optional: set `ESCALATE_SLACK_IDS` (space-separated) in `/etc/calibrate-rl-job.env`
+      on sam/sadie/ash to add the on-call to pages — the code already always includes the owner.
+- [ ] [gilbert] depth-1 **expansion IF transfer shows** (diagnostic + first depth-1 train run):
+      more feed-legal pairs from the 76 valid `chain_compat_v2` edges + the 3-way #55 (chain in
+      the wired-but-unchained `divisor_sum_filter`).
 - [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
       does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
       final depth-0 decision.
@@ -523,6 +550,8 @@ decision (Faisal wants it; Michael skeptical).
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
 ### 2026-06-12
+- [gilbert] **Diagnostic LAUNCHED:** after a detour (manual `job_poller.sh` fell back to hostname → wrong S3 prefix; AGENT_NAME only injected by systemd), sam started it via `systemctl start calibrate-job-poller.service`, auto-pulled to latest main (524b728, incl. #46 passthrough), and the 300×8@2048 base composition-gap run is in flight → `runs/chain_depth1_base_diag_300/`; self-stops (verified shutdown-behavior=stop) on done. gilbert pulls + analyzes when it lands.
+- [gilbert] **Alerting hardened** (PR for review): `run_sample_job.sh` failure pages + a new boot-time idle-box page in `job_poller.sh` now render a **deduped recipient list that always includes the owner (faisal `U0B9661M6J2`)**, configurable via `ESCALATE_SLACK_IDS`. Earlier #48 made hand-runs source `/etc/calibrate-rl-job.env`. **Monitor-side TODO for michael:** add faisal to the unclaimed-spec monitor + a continuous idle-box alarm (boot-time check misses kill-orphaned boxes).
 - [gilbert] Documented the **chain-selection rationale** (§6a): why 3 chains not 19 — partners are atomic ingredients (not chains); targets #55/#75 are the covered-but-unsolved compositional headroom (partner-only AMC is mostly base-solved, not the prize); directions chosen for answer-diversity (cdc-as-target collapses → #55 flips to modexp-target, #75 drops "odd"); only 76/337 (A,B,param) edges are feed-legal; 3 = deliberate first wave to test composition→AMC transfer before scaling.
 - [gilbert] **#42/#44/#45/#46 all merged**; sam pulled to `c8b6f76` (chain `intermediate_gold` passthrough + worker auto-`git pull` before each job). Base composition-gap **diagnostic queued** (`pending/sam/chain_depth1_base_diag_300.json`): combined depth-1 pool, n=300 (shuffle → ~100/100/99 across the 3 composites), 8 rollouts @2048, transcripts saved. Pilot-only run died with no output; the 300-q supersedes it.
 
