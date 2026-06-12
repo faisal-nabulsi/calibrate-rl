@@ -33,8 +33,9 @@ if [ -z "$SPEC_KEY" ]; then
   # only; a continuous "idle >N min across all boxes" alarm belongs in the orchestrator
   # monitor (see CLAUDE.md TODO).
   if [ -n "${AGENT_NAME:-}" ] && [ -n "${SLACK_WEBHOOK_URL:-}" ]; then
-    OWNER_SLACK_ID="U0B9661M6J2"   # faisal
-    M="$(printf '%s\n' ${ESCALATE_SLACK_IDS:-${ESCALATE:-}} "$OWNER_SLACK_ID" \
+    # Always-paged: owner + on-call (faisal, michael). ESCALATE_SLACK_IDS env adds more.
+    DEFAULT_SLACK_IDS="U0B9661M6J2 U0B9C6JP2MC"   # faisal, michael
+    M="$(printf '%s\n' ${ESCALATE_SLACK_IDS:-${ESCALATE:-}} $DEFAULT_SLACK_IDS \
        | awk 'NF && !seen[$0]++ {printf "<@%s> ", $0}')"
     curl -sf -X POST -H 'Content-type: application/json' \
       --data "$(python3 -c 'import json,sys;print(json.dumps({"text":sys.argv[1]}))' \
