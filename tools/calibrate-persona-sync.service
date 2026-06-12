@@ -1,0 +1,18 @@
+# calibrate-persona-sync.service — sync the agent's persona from S3 once per boot.
+# Install (after the job-poller env file exists):
+#   sudo cp tools/calibrate-persona-sync.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable calibrate-persona-sync
+[Unit]
+Description=CalibrateRL persona sync (pull agent persona from S3 at boot)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=ec2-user
+EnvironmentFile=-/etc/calibrate-rl-job.env
+WorkingDirectory=/home/ec2-user/calibrate-rl
+ExecStart=/usr/bin/bash /home/ec2-user/calibrate-rl/tools/persona_sync.sh
+
+[Install]
+WantedBy=multi-user.target
