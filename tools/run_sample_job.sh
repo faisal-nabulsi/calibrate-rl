@@ -59,19 +59,24 @@ JOB_ID="$(basename "$SPEC_URI" .json)"
 LOG="logs/job_${JOB_ID}.log"
 mkdir -p logs data
 
-# Escalation recipients for failure pages: a deduped, space-separated list of Slack
-# IDs rendered as <@id> mentions (mentions trigger mobile push; channel posts don't).
-# Configurable via env ESCALATE_SLACK_IDS (or the legacy single ESCALATE); the owner +
-# on-call defaults are always included so a human is paged even before a box env is set.
-DEFAULT_SLACK_IDS="U0B9661M6J2 U0B9C6JP2MC U0B9C278VPW"   # faisal, michael, gilbert
-ESCALATE_MENTIONS="$(printf '%s\n' ${ESCALATE_SLACK_IDS:-${ESCALATE:-}} $DEFAULT_SLACK_IDS \
-  | awk 'NF && !seen[$0]++ {printf "<@%s> ", $0}')"
+# Recipients rendered as <@id> mentions (mentions trigger mobile push; channel
+# posts don't). Two tiers:
+#   NOTIFY  — tagged on EVERY notification (start/done/fail), per Faisal's request.
+#   DEFAULT — the wider escalation set, added on failure pages only (so gilbert/on-call
+#             aren't pinged on every routine success). Configurable via ESCALATE_SLACK_IDS
+#             (or the legacy single ESCALATE). All tiers are deduped before sending.
+NOTIFY_SLACK_IDS="U0B9661M6J2 U0B9C6JP2MC"               # faisal, michael — every post
+DEFAULT_SLACK_IDS="U0B9661M6J2 U0B9C6JP2MC U0B9C278VPW"  # faisal, michael, gilbert — pages
 
 slack_post() {
   [ -n "${SLACK_WEBHOOK_URL:-}" ] || return 0
   [ "$DRY_RUN" -eq 1 ] && return 0
+  # $2 (optional) = extra Slack IDs to @mention beyond the always-tagged NOTIFY pair.
+  local mentions
+  mentions="$(printf '%s\n' $NOTIFY_SLACK_IDS ${2:-} \
+    | awk 'NF && !seen[$0]++ {printf "<@%s> ", $0}')"
   curl -sf -X POST -H 'Content-type: application/json' \
-    --data "$(python3 -c 'import json,sys;print(json.dumps({"text":sys.argv[1]}))' "[$AGENT] $1")" \
+    --data "$(python3 -c 'import json,sys;print(json.dumps({"text":sys.argv[1]}))' "[$AGENT] $1 ${mentions}")" \
     "$SLACK_WEBHOOK_URL" >/dev/null || true
 }
 
@@ -85,7 +90,8 @@ finish() {
   else
     echo "job $JOB_ID FAILED — $msg" >&2
     slack_post ":x: job \`$JOB_ID\` FAILED — $msg (log: $LOG_URI)
-DIAGNOSE NEEDED ${ESCALATE_MENTIONS}— auto-triage exhausted or not applicable; box is self-stopping, logs are synced."
+DIAGNOSE NEEDED — auto-triage exhausted or not applicable; box is self-stopping, logs are synced." \
+      "${ESCALATE_SLACK_IDS:-${ESCALATE:-}} $DEFAULT_SLACK_IDS"
   fi
   if [ "$NO_SHUTDOWN" -eq 0 ]; then
     # Stop the box's resident Slack agent first so it dies gracefully (its
