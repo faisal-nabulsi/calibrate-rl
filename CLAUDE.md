@@ -483,15 +483,17 @@ decision (Faisal wants it; Michael skeptical).
   atoms, *then* depth-1. So depth-1 must be calibrated against the **depth-0-trained model**
   (doesn't exist yet) → base sampling is a **DIAGNOSTIC only** (composition gap: does base do
   the atoms but fail to compose?), never the depth-1 train set. Real calib waits for depth-0.
-- **Depth-1 base diagnostic RUNNING (06-12).** All composite work merged: #42 (knob-wire 3
+- **Depth-1 base diagnostic DONE (06-12) — composition gap CONFIRMED.** All composite work merged: #42 (knob-wire 3
   ingredients + composites + pools + `chain_compat_v2`), #44 (kathryne nits), #46 (chain
-  `intermediate_gold` passthrough + worker auto-`git pull`), #47 (§6a rationale). The base
-  composition-gap diagnostic is in flight on sam — combined depth-1 pool, **n=300 (~100/100/99
-  across the 3 composites; `sample.py` shuffles, so no order skew), 8 rollouts @2048**,
-  `intermediate_gold` + transcripts captured → `s3://calibrate-rl-agent/runs/chain_depth1_base_diag_300/`;
-  self-stops on completion. **gilbert pulls + analyzes** (per-composite `intermediate_hit_rate` ×
-  `pass_rate`) when it lands → PR findings. (The earlier pilot-only run died with no output;
-  the 300-q supersedes it. See §6a for the full why-these-3-chains rationale.)
+  `intermediate_gold` passthrough + worker auto-`git pull`), #47 (§6a rationale). Ran 300×8@2048 on
+  sam → `s3://calibrate-rl-agent/runs/chain_depth1_base_diag_300/`, then **ANALYZED + MERGED (#55)**
+  (`results/chain_depth1_base_diag_300_findings.md`, `analysis/chain_composition_gap.py`): base computes
+  the **feeder atom 79–98%** but the **final much less** → big composition gap (cdc×modexp **+0.33**,
+  log_laws×otc **+0.61**, ppd×cdc **+0.19**; overall pass 0.498); **24–61% of all rollouts compute step A
+  then fail the composite**, and P(pass | atom-miss) ≈ 0.00–0.04 on two chains ("can do the steps, can't
+  chain them"). Independently re-verified this session (decoy false-positive control, detector-validation
+  ~96% on passed, goldilocks-band-only cut — gap holds). **Verdict:
+  the ceiling is composition, not atom knowledge → the depth-1 program is justified.** See §6a for why-these-3-chains.
 - **Alerting / fleet hardened (06-12).** Worker boxes self-`git pull` before each job (#46) so
   they never run a stale checkout; #45 added job self-check + a `DIAGNOSE NEEDED` failure page;
   #48 makes hand-runs source `/etc/calibrate-rl-job.env` (so a manual `job_poller.sh` resolves
@@ -518,10 +520,17 @@ decision (Faisal wants it; Michael skeptical).
       `chain_constrained_divisor_count__modular_exponent` (#55) + `chain_prime_power_divisors__constrained_divisor_count`
       (#75) → both PASS the static gate (golds 100%, dedupe ≥0.945, top3 ≤0.222) + recomputers +
       120-row pools. On PR #42. Goldilocks calib still waits for the depth-0 model (curriculum).
-- [~] [gilbert] base composition-gap **DIAGNOSTIC running on sam** (300×8@2048, combined depth-1
-      pool, `intermediate_gold` captured). When it lands in `runs/chain_depth1_base_diag_300/`:
-      pull + compute per-composite `intermediate_hit_rate` × `pass_rate` (does base do the atoms
-      but fail to compose?) → **PR the findings**. Base diagnostic only, NOT the depth-1 train set.
+- [x] [gilbert] base composition-gap **DIAGNOSTIC analyzed + MERGED (#55)** (300×8@2048): feeder atom
+      79–98% but final much lower (gaps +0.33/+0.61/+0.19; overall pass 0.498); 24–61% compute step A
+      then fail the composite; P(pass|atom-miss)≈0 on two chains → composition is the ceiling, depth-1
+      justified. Findings `results/chain_depth1_base_diag_300_findings.md`, script `analysis/chain_composition_gap.py`.
+- [ ] [depth-1 NEXT — curriculum-gated] depth-1 calibration needs the **depth-0-trained model**
+      (sequential curriculum), which doesn't exist yet. Path: (1) settle the depth-0 "final run"
+      decision (gated on michael's concept-transfer by-framing analysis); (2) calibrate the 3
+      composites to goldilocks **against the depth-0 model**; (3) build the depth-1 train set + train
+      ~300 steps; (4) **re-run this diagnostic post-training — did the gap close** (pass rises toward
+      atom while atom stays high)? + AMC #21/#47/#55/#75 via `mean_pass_rate`, confirm partner-only
+      set didn't regress.
 - [ ] [michael] extend the orchestrator monitor (gilbert shipped the in-repo halves in #48 —
       failure-page recipient list + boot-time idle page): (a) add faisal (`U0B9661M6J2`) to the
       monitor's page recipients; (b) add a **continuous idle-box alarm** (any box running >N min
