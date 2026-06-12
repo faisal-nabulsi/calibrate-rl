@@ -89,6 +89,17 @@ DIAGNOSE NEEDED <@$ESCALATE> — auto-triage exhausted or not applicable; box is
   exit "$code"
 }
 
+# --- update the worker checkout to current main BEFORE running ----------------
+# Pure worker boxes otherwise run whatever was checked out at their last boot —
+# stale code AND data (a pool added in a PR merged after boot would be missing,
+# and the job would fail on a not-found dataset). Fatal-on-failure: running on a
+# stale checkout silently produces wrong/zero results. reset --hard touches no
+# untracked files, so generated job outputs/logs survive.
+if ! ( git fetch -q origin main && git reset --hard origin/main ); then
+  LOG_URI="(none)"; finish 1 "git update to origin/main failed — refusing to run on a stale checkout"
+fi
+echo "checkout at $(git rev-parse --short HEAD): $(git log -1 --format=%s | cut -c1-60)"
+
 # --- fetch + parse the spec --------------------------------------------------
 SPEC_LOCAL="/tmp/job_${JOB_ID}.json"
 if ! aws s3 cp "$SPEC_URI" "$SPEC_LOCAL" >/dev/null 2>&1; then
