@@ -386,44 +386,56 @@ stratified holdout (3–5/concept). Phase 3: chaining (§6).
 
 ## CURRENTLY DOING
 
-**3-concept ablation analyzed → testing concept-vs-template; depth-1 is the next build.**
-Honest verdict from v10 + the 3-concept (abl3) run: **the loop teaches concepts
-in-distribution and improves reasoning method, but does NOT transfer to the compositional
-AMC problems.** 3-concept ckpt-108: AMC 32→34 (+2, McNemar p≈0.79 = noise); the 5 targets
-move 1/5 binary (#68, which also flipped in v10 → not attributable) but **3/5 (#40/55/68)
-show real *method* improvement**. Held-out is clean (0.571→0.850 @ step 100) — but a
-base-vs-trained viewer showed the gain is **execution reliability on a shared method**,
-which is exactly what template-overfitting would look like.
+**Depth-1 chaining (Workstream B) is underway; concept-vs-template eval awaiting analysis.**
+Verdict so far (unchanged): the loop teaches concepts in-distribution and improves execution
+reliability, but does NOT transfer to compositional AMC. Zaid's reframe (06-11 sync): held-out
+went UP (+0.22), so it's not "overfitting" — the model is learning the question
+templates/wording reliably (fewer dumb mistakes on a method it already knows), not
+generalizable concept skill. The **concept-transfer eval** is the discriminator: responses
+landed (#31); Michael's by-framing analysis is the remaining gate for the "final depth-0 run"
+decision (Faisal wants it; Michael skeptical).
 
 **In flight now:**
-- **concept-transfer eval** (Michael) — 3 concepts × 3 surface framings, matched difficulty
-  (A=original anchor / B=word-problem / C=alternate-question) to separate concept-learning
-  from template-memorization. Running on the cloned L4. (`data/concept_transfer_eval.json`,
-  `tools/gen_concept_eval.py`; viewer `tools/gen_holdout_compare.py`.)
-- **AWS — DONE.** L40S training box (`i-07455ba55e473769d` @ 34.226.11.242) + 2× L4 sampling
-  boxes + the `@awesome-ash` Slack agent are live (`AWS_SETUP_FAISAL.md`), box smoke-tested
-  end-to-end (calibration, GRPO, vLLM). **kathryne/gilbert/charizard now run on AWS 24/7, not
-  laptops.** GPU runs launch via `@awesome-ash` in Slack or `~/gpu_train.sh`.
-
-**Gated on the eval:** whether to do a "final depth-0 run" (Faisal wants it; Michael
-skeptical — if depth-0 is template-only, more of it is a dead end).
-
-**Next big build (agreed): depth-1 chaining generator** — compose 2+ atomic concepts into
-one multi-step problem, calibrate to goldilocks by # steps (not bigger numbers), pilot
-`constrained_subset_count`, target #55 / #75. This is the real AMC lever.
+- **Workstream B — depth-1 chaining** (gilbert, Faisal's lane). Done so far: keep/discard
+  review of the old `chain_skeletons_v2–v4` posted to Slack; **chain compatibility map**
+  landed (#37 — 102 (A,B,param) edges across the 7 knob-wired concepts → **16 valid**;
+  `constrained_divisor_count` is the best chain *target*, accepts nearly every concept's
+  answer distribution); **design addendum A** landed (#38 — oracles compose so golds stay
+  exact; each composite = a new loop concept with its own `knobs/chain_<A>__<B>.json` under
+  the unchanged knob_loader/static-check machinery; easy-A × mid-B first wave; AMC #55/#75
+  targets). kathryne + charizard reviewed same night (kathryne flagged a cond-gate gap in the
+  compat map); **incorporating review changes into #37/#38 now.**
+  **Decisions (Faisal):** pilot = first-wave `chain_log_laws__ordered_triple_constraint`,
+  NOT `constrained_subset_count` (v12 data: 0.15 pass = too hard as written; ease later);
+  pairs-only v1, metadata shaped to allow 3-way chains later.
+- **Fleet ops hardened:** GPU job runner `tools/run_sample_job.sh` (S3 spec → sample/train →
+  sync → Slack → self-stop) + systemd boot pollers for sam/sadie/awesome-ash (#36),
+  smoke-tested on sam including the auto-triage retry path; `tools/campaign_status.sh`
+  (#30; stdin/--list fixes #33/#34); bot-repo guard PRs #3 (AGENT_BOTS covers sam/sadie/
+  awesome-ash) + #4 (addressing fix: respond when mentioned anywhere, drop stale/dup events).
+- **Incident (06-11 ~20:20 PT):** the agents box stopped itself via its own instance role —
+  ~70 min outage (kathryne/gilbert/charizard/thinkrock down), all recovered. The legacy-role
+  hole is **still open**; guardrail proposed (michael), verified by charizard.
 
 ## TODO
 
-- [ ] [michael] concept-transfer eval is running → build the by-framing analysis when it
-      lands. Verdict = does the +0.22 transfer across wording (concept) or evaporate (template)?
-- [ ] **v12 full calibration** (775×8 @2048) — run on the AWS L40S (box + `@awesome-ash` are live):
-      `N_PROBLEMS=775 DATASET=data/v12_pool_full.json OUT=data/calib_v12_2048_7B.json bash tools/sample.sh`
-      (~4–5h). **Still the blocker for v12 training — no `calib_v12` exists yet.**
-- [ ] [faisal] start the **depth-1 chaining generator** (design + architecture + dataset).
-- [ ] [faisal] merge persona PR `faisal-nabulsi/claude-code-slack-bot#1` → set `PERSONA_FILE`
-      per bot for the AWS move.
+- [ ] [gilbert] incorporate kathryne/charizard/faisal review changes into chaining PRs
+      #37/#38; humans: review + merge the open PR stack (#35–#39).
+- [ ] [faisal/gilbert] build the **depth-1 composite generator** per Addendum A:
+      `chain_log_laws__ordered_triple_constraint` pilot + `knobs/chain_*.json` + pilot pool
+      → calibrate to goldilocks (difficulty via # steps, not number size).
+- [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
+      does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
+      final depth-0 decision.
+- [ ] **v12 full calibration** — `calib_v12_2048_7B.json` (500 @2048, #22) exists and drives
+      the compat map, but the full 775×8 pass over `v12_pool_full.json` is still pending for
+      v12 training: `N_PROBLEMS=775 DATASET=data/v12_pool_full.json OUT=data/calib_v12_full_2048_7B.json
+      bash tools/sample.sh` (~4–5h, L40S via `@awesome-ash`).
+- [ ] [gilbert] v12 train-set build + training kickoff once the full calib lands
+      (~100 steps / 3 concepts).
 - [ ] HOLD the big "final depth-0 run" until the concept-transfer eval result is in.
-- [ ] [gilbert] v12 train-set build + training kickoff once calib lands (~100 steps / 3 concepts).
+- [ ] [michael] close the **legacy-role hole** from the 06-11 self-stop incident
+      (guardrail proposed; charizard confirmed still open).
 - [ ] Switch the agents to the Claude Max subscription instead of API credits — we have
       plenty of Max usage headroom, would save API spend. **(faisal, bring up next meeting)**
 
@@ -436,6 +448,23 @@ one multi-step problem, calibrate to goldilocks by # steps (not bigger numbers),
 - [michael] Built base-vs-trained held-out viewer (PR #21): the +0.22 held-out = **execution reliability on a shared method**, not new reasoning. Built **concept-transfer eval** (PR #23) — surface-form variation (3 concepts × 3 framings) to settle concept-vs-template; running now.
 - [michael] §7 corrections vs the actual data: ghost is **flat ~0.10** (not 8→15%); v10 held-out **peaked @81 then declined** (not the monotonic 0.537→0.672).
 - [michael] Infra: **AWS migration DONE** — L40S box + 2× L4 sampling boxes + `@awesome-ash` agent live; **kathryne/gilbert/charizard now run on AWS 24/7, off laptops**; box verified end-to-end (`AWS_SETUP_FAISAL.md`). Persona via generic `PERSONA_FILE` (bot-fork PR #1).
+- [gilbert] **Workstream B (depth-1 chaining) started** (evening): keep/discard review of `chain_skeletons_v2–v4` posted; **chain compat map** (#37: 102 (A,B,param) edges → 16 valid; `constrained_divisor_count` = best target); **design addendum A** (#38: oracles compose, composites = loop concepts with own `knobs/chain_<A>__<B>.json`, easy-A × mid-B first wave, AMC #55/#75). kathryne (cond-gate gap) + charizard (LGTM) reviewed same night. Faisal decisions: pilot = `chain_log_laws__ordered_triple_constraint` (not css — 0.15 pass, too hard); pairs-only v1 with 3-way-ready metadata.
+- [gilbert] Landed: Phase 0 auto-calibrator follow-through (#15 `knobs/*.json`, #16 `--json` calib report + KnobBank, #17 `static_checks.py` gate — merged today); **v12 calib 500 @2048** (#22); `campaign_status.sh` + CLAUDE.md query rule (#29/#30; michael hardened #33/#34).
+- [gilbert] Fleet ops: §2 fleet rows + §8 ops rules (#32/#35); **GPU job runner + boot pollers** for sam/sadie/awesome-ash (#36), smoke-tested on sam incl. the auto-triage retry path; bot-repo PRs #3 (AGENT_BOTS guard) + #4 (addressing fix). Fine-grained PAT for the bot fork works again after the post-detach re-grant.
+- [train@lightning] **concept-transfer eval responses landed** (#31) — michael's by-framing analysis pending.
+- [michael] **Incident ~20:20 PT:** agents box stopped itself via its own instance role — ~70 min outage (kathryne/gilbert/charizard/thinkrock down), recovered; legacy-role hole still open, guardrail proposed (charizard verified).
+- [kathryne] Zaid sync: stop calling it "overfitting" (held-out went UP) — the model learns template/wording reliability (execution on a known method), not concept skill; the concept-transfer eval is the discriminator.
+
+### 2026-06-10  *(restored — dropped by the 06-11 reconcile)*
+- [gilbert] Pivoted single-concept → **3-concept ablation** (ie3 + cdc + cmp, 5 unsolved AMC).
+- [gilbert] PR #9/#10 merged (ie3 calib script + `ie3_pool_v2` 637 rows). PR #11 (v12 change spec), #12 (`skeleton_injector_v12.py` cmp/cdc cardinality widen + `abl3_pool_v1` 600-row pilot pool) open.
+- [gilbert] Found **gold% ≠ answer-diversity** (multi_constraint_square failure mode): cmp top-3 43%→19%, cdc 38%→30% after v12 widening; triangular_filter_count flagged (never-learned in v10 matrix but "leave alone" in Doc4).
+- [gilbert] Blocked: train@lightning unresponsive on the L4 calibration handoff (resolved 06-11 — calib + abl3 pilot both ran).
+
+### 2026-06-09  *(retro-added for the record)*
+- [faisal] Agent coordination layer: `tools/propose-pr.sh` + PR-only workflow (`main` protected), bot-to-bot chat rules in §2, `.agent_identity` tags (#7); gen_clean pipeline; dropped the hosted Slack MCP (no DCR — needs a pre-registered app).
+- [gilbert] Single-concept ablation prep: `multi_constraint_square` pool v1 (249 rows, #8); ie3 calibration script, 344 rows @2048 vs base (#9); `ie3_pool_v2` 637 rows (#10).
+- [michael] v11 calib (500×8 @2048) + stratified train/holdout split landed; verified the 3 hand-check concepts (equalization_fraction, log_laws, complement_prob_mn) via `check_dataset` (#6).
 
 ### 2026-06-08
 - [setup] Added `.mcp.json` (Slack MCP), 3-session roles, daily protocol.
