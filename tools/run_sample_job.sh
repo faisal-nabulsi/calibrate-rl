@@ -33,6 +33,10 @@ cd "$(dirname "$0")/.."
 
 # GPU deps live in the box's rl-venv (torch/transformers); systemd gives us bare PATH.
 [ -f "$HOME/rl-venv/bin/activate" ] && source "$HOME/rl-venv/bin/activate"
+# AGENT_NAME / SLACK_WEBHOOK_URL / ESCALATE_SLACK_ID come from systemd's EnvironmentFile;
+# source it for hand-runs too, so a direct invocation reports under the right identity and
+# can still page on failure (instead of falling back to the hostname / silent webhooks).
+[ -f /etc/calibrate-rl-job.env ] && { set -a; . /etc/calibrate-rl-job.env; set +a; }
 
 SPEC_URI=""
 NO_SHUTDOWN=0

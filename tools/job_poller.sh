@@ -14,6 +14,12 @@ cd "$(dirname "$0")/.."
 # Always run the latest merged tooling — boxes boot rarely and would go stale.
 git pull -q origin main 2>/dev/null || true
 
+# AGENT_NAME (+ webhook/escalate vars) is injected by systemd's EnvironmentFile. Source it
+# for hand-runs too, so `bash tools/job_poller.sh` resolves the right S3 prefix instead of
+# silently falling back to the hostname and polling pending/<host>/ — there the queued spec
+# looks unclaimed and the box appears idle (the silent-handoff detour, 2026-06-12).
+[ -f /etc/calibrate-rl-job.env ] && { set -a; . /etc/calibrate-rl-job.env; set +a; }
+
 AGENT="${AGENT_NAME:-$(hostname)}"
 BUCKET="${JOB_BUCKET:-s3://calibrate-rl-agent}"
 PENDING="$BUCKET/pending/$AGENT"
