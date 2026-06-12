@@ -322,7 +322,8 @@ def c_chain_ppd_cdc():
     D=kn.choice("D")
     N=1
     while ndiv(N)!=D: N+=1
-    if not (60<=N<=5000): return None                  # land in cdc's num band; awkward D resampled
+    nlo,nhi=K["constrained_divisor_count"].params["num_pool"]["envelope"]  # feed-legal: READ B's
+    if not (nlo<=N<=nhi): return None                  # envelope, never hard-code (kathryne #42 fix2)
     cond=kn.choice("cond")                             # knob locks cond to {gt,lt}: "odd" count
     t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
     cnt=_cdc_count(N,cond,t); desc=_cdc_desc(cond,t)
@@ -350,7 +351,8 @@ def c_chain_cdc_modexp():
     num=kn.choice("num_pool"); cond=kn.choice("cond")
     t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
     e=_cdc_count(num,cond,t)                            # A's oracle (cdc) -> B's exponent
-    if not (4<=e<=20): return None                      # must fit modexp's e band [4,20]
+    elo,ehi=K["modular_exponent"].params["e"]["envelope"]   # feed-legal: READ B's e envelope,
+    if not (elo<=e<=ehi): return None                   # never hard-code (kathryne #42 fix2)
     a=kn.randint("a"); m=kn.randint("m")
     ans=pow(a,e,m)                                      # B's oracle (modexp)
     if ans<5: return None                               # modexp's own validity guard
@@ -359,7 +361,7 @@ def c_chain_cdc_modexp():
         f"Let e be the number of positive divisors of {num} that are {desc}. What is the remainder when {a}^e is divided by {m}?",
         f"Suppose e is the number of positive divisors of {num} that are {desc}. Find {a}^e mod {m}.",
         f"Let e denote how many positive divisors of {num} are {desc}. Compute the remainder when {a}^e is divided by {m}.",
-        f"If e is the count of {desc} positive divisors of {num}, what is the remainder when {a}^e is divided by {m}?",
+        f"If e is the number of positive divisors of {num} that are {desc}, what is the remainder when {a}^e is divided by {m}?",
     ])
     meta={"depth":1,"chain":{"components":["constrained_divisor_count","modular_exponent"],
                               "fed_param":"e","intermediate_gold":e}}

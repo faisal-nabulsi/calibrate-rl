@@ -6,8 +6,8 @@
   "concepts": {
     "chain_prime_power_divisors__constrained_divisor_count": {
       "raw": 120,
-      "kept": 119,
-      "survival": 0.9917
+      "kept": 118,
+      "survival": 0.9833
     }
   }
 }

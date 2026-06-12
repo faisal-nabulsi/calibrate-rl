@@ -40,7 +40,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 40 positive divisors of 1320, what is the remainder when 3^e is divided by 201?",
+    "problem": "If e is the number of positive divisors of 1320 that are less than 40, what is the remainder when 3^e is divided by 201?",
     "answer": "159",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -81,7 +81,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 15 positive divisors of 1008, what is the remainder when 5^e is divided by 233?",
+    "problem": "If e is the number of positive divisors of 1008 that are less than 15, what is the remainder when 5^e is divided by 233?",
     "answer": "129",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -284,7 +284,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 20 positive divisors of 1152, what is the remainder when 5^e is divided by 91?",
+    "problem": "If e is the number of positive divisors of 1152 that are less than 20, what is the remainder when 5^e is divided by 91?",
     "answer": "51",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -346,7 +346,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 480, what is the remainder when 7^e is divided by 104?",
+    "problem": "If e is the number of positive divisors of 480 that are odd, what is the remainder when 7^e is divided by 104?",
     "answer": "9",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -366,7 +366,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 540, what is the remainder when 6^e is divided by 241?",
+    "problem": "If e is the number of positive divisors of 540 that are odd, what is the remainder when 6^e is divided by 241?",
     "answer": "87",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -427,7 +427,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 30 positive divisors of 1800, what is the remainder when 3^e is divided by 148?",
+    "problem": "If e is the number of positive divisors of 1800 that are less than 30, what is the remainder when 3^e is divided by 148?",
     "answer": "11",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -593,7 +593,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 420, what is the remainder when 3^e is divided by 71?",
+    "problem": "If e is the number of positive divisors of 420 that are odd, what is the remainder when 3^e is divided by 71?",
     "answer": "29",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -613,7 +613,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 1980, what is the remainder when 4^e is divided by 82?",
+    "problem": "If e is the number of positive divisors of 1980 that are odd, what is the remainder when 4^e is divided by 82?",
     "answer": "16",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -654,7 +654,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 24 positive divisors of 1320, what is the remainder when 9^e is divided by 280?",
+    "problem": "If e is the number of positive divisors of 1320 that are less than 24, what is the remainder when 9^e is divided by 280?",
     "answer": "9",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -777,7 +777,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 40 positive divisors of 1560, what is the remainder when 9^e is divided by 112?",
+    "problem": "If e is the number of positive divisors of 1560 that are less than 40, what is the remainder when 9^e is divided by 112?",
     "answer": "65",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -798,7 +798,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 504, what is the remainder when 8^e is divided by 140?",
+    "problem": "If e is the number of positive divisors of 504 that are odd, what is the remainder when 8^e is divided by 140?",
     "answer": "64",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -818,7 +818,7 @@
     }
   },
   {
-    "problem": "If e is the count of greater than 6 positive divisors of 924, what is the remainder when 3^e is divided by 65?",
+    "problem": "If e is the number of positive divisors of 924 that are greater than 6, what is the remainder when 3^e is divided by 65?",
     "answer": "42",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -839,7 +839,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 660, what is the remainder when 5^e is divided by 187?",
+    "problem": "If e is the number of positive divisors of 660 that are odd, what is the remainder when 5^e is divided by 187?",
     "answer": "169",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -921,7 +921,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 1680, what is the remainder when 4^e is divided by 154?",
+    "problem": "If e is the number of positive divisors of 1680 that are odd, what is the remainder when 4^e is divided by 154?",
     "answer": "86",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -961,7 +961,7 @@
     }
   },
   {
-    "problem": "If e is the count of greater than 6 positive divisors of 600, what is the remainder when 8^e is divided by 117?",
+    "problem": "If e is the number of positive divisors of 600 that are greater than 6, what is the remainder when 8^e is divided by 117?",
     "answer": "64",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1330,7 +1330,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 1320, what is the remainder when 7^e is divided by 249?",
+    "problem": "If e is the number of positive divisors of 1320 that are odd, what is the remainder when 7^e is divided by 249?",
     "answer": "202",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1474,7 +1474,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 720, what is the remainder when 6^e is divided by 139?",
+    "problem": "If e is the number of positive divisors of 720 that are odd, what is the remainder when 6^e is divided by 139?",
     "answer": "91",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1515,7 +1515,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 24 positive divisors of 600, what is the remainder when 2^e is divided by 77?",
+    "problem": "If e is the number of positive divisors of 600 that are less than 24, what is the remainder when 2^e is divided by 77?",
     "answer": "46",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1619,7 +1619,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 1080, what is the remainder when 5^e is divided by 157?",
+    "problem": "If e is the number of positive divisors of 1080 that are odd, what is the remainder when 5^e is divided by 157?",
     "answer": "9",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1681,7 +1681,7 @@
     }
   },
   {
-    "problem": "If e is the count of greater than 30 positive divisors of 960, what is the remainder when 5^e is divided by 180?",
+    "problem": "If e is the number of positive divisors of 960 that are greater than 30, what is the remainder when 5^e is divided by 180?",
     "answer": "25",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1743,7 +1743,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 540, what is the remainder when 2^e is divided by 112?",
+    "problem": "If e is the number of positive divisors of 540 that are odd, what is the remainder when 2^e is divided by 112?",
     "answer": "32",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1763,7 +1763,7 @@
     }
   },
   {
-    "problem": "If e is the count of greater than 12 positive divisors of 960, what is the remainder when 8^e is divided by 176?",
+    "problem": "If e is the number of positive divisors of 960 that are greater than 12, what is the remainder when 8^e is divided by 176?",
     "answer": "128",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1825,7 +1825,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 2100, what is the remainder when 9^e is divided by 84?",
+    "problem": "If e is the number of positive divisors of 2100 that are odd, what is the remainder when 9^e is divided by 84?",
     "answer": "57",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1845,7 +1845,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 40 positive divisors of 1320, what is the remainder when 7^e is divided by 293?",
+    "problem": "If e is the number of positive divisors of 1320 that are less than 40, what is the remainder when 7^e is divided by 293?",
     "answer": "90",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1866,7 +1866,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 40 positive divisors of 1152, what is the remainder when 8^e is divided by 262?",
+    "problem": "If e is the number of positive divisors of 1152 that are less than 40, what is the remainder when 8^e is divided by 262?",
     "answer": "42",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1907,7 +1907,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 1680, what is the remainder when 6^e is divided by 246?",
+    "problem": "If e is the number of positive divisors of 1680 that are odd, what is the remainder when 6^e is divided by 246?",
     "answer": "174",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1969,7 +1969,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 20 positive divisors of 900, what is the remainder when 5^e is divided by 66?",
+    "problem": "If e is the number of positive divisors of 900 that are less than 20, what is the remainder when 5^e is divided by 66?",
     "answer": "5",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -1990,7 +1990,7 @@
     }
   },
   {
-    "problem": "If e is the count of greater than 24 positive divisors of 630, what is the remainder when 2^e is divided by 269?",
+    "problem": "If e is the number of positive divisors of 630 that are greater than 24, what is the remainder when 2^e is divided by 269?",
     "answer": "61",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -2011,7 +2011,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 990, what is the remainder when 7^e is divided by 126?",
+    "problem": "If e is the number of positive divisors of 990 that are odd, what is the remainder when 7^e is divided by 126?",
     "answer": "91",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -2031,7 +2031,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 990, what is the remainder when 6^e is divided by 161?",
+    "problem": "If e is the number of positive divisors of 990 that are odd, what is the remainder when 6^e is divided by 161?",
     "answer": "29",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -2093,7 +2093,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 30 positive divisors of 480, what is the remainder when 4^e is divided by 271?",
+    "problem": "If e is the number of positive divisors of 480 that are less than 30, what is the remainder when 4^e is divided by 271?",
     "answer": "50",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -2134,7 +2134,7 @@
     }
   },
   {
-    "problem": "If e is the count of greater than 20 positive divisors of 630, what is the remainder when 7^e is divided by 244?",
+    "problem": "If e is the number of positive divisors of 630 that are greater than 20, what is the remainder when 7^e is divided by 244?",
     "answer": "55",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -2405,7 +2405,7 @@
     }
   },
   {
-    "problem": "If e is the count of less than 60 positive divisors of 1152, what is the remainder when 9^e is divided by 169?",
+    "problem": "If e is the number of positive divisors of 1152 that are less than 60, what is the remainder when 9^e is divided by 169?",
     "answer": "29",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
@@ -2447,7 +2447,7 @@
     }
   },
   {
-    "problem": "If e is the count of odd positive divisors of 1980, what is the remainder when 6^e is divided by 275?",
+    "problem": "If e is the number of positive divisors of 1980 that are odd, what is the remainder when 6^e is divided by 275?",
     "answer": "36",
     "skeleton_type": "chain_constrained_divisor_count__modular_exponent",
     "depth": 1,
