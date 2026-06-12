@@ -61,10 +61,10 @@ mkdir -p logs data
 
 # Escalation recipients for failure pages: a deduped, space-separated list of Slack
 # IDs rendered as <@id> mentions (mentions trigger mobile push; channel posts don't).
-# Configurable via env ESCALATE_SLACK_IDS (or the legacy single ESCALATE); the project
-# OWNER is always included so a human is paged even before a box env is updated.
-OWNER_SLACK_ID="U0B9661M6J2"   # faisal
-ESCALATE_MENTIONS="$(printf '%s\n' ${ESCALATE_SLACK_IDS:-${ESCALATE:-}} "$OWNER_SLACK_ID" \
+# Configurable via env ESCALATE_SLACK_IDS (or the legacy single ESCALATE); the owner +
+# on-call defaults are always included so a human is paged even before a box env is set.
+DEFAULT_SLACK_IDS="U0B9661M6J2 U0B9C6JP2MC U0B9C278VPW"   # faisal, michael, gilbert
+ESCALATE_MENTIONS="$(printf '%s\n' ${ESCALATE_SLACK_IDS:-${ESCALATE:-}} $DEFAULT_SLACK_IDS \
   | awk 'NF && !seen[$0]++ {printf "<@%s> ", $0}')"
 
 slack_post() {
