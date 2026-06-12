@@ -421,6 +421,19 @@ def rc_log_laws(p):
     return tot
 
 
+def rc_chain_log_laws__ordered_triple_constraint(p):
+    # depth-1 composite: the triple-sum target is embedded as
+    # log_B(B^e1 · B^e2 / B^e3). Recover N via _log_arg (validates every factor
+    # is an exact power of B), then count triples 0≤a<b<c with a+b+c=N — same
+    # brute force as rc_ordered_triple_constraint, but N comes from the log,
+    # never from a bare integer in the text.
+    m = re.search(r"log[_\s]*\{?(\d+)\}?\s*\(([^)]*)\)", p)
+    if not m: return None
+    N = _log_arg(m.group(2), int(m.group(1)))
+    if N is None or N < 0: return None
+    return sum(1 for a, b, c in combinations(range(0, N + 1), 3) if a + b + c == N)
+
+
 RECOMPUTERS = {
     "continued_fraction": rc_continued_fraction,
     "custom_binary_op": rc_custom_binary_op,
@@ -451,6 +464,7 @@ RECOMPUTERS = {
     "constrained_subset_count": rc_constrained_subset_count,
     "equalization_fraction": rc_equalization_fraction,
     "log_laws": rc_log_laws,
+    "chain_log_laws__ordered_triple_constraint": rc_chain_log_laws__ordered_triple_constraint,
 }
 
 
