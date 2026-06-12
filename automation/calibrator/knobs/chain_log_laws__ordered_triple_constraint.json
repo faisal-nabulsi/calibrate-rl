@@ -1,12 +1,11 @@
 {
-  "_comment": "Depth-1 composite (Addendum A): A=log_laws feeds B=ordered_triple_constraint.N. A's params carried over verbatim from knobs/log_laws.json, a_-prefixed. B's only param (N) is the conditionally-consumed selector fed by g_A, so it is NOT a drawable knob here.",
+  "_comment": "Depth-1 composite (Addendum A), Option-A draw. N (the ordered_triple target) is drawn FIRST, uniform and in-band, so composite answers stay flat (PR #41 review fix for top3 0.388). A log expression with value e1+e2-e3 == N is then DERIVED, so the log still composes log_laws's oracle exactly. Knobs: N (target, within ordered_triple_constraint's [8,25] envelope), base + e3 (from log_laws); e1/e2 are derived (not drawable) to hit N within log_laws's [4,20] exponent envelope.",
   "components": ["log_laws", "ordered_triple_constraint"],
   "fed_param": "N",
   "params": {
-    "a_base": {"value": [2, 3, 5], "type": "choice",  "envelope": [2, 7],  "knob_class": "S"},
-    "a_e1":   {"value": [10, 16],  "type": "randint", "envelope": [4, 20], "knob_class": "num"},
-    "a_e2":   {"value": [10, 16],  "type": "randint", "envelope": [4, 20], "knob_class": "num"},
-    "a_e3":   {"value": [3, 8],    "type": "randint", "envelope": [2, 12], "knob_class": "num"}
+    "N":    {"value": [8, 25],  "type": "randint", "envelope": [8, 25],  "knob_class": "num"},
+    "base": {"value": [2, 3, 5], "type": "choice",  "envelope": [2, 7],  "knob_class": "S"},
+    "e3":   {"value": [3, 8],    "type": "randint", "envelope": [2, 12], "knob_class": "num"}
   },
   "locked": false
 }

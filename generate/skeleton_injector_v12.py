@@ -271,19 +271,24 @@ def c_triples():
 # ===================================================================
 @concept("chain_log_laws__ordered_triple_constraint",[21,47])
 def c_chain_loglaws_triples():
-    # Pilot composite: A=log_laws feeds B=ordered_triple_constraint.N (chain_compat_v1).
-    # g_A := _loglaws_gold(...) becomes B's N; composite gold := _triples_gold(g_A) —
-    # exact by construction, the SAME oracles the parents use, no math re-derived.
-    # Surface EMBEDS A's quantity (model must evaluate the log to recover N), never a
-    # "first compute X, then..." recipe. components + intermediate stamped (A.4, diagnostic;
-    # reward stays end-to-end). 3-way-ready via the components list.
+    # Pilot composite (Addendum A), Option-A draw: sample the TARGET N FIRST (uniform,
+    # in-band) so composite answers stay FLAT, then DERIVE a log expression whose value
+    # e1+e2-e3 == N. Review fix (PR #41): the old draw set N = e1+e2-e3, a bell-shaped
+    # sum clipped at 25 -> top3 0.388 (answer-hack shape) AND mass in ordered_triple's
+    # too-hard 21-25 band. Inverting the draw flattens answers and centers N in-band; the
+    # num-no-widening rule means this initial spread is the only shot at it.
+    # Oracles still compose: gold := _triples_gold(N), exact by construction. Surface EMBEDS
+    # the log (model must evaluate it to recover N), never a "first/then" recipe.
     kn=K["chain_log_laws__ordered_triple_constraint"]
-    base=kn.choice("a_base"); e1=kn.randint("a_e1"); e2=kn.randint("a_e2"); e3=kn.randint("a_e3")
-    gA=_loglaws_gold(e1,e2,e3)                          # A's oracle
-    if not (8 <= gA <= 25): return None                # feed legality: B's N envelope; else resample A
-    gold=_triples_gold(gA)                             # B's oracle on N := g_A
+    N=kn.randint("N")                                  # flat target -> flat composite answers
+    gold=_triples_gold(N)                              # B's oracle on the (embedded) value
     if gold<5: return None                             # B's own validity guard
-    expr=f"log_{base}({base}^{e1} · {base}^{e2} / {base}^{e3})"   # A's quantity, embedded
+    base=kn.choice("base"); e3=kn.randint("e3")
+    s=N+e3                                              # need e1+e2 = N+e3  ->  e1+e2-e3 = N
+    lo=max(4, s-20); hi=min(20, s-4)                   # keep e1,e2 inside log_laws's [4,20] envelope
+    if lo>hi: return None
+    e1=random.randint(lo,hi); e2=s-e1
+    expr=f"log_{base}({base}^{e1} · {base}^{e2} / {base}^{e3})"   # evaluates to N; embedded
     prob=random.choice([
         f"How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c = {expr}?",
         f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {expr}?",
@@ -291,7 +296,7 @@ def c_chain_loglaws_triples():
         f"Count the integer triples (a,b,c) with 0≤a<b<c whose sum equals {expr}.",
     ])
     meta={"depth":1,"chain":{"components":["log_laws","ordered_triple_constraint"],
-                              "fed_param":"N","intermediate_gold":gA}}
+                              "fed_param":"N","intermediate_gold":N}}
     return (prob, gold, "chain_log_laws__ordered_triple_constraint", meta)
 
 @concept("arith_term_filter",[72])
