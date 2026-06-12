@@ -32,8 +32,12 @@ alert() { # alert <key> <msg> — webhook page, rate-limited 2h per key
     "$SLACK_WEBHOOK_URL" >/dev/null
 }
 
+# Scope to the GPU boxes by Role (train/sample), NOT Project — the always-on
+# agents-box is tagged Project=calibrate-rl but has no Role tag, so a Project filter
+# would wrongly target it (and our fail-safe would then page about the prod box every
+# 2h). This mirrors the watchdog's Role=train|sample scoping.
 aws ec2 describe-instances \
-  --filters Name=tag:Project,Values=calibrate-rl Name=instance-state-name,Values=running \
+  --filters Name=tag:Role,Values=train,sample Name=instance-state-name,Values=running \
   --query 'Reservations[].Instances[].[InstanceId,PublicIpAddress,LaunchTime]' --output text |
 while read -r id ip launch; do
   [ "$ip" = "None" ] && continue
