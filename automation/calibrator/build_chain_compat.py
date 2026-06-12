@@ -165,14 +165,22 @@ def main():
     report = {
         "schema_version": SCHEMA_VERSION,
         "calib_file": args.calib,
-        "knob_dir": os.path.relpath(KNOB_DIR, os.getcwd()),
+        "knob_dir": "automation/calibrator/knobs",
         "rules": {
             "min_frac_in_envelope": MIN_FRAC_IN_ENVELOPE,
             "min_distinct_in_envelope": MIN_DISTINCT,
             "note": ("frac < 1.0 is usable because the chain generator resamples "
                      "A until its answer fits B's envelope; distinct guards the "
                      "v2 intermediate-collapse failure. Answer stats come from "
-                     "the per-concept calib sample (~9-24 problems) — coarse."),
+                     "the per-concept calib sample (~9-24 problems) — coarse. "
+                     "frac/distinct_in_envelope measure FEED diversity (what can "
+                     "legally flow into B's param), not the composite's ANSWER "
+                     "diversity: for choice params the envelope, not the curated "
+                     "pool, is the legality wall, so chains may feed values the "
+                     "pool never produces, and a large fed threshold can still "
+                     "collapse B's answer to a near-constant small count. "
+                     "Composite calibration + the static entropy gate are the "
+                     "checks on answer diversity."),
         },
         "semantic_caveats": [
             {"target": "constrained_divisor_count.num_pool",
@@ -182,6 +190,16 @@ def main():
                       "problem. A composite using this edge must resample A "
                       "until the fed value has rich divisor structure (or the "
                       "loop will see ghosts).")},
+            {"target": "constrained_divisor_count.gt_thresholds/lt_thresholds",
+             "note": ("param is dead unless cond draws the matching branch: the "
+                      "generator picks cond in {odd,gt,lt} and only reads "
+                      "gt_thresholds when cond=gt (resp. lt) — see "
+                      "skeleton_injector_v11.py c_divfilter. A chain feeding "
+                      "these params must LOCK cond to the consuming branch in "
+                      "the composite's knob file, or ~2/3 of generated problems "
+                      "silently ignore the fed value (surface text references "
+                      "A's quantity, gold does not — wrong training data that "
+                      "looks chained).")},
         ],
         "amc_transfer_note": {
             "targets": {"55": ["modular_exponent", "constrained_divisor_count",
