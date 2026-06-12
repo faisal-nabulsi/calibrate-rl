@@ -7012,5 +7012,2763 @@
    23,
    "complex_modulus_power"
   ]
+ },
+ "modular_exponent": {
+  "0": [
+   "Compute the remainder of 8 raised to the 12 upon division by 60.",
+   16,
+   "modular_exponent"
+  ],
+  "1": [
+   "What is the remainder when 4^15 is divided by 266?",
+   106,
+   "modular_exponent"
+  ],
+  "2": [
+   "Compute the remainder of 2 raised to the 7 upon division by 71.",
+   57,
+   "modular_exponent"
+  ],
+  "3": [
+   "Find 5^15 mod 189.",
+   62,
+   "modular_exponent"
+  ],
+  "4": [
+   "5^10 is divided by 76. What is the remainder?",
+   5,
+   "modular_exponent"
+  ],
+  "5": [
+   "Evaluate 6^11 modulo 253.",
+   116,
+   "modular_exponent"
+  ],
+  "6": [
+   "Compute the remainder of 3 raised to the 13 upon division by 245.",
+   108,
+   "modular_exponent"
+  ],
+  "7": [
+   "What is the remainder when 7^8 is divided by 151?",
+   74,
+   "modular_exponent"
+  ],
+  "8": [
+   "5^11 is divided by 296. What is the remainder?",
+   261,
+   "modular_exponent"
+  ],
+  "9": [
+   "Compute the remainder of 9 raised to the 15 upon division by 145.",
+   9,
+   "modular_exponent"
+  ],
+  "10": [
+   "Evaluate 2^12 modulo 173.",
+   117,
+   "modular_exponent"
+  ],
+  "11": [
+   "9^14 is divided by 269. What is the remainder?",
+   143,
+   "modular_exponent"
+  ],
+  "12": [
+   "Evaluate 9^10 modulo 218.",
+   187,
+   "modular_exponent"
+  ],
+  "13": [
+   "Find 6^10 mod 225.",
+   126,
+   "modular_exponent"
+  ],
+  "14": [
+   "Evaluate 3^15 modulo 229.",
+   225,
+   "modular_exponent"
+  ],
+  "15": [
+   "What is the remainder when 5^6 is divided by 183?",
+   70,
+   "modular_exponent"
+  ],
+  "16": [
+   "Compute the remainder of 7 raised to the 13 upon division by 173.",
+   48,
+   "modular_exponent"
+  ],
+  "17": [
+   "Compute the remainder of 8 raised to the 10 upon division by 295.",
+   234,
+   "modular_exponent"
+  ],
+  "18": [
+   "4^7 is divided by 219. What is the remainder?",
+   178,
+   "modular_exponent"
+  ],
+  "19": [
+   "Evaluate 2^14 modulo 80.",
+   64,
+   "modular_exponent"
+  ],
+  "20": [
+   "What is the remainder when 4^10 is divided by 222?",
+   70,
+   "modular_exponent"
+  ],
+  "21": [
+   "4^12 is divided by 226. What is the remainder?",
+   106,
+   "modular_exponent"
+  ],
+  "22": [
+   "Evaluate 4^9 modulo 56.",
+   8,
+   "modular_exponent"
+  ],
+  "23": null,
+  "24": [
+   "Find 8^15 mod 96.",
+   32,
+   "modular_exponent"
+  ],
+  "25": [
+   "Compute the remainder of 8 raised to the 6 upon division by 104.",
+   64,
+   "modular_exponent"
+  ],
+  "26": null,
+  "27": [
+   "Compute the remainder of 9 raised to the 10 upon division by 295.",
+   41,
+   "modular_exponent"
+  ],
+  "28": [
+   "Evaluate 3^8 modulo 189.",
+   135,
+   "modular_exponent"
+  ],
+  "29": [
+   "Evaluate 3^11 modulo 203.",
+   131,
+   "modular_exponent"
+  ],
+  "30": [
+   "Evaluate 6^15 modulo 57.",
+   30,
+   "modular_exponent"
+  ],
+  "31": null,
+  "32": [
+   "Compute the remainder of 3 raised to the 9 upon division by 87.",
+   21,
+   "modular_exponent"
+  ],
+  "33": [
+   "Compute the remainder of 4 raised to the 16 upon division by 109.",
+   75,
+   "modular_exponent"
+  ],
+  "34": null,
+  "35": [
+   "Compute the remainder of 7 raised to the 8 upon division by 241.",
+   81,
+   "modular_exponent"
+  ],
+  "36": null,
+  "37": [
+   "Evaluate 3^15 modulo 220.",
+   67,
+   "modular_exponent"
+  ],
+  "38": [
+   "What is the remainder when 8^12 is divided by 243?",
+   136,
+   "modular_exponent"
+  ],
+  "39": [
+   "What is the remainder when 5^10 is divided by 148?",
+   141,
+   "modular_exponent"
+  ],
+  "40": [
+   "Evaluate 9^15 modulo 274.",
+   145,
+   "modular_exponent"
+  ],
+  "41": [
+   "Find 8^11 mod 109.",
+   41,
+   "modular_exponent"
+  ],
+  "42": [
+   "Compute the remainder of 3 raised to the 6 upon division by 239.",
+   12,
+   "modular_exponent"
+  ],
+  "43": [
+   "Find 2^10 mod 228.",
+   112,
+   "modular_exponent"
+  ],
+  "44": [
+   "What is the remainder when 8^14 is divided by 188?",
+   144,
+   "modular_exponent"
+  ],
+  "45": [
+   "Compute the remainder of 6 raised to the 12 upon division by 174.",
+   54,
+   "modular_exponent"
+  ],
+  "46": [
+   "Evaluate 3^12 modulo 60.",
+   21,
+   "modular_exponent"
+  ],
+  "47": [
+   "Evaluate 7^7 modulo 160.",
+   23,
+   "modular_exponent"
+  ],
+  "48": null,
+  "49": [
+   "What is the remainder when 3^11 is divided by 155?",
+   137,
+   "modular_exponent"
+  ],
+  "50": [
+   "Find 9^10 mod 143.",
+   100,
+   "modular_exponent"
+  ],
+  "51": [
+   "Find 5^14 mod 191.",
+   36,
+   "modular_exponent"
+  ],
+  "52": [
+   "Evaluate 6^6 modulo 275.",
+   181,
+   "modular_exponent"
+  ],
+  "53": [
+   "5^13 is divided by 178. What is the remainder?",
+   129,
+   "modular_exponent"
+  ],
+  "54": [
+   "Compute the remainder of 4 raised to the 13 upon division by 192.",
+   64,
+   "modular_exponent"
+  ],
+  "55": [
+   "Compute the remainder of 3 raised to the 9 upon division by 88.",
+   59,
+   "modular_exponent"
+  ],
+  "56": [
+   "Evaluate 2^13 modulo 217.",
+   163,
+   "modular_exponent"
+  ],
+  "57": [
+   "Evaluate 2^11 modulo 200.",
+   48,
+   "modular_exponent"
+  ],
+  "58": [
+   "Find 5^9 mod 239.",
+   17,
+   "modular_exponent"
+  ],
+  "59": [
+   "5^7 is divided by 288. What is the remainder?",
+   77,
+   "modular_exponent"
+  ],
+  "60": [
+   "Find 6^10 mod 197.",
+   178,
+   "modular_exponent"
+  ],
+  "61": [
+   "Find 9^8 mod 192.",
+   129,
+   "modular_exponent"
+  ],
+  "62": [
+   "Find 4^7 mod 298.",
+   292,
+   "modular_exponent"
+  ],
+  "63": [
+   "Compute the remainder of 9 raised to the 13 upon division by 125.",
+   79,
+   "modular_exponent"
+  ],
+  "64": [
+   "Evaluate 9^7 modulo 211.",
+   21,
+   "modular_exponent"
+  ],
+  "65": [
+   "Evaluate 8^10 modulo 123.",
+   40,
+   "modular_exponent"
+  ],
+  "66": [
+   "Find 3^10 mod 161.",
+   123,
+   "modular_exponent"
+  ],
+  "67": [
+   "3^7 is divided by 246. What is the remainder?",
+   219,
+   "modular_exponent"
+  ],
+  "68": null,
+  "69": [
+   "Find 2^7 mod 255.",
+   128,
+   "modular_exponent"
+  ],
+  "70": [
+   "3^10 is divided by 229. What is the remainder?",
+   196,
+   "modular_exponent"
+  ],
+  "71": [
+   "What is the remainder when 7^14 is divided by 208?",
+   49,
+   "modular_exponent"
+  ],
+  "72": [
+   "Find 3^15 mod 239.",
+   64,
+   "modular_exponent"
+  ],
+  "73": [
+   "6^7 is divided by 178. What is the remainder?",
+   120,
+   "modular_exponent"
+  ],
+  "74": [
+   "Compute the remainder of 3 raised to the 11 upon division by 80.",
+   27,
+   "modular_exponent"
+  ],
+  "75": [
+   "9^15 is divided by 161. What is the remainder?",
+   29,
+   "modular_exponent"
+  ],
+  "76": [
+   "7^13 is divided by 293. What is the remainder?",
+   119,
+   "modular_exponent"
+  ],
+  "77": [
+   "Find 6^11 mod 100.",
+   56,
+   "modular_exponent"
+  ],
+  "78": [
+   "Compute the remainder of 5 raised to the 7 upon division by 126.",
+   5,
+   "modular_exponent"
+  ],
+  "79": [
+   "Evaluate 4^13 modulo 139.",
+   81,
+   "modular_exponent"
+  ],
+  "80": [
+   "6^12 is divided by 188. What is the remainder?",
+   84,
+   "modular_exponent"
+  ],
+  "81": [
+   "Evaluate 9^11 modulo 192.",
+   153,
+   "modular_exponent"
+  ],
+  "82": [
+   "Compute the remainder of 4 raised to the 13 upon division by 179.",
+   153,
+   "modular_exponent"
+  ],
+  "83": [
+   "Find 9^13 mod 72.",
+   9,
+   "modular_exponent"
+  ],
+  "84": [
+   "What is the remainder when 6^6 is divided by 175?",
+   106,
+   "modular_exponent"
+  ],
+  "85": [
+   "What is the remainder when 5^15 is divided by 259?",
+   251,
+   "modular_exponent"
+  ],
+  "86": [
+   "Compute the remainder of 2 raised to the 14 upon division by 264.",
+   16,
+   "modular_exponent"
+  ],
+  "87": [
+   "Evaluate 4^9 modulo 274.",
+   200,
+   "modular_exponent"
+  ],
+  "88": [
+   "Find 8^9 mod 135.",
+   53,
+   "modular_exponent"
+  ],
+  "89": [
+   "Compute the remainder of 3 raised to the 15 upon division by 230.",
+   127,
+   "modular_exponent"
+  ],
+  "90": [
+   "Evaluate 5^7 modulo 173.",
+   102,
+   "modular_exponent"
+  ],
+  "91": [
+   "Find 3^15 mod 94.",
+   89,
+   "modular_exponent"
+  ],
+  "92": [
+   "Evaluate 8^14 modulo 194.",
+   144,
+   "modular_exponent"
+  ],
+  "93": [
+   "Compute the remainder of 9 raised to the 15 upon division by 235.",
+   119,
+   "modular_exponent"
+  ],
+  "94": null,
+  "95": [
+   "Find 4^13 mod 57.",
+   28,
+   "modular_exponent"
+  ],
+  "96": [
+   "7^11 is divided by 282. What is the remainder?",
+   271,
+   "modular_exponent"
+  ],
+  "97": [
+   "Compute the remainder of 5 raised to the 12 upon division by 256.",
+   81,
+   "modular_exponent"
+  ],
+  "98": [
+   "What is the remainder when 7^15 is divided by 262?",
+   107,
+   "modular_exponent"
+  ],
+  "99": [
+   "Evaluate 8^12 modulo 101.",
+   78,
+   "modular_exponent"
+  ],
+  "100": [
+   "Find 4^13 mod 166.",
+   44,
+   "modular_exponent"
+  ],
+  "101": [
+   "Compute the remainder of 5 raised to the 14 upon division by 286.",
+   207,
+   "modular_exponent"
+  ],
+  "102": [
+   "Compute the remainder of 4 raised to the 16 upon division by 207.",
+   58,
+   "modular_exponent"
+  ],
+  "103": [
+   "What is the remainder when 9^9 is divided by 226?",
+   215,
+   "modular_exponent"
+  ],
+  "104": [
+   "Find 2^9 mod 237.",
+   38,
+   "modular_exponent"
+  ],
+  "105": [
+   "What is the remainder when 7^15 is divided by 252?",
+   91,
+   "modular_exponent"
+  ],
+  "106": [
+   "Evaluate 9^6 modulo 192.",
+   177,
+   "modular_exponent"
+  ],
+  "107": [
+   "5^15 is divided by 198. What is the remainder?",
+   89,
+   "modular_exponent"
+  ],
+  "108": [
+   "4^7 is divided by 275. What is the remainder?",
+   159,
+   "modular_exponent"
+  ],
+  "109": [
+   "6^9 is divided by 167. What is the remainder?",
+   81,
+   "modular_exponent"
+  ],
+  "110": [
+   "8^15 is divided by 113. What is the remainder?",
+   105,
+   "modular_exponent"
+  ],
+  "111": [
+   "Find 5^11 mod 176.",
+   93,
+   "modular_exponent"
+  ],
+  "112": [
+   "Evaluate 9^16 modulo 198.",
+   9,
+   "modular_exponent"
+  ],
+  "113": [
+   "Compute the remainder of 2 raised to the 16 upon division by 272.",
+   256,
+   "modular_exponent"
+  ],
+  "114": [
+   "Compute the remainder of 5 raised to the 15 upon division by 75.",
+   50,
+   "modular_exponent"
+  ],
+  "115": [
+   "What is the remainder when 6^9 is divided by 249?",
+   168,
+   "modular_exponent"
+  ],
+  "116": [
+   "What is the remainder when 6^6 is divided by 242?",
+   192,
+   "modular_exponent"
+  ],
+  "117": [
+   "Find 5^8 mod 92.",
+   85,
+   "modular_exponent"
+  ],
+  "118": null,
+  "119": [
+   "Evaluate 6^8 modulo 239.",
+   163,
+   "modular_exponent"
+  ],
+  "120": [
+   "Evaluate 5^9 modulo 291.",
+   224,
+   "modular_exponent"
+  ],
+  "121": [
+   "3^9 is divided by 199. What is the remainder?",
+   181,
+   "modular_exponent"
+  ],
+  "122": [
+   "Compute the remainder of 5 raised to the 15 upon division by 273.",
+   125,
+   "modular_exponent"
+  ],
+  "123": [
+   "2^10 is divided by 72. What is the remainder?",
+   16,
+   "modular_exponent"
+  ],
+  "124": [
+   "Find 6^14 mod 51.",
+   9,
+   "modular_exponent"
+  ],
+  "125": [
+   "Evaluate 5^9 modulo 262.",
+   177,
+   "modular_exponent"
+  ],
+  "126": [
+   "2^15 is divided by 202. What is the remainder?",
+   44,
+   "modular_exponent"
+  ],
+  "127": [
+   "Evaluate 2^15 modulo 198.",
+   98,
+   "modular_exponent"
+  ],
+  "128": [
+   "Compute the remainder of 5 raised to the 12 upon division by 180.",
+   145,
+   "modular_exponent"
+  ],
+  "129": [
+   "6^6 is divided by 276. What is the remainder?",
+   12,
+   "modular_exponent"
+  ],
+  "130": [
+   "8^10 is divided by 250. What is the remainder?",
+   74,
+   "modular_exponent"
+  ],
+  "131": [
+   "Evaluate 7^11 modulo 247.",
+   106,
+   "modular_exponent"
+  ],
+  "132": [
+   "What is the remainder when 8^8 is divided by 154?",
+   148,
+   "modular_exponent"
+  ],
+  "133": [
+   "Compute the remainder of 9 raised to the 11 upon division by 173.",
+   25,
+   "modular_exponent"
+  ],
+  "134": [
+   "Evaluate 9^14 modulo 100.",
+   61,
+   "modular_exponent"
+  ],
+  "135": [
+   "Evaluate 7^16 modulo 214.",
+   53,
+   "modular_exponent"
+  ],
+  "136": [
+   "8^14 is divided by 65. What is the remainder?",
+   64,
+   "modular_exponent"
+  ],
+  "137": [
+   "Compute the remainder of 3 raised to the 8 upon division by 154.",
+   93,
+   "modular_exponent"
+  ],
+  "138": [
+   "Compute the remainder of 5 raised to the 12 upon division by 165.",
+   25,
+   "modular_exponent"
+  ],
+  "139": [
+   "Evaluate 2^15 modulo 187.",
+   43,
+   "modular_exponent"
+  ],
+  "140": [
+   "What is the remainder when 3^6 is divided by 118?",
+   21,
+   "modular_exponent"
+  ],
+  "141": [
+   "2^15 is divided by 250. What is the remainder?",
+   18,
+   "modular_exponent"
+  ],
+  "142": [
+   "Compute the remainder of 9 raised to the 8 upon division by 174.",
+   165,
+   "modular_exponent"
+  ],
+  "143": [
+   "Find 4^6 mod 54.",
+   46,
+   "modular_exponent"
+  ],
+  "144": [
+   "What is the remainder when 9^6 is divided by 166?",
+   75,
+   "modular_exponent"
+  ],
+  "145": null,
+  "146": [
+   "Compute the remainder of 4 raised to the 8 upon division by 209.",
+   119,
+   "modular_exponent"
+  ],
+  "147": [
+   "Evaluate 4^12 modulo 162.",
+   10,
+   "modular_exponent"
+  ],
+  "148": [
+   "What is the remainder when 8^16 is divided by 253?",
+   223,
+   "modular_exponent"
+  ],
+  "149": [
+   "3^7 is divided by 114. What is the remainder?",
+   21,
+   "modular_exponent"
+  ],
+  "150": [
+   "Find 7^12 mod 98.",
+   49,
+   "modular_exponent"
+  ],
+  "151": [
+   "Find 8^16 mod 235.",
+   51,
+   "modular_exponent"
+  ],
+  "152": [
+   "8^16 is divided by 87. What is the remainder?",
+   52,
+   "modular_exponent"
+  ],
+  "153": [
+   "Compute the remainder of 9 raised to the 7 upon division by 59.",
+   16,
+   "modular_exponent"
+  ],
+  "154": [
+   "Find 5^12 mod 174.",
+   7,
+   "modular_exponent"
+  ],
+  "155": [
+   "6^16 is divided by 248. What is the remainder?",
+   56,
+   "modular_exponent"
+  ],
+  "156": [
+   "Find 9^12 mod 277.",
+   203,
+   "modular_exponent"
+  ],
+  "157": null,
+  "158": [
+   "5^7 is divided by 65. What is the remainder?",
+   60,
+   "modular_exponent"
+  ],
+  "159": [
+   "8^8 is divided by 222. What is the remainder?",
+   10,
+   "modular_exponent"
+  ],
+  "160": [
+   "3^14 is divided by 137. What is the remainder?",
+   25,
+   "modular_exponent"
+  ],
+  "161": [
+   "Find 5^14 mod 93.",
+   25,
+   "modular_exponent"
+  ],
+  "162": [
+   "Evaluate 2^16 modulo 102.",
+   52,
+   "modular_exponent"
+  ],
+  "163": [
+   "9^15 is divided by 94. What is the remainder?",
+   25,
+   "modular_exponent"
+  ],
+  "164": [
+   "Compute the remainder of 3 raised to the 10 upon division by 291.",
+   267,
+   "modular_exponent"
+  ],
+  "165": [
+   "2^6 is divided by 296. What is the remainder?",
+   64,
+   "modular_exponent"
+  ],
+  "166": [
+   "4^16 is divided by 204. What is the remainder?",
+   52,
+   "modular_exponent"
+  ],
+  "167": null,
+  "168": [
+   "3^14 is divided by 144. What is the remainder?",
+   9,
+   "modular_exponent"
+  ],
+  "169": [
+   "Find 6^14 mod 209.",
+   119,
+   "modular_exponent"
+  ],
+  "170": [
+   "Compute the remainder of 7 raised to the 15 upon division by 131.",
+   107,
+   "modular_exponent"
+  ],
+  "171": [
+   "Evaluate 8^12 modulo 80.",
+   16,
+   "modular_exponent"
+  ],
+  "172": [
+   "Compute the remainder of 7 raised to the 9 upon division by 104.",
+   47,
+   "modular_exponent"
+  ],
+  "173": [
+   "Evaluate 7^13 modulo 221.",
+   176,
+   "modular_exponent"
+  ],
+  "174": [
+   "2^13 is divided by 56. What is the remainder?",
+   16,
+   "modular_exponent"
+  ],
+  "175": [
+   "Evaluate 9^9 modulo 63.",
+   36,
+   "modular_exponent"
+  ],
+  "176": [
+   "Find 2^6 mod 246.",
+   64,
+   "modular_exponent"
+  ],
+  "177": [
+   "Evaluate 5^13 modulo 157.",
+   22,
+   "modular_exponent"
+  ],
+  "178": [
+   "3^14 is divided by 278. What is the remainder?",
+   257,
+   "modular_exponent"
+  ],
+  "179": [
+   "What is the remainder when 5^7 is divided by 261?",
+   86,
+   "modular_exponent"
+  ],
+  "180": [
+   "What is the remainder when 4^7 is divided by 222?",
+   178,
+   "modular_exponent"
+  ],
+  "181": [
+   "Compute the remainder of 3 raised to the 6 upon division by 135.",
+   54,
+   "modular_exponent"
+  ],
+  "182": [
+   "Find 9^11 mod 109.",
+   48,
+   "modular_exponent"
+  ],
+  "183": [
+   "What is the remainder when 3^7 is divided by 241?",
+   18,
+   "modular_exponent"
+  ],
+  "184": [
+   "Compute the remainder of 6 raised to the 6 upon division by 111.",
+   36,
+   "modular_exponent"
+  ],
+  "185": [
+   "Compute the remainder of 3 raised to the 8 upon division by 89.",
+   64,
+   "modular_exponent"
+  ],
+  "186": [
+   "Evaluate 7^16 modulo 156.",
+   61,
+   "modular_exponent"
+  ],
+  "187": [
+   "Evaluate 7^13 modulo 255.",
+   142,
+   "modular_exponent"
+  ],
+  "188": null,
+  "189": [
+   "Evaluate 9^10 modulo 86.",
+   57,
+   "modular_exponent"
+  ],
+  "190": [
+   "Compute the remainder of 3 raised to the 8 upon division by 242.",
+   27,
+   "modular_exponent"
+  ],
+  "191": [
+   "4^12 is divided by 245. What is the remainder?",
+   106,
+   "modular_exponent"
+  ],
+  "192": [
+   "7^10 is divided by 72. What is the remainder?",
+   25,
+   "modular_exponent"
+  ],
+  "193": [
+   "Compute the remainder of 9 raised to the 8 upon division by 298.",
+   25,
+   "modular_exponent"
+  ],
+  "194": [
+   "Compute the remainder of 3 raised to the 15 upon division by 89.",
+   60,
+   "modular_exponent"
+  ],
+  "195": [
+   "Find 8^6 mod 215.",
+   59,
+   "modular_exponent"
+  ],
+  "196": [
+   "2^9 is divided by 247. What is the remainder?",
+   18,
+   "modular_exponent"
+  ],
+  "197": [
+   "What is the remainder when 2^8 is divided by 91?",
+   74,
+   "modular_exponent"
+  ],
+  "198": [
+   "2^15 is divided by 232. What is the remainder?",
+   56,
+   "modular_exponent"
+  ],
+  "199": [
+   "Compute the remainder of 7 raised to the 12 upon division by 266.",
+   77,
+   "modular_exponent"
+  ]
+ },
+ "divisor_sum_filter": {
+  "0": null,
+  "1": [
+   "Sum every odd divisor of 1050.",
+   992,
+   "divisor_sum_filter"
+  ],
+  "2": [
+   "Of the divisors of 1716, what do the even ones add up to?",
+   4032,
+   "divisor_sum_filter"
+  ],
+  "3": null,
+  "4": null,
+  "5": [
+   "Of the divisors of 399, what do the odd ones add up to?",
+   640,
+   "divisor_sum_filter"
+  ],
+  "6": [
+   "Add up all odd divisors of 255.",
+   432,
+   "divisor_sum_filter"
+  ],
+  "7": null,
+  "8": [
+   "Of the divisors of 665, what do the odd ones add up to?",
+   960,
+   "divisor_sum_filter"
+  ],
+  "9": [
+   "Sum every even divisor of 798.",
+   1280,
+   "divisor_sum_filter"
+  ],
+  "10": [
+   "Sum every odd divisor of 165.",
+   288,
+   "divisor_sum_filter"
+  ],
+  "11": [
+   "Add up all odd divisors of 1955.",
+   2592,
+   "divisor_sum_filter"
+  ],
+  "12": [
+   "Find the total of the odd positive divisors of 1610.",
+   1152,
+   "divisor_sum_filter"
+  ],
+  "13": [
+   "Add up all odd divisors of 2730.",
+   2688,
+   "divisor_sum_filter"
+  ],
+  "14": null,
+  "15": [
+   "Find the total of the odd positive divisors of 330.",
+   288,
+   "divisor_sum_filter"
+  ],
+  "16": [
+   "Of the divisors of 2835, what do the odd ones add up to?",
+   5808,
+   "divisor_sum_filter"
+  ],
+  "17": [
+   "Of the divisors of 910, what do the odd ones add up to?",
+   672,
+   "divisor_sum_filter"
+  ],
+  "18": [
+   "Sum every even divisor of 2070.",
+   3744,
+   "divisor_sum_filter"
+  ],
+  "19": [
+   "Of the divisors of 1716, what do the even ones add up to?",
+   4032,
+   "divisor_sum_filter"
+  ],
+  "20": [
+   "Sum every odd divisor of 798.",
+   640,
+   "divisor_sum_filter"
+  ],
+  "21": [
+   "Sum every even divisor of 780.",
+   2016,
+   "divisor_sum_filter"
+  ],
+  "22": [
+   "Find the total of the odd positive divisors of 561.",
+   864,
+   "divisor_sum_filter"
+  ],
+  "23": [
+   "Add up all odd divisors of 1925.",
+   2976,
+   "divisor_sum_filter"
+  ],
+  "24": [
+   "Add up all odd divisors of 798.",
+   640,
+   "divisor_sum_filter"
+  ],
+  "25": [
+   "Sum every odd divisor of 798.",
+   640,
+   "divisor_sum_filter"
+  ],
+  "26": [
+   "Sum every odd divisor of 935.",
+   1296,
+   "divisor_sum_filter"
+  ],
+  "27": [
+   "Find the total of the even positive divisors of 2070.",
+   3744,
+   "divisor_sum_filter"
+  ],
+  "28": [
+   "Add up all odd divisors of 2340.",
+   1092,
+   "divisor_sum_filter"
+  ],
+  "29": [
+   "Of the divisors of 1287, what do the odd ones add up to?",
+   2184,
+   "divisor_sum_filter"
+  ],
+  "30": [
+   "Find the total of the odd positive divisors of 2652.",
+   1008,
+   "divisor_sum_filter"
+  ],
+  "31": [
+   "Add up all even divisors of 1938.",
+   2880,
+   "divisor_sum_filter"
+  ],
+  "32": [
+   "Find the total of the odd positive divisors of 2093.",
+   2688,
+   "divisor_sum_filter"
+  ],
+  "33": [
+   "Find the total of the odd positive divisors of 1260.",
+   624,
+   "divisor_sum_filter"
+  ],
+  "34": null,
+  "35": null,
+  "36": [
+   "Sum every odd divisor of 1725.",
+   2976,
+   "divisor_sum_filter"
+  ],
+  "37": [
+   "Of the divisors of 2898, what do the odd ones add up to?",
+   2496,
+   "divisor_sum_filter"
+  ],
+  "38": [
+   "What is the sum of the even positive divisors of 2002?",
+   2688,
+   "divisor_sum_filter"
+  ],
+  "39": [
+   "Add up all odd divisors of 1683.",
+   2808,
+   "divisor_sum_filter"
+  ],
+  "40": [
+   "Find the total of the even positive divisors of 630.",
+   1248,
+   "divisor_sum_filter"
+  ],
+  "41": [
+   "Sum every odd divisor of 1050.",
+   992,
+   "divisor_sum_filter"
+  ],
+  "42": [
+   "Find the total of the odd positive divisors of 561.",
+   864,
+   "divisor_sum_filter"
+  ],
+  "43": [
+   "Sum every odd divisor of 2856.",
+   576,
+   "divisor_sum_filter"
+  ],
+  "44": [
+   "Sum every even divisor of 2926.",
+   3840,
+   "divisor_sum_filter"
+  ],
+  "45": null,
+  "46": [
+   "Of the divisors of 2508, what do the odd ones add up to?",
+   960,
+   "divisor_sum_filter"
+  ],
+  "47": [
+   "Sum every even divisor of 2210.",
+   3024,
+   "divisor_sum_filter"
+  ],
+  "48": null,
+  "49": [
+   "What is the sum of the odd positive divisors of 1430?",
+   1008,
+   "divisor_sum_filter"
+  ],
+  "50": [
+   "Find the total of the even positive divisors of 2142.",
+   3744,
+   "divisor_sum_filter"
+  ],
+  "51": [
+   "Add up all odd divisors of 2530.",
+   1728,
+   "divisor_sum_filter"
+  ],
+  "52": [
+   "Add up all odd divisors of 1771.",
+   2304,
+   "divisor_sum_filter"
+  ],
+  "53": [
+   "Find the total of the odd positive divisors of 255.",
+   432,
+   "divisor_sum_filter"
+  ],
+  "54": [
+   "Sum every odd divisor of 924.",
+   384,
+   "divisor_sum_filter"
+  ],
+  "55": null,
+  "56": [
+   "Find the total of the odd positive divisors of 1050.",
+   992,
+   "divisor_sum_filter"
+  ],
+  "57": [
+   "Add up all odd divisors of 2520.",
+   624,
+   "divisor_sum_filter"
+  ],
+  "58": [
+   "Sum every odd divisor of 273.",
+   448,
+   "divisor_sum_filter"
+  ],
+  "59": [
+   "Find the total of the odd positive divisors of 2760.",
+   576,
+   "divisor_sum_filter"
+  ],
+  "60": null,
+  "61": [
+   "Add up all odd divisors of 2926.",
+   1920,
+   "divisor_sum_filter"
+  ],
+  "62": [
+   "Add up all odd divisors of 805.",
+   1152,
+   "divisor_sum_filter"
+  ],
+  "63": null,
+  "64": [
+   "Add up all odd divisors of 2695.",
+   4104,
+   "divisor_sum_filter"
+  ],
+  "65": null,
+  "66": null,
+  "67": null,
+  "68": [
+   "What is the sum of the even positive divisors of 2340?",
+   6552,
+   "divisor_sum_filter"
+  ],
+  "69": [
+   "What is the sum of the odd positive divisors of 2907?",
+   4680,
+   "divisor_sum_filter"
+  ],
+  "70": null,
+  "71": [
+   "Add up all odd divisors of 1190.",
+   864,
+   "divisor_sum_filter"
+  ],
+  "72": [
+   "Of the divisors of 1638, what do the even ones add up to?",
+   2912,
+   "divisor_sum_filter"
+  ],
+  "73": [
+   "Sum every odd divisor of 2415.",
+   4608,
+   "divisor_sum_filter"
+  ],
+  "74": [
+   "What is the sum of the even positive divisors of 570?",
+   960,
+   "divisor_sum_filter"
+  ],
+  "75": [
+   "Find the total of the even positive divisors of 2210.",
+   3024,
+   "divisor_sum_filter"
+  ],
+  "76": [
+   "Add up all even divisors of 2002.",
+   2688,
+   "divisor_sum_filter"
+  ],
+  "77": [
+   "Add up all even divisors of 1140.",
+   2880,
+   "divisor_sum_filter"
+  ],
+  "78": [
+   "Of the divisors of 1638, what do the even ones add up to?",
+   2912,
+   "divisor_sum_filter"
+  ],
+  "79": [
+   "Add up all even divisors of 2940.",
+   8208,
+   "divisor_sum_filter"
+  ],
+  "80": [
+   "What is the sum of the odd positive divisors of 2793?",
+   4560,
+   "divisor_sum_filter"
+  ],
+  "81": [
+   "Of the divisors of 714, what do the even ones add up to?",
+   1152,
+   "divisor_sum_filter"
+  ],
+  "82": [
+   "Find the total of the odd positive divisors of 840.",
+   192,
+   "divisor_sum_filter"
+  ],
+  "83": [
+   "Find the total of the odd positive divisors of 627.",
+   960,
+   "divisor_sum_filter"
+  ],
+  "84": [
+   "Sum every even divisor of 910.",
+   1344,
+   "divisor_sum_filter"
+  ],
+  "85": [
+   "Of the divisors of 595, what do the odd ones add up to?",
+   864,
+   "divisor_sum_filter"
+  ],
+  "86": [
+   "Sum every even divisor of 390.",
+   672,
+   "divisor_sum_filter"
+  ],
+  "87": null,
+  "88": [
+   "What is the sum of the odd positive divisors of 660?",
+   288,
+   "divisor_sum_filter"
+  ],
+  "89": [
+   "Find the total of the even positive divisors of 966.",
+   1536,
+   "divisor_sum_filter"
+  ],
+  "90": null,
+  "91": null,
+  "92": [
+   "Of the divisors of 2860, what do the odd ones add up to?",
+   1008,
+   "divisor_sum_filter"
+  ],
+  "93": [
+   "Find the total of the odd positive divisors of 570.",
+   480,
+   "divisor_sum_filter"
+  ],
+  "94": null,
+  "95": [
+   "What is the sum of the even positive divisors of 630?",
+   1248,
+   "divisor_sum_filter"
+  ],
+  "96": [
+   "Of the divisors of 1235, what do the odd ones add up to?",
+   1680,
+   "divisor_sum_filter"
+  ],
+  "97": [
+   "Of the divisors of 2457, what do the odd ones add up to?",
+   4480,
+   "divisor_sum_filter"
+  ],
+  "98": null,
+  "99": [
+   "Add up all odd divisors of 924.",
+   384,
+   "divisor_sum_filter"
+  ],
+  "100": null,
+  "101": [
+   "Find the total of the odd positive divisors of 2093.",
+   2688,
+   "divisor_sum_filter"
+  ],
+  "102": [
+   "Sum every odd divisor of 2277.",
+   3744,
+   "divisor_sum_filter"
+  ],
+  "103": [
+   "What is the sum of the odd positive divisors of 285?",
+   480,
+   "divisor_sum_filter"
+  ],
+  "104": [
+   "Add up all odd divisors of 1615.",
+   2160,
+   "divisor_sum_filter"
+  ],
+  "105": null,
+  "106": [
+   "Add up all odd divisors of 2760.",
+   576,
+   "divisor_sum_filter"
+  ],
+  "107": [
+   "Add up all odd divisors of 2520.",
+   624,
+   "divisor_sum_filter"
+  ],
+  "108": null,
+  "109": [
+   "What is the sum of the odd positive divisors of 2346?",
+   1728,
+   "divisor_sum_filter"
+  ],
+  "110": null,
+  "111": [
+   "Sum every odd divisor of 1045.",
+   1440,
+   "divisor_sum_filter"
+  ],
+  "112": [
+   "Add up all even divisors of 770.",
+   1152,
+   "divisor_sum_filter"
+  ],
+  "113": null,
+  "114": [
+   "Of the divisors of 1482, what do the odd ones add up to?",
+   1120,
+   "divisor_sum_filter"
+  ],
+  "115": [
+   "What is the sum of the odd positive divisors of 1265?",
+   1728,
+   "divisor_sum_filter"
+  ],
+  "116": [
+   "What is the sum of the odd positive divisors of 1326?",
+   1008,
+   "divisor_sum_filter"
+  ],
+  "117": null,
+  "118": [
+   "Find the total of the even positive divisors of 510.",
+   864,
+   "divisor_sum_filter"
+  ],
+  "119": null,
+  "120": [
+   "What is the sum of the even positive divisors of 2520?",
+   8736,
+   "divisor_sum_filter"
+  ],
+  "121": [
+   "Of the divisors of 462, what do the odd ones add up to?",
+   384,
+   "divisor_sum_filter"
+  ],
+  "122": [
+   "What is the sum of the even positive divisors of 2550?",
+   4464,
+   "divisor_sum_filter"
+  ],
+  "123": [
+   "Find the total of the even positive divisors of 462.",
+   768,
+   "divisor_sum_filter"
+  ],
+  "124": [
+   "Find the total of the odd positive divisors of 1596.",
+   640,
+   "divisor_sum_filter"
+  ],
+  "125": [
+   "Find the total of the odd positive divisors of 693.",
+   1248,
+   "divisor_sum_filter"
+  ],
+  "126": null,
+  "127": [
+   "What is the sum of the odd positive divisors of 2660?",
+   960,
+   "divisor_sum_filter"
+  ],
+  "128": [
+   "Sum every odd divisor of 1911.",
+   3192,
+   "divisor_sum_filter"
+  ],
+  "129": [
+   "Sum every odd divisor of 1173.",
+   1728,
+   "divisor_sum_filter"
+  ],
+  "130": [
+   "Of the divisors of 2850, what do the odd ones add up to?",
+   2480,
+   "divisor_sum_filter"
+  ],
+  "131": [
+   "Sum every odd divisor of 2185.",
+   2880,
+   "divisor_sum_filter"
+  ],
+  "132": [
+   "Sum every odd divisor of 1794.",
+   1344,
+   "divisor_sum_filter"
+  ],
+  "133": null,
+  "134": [
+   "What is the sum of the even positive divisors of 2340?",
+   6552,
+   "divisor_sum_filter"
+  ],
+  "135": [
+   "Find the total of the odd positive divisors of 2535.",
+   4392,
+   "divisor_sum_filter"
+  ],
+  "136": [
+   "Of the divisors of 1710, what do the odd ones add up to?",
+   1560,
+   "divisor_sum_filter"
+  ],
+  "137": [
+   "Find the total of the even positive divisors of 1050.",
+   1984,
+   "divisor_sum_filter"
+  ],
+  "138": null,
+  "139": [
+   "Of the divisors of 2346, what do the odd ones add up to?",
+   1728,
+   "divisor_sum_filter"
+  ],
+  "140": null,
+  "141": [
+   "Of the divisors of 2223, what do the odd ones add up to?",
+   3640,
+   "divisor_sum_filter"
+  ],
+  "142": null,
+  "143": [
+   "What is the sum of the odd positive divisors of 858?",
+   672,
+   "divisor_sum_filter"
+  ],
+  "144": [
+   "Find the total of the odd positive divisors of 1155.",
+   2304,
+   "divisor_sum_filter"
+  ],
+  "145": [
+   "Of the divisors of 1925, what do the odd ones add up to?",
+   2976,
+   "divisor_sum_filter"
+  ],
+  "146": [
+   "Add up all odd divisors of 1449.",
+   2496,
+   "divisor_sum_filter"
+  ],
+  "147": [
+   "Sum every even divisor of 714.",
+   1152,
+   "divisor_sum_filter"
+  ],
+  "148": [
+   "Sum every odd divisor of 1140.",
+   480,
+   "divisor_sum_filter"
+  ],
+  "149": [
+   "Add up all odd divisors of 1650.",
+   1488,
+   "divisor_sum_filter"
+  ],
+  "150": [
+   "Sum every odd divisor of 1995.",
+   3840,
+   "divisor_sum_filter"
+  ],
+  "151": null,
+  "152": [
+   "Of the divisors of 924, what do the odd ones add up to?",
+   384,
+   "divisor_sum_filter"
+  ],
+  "153": [
+   "Of the divisors of 1170, what do the even ones add up to?",
+   2184,
+   "divisor_sum_filter"
+  ],
+  "154": [
+   "Sum every odd divisor of 2772.",
+   1248,
+   "divisor_sum_filter"
+  ],
+  "155": [
+   "What is the sum of the odd positive divisors of 1925?",
+   2976,
+   "divisor_sum_filter"
+  ],
+  "156": [
+   "Find the total of the odd positive divisors of 1815.",
+   3192,
+   "divisor_sum_filter"
+  ],
+  "157": [
+   "Sum every even divisor of 1710.",
+   3120,
+   "divisor_sum_filter"
+  ],
+  "158": [
+   "What is the sum of the odd positive divisors of 2907?",
+   4680,
+   "divisor_sum_filter"
+  ],
+  "159": [
+   "Of the divisors of 1105, what do the odd ones add up to?",
+   1512,
+   "divisor_sum_filter"
+  ],
+  "160": null,
+  "161": null,
+  "162": [
+   "Sum every odd divisor of 855.",
+   1560,
+   "divisor_sum_filter"
+  ],
+  "163": null,
+  "164": null,
+  "165": null,
+  "166": null,
+  "167": null,
+  "168": [
+   "Sum every odd divisor of 570.",
+   480,
+   "divisor_sum_filter"
+  ],
+  "169": [
+   "What is the sum of the even positive divisors of 630?",
+   1248,
+   "divisor_sum_filter"
+  ],
+  "170": [
+   "Find the total of the even positive divisors of 1518.",
+   2304,
+   "divisor_sum_filter"
+  ],
+  "171": [
+   "Add up all even divisors of 1380.",
+   3456,
+   "divisor_sum_filter"
+  ],
+  "172": [
+   "Find the total of the odd positive divisors of 897.",
+   1344,
+   "divisor_sum_filter"
+  ],
+  "173": [
+   "Add up all even divisors of 2100.",
+   5952,
+   "divisor_sum_filter"
+  ],
+  "174": [
+   "Find the total of the odd positive divisors of 1638.",
+   1456,
+   "divisor_sum_filter"
+  ],
+  "175": [
+   "Sum every odd divisor of 2541.",
+   4256,
+   "divisor_sum_filter"
+  ],
+  "176": [
+   "Sum every odd divisor of 1020.",
+   432,
+   "divisor_sum_filter"
+  ],
+  "177": null,
+  "178": [
+   "Find the total of the even positive divisors of 1482.",
+   2240,
+   "divisor_sum_filter"
+  ],
+  "179": [
+   "Add up all even divisors of 2550.",
+   4464,
+   "divisor_sum_filter"
+  ],
+  "180": [
+   "What is the sum of the odd positive divisors of 255?",
+   432,
+   "divisor_sum_filter"
+  ],
+  "181": null,
+  "182": [
+   "What is the sum of the even positive divisors of 2002?",
+   2688,
+   "divisor_sum_filter"
+  ],
+  "183": [
+   "Sum every odd divisor of 2340.",
+   1092,
+   "divisor_sum_filter"
+  ],
+  "184": [
+   "Add up all odd divisors of 1235.",
+   1680,
+   "divisor_sum_filter"
+  ],
+  "185": null,
+  "186": null,
+  "187": [
+   "Add up all odd divisors of 2541.",
+   4256,
+   "divisor_sum_filter"
+  ],
+  "188": [
+   "Of the divisors of 546, what do the odd ones add up to?",
+   448,
+   "divisor_sum_filter"
+  ],
+  "189": [
+   "Sum every odd divisor of 690.",
+   576,
+   "divisor_sum_filter"
+  ],
+  "190": [
+   "Of the divisors of 2295, what do the odd ones add up to?",
+   4320,
+   "divisor_sum_filter"
+  ],
+  "191": null,
+  "192": [
+   "Sum every even divisor of 798.",
+   1280,
+   "divisor_sum_filter"
+  ],
+  "193": null,
+  "194": [
+   "Sum every odd divisor of 975.",
+   1736,
+   "divisor_sum_filter"
+  ],
+  "195": [
+   "Add up all odd divisors of 1725.",
+   2976,
+   "divisor_sum_filter"
+  ],
+  "196": [
+   "Find the total of the even positive divisors of 2530.",
+   3456,
+   "divisor_sum_filter"
+  ],
+  "197": [
+   "Of the divisors of 585, what do the odd ones add up to?",
+   1092,
+   "divisor_sum_filter"
+  ],
+  "198": null,
+  "199": null
+ },
+ "prime_power_divisors": {
+  "0": [
+   "Determine the minimum positive integer that has precisely 72 divisors.",
+   10080,
+   "prime_power_divisors"
+  ],
+  "1": [
+   "What is the smallest integer n such that n has exactly 24 positive divisors?",
+   360,
+   "prime_power_divisors"
+  ],
+  "2": [
+   "What is the smallest positive integer with exactly 16 divisors?",
+   120,
+   "prime_power_divisors"
+  ],
+  "3": [
+   "What is the smallest integer n such that n has exactly 36 positive divisors?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "4": [
+   "The smallest number whose divisor count is exactly 36 — what is it?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "5": [
+   "The smallest number whose divisor count is exactly 40 — what is it?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "6": [
+   "Determine the minimum positive integer that has precisely 18 divisors.",
+   180,
+   "prime_power_divisors"
+  ],
+  "7": [
+   "Find the least positive integer having exactly 60 positive divisors.",
+   5040,
+   "prime_power_divisors"
+  ],
+  "8": [
+   "The smallest number whose divisor count is exactly 36 — what is it?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "9": [
+   "What is the smallest integer n such that n has exactly 90 positive divisors?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "10": [
+   "Determine the minimum positive integer that has precisely 16 divisors.",
+   120,
+   "prime_power_divisors"
+  ],
+  "11": [
+   "What is the smallest integer n such that n has exactly 90 positive divisors?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "12": [
+   "The smallest number whose divisor count is exactly 96 — what is it?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "13": [
+   "The smallest number whose divisor count is exactly 40 — what is it?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "14": [
+   "What is the smallest integer n such that n has exactly 20 positive divisors?",
+   240,
+   "prime_power_divisors"
+  ],
+  "15": [
+   "What is the smallest positive integer with exactly 30 divisors?",
+   720,
+   "prime_power_divisors"
+  ],
+  "16": [
+   "Determine the minimum positive integer that has precisely 64 divisors.",
+   7560,
+   "prime_power_divisors"
+  ],
+  "17": [
+   "The smallest number whose divisor count is exactly 80 — what is it?",
+   15120,
+   "prime_power_divisors"
+  ],
+  "18": [
+   "What is the smallest positive integer with exactly 28 divisors?",
+   960,
+   "prime_power_divisors"
+  ],
+  "19": [
+   "What is the smallest integer n such that n has exactly 16 positive divisors?",
+   120,
+   "prime_power_divisors"
+  ],
+  "20": [
+   "The smallest number whose divisor count is exactly 24 — what is it?",
+   360,
+   "prime_power_divisors"
+  ],
+  "21": [
+   "Determine the minimum positive integer that has precisely 28 divisors.",
+   960,
+   "prime_power_divisors"
+  ],
+  "22": [
+   "Find the least positive integer having exactly 24 positive divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "23": [
+   "What is the smallest positive integer with exactly 48 divisors?",
+   2520,
+   "prime_power_divisors"
+  ],
+  "24": [
+   "What is the smallest integer n such that n has exactly 72 positive divisors?",
+   10080,
+   "prime_power_divisors"
+  ],
+  "25": [
+   "What is the smallest positive integer with exactly 72 divisors?",
+   10080,
+   "prime_power_divisors"
+  ],
+  "26": [
+   "Find the least positive integer having exactly 30 positive divisors.",
+   720,
+   "prime_power_divisors"
+  ],
+  "27": [
+   "The smallest number whose divisor count is exactly 96 — what is it?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "28": [
+   "Find the least positive integer having exactly 20 positive divisors.",
+   240,
+   "prime_power_divisors"
+  ],
+  "29": [
+   "The smallest number whose divisor count is exactly 18 — what is it?",
+   180,
+   "prime_power_divisors"
+  ],
+  "30": [
+   "What is the smallest integer n such that n has exactly 48 positive divisors?",
+   2520,
+   "prime_power_divisors"
+  ],
+  "31": [
+   "Determine the minimum positive integer that has precisely 12 divisors.",
+   60,
+   "prime_power_divisors"
+  ],
+  "32": [
+   "Find the least positive integer having exactly 18 positive divisors.",
+   180,
+   "prime_power_divisors"
+  ],
+  "33": [
+   "Find the least positive integer having exactly 28 positive divisors.",
+   960,
+   "prime_power_divisors"
+  ],
+  "34": [
+   "What is the smallest integer n such that n has exactly 64 positive divisors?",
+   7560,
+   "prime_power_divisors"
+  ],
+  "35": [
+   "Find the least positive integer having exactly 60 positive divisors.",
+   5040,
+   "prime_power_divisors"
+  ],
+  "36": [
+   "What is the smallest positive integer with exactly 60 divisors?",
+   5040,
+   "prime_power_divisors"
+  ],
+  "37": [
+   "What is the smallest integer n such that n has exactly 18 positive divisors?",
+   180,
+   "prime_power_divisors"
+  ],
+  "38": [
+   "Determine the minimum positive integer that has precisely 80 divisors.",
+   15120,
+   "prime_power_divisors"
+  ],
+  "39": [
+   "The smallest number whose divisor count is exactly 30 — what is it?",
+   720,
+   "prime_power_divisors"
+  ],
+  "40": [
+   "What is the smallest integer n such that n has exactly 90 positive divisors?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "41": [
+   "The smallest number whose divisor count is exactly 72 — what is it?",
+   10080,
+   "prime_power_divisors"
+  ],
+  "42": [
+   "What is the smallest positive integer with exactly 20 divisors?",
+   240,
+   "prime_power_divisors"
+  ],
+  "43": [
+   "The smallest number whose divisor count is exactly 16 — what is it?",
+   120,
+   "prime_power_divisors"
+  ],
+  "44": [
+   "What is the smallest integer n such that n has exactly 80 positive divisors?",
+   15120,
+   "prime_power_divisors"
+  ],
+  "45": [
+   "Determine the minimum positive integer that has precisely 40 divisors.",
+   1680,
+   "prime_power_divisors"
+  ],
+  "46": [
+   "Determine the minimum positive integer that has precisely 18 divisors.",
+   180,
+   "prime_power_divisors"
+  ],
+  "47": [
+   "What is the smallest positive integer with exactly 64 divisors?",
+   7560,
+   "prime_power_divisors"
+  ],
+  "48": [
+   "Find the least positive integer having exactly 60 positive divisors.",
+   5040,
+   "prime_power_divisors"
+  ],
+  "49": [
+   "The smallest number whose divisor count is exactly 18 — what is it?",
+   180,
+   "prime_power_divisors"
+  ],
+  "50": [
+   "The smallest number whose divisor count is exactly 96 — what is it?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "51": [
+   "What is the smallest integer n such that n has exactly 36 positive divisors?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "52": [
+   "What is the smallest positive integer with exactly 40 divisors?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "53": [
+   "Determine the minimum positive integer that has precisely 30 divisors.",
+   720,
+   "prime_power_divisors"
+  ],
+  "54": [
+   "Determine the minimum positive integer that has precisely 24 divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "55": [
+   "Find the least positive integer having exactly 18 positive divisors.",
+   180,
+   "prime_power_divisors"
+  ],
+  "56": [
+   "Determine the minimum positive integer that has precisely 12 divisors.",
+   60,
+   "prime_power_divisors"
+  ],
+  "57": [
+   "The smallest number whose divisor count is exactly 16 — what is it?",
+   120,
+   "prime_power_divisors"
+  ],
+  "58": [
+   "Find the least positive integer having exactly 30 positive divisors.",
+   720,
+   "prime_power_divisors"
+  ],
+  "59": [
+   "What is the smallest positive integer with exactly 36 divisors?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "60": [
+   "The smallest number whose divisor count is exactly 48 — what is it?",
+   2520,
+   "prime_power_divisors"
+  ],
+  "61": [
+   "Find the least positive integer having exactly 96 positive divisors.",
+   27720,
+   "prime_power_divisors"
+  ],
+  "62": [
+   "What is the smallest positive integer with exactly 28 divisors?",
+   960,
+   "prime_power_divisors"
+  ],
+  "63": [
+   "Determine the minimum positive integer that has precisely 90 divisors.",
+   25200,
+   "prime_power_divisors"
+  ],
+  "64": [
+   "What is the smallest positive integer with exactly 96 divisors?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "65": [
+   "The smallest number whose divisor count is exactly 80 — what is it?",
+   15120,
+   "prime_power_divisors"
+  ],
+  "66": [
+   "The smallest number whose divisor count is exactly 18 — what is it?",
+   180,
+   "prime_power_divisors"
+  ],
+  "67": [
+   "What is the smallest positive integer with exactly 18 divisors?",
+   180,
+   "prime_power_divisors"
+  ],
+  "68": [
+   "What is the smallest integer n such that n has exactly 90 positive divisors?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "69": [
+   "What is the smallest positive integer with exactly 16 divisors?",
+   120,
+   "prime_power_divisors"
+  ],
+  "70": [
+   "The smallest number whose divisor count is exactly 20 — what is it?",
+   240,
+   "prime_power_divisors"
+  ],
+  "71": [
+   "What is the smallest integer n such that n has exactly 60 positive divisors?",
+   5040,
+   "prime_power_divisors"
+  ],
+  "72": [
+   "What is the smallest integer n such that n has exactly 18 positive divisors?",
+   180,
+   "prime_power_divisors"
+  ],
+  "73": [
+   "What is the smallest positive integer with exactly 40 divisors?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "74": [
+   "The smallest number whose divisor count is exactly 20 — what is it?",
+   240,
+   "prime_power_divisors"
+  ],
+  "75": [
+   "What is the smallest integer n such that n has exactly 90 positive divisors?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "76": [
+   "Determine the minimum positive integer that has precisely 64 divisors.",
+   7560,
+   "prime_power_divisors"
+  ],
+  "77": [
+   "The smallest number whose divisor count is exactly 40 — what is it?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "78": [
+   "What is the smallest positive integer with exactly 30 divisors?",
+   720,
+   "prime_power_divisors"
+  ],
+  "79": [
+   "Determine the minimum positive integer that has precisely 24 divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "80": [
+   "Determine the minimum positive integer that has precisely 40 divisors.",
+   1680,
+   "prime_power_divisors"
+  ],
+  "81": [
+   "The smallest number whose divisor count is exactly 90 — what is it?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "82": [
+   "Determine the minimum positive integer that has precisely 24 divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "83": [
+   "Determine the minimum positive integer that has precisely 96 divisors.",
+   27720,
+   "prime_power_divisors"
+  ],
+  "84": [
+   "What is the smallest positive integer with exactly 48 divisors?",
+   2520,
+   "prime_power_divisors"
+  ],
+  "85": [
+   "What is the smallest integer n such that n has exactly 30 positive divisors?",
+   720,
+   "prime_power_divisors"
+  ],
+  "86": [
+   "What is the smallest integer n such that n has exactly 12 positive divisors?",
+   60,
+   "prime_power_divisors"
+  ],
+  "87": [
+   "Find the least positive integer having exactly 24 positive divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "88": [
+   "Find the least positive integer having exactly 72 positive divisors.",
+   10080,
+   "prime_power_divisors"
+  ],
+  "89": [
+   "What is the smallest integer n such that n has exactly 18 positive divisors?",
+   180,
+   "prime_power_divisors"
+  ],
+  "90": [
+   "What is the smallest positive integer with exactly 30 divisors?",
+   720,
+   "prime_power_divisors"
+  ],
+  "91": [
+   "What is the smallest integer n such that n has exactly 18 positive divisors?",
+   180,
+   "prime_power_divisors"
+  ],
+  "92": [
+   "What is the smallest integer n such that n has exactly 80 positive divisors?",
+   15120,
+   "prime_power_divisors"
+  ],
+  "93": [
+   "What is the smallest integer n such that n has exactly 96 positive divisors?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "94": [
+   "What is the smallest positive integer with exactly 28 divisors?",
+   960,
+   "prime_power_divisors"
+  ],
+  "95": [
+   "Determine the minimum positive integer that has precisely 24 divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "96": [
+   "The smallest number whose divisor count is exactly 64 — what is it?",
+   7560,
+   "prime_power_divisors"
+  ],
+  "97": [
+   "Determine the minimum positive integer that has precisely 30 divisors.",
+   720,
+   "prime_power_divisors"
+  ],
+  "98": [
+   "What is the smallest integer n such that n has exactly 64 positive divisors?",
+   7560,
+   "prime_power_divisors"
+  ],
+  "99": [
+   "Determine the minimum positive integer that has precisely 72 divisors.",
+   10080,
+   "prime_power_divisors"
+  ],
+  "100": [
+   "Determine the minimum positive integer that has precisely 24 divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "101": [
+   "What is the smallest integer n such that n has exactly 30 positive divisors?",
+   720,
+   "prime_power_divisors"
+  ],
+  "102": [
+   "What is the smallest integer n such that n has exactly 24 positive divisors?",
+   360,
+   "prime_power_divisors"
+  ],
+  "103": [
+   "Find the least positive integer having exactly 90 positive divisors.",
+   25200,
+   "prime_power_divisors"
+  ],
+  "104": [
+   "Find the least positive integer having exactly 12 positive divisors.",
+   60,
+   "prime_power_divisors"
+  ],
+  "105": [
+   "What is the smallest integer n such that n has exactly 64 positive divisors?",
+   7560,
+   "prime_power_divisors"
+  ],
+  "106": [
+   "What is the smallest positive integer with exactly 96 divisors?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "107": [
+   "What is the smallest integer n such that n has exactly 36 positive divisors?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "108": [
+   "What is the smallest positive integer with exactly 24 divisors?",
+   360,
+   "prime_power_divisors"
+  ],
+  "109": [
+   "Find the least positive integer having exactly 40 positive divisors.",
+   1680,
+   "prime_power_divisors"
+  ],
+  "110": [
+   "What is the smallest integer n such that n has exactly 72 positive divisors?",
+   10080,
+   "prime_power_divisors"
+  ],
+  "111": [
+   "The smallest number whose divisor count is exactly 30 — what is it?",
+   720,
+   "prime_power_divisors"
+  ],
+  "112": [
+   "What is the smallest integer n such that n has exactly 96 positive divisors?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "113": [
+   "The smallest number whose divisor count is exactly 12 — what is it?",
+   60,
+   "prime_power_divisors"
+  ],
+  "114": [
+   "What is the smallest integer n such that n has exactly 36 positive divisors?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "115": [
+   "Find the least positive integer having exactly 48 positive divisors.",
+   2520,
+   "prime_power_divisors"
+  ],
+  "116": [
+   "What is the smallest positive integer with exactly 48 divisors?",
+   2520,
+   "prime_power_divisors"
+  ],
+  "117": [
+   "Find the least positive integer having exactly 36 positive divisors.",
+   1260,
+   "prime_power_divisors"
+  ],
+  "118": [
+   "The smallest number whose divisor count is exactly 28 — what is it?",
+   960,
+   "prime_power_divisors"
+  ],
+  "119": [
+   "Find the least positive integer having exactly 48 positive divisors.",
+   2520,
+   "prime_power_divisors"
+  ],
+  "120": [
+   "Find the least positive integer having exactly 36 positive divisors.",
+   1260,
+   "prime_power_divisors"
+  ],
+  "121": [
+   "Find the least positive integer having exactly 18 positive divisors.",
+   180,
+   "prime_power_divisors"
+  ],
+  "122": [
+   "What is the smallest integer n such that n has exactly 30 positive divisors?",
+   720,
+   "prime_power_divisors"
+  ],
+  "123": [
+   "The smallest number whose divisor count is exactly 16 — what is it?",
+   120,
+   "prime_power_divisors"
+  ],
+  "124": [
+   "What is the smallest integer n such that n has exactly 40 positive divisors?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "125": [
+   "Find the least positive integer having exactly 36 positive divisors.",
+   1260,
+   "prime_power_divisors"
+  ],
+  "126": [
+   "What is the smallest integer n such that n has exactly 16 positive divisors?",
+   120,
+   "prime_power_divisors"
+  ],
+  "127": [
+   "What is the smallest integer n such that n has exactly 16 positive divisors?",
+   120,
+   "prime_power_divisors"
+  ],
+  "128": [
+   "Determine the minimum positive integer that has precisely 36 divisors.",
+   1260,
+   "prime_power_divisors"
+  ],
+  "129": [
+   "What is the smallest positive integer with exactly 40 divisors?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "130": [
+   "The smallest number whose divisor count is exactly 80 — what is it?",
+   15120,
+   "prime_power_divisors"
+  ],
+  "131": [
+   "The smallest number whose divisor count is exactly 60 — what is it?",
+   5040,
+   "prime_power_divisors"
+  ],
+  "132": [
+   "Find the least positive integer having exactly 80 positive divisors.",
+   15120,
+   "prime_power_divisors"
+  ],
+  "133": [
+   "The smallest number whose divisor count is exactly 96 — what is it?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "134": [
+   "What is the smallest integer n such that n has exactly 96 positive divisors?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "135": [
+   "What is the smallest integer n such that n has exactly 64 positive divisors?",
+   7560,
+   "prime_power_divisors"
+  ],
+  "136": [
+   "What is the smallest integer n such that n has exactly 80 positive divisors?",
+   15120,
+   "prime_power_divisors"
+  ],
+  "137": [
+   "Find the least positive integer having exactly 18 positive divisors.",
+   180,
+   "prime_power_divisors"
+  ],
+  "138": [
+   "Determine the minimum positive integer that has precisely 30 divisors.",
+   720,
+   "prime_power_divisors"
+  ],
+  "139": [
+   "What is the smallest integer n such that n has exactly 12 positive divisors?",
+   60,
+   "prime_power_divisors"
+  ],
+  "140": [
+   "What is the smallest positive integer with exactly 20 divisors?",
+   240,
+   "prime_power_divisors"
+  ],
+  "141": [
+   "What is the smallest integer n such that n has exactly 12 positive divisors?",
+   60,
+   "prime_power_divisors"
+  ],
+  "142": [
+   "Find the least positive integer having exactly 96 positive divisors.",
+   27720,
+   "prime_power_divisors"
+  ],
+  "143": [
+   "What is the smallest positive integer with exactly 28 divisors?",
+   960,
+   "prime_power_divisors"
+  ],
+  "144": [
+   "What is the smallest positive integer with exactly 90 divisors?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "145": [
+   "What is the smallest integer n such that n has exactly 80 positive divisors?",
+   15120,
+   "prime_power_divisors"
+  ],
+  "146": [
+   "Find the least positive integer having exactly 24 positive divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "147": [
+   "Determine the minimum positive integer that has precisely 24 divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "148": [
+   "What is the smallest positive integer with exactly 72 divisors?",
+   10080,
+   "prime_power_divisors"
+  ],
+  "149": [
+   "What is the smallest positive integer with exactly 18 divisors?",
+   180,
+   "prime_power_divisors"
+  ],
+  "150": [
+   "Determine the minimum positive integer that has precisely 60 divisors.",
+   5040,
+   "prime_power_divisors"
+  ],
+  "151": [
+   "Find the least positive integer having exactly 80 positive divisors.",
+   15120,
+   "prime_power_divisors"
+  ],
+  "152": [
+   "Find the least positive integer having exactly 72 positive divisors.",
+   10080,
+   "prime_power_divisors"
+  ],
+  "153": [
+   "What is the smallest positive integer with exactly 96 divisors?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "154": [
+   "Determine the minimum positive integer that has precisely 30 divisors.",
+   720,
+   "prime_power_divisors"
+  ],
+  "155": [
+   "Determine the minimum positive integer that has precisely 48 divisors.",
+   2520,
+   "prime_power_divisors"
+  ],
+  "156": [
+   "Determine the minimum positive integer that has precisely 96 divisors.",
+   27720,
+   "prime_power_divisors"
+  ],
+  "157": [
+   "Find the least positive integer having exactly 96 positive divisors.",
+   27720,
+   "prime_power_divisors"
+  ],
+  "158": [
+   "What is the smallest positive integer with exactly 36 divisors?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "159": [
+   "Find the least positive integer having exactly 72 positive divisors.",
+   10080,
+   "prime_power_divisors"
+  ],
+  "160": [
+   "What is the smallest integer n such that n has exactly 20 positive divisors?",
+   240,
+   "prime_power_divisors"
+  ],
+  "161": [
+   "What is the smallest integer n such that n has exactly 30 positive divisors?",
+   720,
+   "prime_power_divisors"
+  ],
+  "162": [
+   "Find the least positive integer having exactly 16 positive divisors.",
+   120,
+   "prime_power_divisors"
+  ],
+  "163": [
+   "What is the smallest integer n such that n has exactly 90 positive divisors?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "164": [
+   "The smallest number whose divisor count is exactly 20 — what is it?",
+   240,
+   "prime_power_divisors"
+  ],
+  "165": [
+   "What is the smallest positive integer with exactly 12 divisors?",
+   60,
+   "prime_power_divisors"
+  ],
+  "166": [
+   "What is the smallest integer n such that n has exactly 28 positive divisors?",
+   960,
+   "prime_power_divisors"
+  ],
+  "167": [
+   "What is the smallest positive integer with exactly 36 divisors?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "168": [
+   "What is the smallest integer n such that n has exactly 20 positive divisors?",
+   240,
+   "prime_power_divisors"
+  ],
+  "169": [
+   "What is the smallest integer n such that n has exactly 40 positive divisors?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "170": [
+   "What is the smallest integer n such that n has exactly 64 positive divisors?",
+   7560,
+   "prime_power_divisors"
+  ],
+  "171": [
+   "Determine the minimum positive integer that has precisely 72 divisors.",
+   10080,
+   "prime_power_divisors"
+  ],
+  "172": [
+   "Find the least positive integer having exactly 64 positive divisors.",
+   7560,
+   "prime_power_divisors"
+  ],
+  "173": [
+   "Determine the minimum positive integer that has precisely 60 divisors.",
+   5040,
+   "prime_power_divisors"
+  ],
+  "174": [
+   "Determine the minimum positive integer that has precisely 12 divisors.",
+   60,
+   "prime_power_divisors"
+  ],
+  "175": [
+   "Find the least positive integer having exactly 90 positive divisors.",
+   25200,
+   "prime_power_divisors"
+  ],
+  "176": [
+   "What is the smallest positive integer with exactly 12 divisors?",
+   60,
+   "prime_power_divisors"
+  ],
+  "177": [
+   "Determine the minimum positive integer that has precisely 30 divisors.",
+   720,
+   "prime_power_divisors"
+  ],
+  "178": [
+   "What is the smallest integer n such that n has exactly 20 positive divisors?",
+   240,
+   "prime_power_divisors"
+  ],
+  "179": [
+   "What is the smallest positive integer with exactly 30 divisors?",
+   720,
+   "prime_power_divisors"
+  ],
+  "180": [
+   "What is the smallest positive integer with exactly 24 divisors?",
+   360,
+   "prime_power_divisors"
+  ],
+  "181": [
+   "What is the smallest positive integer with exactly 20 divisors?",
+   240,
+   "prime_power_divisors"
+  ],
+  "182": [
+   "The smallest number whose divisor count is exactly 90 — what is it?",
+   25200,
+   "prime_power_divisors"
+  ],
+  "183": [
+   "What is the smallest positive integer with exactly 20 divisors?",
+   240,
+   "prime_power_divisors"
+  ],
+  "184": [
+   "What is the smallest positive integer with exactly 40 divisors?",
+   1680,
+   "prime_power_divisors"
+  ],
+  "185": [
+   "Find the least positive integer having exactly 20 positive divisors.",
+   240,
+   "prime_power_divisors"
+  ],
+  "186": [
+   "Determine the minimum positive integer that has precisely 60 divisors.",
+   5040,
+   "prime_power_divisors"
+  ],
+  "187": [
+   "Determine the minimum positive integer that has precisely 64 divisors.",
+   7560,
+   "prime_power_divisors"
+  ],
+  "188": [
+   "The smallest number whose divisor count is exactly 36 — what is it?",
+   1260,
+   "prime_power_divisors"
+  ],
+  "189": [
+   "The smallest number whose divisor count is exactly 96 — what is it?",
+   27720,
+   "prime_power_divisors"
+  ],
+  "190": [
+   "Find the least positive integer having exactly 18 positive divisors.",
+   180,
+   "prime_power_divisors"
+  ],
+  "191": [
+   "Determine the minimum positive integer that has precisely 24 divisors.",
+   360,
+   "prime_power_divisors"
+  ],
+  "192": [
+   "The smallest number whose divisor count is exactly 64 — what is it?",
+   7560,
+   "prime_power_divisors"
+  ],
+  "193": [
+   "Find the least positive integer having exactly 90 positive divisors.",
+   25200,
+   "prime_power_divisors"
+  ],
+  "194": [
+   "What is the smallest integer n such that n has exactly 18 positive divisors?",
+   180,
+   "prime_power_divisors"
+  ],
+  "195": [
+   "What is the smallest positive integer with exactly 72 divisors?",
+   10080,
+   "prime_power_divisors"
+  ],
+  "196": [
+   "Find the least positive integer having exactly 12 positive divisors.",
+   60,
+   "prime_power_divisors"
+  ],
+  "197": [
+   "Find the least positive integer having exactly 12 positive divisors.",
+   60,
+   "prime_power_divisors"
+  ],
+  "198": [
+   "What is the smallest integer n such that n has exactly 16 positive divisors?",
+   120,
+   "prime_power_divisors"
+  ],
+  "199": [
+   "Determine the minimum positive integer that has precisely 64 divisors.",
+   7560,
+   "prime_power_divisors"
+  ]
  }
 }

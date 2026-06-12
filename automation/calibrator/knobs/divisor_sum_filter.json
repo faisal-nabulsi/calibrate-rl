@@ -1,0 +1,7 @@
+{
+  "params": {
+    "n":    {"value": [105, 3000],     "type": "randint", "envelope": [60, 5000],     "knob_class": "num"},
+    "cond": {"value": ["odd", "even"], "type": "choice",  "envelope": ["odd", "even"], "knob_class": "S"}
+  },
+  "locked": false
+}

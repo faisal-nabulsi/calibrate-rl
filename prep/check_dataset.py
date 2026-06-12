@@ -434,8 +434,67 @@ def rc_chain_log_laws__ordered_triple_constraint(p):
     return sum(1 for a, b, c in combinations(range(0, N + 1), 3) if a + b + c == N)
 
 
+def _cdc_from_text(p, N):
+    # shared: count divisors of N per the embedded cdc condition (odd / >t / <t).
+    # N comes from the composite's A-step (computed below), never a bare integer.
+    if N is None or N < 1:
+        return None
+    ds = divisors(N)
+    if "odd" in p:
+        return sum(1 for d in ds if d % 2 == 1)
+    gt = re.search(r"greater than (\d+)", p)
+    lt = re.search(r"less than (\d+)", p)
+    if gt:
+        return sum(1 for d in ds if d > int(gt.group(1)))
+    if lt:
+        return sum(1 for d in ds if d < int(lt.group(1)))
+    return None
+
+def rc_chain_prime_power_divisors__constrained_divisor_count(p):
+    # depth-1: A=ppd embeds "smallest int with exactly D positive divisors"; recover D,
+    # recompute N (smallest with D divisors) independently, then count per the cdc clause.
+    m = re.search(r"exactly (\d+) positive divisors", p)
+    if not m:
+        return None
+    D = int(m.group(1))
+    N = 1
+    while num_divisors(N) != D:
+        N += 1
+        if N > 10**6:          # bounded (mirrors the generator guard); awkward D -> unverifiable
+            return None
+    return _cdc_from_text(p, N)
+
+def rc_chain_constrained_divisor_count__modular_exponent(p):
+    # depth-1: A=cdc embeds "divisors of NUM that are {odd|greater than t|less than t}" -> e;
+    # recompute e independently, then B=modexp: ans = a^e mod m (exponent is the symbolic "e").
+    A = re.search(r"divisors of (\d+)", p)
+    if not A:
+        return None
+    ds = divisors(int(A.group(1)))
+    if "odd" in p:
+        e = sum(1 for d in ds if d % 2 == 1)
+    else:
+        gt = re.search(r"greater than (\d+)", p)
+        lt = re.search(r"less than (\d+)", p)
+        if gt:
+            e = sum(1 for d in ds if d > int(gt.group(1)))
+        elif lt:
+            e = sum(1 for d in ds if d < int(lt.group(1)))
+        else:
+            return None
+    am = re.search(r"(\d+)\s*\^\s*e\b", p)              # base a (anchored on ^e)
+    mm = re.search(r"(?:divided by|mod)\s+(\d+)", p)    # modulus m
+    if not (am and mm):
+        return None
+    return pow(int(am.group(1)), e, int(mm.group(1)))
+
+
 RECOMPUTERS = {
     "continued_fraction": rc_continued_fraction,
+    "chain_prime_power_divisors__constrained_divisor_count":
+        rc_chain_prime_power_divisors__constrained_divisor_count,
+    "chain_constrained_divisor_count__modular_exponent":
+        rc_chain_constrained_divisor_count__modular_exponent,
     "custom_binary_op": rc_custom_binary_op,
     "modular_exponent": rc_modular_exponent,
     "constrained_divisor_count": rc_constrained_divisor_count,

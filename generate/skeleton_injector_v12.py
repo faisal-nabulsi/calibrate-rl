@@ -108,6 +108,30 @@ def _loglaws_gold(e1, e2, e3):
     return e1 + e2 - e3
 def _triples_gold(N):
     return sum(1 for a in range(N+1) for b in range(a+1, N+1) if (N-a-b) > b)
+def _cdc_count(N, cond, t):
+    """constrained_divisor_count oracle: # divisors of N that are odd / >t / <t.
+    Same logic as c_divfilter; shared so composites with cdc as the target compose
+    the exact gold (Addendum A.1). New helper — does NOT touch c_divfilter, so
+    test_knob_equivalence still holds."""
+    ds = divisors(N)
+    if cond == "odd": return sum(1 for x in ds if x % 2 == 1)
+    if cond == "gt":  return sum(1 for x in ds if x > t)
+    return sum(1 for x in ds if x < t)            # lt
+def _cdc_desc(cond, t):
+    return "odd" if cond == "odd" else (f"greater than {t}" if cond == "gt" else f"less than {t}")
+def _smallest_with_ndiv(D, cap=10**6):
+    """Smallest positive integer with exactly D divisors, or None if it exceeds cap.
+    The cap BOUNDS the search: prime / awkward D (envelope is [4,200]) have an
+    enormous smallest-N (D=97 -> 2^96) and the bare `while ndiv(n)!=D: n+=1` loop
+    would hang the generator — and autocalib edits the D knob unattended
+    (charizard #42 flag 1). Consumes no RNG; for every in-use D the answer is well
+    under cap, so output is byte-identical to the old loop (test_knob_equivalence)."""
+    n = 1
+    while ndiv(n) != D:
+        n += 1
+        if n > cap:
+            return None
+    return n
 
 PROBLEMS=[]
 REGISTRY=[]
@@ -181,7 +205,8 @@ def c_customop():
 
 @concept("modular_exponent",[55])
 def c_modexp():
-    a=random.randint(2,9); e=random.randint(6,16); m=random.choice(list(range(50,300)))
+    kn=K["modular_exponent"]
+    a=kn.randint("a"); e=kn.randint("e"); m=kn.randint("m")
     ans=pow(a,e,m)
     if ans<5: return None
     return (random.choice([
@@ -299,6 +324,62 @@ def c_chain_loglaws_triples():
                               "fed_param":"N","intermediate_gold":N}}
     return (prob, gold, "chain_log_laws__ordered_triple_constraint", meta)
 
+@concept("chain_prime_power_divisors__constrained_divisor_count",[75])
+def c_chain_ppd_cdc():
+    # Depth-1 composite (Addendum A) — AMC #75 = prime_power_divisors x constrained_divisor_count.
+    # A = ppd: N := smallest int with exactly D divisors. N is divisor-RICH by construction, so
+    # it auto-satisfies the num_pool "must have rich divisor structure" caveat (chain_compat
+    # semantic_caveats[0]) — the one risk of cdc-as-target is eliminated for free. B = cdc on N.
+    # Oracles compose -> gold exact. Surface EMBEDS A's quantity (model must compute N), no recipe.
+    kn=K["chain_prime_power_divisors__constrained_divisor_count"]
+    D=kn.choice("D")
+    N=_smallest_with_ndiv(D)                           # bounded search (charizard #42 flag 1)
+    if N is None: return None
+    nlo,nhi=K["constrained_divisor_count"].params["num_pool"]["envelope"]  # feed-legal: READ B's
+    if not (nlo<=N<=nhi): return None                  # envelope, never hard-code (kathryne #42 fix2)
+    cond=kn.choice("cond")                             # knob locks cond to {gt,lt}: "odd" count
+    t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
+    cnt=_cdc_count(N,cond,t); desc=_cdc_desc(cond,t)
+    if cnt<3: return None                              # cdc's own validity guard
+    expr=f"the smallest positive integer with exactly {D} positive divisors"
+    prob=random.choice([
+        f"Let N be {expr}. How many positive divisors of N are {desc}?",
+        f"Suppose N is {expr}. Of the positive divisors of N, how many are {desc}?",
+        f"Let N denote {expr}. Count the positive divisors of N that are {desc}.",
+        f"If N is {expr}, find the number of positive divisors of N that are {desc}.",
+    ])
+    meta={"depth":1,"chain":{"components":["prime_power_divisors","constrained_divisor_count"],
+                              "fed_param":"num_pool","intermediate_gold":N}}
+    return (prob, cnt, "chain_prime_power_divisors__constrained_divisor_count", meta)
+
+@concept("chain_constrained_divisor_count__modular_exponent",[55])
+def c_chain_cdc_modexp():
+    # Depth-1 composite (Addendum A) — AMC #55 ingredients constrained_divisor_count x
+    # modular_exponent (pairs-only v1; divisor_sum_filter is the 3rd ingredient, deferred to
+    # the 3-way wave). Direction cdc->modexp.e (compat-map VALID edge, frac 0.84): A=cdc count
+    # becomes B=modexp's EXPONENT. modexp is the high-entropy TARGET, so composite answers stay
+    # diverse (cdc-as-target collapses to small divisor counts: top3 0.59 -> rejected). Oracles
+    # compose -> gold exact. Surface EMBEDS the divisor count as e (model must compute it).
+    kn=K["chain_constrained_divisor_count__modular_exponent"]
+    num=kn.choice("num_pool"); cond=kn.choice("cond")
+    t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
+    e=_cdc_count(num,cond,t)                            # A's oracle (cdc) -> B's exponent
+    elo,ehi=K["modular_exponent"].params["e"]["envelope"]   # feed-legal: READ B's e envelope,
+    if not (elo<=e<=ehi): return None                   # never hard-code (kathryne #42 fix2)
+    a=kn.randint("a"); m=kn.randint("m")
+    ans=pow(a,e,m)                                      # B's oracle (modexp)
+    if ans<5: return None                               # modexp's own validity guard
+    desc=_cdc_desc(cond,t)
+    prob=random.choice([
+        f"Let e be the number of positive divisors of {num} that are {desc}. What is the remainder when {a}^e is divided by {m}?",
+        f"Suppose e is the number of positive divisors of {num} that are {desc}. Find {a}^e mod {m}.",
+        f"Let e denote how many positive divisors of {num} are {desc}. Compute the remainder when {a}^e is divided by {m}.",
+        f"If e is the number of positive divisors of {num} that are {desc}, what is the remainder when {a}^e is divided by {m}?",
+    ])
+    meta={"depth":1,"chain":{"components":["constrained_divisor_count","modular_exponent"],
+                              "fed_param":"e","intermediate_gold":e}}
+    return (prob, ans, "chain_constrained_divisor_count__modular_exponent", meta)
+
 @concept("arith_term_filter",[72])
 def c_arithfilter():
     a=random.randint(3,15); d=random.randint(2,9); n=random.randint(30,60); dv=random.choice([3,4,5,6])
@@ -340,14 +421,15 @@ def c_divsumfilter():
     # v12: require n to have >=3 distinct ODD prime factors (Doc4 lever) so the divisor-sum
     # needs real factorization, not a prime-power geometric-series shortcut (v11: 0.86 mean,
     # 38% too_easy). Sample randomly (keeps answer diversity high) and reject the rest.
+    kn=K["divisor_sum_filter"]
     def _n_odd_pf(x):
         return sum(1 for pr in (3,5,7,11,13,17,19,23) if x%pr==0)
     n=None
     for _ in range(200):
-        cand=random.randint(105,3000)
+        cand=kn.randint("n")
         if _n_odd_pf(cand)>=3: n=cand; break
     if n is None: return None
-    cond=random.choice(["odd","even"])
+    cond=kn.choice("cond")
     ds=divisors(n)
     if cond=="odd": v=sum(d for d in ds if d%2==1)
     else: v=sum(d for d in ds if d%2==0)
@@ -673,9 +755,9 @@ def c_ppdiv():
     # INVERSION: find the smallest positive integer with exactly D divisors
     # v12: widened D set (v11: 8 distinct answers, top-3 38%, 75% too_easy). Larger D ->
     # larger smallest-n -> harder AND more distinct. rc finds smallest n with D divisors.
-    D=random.choice([12,16,18,20,24,28,30,36,40,48,60,64,72,80,90,96])
-    n=1
-    while ndiv(n)!=D: n+=1
+    D=K["prime_power_divisors"].choice("D")
+    n=_smallest_with_ndiv(D)                          # bounded search (charizard #42 flag 1)
+    if n is None: return None                         # awkward D (huge smallest-N) -> resample
     return (random.choice([
         f"What is the smallest positive integer with exactly {D} divisors?",
         f"Find the least positive integer having exactly {D} positive divisors.",

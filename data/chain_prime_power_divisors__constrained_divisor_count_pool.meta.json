@@ -1,0 +1,13 @@
+{
+  "generated_by": "prep/gen_clean.py",
+  "injector": "generate/skeleton_injector_v12.py",
+  "seed": 42,
+  "requested_per_concept": 120,
+  "concepts": {
+    "chain_prime_power_divisors__constrained_divisor_count": {
+      "raw": 120,
+      "kept": 118,
+      "survival": 0.9833
+    }
+  }
+}
