@@ -1,0 +1,7 @@
+{
+  "params": {
+    "D": {"value": [12, 16, 18, 20, 24, 28, 30, 36, 40, 48, 60, 64, 72, 80, 90, 96],
+          "type": "choice", "envelope": [4, 200], "knob_class": "S"}
+  },
+  "locked": false
+}

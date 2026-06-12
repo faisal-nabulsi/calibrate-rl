@@ -33,7 +33,8 @@ from automation.calibrator.knob_loader import (  # noqa: E402
 
 TARGETS = ["triangular_filter_count", "log_laws", "ordered_triple_constraint",
            "constrained_subset_count", "inclusion_exclusion_3set",
-           "constrained_divisor_count", "complex_modulus_power"]
+           "constrained_divisor_count", "complex_modulus_power",
+           "modular_exponent", "divisor_sum_filter", "prime_power_divisors"]
 
 # the old inline literals, verbatim from pre-refactor skeleton_injector_v12.py
 OLD_INLINE = {
@@ -52,6 +53,13 @@ OLD_INLINE = {
         "gt_thresholds": [6, 8, 10, 12, 15, 20, 24, 30],
         "lt_thresholds": [15, 20, 24, 30, 40, 50, 60]},
     "complex_modulus_power": {"cand_range": [20, 600], "rep_cap": [1, 3]},
+    # #55/#75 ingredients (depth-1 chaining). modular_exponent.m was inline
+    # random.choice(list(range(50,300))) == random.randint(50,299) (same single
+    # _randbelow(250) draw), wired as a randint knob — equivalence proven below.
+    "modular_exponent": {"a": [2, 9], "e": [6, 16], "m": [50, 299]},
+    "divisor_sum_filter": {"n": [105, 3000], "cond": ["odd", "even"]},
+    "prime_power_divisors": {"D": [12, 16, 18, 20, 24, 28, 30, 36, 40, 48, 60,
+                                   64, 72, 80, 90, 96]},
 }
 
 

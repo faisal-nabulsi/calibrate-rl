@@ -404,10 +404,20 @@ decision (Faisal wants it; Michael skeptical).
   exact; each composite = a new loop concept with its own `knobs/chain_<A>__<B>.json` under
   the unchanged knob_loader/static-check machinery; easy-A × mid-B first wave; AMC #55/#75
   targets). kathryne + charizard reviewed same night (kathryne flagged a cond-gate gap in the
-  compat map); **incorporating review changes into #37/#38 now.**
+  compat map); **#37/#38 merged.**
   **Decisions (Faisal):** pilot = first-wave `chain_log_laws__ordered_triple_constraint`,
   NOT `constrained_subset_count` (v12 data: 0.15 pass = too hard as written; ease later);
   pairs-only v1, metadata shaped to allow 3-way chains later.
+  **Landed (06-11, gilbert):** the pilot composite (oracle composition + embed-not-announce +
+  `knobs/chain_*.json` + pilot pool; static gate green via Option-A draw-N-first, top3 0.235;
+  kathryne's recomputer in `check_dataset.py`) → **#41 merged**. Then **knob-wired the 3
+  #55/#75 ingredients** — `modular_exponent` / `divisor_sum_filter` / `prime_power_divisors`
+  → `knobs/*.json`, equivalence test green (2000 draws byte-identical across 10 concepts) — so
+  the #55/#75 composites build on the same machinery next.
+  **Curriculum (Faisal, settled):** SEQUENTIAL — train depth-0 first so the model knows the
+  atoms, *then* depth-1. So depth-1 must be calibrated against the **depth-0-trained model**
+  (doesn't exist yet) → base sampling is a **DIAGNOSTIC only** (composition gap: does base do
+  the atoms but fail to compose?), never the depth-1 train set. Real calib waits for depth-0.
 - **Fleet ops hardened:** GPU job runner `tools/run_sample_job.sh` (S3 spec → sample/train →
   sync → Slack → self-stop) + systemd boot pollers for sam/sadie/awesome-ash (#36),
   smoke-tested on sam including the auto-triage retry path; `tools/campaign_status.sh`
@@ -419,11 +429,16 @@ decision (Faisal wants it; Michael skeptical).
 
 ## TODO
 
-- [ ] [gilbert] incorporate kathryne/charizard/faisal review changes into chaining PRs
-      #37/#38; humans: review + merge the open PR stack (#35–#39).
-- [ ] [faisal/gilbert] build the **depth-1 composite generator** per Addendum A:
-      `chain_log_laws__ordered_triple_constraint` pilot + `knobs/chain_*.json` + pilot pool
-      → calibrate to goldilocks (difficulty via # steps, not number size).
+- [x] [gilbert] chaining pilot `chain_log_laws__ordered_triple_constraint` + `knobs/chain_*.json`
+      + pilot pool → **#41 merged** (#37/#38 also merged). Calibration deferred (curriculum-gated).
+- [x] [gilbert] knob-wire the 3 #55/#75 ingredients (`modular_exponent` / `divisor_sum_filter` /
+      `prime_power_divisors`) — knobs + equivalence test green → PR open.
+- [ ] [gilbert] build the **#55/#75 composites** on the now-wired ingredients
+      (`chain_modular_exponent__constrained_divisor_count`, `chain_constrained_divisor_count__prime_power_divisors`)
+      → calibrate to goldilocks by # steps (NOT number size). Calib waits for the depth-0 model.
+- [ ] [gilbert] **overnight base DIAGNOSTIC** — sample the depth-1 pilot pool on base Qwen-7B to
+      measure the composition gap (intermediate_hit_rate: atoms solved vs composition solved).
+      Label base, NOT the depth-1 train set (curriculum needs the depth-0 model for real calib).
 - [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
       does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
       final depth-0 decision.
@@ -442,6 +457,9 @@ decision (Faisal wants it; Michael skeptical).
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
 ### 2026-06-11
+- [gilbert] **Depth-1 pilot composite merged (#41):** `chain_log_laws__ordered_triple_constraint` (oracle composition, embed-not-announce, `knobs/chain_*.json` + pilot pool; static gate green via Option-A draw-N-first → top3 0.235; kathryne's recomputer landed in `check_dataset.py`).
+- [gilbert] **Knob-wired the 3 #55/#75 ingredients** — `modular_exponent` (a/e/m), `divisor_sum_filter` (n/cond), `prime_power_divisors` (D) → externalized to `knobs/*.json`, generators draw via `K[...]`. Equivalence test extended to 10 concepts: **2000 seed-draws byte-identical** (fixture captured pre-wire from inline; modexp `m` = `choice(range(50,300))` ≡ `randint(50,299)`, same single `_randbelow(250)` draw). Draw-logging stamps `knobs` metadata. → PR.
+- [gilbert] **Curriculum settled with Faisal: SEQUENTIAL** (depth-0 first, then depth-1) → depth-1 calibration must use the depth-0-trained model (not yet built); base sampling is a **diagnostic** (composition gap), never the depth-1 train set. Overnight: base-sample the pilot pool for the composition-gap signal.
 - [michael] Deep W&B reward-curve analysis (v10 + 3-concept): batch confirmed (v10 = 4 prompts/step, 3-concept = 2); v10 train-correctness real but weak (+0.19, slope t≈3.9, R²=0.11, KL 0.0045); 3-concept +0.21 (0.60→0.81).
 - [michael] Held-out: v10 0.49→0.72@step81→0.66@120 — clean +0.15 broad gain (9/12 concepts up) but **over-trained past step 81** (train↑/held-out↓ divergence; NOT the lightning resume — the seam was clean: KL/grad/epoch continuous). 3-concept 0.571→0.850@100→0.783@150 (clean generalization; corrected an earlier W&B-bar misread that had looked like overfit).
 - [michael] AMC transfer (3-concept ckpt-108, verified distinct from v10 — 48/83 preds differ): 32→34 (+2, McNemar p≈0.79). 5 targets 1/5 binary; **3/5 (#40/55/68) show real method improvement** → wall is composition/transfer, not method.

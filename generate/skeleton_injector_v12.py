@@ -181,7 +181,8 @@ def c_customop():
 
 @concept("modular_exponent",[55])
 def c_modexp():
-    a=random.randint(2,9); e=random.randint(6,16); m=random.choice(list(range(50,300)))
+    kn=K["modular_exponent"]
+    a=kn.randint("a"); e=kn.randint("e"); m=kn.randint("m")
     ans=pow(a,e,m)
     if ans<5: return None
     return (random.choice([
@@ -340,14 +341,15 @@ def c_divsumfilter():
     # v12: require n to have >=3 distinct ODD prime factors (Doc4 lever) so the divisor-sum
     # needs real factorization, not a prime-power geometric-series shortcut (v11: 0.86 mean,
     # 38% too_easy). Sample randomly (keeps answer diversity high) and reject the rest.
+    kn=K["divisor_sum_filter"]
     def _n_odd_pf(x):
         return sum(1 for pr in (3,5,7,11,13,17,19,23) if x%pr==0)
     n=None
     for _ in range(200):
-        cand=random.randint(105,3000)
+        cand=kn.randint("n")
         if _n_odd_pf(cand)>=3: n=cand; break
     if n is None: return None
-    cond=random.choice(["odd","even"])
+    cond=kn.choice("cond")
     ds=divisors(n)
     if cond=="odd": v=sum(d for d in ds if d%2==1)
     else: v=sum(d for d in ds if d%2==0)
@@ -673,7 +675,7 @@ def c_ppdiv():
     # INVERSION: find the smallest positive integer with exactly D divisors
     # v12: widened D set (v11: 8 distinct answers, top-3 38%, 75% too_easy). Larger D ->
     # larger smallest-n -> harder AND more distinct. rc finds smallest n with D divisors.
-    D=random.choice([12,16,18,20,24,28,30,36,40,48,60,64,72,80,90,96])
+    D=K["prime_power_divisors"].choice("D")
     n=1
     while ndiv(n)!=D: n+=1
     return (random.choice([

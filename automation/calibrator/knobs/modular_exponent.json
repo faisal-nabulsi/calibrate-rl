@@ -1,0 +1,8 @@
+{
+  "params": {
+    "a": {"value": [2, 9],    "type": "randint", "envelope": [2, 12],  "knob_class": "num"},
+    "e": {"value": [6, 16],   "type": "randint", "envelope": [4, 20],  "knob_class": "num"},
+    "m": {"value": [50, 299], "type": "randint", "envelope": [30, 500], "knob_class": "num"}
+  },
+  "locked": false
+}
