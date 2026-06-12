@@ -1,0 +1,1602 @@
+[
+  {
+    "problem": "In how many ways can log_5(5^10 \u00b7 5^10 / 5^8) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "12",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 10,
+      "a_e2": 10,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^11 \u00b7 2^11 / 2^8)?",
+    "answer": "16",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 14
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 11,
+      "a_e2": 11,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_5(5^13 \u00b7 5^10 / 5^3)?",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 13,
+      "a_e2": 10,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^11 \u00b7 2^14 / 2^7)?",
+    "answer": "27",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 11,
+      "a_e2": 14,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^11 \u00b7 5^15 / 5^8).",
+    "answer": "27",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 11,
+      "a_e2": 15,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^13 \u00b7 2^14 / 2^5)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 13,
+      "a_e2": 14,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^15 \u00b7 2^13 / 2^5) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "44",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 23
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 15,
+      "a_e2": 13,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^11 \u00b7 2^16 / 2^5)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 11,
+      "a_e2": 16,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^13 \u00b7 2^10 / 2^5) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "27",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 13,
+      "a_e2": 10,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^12 \u00b7 5^16 / 5^3).",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 12,
+      "a_e2": 16,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "In how many ways can log_5(5^10 \u00b7 5^13 / 5^3) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 10,
+      "a_e2": 13,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_5(5^14 \u00b7 5^16 / 5^5)?",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 14,
+      "a_e2": 16,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_5(5^10 \u00b7 5^10 / 5^8)?",
+    "answer": "12",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 12
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 10,
+      "a_e2": 10,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_3(3^10 \u00b7 3^16 / 3^4)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 10,
+      "a_e2": 16,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "In how many ways can log_3(3^12 \u00b7 3^13 / 3^8) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "24",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 12,
+      "a_e2": 13,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^12 \u00b7 2^12 / 2^4) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 12,
+      "a_e2": 12,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_5(5^15 \u00b7 5^11 / 5^7)?",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 15,
+      "a_e2": 11,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^13 \u00b7 2^13 / 2^5)?",
+    "answer": "37",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 21
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 13,
+      "a_e2": 13,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_5(5^12 \u00b7 5^16 / 5^3)?",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 12,
+      "a_e2": 16,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^16 \u00b7 2^12 / 2^6) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 16,
+      "a_e2": 12,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^11 \u00b7 2^14 / 2^8) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "24",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 11,
+      "a_e2": 14,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_2(2^15 \u00b7 2^13 / 2^6).",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 15,
+      "a_e2": 13,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^12 \u00b7 2^11 / 2^4) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 12,
+      "a_e2": 11,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^14 \u00b7 5^13 / 5^7).",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 14,
+      "a_e2": 13,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_3(3^11 \u00b7 3^11 / 3^7).",
+    "answer": "19",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 11,
+      "a_e2": 11,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^16 \u00b7 2^10 / 2^3)?",
+    "answer": "44",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 23
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 16,
+      "a_e2": 10,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^11 \u00b7 5^16 / 5^8).",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 11,
+      "a_e2": 16,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^10 \u00b7 5^13 / 5^6).",
+    "answer": "24",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 10,
+      "a_e2": 13,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_5(5^12 \u00b7 5^14 / 5^3)?",
+    "answer": "44",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 23
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 12,
+      "a_e2": 14,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "In how many ways can log_5(5^14 \u00b7 5^16 / 5^5) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 14,
+      "a_e2": 16,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_2(2^12 \u00b7 2^13 / 2^4).",
+    "answer": "37",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 21
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 12,
+      "a_e2": 13,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^15 \u00b7 2^15 / 2^5)?",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 15,
+      "a_e2": 15,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "In how many ways can log_5(5^10 \u00b7 5^16 / 5^8) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "27",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 10,
+      "a_e2": 16,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_5(5^14 \u00b7 5^14 / 5^4)?",
+    "answer": "48",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 24
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 14,
+      "a_e2": 14,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_3(3^16 \u00b7 3^11 / 3^7)?",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 16,
+      "a_e2": 11,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_5(5^12 \u00b7 5^13 / 5^3)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 12,
+      "a_e2": 13,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^10 \u00b7 2^11 / 2^7)?",
+    "answer": "16",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 14
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 10,
+      "a_e2": 11,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^15 \u00b7 2^13 / 2^3)?",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 15,
+      "a_e2": 13,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^15 \u00b7 2^13 / 2^7)?",
+    "answer": "37",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 21
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 15,
+      "a_e2": 13,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_3(3^14 \u00b7 3^16 / 3^7).",
+    "answer": "44",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 23
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 14,
+      "a_e2": 16,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^14 \u00b7 2^16 / 2^8)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 14,
+      "a_e2": 16,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "In how many ways can log_5(5^12 \u00b7 5^13 / 5^8) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "24",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 12,
+      "a_e2": 13,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_3(3^14 \u00b7 3^13 / 3^3)?",
+    "answer": "48",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 24
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 14,
+      "a_e2": 13,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^10 \u00b7 2^12 / 2^3)?",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 10,
+      "a_e2": 12,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_5(5^11 \u00b7 5^10 / 5^3)?",
+    "answer": "27",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 11,
+      "a_e2": 10,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^10 \u00b7 2^10 / 2^5)?",
+    "answer": "19",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 10,
+      "a_e2": 10,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^11 \u00b7 5^12 / 5^8).",
+    "answer": "19",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 11,
+      "a_e2": 12,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_2(2^14 \u00b7 2^11 / 2^8).",
+    "answer": "24",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 17
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 14,
+      "a_e2": 11,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^16 \u00b7 2^13 / 2^6)?",
+    "answer": "44",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 23
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 16,
+      "a_e2": 13,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^10 \u00b7 2^15 / 2^6) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 10,
+      "a_e2": 15,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_3(3^13 \u00b7 3^13 / 3^8)?",
+    "answer": "27",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 13,
+      "a_e2": 13,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^13 \u00b7 2^15 / 2^5)?",
+    "answer": "44",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 23
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 13,
+      "a_e2": 15,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_2(2^11 \u00b7 2^11 / 2^7).",
+    "answer": "19",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 11,
+      "a_e2": 11,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_2(2^13 \u00b7 2^11 / 2^5).",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 13,
+      "a_e2": 11,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^16 \u00b7 2^10 / 2^6)?",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 16,
+      "a_e2": 10,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^13 \u00b7 2^13 / 2^6)?",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 13,
+      "a_e2": 13,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_3(3^10 \u00b7 3^11 / 3^6)?",
+    "answer": "19",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 10,
+      "a_e2": 11,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "In how many ways can log_3(3^12 \u00b7 3^16 / 3^6) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 12,
+      "a_e2": 16,
+      "a_e3": 6
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_3(3^15 \u00b7 3^15 / 3^7).",
+    "answer": "44",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 23
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 15,
+      "a_e2": 15,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^11 \u00b7 2^12 / 2^4)?",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 11,
+      "a_e2": 12,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^12 \u00b7 5^10 / 5^3).",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 12,
+      "a_e2": 10,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^14 \u00b7 2^10 / 2^4)?",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 14,
+      "a_e2": 10,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^10 \u00b7 5^15 / 5^4).",
+    "answer": "37",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 21
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 10,
+      "a_e2": 15,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_2(2^14 \u00b7 2^11 / 2^7)?",
+    "answer": "27",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 14,
+      "a_e2": 11,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "In how many ways can log_5(5^10 \u00b7 5^13 / 5^8) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "19",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 10,
+      "a_e2": 13,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "In how many ways can log_3(3^11 \u00b7 3^15 / 3^8) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "27",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 18
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 11,
+      "a_e2": 15,
+      "a_e3": 8
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^12 \u00b7 2^13 / 2^4) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "37",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 21
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 12,
+      "a_e2": 13,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_3(3^12 \u00b7 3^16 / 3^3)?",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 12,
+      "a_e2": 16,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_3(3^14 \u00b7 3^14 / 3^3)?",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 14,
+      "a_e2": 14,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_5(5^11 \u00b7 5^14 / 5^5)?",
+    "answer": "33",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 20
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 11,
+      "a_e2": 14,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "In how many ways can log_3(3^10 \u00b7 3^11 / 3^5) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "21",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 16
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 10,
+      "a_e2": 11,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "In how many ways can log_2(2^13 \u00b7 2^16 / 2^7) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 13,
+      "a_e2": 16,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_5(5^16 \u00b7 5^15 / 5^7)?",
+    "answer": "48",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 24
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 16,
+      "a_e2": 15,
+      "a_e3": 7
+    }
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c = log_5(5^16 \u00b7 5^14 / 5^5)?",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 16,
+      "a_e2": 14,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_2(2^12 \u00b7 2^10 / 2^3)?",
+    "answer": "30",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 19
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 12,
+      "a_e2": 10,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "In how many ways can log_3(3^12 \u00b7 3^14 / 3^4) be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "40",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 22
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 12,
+      "a_e2": 14,
+      "a_e3": 4
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_2(2^15 \u00b7 2^15 / 2^5).",
+    "answer": "52",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 25
+    },
+    "knobs": {
+      "a_base": 2,
+      "a_e1": 15,
+      "a_e2": 15,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_3(3^16 \u00b7 3^10 / 3^3).",
+    "answer": "44",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 23
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 16,
+      "a_e2": 10,
+      "a_e3": 3
+    }
+  },
+  {
+    "problem": "How many ordered triples (a,b,c) of integers, 0\u2264a<b<c, sum to log_3(3^10 \u00b7 3^10 / 3^5)?",
+    "answer": "19",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "a_base": 3,
+      "a_e1": 10,
+      "a_e2": 10,
+      "a_e3": 5
+    }
+  },
+  {
+    "problem": "Count the integer triples (a,b,c) with 0\u2264a<b<c whose sum equals log_5(5^12 \u00b7 5^11 / 5^8).",
+    "answer": "19",
+    "skeleton_type": "chain_log_laws__ordered_triple_constraint",
+    "depth": 1,
+    "chain": {
+      "components": [
+        "log_laws",
+        "ordered_triple_constraint"
+      ],
+      "fed_param": "N",
+      "intermediate_gold": 15
+    },
+    "knobs": {
+      "a_base": 5,
+      "a_e1": 12,
+      "a_e2": 11,
+      "a_e3": 8
+    }
+  }
+]

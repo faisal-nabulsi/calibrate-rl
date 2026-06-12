@@ -99,6 +99,16 @@ def sieve(L):
     return ok
 ISPRIME=sieve(2_000_000)
 
+# ── depth-1 oracle helpers ───────────────────────────────────────────────────
+# Single source of truth for each concept's gold, so composites compose the SAME
+# oracle (Addendum A.1: oracles compose -> composite gold exact by construction,
+# no math re-derived). The parent generators below call these too; output stays
+# byte-identical so test_knob_equivalence still passes.
+def _loglaws_gold(e1, e2, e3):
+    return e1 + e2 - e3
+def _triples_gold(N):
+    return sum(1 for a in range(N+1) for b in range(a+1, N+1) if (N-a-b) > b)
+
 PROBLEMS=[]
 REGISTRY=[]
 # concepts that are irreducibly one-step at depth-0; reserved as depth-1 ride-along partners
@@ -242,7 +252,7 @@ def c_subsets():
 @concept("ordered_triple_constraint",[21,47])
 def c_triples():
     N=K["ordered_triple_constraint"].randint("N")  # v12: narrowed to [10,20] from [12,25] (v11 0.13 mean, 54% too-hard); range now in knobs/
-    cnt=sum(1 for a in range(N+1) for b in range(a+1,N+1) if (N-a-b)>b)
+    cnt=_triples_gold(N)
     if cnt<5: return None
     # v12 representation fix: every phrasing now states 0<=a<b<c EXPLICITLY. The v11
     # natural-language variants ("nonnegative integers" without the 0<= bound) made the
@@ -255,6 +265,34 @@ def c_triples():
         f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {N}?",
         f"Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c={N}.",
     ]), cnt, "ordered_triple_constraint")
+
+# ===================================================================
+# DEPTH-1 CHAINING (Addendum A) — composites compose parent oracles
+# ===================================================================
+@concept("chain_log_laws__ordered_triple_constraint",[21,47])
+def c_chain_loglaws_triples():
+    # Pilot composite: A=log_laws feeds B=ordered_triple_constraint.N (chain_compat_v1).
+    # g_A := _loglaws_gold(...) becomes B's N; composite gold := _triples_gold(g_A) —
+    # exact by construction, the SAME oracles the parents use, no math re-derived.
+    # Surface EMBEDS A's quantity (model must evaluate the log to recover N), never a
+    # "first compute X, then..." recipe. components + intermediate stamped (A.4, diagnostic;
+    # reward stays end-to-end). 3-way-ready via the components list.
+    kn=K["chain_log_laws__ordered_triple_constraint"]
+    base=kn.choice("a_base"); e1=kn.randint("a_e1"); e2=kn.randint("a_e2"); e3=kn.randint("a_e3")
+    gA=_loglaws_gold(e1,e2,e3)                          # A's oracle
+    if not (8 <= gA <= 25): return None                # feed legality: B's N envelope; else resample A
+    gold=_triples_gold(gA)                             # B's oracle on N := g_A
+    if gold<5: return None                             # B's own validity guard
+    expr=f"log_{base}({base}^{e1} · {base}^{e2} / {base}^{e3})"   # A's quantity, embedded
+    prob=random.choice([
+        f"How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c = {expr}?",
+        f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {expr}?",
+        f"In how many ways can {expr} be written as a+b+c with 0≤a<b<c (integers)?",
+        f"Count the integer triples (a,b,c) with 0≤a<b<c whose sum equals {expr}.",
+    ])
+    meta={"depth":1,"chain":{"components":["log_laws","ordered_triple_constraint"],
+                              "fed_param":"N","intermediate_gold":gA}}
+    return (prob, gold, "chain_log_laws__ordered_triple_constraint", meta)
 
 @concept("arith_term_filter",[72])
 def c_arithfilter():
@@ -425,7 +463,7 @@ def c_loglaws():
         f"Evaluate log_{base}({base}^{e1} · {base}^{e2}) - log_{base}({base}^{e3}).",
         f"What is log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3})?",
         f"Simplify log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}) to an integer.",
-    ]), e1+e2-e3, "log_laws")
+    ]), _loglaws_gold(e1,e2,e3), "log_laws")
 
 @concept("infinite_product_exp",[20])
 def c_infprod():

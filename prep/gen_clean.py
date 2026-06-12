@@ -61,6 +61,8 @@ def generate(concept, n, seed):
                 continue
             row = {"problem": r[0], "answer": str(r[1]),
                    "skeleton_type": name, "depth": 0}
+            if len(r) > 3 and isinstance(r[3], dict):   # depth-1 composites carry meta (depth, chain)
+                row.update(r[3])
             if draws:
                 row["knobs"] = draws
             rows.append(row)

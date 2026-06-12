@@ -1,0 +1,12 @@
+{
+  "_comment": "Depth-1 composite (Addendum A): A=log_laws feeds B=ordered_triple_constraint.N. A's params carried over verbatim from knobs/log_laws.json, a_-prefixed. B's only param (N) is the conditionally-consumed selector fed by g_A, so it is NOT a drawable knob here.",
+  "components": ["log_laws", "ordered_triple_constraint"],
+  "fed_param": "N",
+  "params": {
+    "a_base": {"value": [2, 3, 5], "type": "choice",  "envelope": [2, 7],  "knob_class": "S"},
+    "a_e1":   {"value": [10, 16],  "type": "randint", "envelope": [4, 20], "knob_class": "num"},
+    "a_e2":   {"value": [10, 16],  "type": "randint", "envelope": [4, 20], "knob_class": "num"},
+    "a_e3":   {"value": [3, 8],    "type": "randint", "envelope": [2, 12], "knob_class": "num"}
+  },
+  "locked": false
+}
