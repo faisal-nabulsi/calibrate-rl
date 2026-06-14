@@ -1,0 +1,812 @@
+[
+  {
+    "problem": "A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly 10 divisors. What is the squared length of its diagonal?",
+    "answer": "21248",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Let the edges of a box be the three smallest numbers (by value) having exactly 9 positive divisors. Compute the square of the space diagonal.",
+    "answer": "49712",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A box's three edge lengths are the three smallest positive integers (smallest by value) that each have exactly 14 divisors. What is the square of its space diagonal?",
+    "answer": "339968",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A box's three edge lengths are the three smallest positive integers (smallest by value) that each have exactly 12 divisors. What is the square of its space diagonal?",
+    "answer": "15840",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Take the three smallest integers (by value) with exactly 16 divisors as a box's dimensions. What is the square of its space diagonal?",
+    "answer": "86724",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly 16 divisors. What is the squared length of its diagonal?",
+    "answer": "86724",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Take the three smallest integers (by value) with exactly 18 divisors as a box's dimensions. What is the square of its space diagonal?",
+    "answer": "178848",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Take the three smallest integers (by value) with exactly 15 divisors as a box's dimensions. What is the square of its space diagonal?",
+    "answer": "285712",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly 15 divisors. What is the squared length of its diagonal?",
+    "answer": "285712",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly 9 divisors. What is the squared length of its diagonal?",
+    "answer": "49712",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Let the edges of a box be the three smallest numbers (by value) having exactly 24 positive divisors. Compute the square of the space diagonal.",
+    "answer": "536400",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A box's three edge lengths are the three smallest positive integers (smallest by value) that each have exactly 16 divisors. What is the square of its space diagonal?",
+    "answer": "86724",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Take the three smallest integers (by value) with exactly 24 divisors as a box's dimensions. What is the square of its space diagonal?",
+    "answer": "536400",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly 18 divisors. What is the squared length of its diagonal?",
+    "answer": "178848",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Let the edges of a box be the three smallest numbers (by value) having exactly 20 positive divisors. Compute the square of the space diagonal.",
+    "answer": "357120",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly 24 divisors. What is the squared length of its diagonal?",
+    "answer": "536400",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "The dimensions of a rectangular box are the 3 smallest integers with exactly 18 divisors each (ordered by value, smallest first). Find d\u00b2 for its space diagonal d.",
+    "answer": "178848",
+    "skeleton_type": "box_diagonal_sq",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Sum a+b over all positive-integer pairs (a\u2264b) with a\u00b2+b\u00b2=554.",
+    "answer": "28",
+    "skeleton_type": "complex_modulus_power",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers from 1000 to 2999 have digits summing to exactly 10?",
+    "answer": "100",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers from 2000 to 3999 have digits summing to exactly 19?",
+    "answer": "132",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers between 3000 and 4999 (inclusive of 3000) have a digit sum of 16?",
+    "answer": "148",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers from 1000 to 2999 have digits summing to exactly 11?",
+    "answer": "118",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers from 2000 to 3999 have digits summing to exactly 18?",
+    "answer": "142",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers between 3000 and 4999 (inclusive of 3000) have a digit sum of 15?",
+    "answer": "142",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find the count of integers in the range 2000 to 3999 with digit sum equal to 18.",
+    "answer": "142",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find the count of integers in the range 2000 to 2999 with digit sum equal to 12.",
+    "answer": "63",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers from 1000 to 2999 have digits summing to exactly 15?",
+    "answer": "150",
+    "skeleton_type": "constrained_digit_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many size-3 subsets of {1..9} have sum \u2261 3 mod 4?",
+    "answer": "20",
+    "skeleton_type": "constrained_subset_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many 3-element subsets of {1..11} sum to 3 more than a multiple of 4?",
+    "answer": "40",
+    "skeleton_type": "constrained_subset_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many 3-element subsets of {1,2,...,10} have a sum that leaves remainder 2 when divided by 4?",
+    "answer": "30",
+    "skeleton_type": "constrained_subset_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many size-3 subsets of {1..11} have sum \u2261 1 mod 4?",
+    "answer": "40",
+    "skeleton_type": "constrained_subset_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "From {1,...,9}, how many ways to choose 3 numbers whose sum is congruent to 0 modulo 4?",
+    "answer": "22",
+    "skeleton_type": "constrained_subset_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many 3-element subsets of {1,2,...,7} have a sum that leaves remainder 3 when divided by 4?",
+    "answer": "8",
+    "skeleton_type": "constrained_subset_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Count the 3-element subsets of the first 9 positive integers with sum \u2261 3 (mod 4).",
+    "answer": "20",
+    "skeleton_type": "constrained_subset_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many 3-element subsets of {1..9} sum to 3 more than a multiple of 4?",
+    "answer": "20",
+    "skeleton_type": "constrained_subset_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "The 4-level continued fraction built from 7 equals m/n reduced. What is m+n?",
+    "answer": "2906",
+    "skeleton_type": "continued_fraction",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "The 3-level continued fraction built from 7 equals m/n reduced. What is m+n?",
+    "answer": "407",
+    "skeleton_type": "continued_fraction",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many right triangles with integer side lengths have a hypotenuse of at most 30?",
+    "answer": "11",
+    "skeleton_type": "count_pythagorean",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Count the integer right triangles (Pythagorean triples) with hypotenuse \u2264 15.",
+    "answer": "4",
+    "skeleton_type": "count_pythagorean",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many Pythagorean triples (a,b,c) with a\u2264b have c \u2264 30?",
+    "answer": "11",
+    "skeleton_type": "count_pythagorean",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "8 glasses: 7 completely full, one 2/3 full. Equalizing by pouring equally from each full glass, the poured fraction is m/n reduced. Find m+n.",
+    "answer": "25",
+    "skeleton_type": "equalization_fraction",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "8 glasses: 7 completely full, one 3/5 full. Equalizing by pouring equally from each full glass, the poured fraction is m/n reduced. Find m+n.",
+    "answer": "21",
+    "skeleton_type": "equalization_fraction",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "In the range 1 to 561, how many integers are divisible by 3, 4, or 5?",
+    "answer": "337",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many positive integers up to 683 are divisible by 3, 4, or 5?",
+    "answer": "409",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers from 1 to 599 are divisible by 3, 5, or 7?",
+    "answer": "324",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integers from 1 to 736 are divisible by 2, 5, or 7?",
+    "answer": "484",
+    "skeleton_type": "inclusion_exclusion_3set",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integer-coordinate points (x,y) satisfy x\u00b2+y\u00b2 \u2264 12\u00b2?",
+    "answer": "441",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Count the lattice points inside or on the circle of radius 16 centered at the origin.",
+    "answer": "797",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many points with integer coordinates lie within distance 15 of the origin?",
+    "answer": "709",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many lattice points are inside or on a circle of radius 14 about the origin?",
+    "answer": "613",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many points with integer coordinates lie within distance 8 of the origin?",
+    "answer": "197",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find the number of integer points (x,y) with x\u00b2+y\u00b2 \u2264 121.",
+    "answer": "377",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find the number of integer points (x,y) with x\u00b2+y\u00b2 \u2264 196.",
+    "answer": "613",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many integer-coordinate points (x,y) satisfy x\u00b2+y\u00b2 \u2264 15\u00b2?",
+    "answer": "709",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many lattice points are inside or on a circle of radius 16 about the origin?",
+    "answer": "797",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Count the lattice points inside or on the circle of radius 12 centered at the origin.",
+    "answer": "441",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find the number of integer points (x,y) with x\u00b2+y\u00b2 \u2264 225.",
+    "answer": "709",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Count the lattice points inside or on the circle of radius 14 centered at the origin.",
+    "answer": "613",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many points with integer coordinates lie within distance 14 of the origin?",
+    "answer": "613",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many points with integer coordinates lie within distance 13 of the origin?",
+    "answer": "529",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Count the lattice points inside or on the circle of radius 15 centered at the origin.",
+    "answer": "709",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many points with integer coordinates lie within distance 16 of the origin?",
+    "answer": "797",
+    "skeleton_type": "lattice_points_circle",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A positive integer n has lcm(n,45)=2520 and gcd(n,60)=4. What is the smallest such n?",
+    "answer": "56",
+    "skeleton_type": "lcm_gcd_system",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "What is the minimum positive integer n satisfying both lcm(n,45)=720 and gcd(n,30)=6?",
+    "answer": "48",
+    "skeleton_type": "lcm_gcd_system",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find the smallest positive integer n with lcm(n,48)=1200 and gcd(n,30)=30.",
+    "answer": "150",
+    "skeleton_type": "lcm_gcd_system",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find 8^15 mod 241.",
+    "answer": "211",
+    "skeleton_type": "modular_exponent",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "7^13 is divided by 163. What is the remainder?",
+    "answer": "129",
+    "skeleton_type": "modular_exponent",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "What is the remainder when 8^14 is divided by 263?",
+    "answer": "100",
+    "skeleton_type": "modular_exponent",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find the count of perfect squares < 2053 that are divisible by 9 and have units digit 9.",
+    "answer": "3",
+    "skeleton_type": "multi_constraint_square",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many squares less than 2646 are both divisible by 9 and ending in 9?",
+    "answer": "3",
+    "skeleton_type": "multi_constraint_square",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Find the count of perfect squares < 2761 that are divisible by 9 and have units digit 1.",
+    "answer": "4",
+    "skeleton_type": "multi_constraint_square",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "In how many ways can 19 be written as a+b+c with 0\u2264a<b<c (integers)?",
+    "answer": "30",
+    "skeleton_type": "ordered_triple_constraint",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c=19?",
+    "answer": "30",
+    "skeleton_type": "ordered_triple_constraint",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A polynomial has roots 1,2,...,7 with multiplicities [2, 4, 3, 4, 1, 4, 4]. After removing the roots, on how many of the 8 intervals is the polynomial positive?",
+    "answer": "6",
+    "skeleton_type": "polynomial_sign_intervals",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Roots at x=1..8 (multiplicities [1, 3, 1, 4, 2, 2, 4, 4]) split the line into 9 intervals. Count those where the polynomial is positive.",
+    "answer": "7",
+    "skeleton_type": "polynomial_sign_intervals",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A polynomial has roots 1,2,...,7 with multiplicities [4, 1, 2, 2, 4, 2, 2]. After removing the roots, on how many of the 8 intervals is the polynomial positive?",
+    "answer": "6",
+    "skeleton_type": "polynomial_sign_intervals",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "A polynomial has roots 1,2,...,6 with multiplicities [4, 1, 1, 2, 3, 3]. After removing the roots, on how many of the 7 intervals is the polynomial positive?",
+    "answer": "5",
+    "skeleton_type": "polynomial_sign_intervals",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "P(x)=\u220f(x-i)^(m_i) for i=1..9 with m=[3, 4, 2, 2, 2, 2, 1, 3, 3]. On how many of the 10 open intervals is P positive?",
+    "answer": "3",
+    "skeleton_type": "polynomial_sign_intervals",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "The polynomial P(x)=(x-1)^4\u00b7(x-2)^4\u00b7(x-3)^2\u00b7(x-4)^3\u00b7(x-5)^1\u00b7(x-6)^4 has its roots removed from the number line, leaving 7 open intervals. On how many is P(x) positive?",
+    "answer": "6",
+    "skeleton_type": "polynomial_sign_intervals",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "P(x)=\u220f(x-i)^(m_i) for i=1..8 with m=[4, 4, 2, 4, 4, 2, 4, 2]. On how many of the 9 open intervals is P positive?",
+    "answer": "9",
+    "skeleton_type": "polynomial_sign_intervals",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Determine the minimum positive integer that has precisely 72 divisors.",
+    "answer": "10080",
+    "skeleton_type": "prime_power_divisors",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "The smallest number whose divisor count is exactly 96 \u2014 what is it?",
+    "answer": "27720",
+    "skeleton_type": "prime_power_divisors",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "What is the smallest integer n such that n has exactly 72 positive divisors?",
+    "answer": "10080",
+    "skeleton_type": "prime_power_divisors",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "How many complex numbers are simultaneously 36th roots of unity and 60th roots of unity?",
+    "answer": "12",
+    "skeleton_type": "roots_of_unity_sum",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Express the sum of 1/(k(k+3)) for k=1..16 as a reduced fraction m/n and give m+n.",
+    "answer": "13565",
+    "skeleton_type": "telescoping_mn",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "The series sum of 1/(k(k+3)), k up to 16, equals m/n reduced. Find m+n.",
+    "answer": "13565",
+    "skeleton_type": "telescoping_mn",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Compute 1/(1\u00b73)+...+1/(15\u00b717) as m/n in lowest terms; what is m+n?",
+    "answer": "919",
+    "skeleton_type": "telescoping_mn",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Compute 1/(1\u00b74)+...+1/(16\u00b719) as m/n in lowest terms; what is m+n?",
+    "answer": "13565",
+    "skeleton_type": "telescoping_mn",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Count the triangular numbers under 2069 that are divisible by 2.",
+    "answer": "31",
+    "skeleton_type": "triangular_filter_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  },
+  {
+    "problem": "Count the triangular numbers under 1157 that are divisible by 3.",
+    "answer": "31",
+    "skeleton_type": "triangular_filter_count",
+    "depth": 0,
+    "calib_correct": 0,
+    "pass_rate": 0.0,
+    "zone": "too_hard"
+  }
+]
