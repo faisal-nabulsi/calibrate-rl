@@ -118,7 +118,9 @@ messages are attributable even on a shared Slack identity.
    a. **#calibrate-rl-agents** — Fireflies.ai recaps (auto-posted) + others' EOD posts.
    b. The Google Doc **"Updates"** — daily completed + to-do.
    c. The **shared Google Drive** — new docs/data since yesterday.
-   (b)+(c) need the Google Drive connector — `claude mcp add` it if absent.
+   **Drive access is script-level via `core/drive.py` (the service-account key), NOT an
+   MCP connector** — run `python3 -m core.drive list` / `read Updates` (set
+   `$GOOGLE_APPLICATION_CREDENTIALS`, default `~/secrets/drive-sa.json`); don't look for a gdrive tool.
 3. **Person sessions: deliver the offline catch-up — "Updates since you were last
    active"** (runs on EVERY session start, not just mornings). Read the timestamp
    in `.last_seen` (local, gitignored) and enumerate **every** update in the window
