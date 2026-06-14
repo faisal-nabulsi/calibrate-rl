@@ -1,0 +1,19 @@
+{
+  "params": {
+    "faces": {
+      "value": [
+        4,
+        5,
+        6,
+        8
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        12
+      ],
+      "knob_class": "C"
+    }
+  },
+  "locked": false
+}

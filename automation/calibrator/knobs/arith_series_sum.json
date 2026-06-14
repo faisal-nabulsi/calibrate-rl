@@ -1,0 +1,41 @@
+{
+  "params": {
+    "a": {
+      "value": [
+        2,
+        15
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        20
+      ],
+      "knob_class": "num"
+    },
+    "d": {
+      "value": [
+        2,
+        9
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        12
+      ],
+      "knob_class": "num"
+    },
+    "T": {
+      "value": [
+        300,
+        3000
+      ],
+      "type": "randint",
+      "envelope": [
+        100,
+        5000
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

@@ -1,0 +1,53 @@
+{
+  "params": {
+    "n": {
+      "value": [
+        6,
+        12
+      ],
+      "type": "randint",
+      "envelope": [
+        4,
+        20
+      ],
+      "knob_class": "C"
+    },
+    "m": {
+      "value": [
+        30,
+        70
+      ],
+      "type": "randint",
+      "envelope": [
+        10,
+        100
+      ],
+      "knob_class": "num"
+    },
+    "m2": {
+      "value": [
+        30,
+        70
+      ],
+      "type": "randint",
+      "envelope": [
+        10,
+        100
+      ],
+      "knob_class": "num"
+    },
+    "x1": {
+      "value": [
+        15,
+        80
+      ],
+      "type": "randint",
+      "envelope": [
+        5,
+        100
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

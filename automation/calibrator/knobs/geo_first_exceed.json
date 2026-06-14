@@ -1,0 +1,41 @@
+{
+  "params": {
+    "a": {
+      "value": [
+        2,
+        9
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        12
+      ],
+      "knob_class": "num"
+    },
+    "r": {
+      "value": [
+        2,
+        3
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        5
+      ],
+      "knob_class": "C"
+    },
+    "bound": {
+      "value": [
+        800,
+        60000
+      ],
+      "type": "randint",
+      "envelope": [
+        500,
+        100000
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

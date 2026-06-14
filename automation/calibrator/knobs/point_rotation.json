@@ -1,0 +1,66 @@
+{
+  "params": {
+    "x": {
+      "value": [
+        -20,
+        20
+      ],
+      "type": "randint",
+      "envelope": [
+        -50,
+        50
+      ],
+      "knob_class": "num"
+    },
+    "y": {
+      "value": [
+        -20,
+        20
+      ],
+      "type": "randint",
+      "envelope": [
+        -50,
+        50
+      ],
+      "knob_class": "num"
+    },
+    "cx": {
+      "value": [
+        -10,
+        10
+      ],
+      "type": "randint",
+      "envelope": [
+        -30,
+        30
+      ],
+      "knob_class": "num"
+    },
+    "cy": {
+      "value": [
+        -10,
+        10
+      ],
+      "type": "randint",
+      "envelope": [
+        -30,
+        30
+      ],
+      "knob_class": "num"
+    },
+    "deg": {
+      "value": [
+        90,
+        180,
+        270
+      ],
+      "type": "choice",
+      "envelope": [
+        90,
+        270
+      ],
+      "knob_class": "S"
+    }
+  },
+  "locked": false
+}

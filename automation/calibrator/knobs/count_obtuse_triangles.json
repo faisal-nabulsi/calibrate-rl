@@ -1,0 +1,17 @@
+{
+  "params": {
+    "P": {
+      "value": [
+        11,
+        16
+      ],
+      "type": "randint",
+      "envelope": [
+        8,
+        25
+      ],
+      "knob_class": "C"
+    }
+  },
+  "locked": false
+}

@@ -1,0 +1,41 @@
+{
+  "params": {
+    "third": {
+      "value": [
+        4,
+        20
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        30
+      ],
+      "knob_class": "num"
+    },
+    "mult": {
+      "value": [
+        3,
+        7
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        12
+      ],
+      "knob_class": "num"
+    },
+    "off": {
+      "value": [
+        15,
+        50
+      ],
+      "type": "randint",
+      "envelope": [
+        5,
+        80
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

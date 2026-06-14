@@ -395,7 +395,8 @@ def c_chain_cdc_modexp():
 
 @concept("arith_term_filter",[72])
 def c_arithfilter():
-    a=random.randint(3,15); d=random.randint(2,9); n=random.randint(30,60); dv=random.choice([3,4,5,6])
+    kn=K["arith_term_filter"]
+    a=kn.randint("a"); d=kn.randint("d"); n=kn.randint("n"); dv=kn.choice("dv")
     cnt=sum(1 for k in range(n) if (a+k*d)%dv==0)
     if cnt<3: return None
     return (random.choice([
@@ -474,7 +475,8 @@ def c_trifilter():
 
 @concept("geo_first_exceed",[7])
 def c_geoexceed():
-    a=random.randint(2,9); r=random.choice([2,3]); bound=random.randint(800,60000)
+    kn=K["geo_first_exceed"]
+    a=kn.randint("a"); r=kn.choice("r"); bound=kn.randint("bound")
     k=1; term=a
     while term<=bound: k+=1; term=a*r**(k-1)
     if k<4: return None
@@ -519,7 +521,8 @@ def c_msquare():
 
 @concept("vieta_sumcubes",[6,31])
 def c_vietacubes():
-    r1=random.randint(2,20); r2=random.randint(2,20); s=r1+r2; p=r1*r2
+    kn=K["vieta_sumcubes"]
+    r1=kn.randint("r1"); r2=kn.randint("r2"); s=r1+r2; p=r1*r2
     return (random.choice([
         f"The roots of x² - {s}x + {p} = 0 are r and s. What is r³ + s³?",
         f"A quadratic has roots summing to {s} and with product {p}. Find the sum of the cubes of the roots.",
@@ -567,7 +570,8 @@ def c_loglaws():
 
 @concept("infinite_product_exp",[20])
 def c_infprod():
-    base=random.choice([4,6,8,9,10,12,15,16,18,20,24,27]); r=random.choice([2,3])
+    kn=K["infinite_product_exp"]
+    base=kn.choice("base"); r=kn.choice("r")
     ans=base*base if r==2 else base
     if ans<6: return None
     return (random.choice([
@@ -670,7 +674,8 @@ def c_boxdiag():
 def c_trap():
     # COUNTING: how many (bases,height) give area in [lo,hi]? OR inversion: find bases.
     # Use inversion: area A, height h given, bases are consecutive integers k,k+1 -> find k.
-    h=random.choice([4,6,8,10,12]); k=random.randint(6,40)
+    kn=K["trapezoid_area"]
+    h=kn.choice("h"); k=kn.randint("k")
     A=(k+(k+1))*h//2 if ((k+(k+1))*h)%2==0 else None
     if A is None:
         k+=1; A=(k+(k+1))*h//2
@@ -686,8 +691,9 @@ def c_trap():
 @concept("rate_closing",[43])
 def c_rate():
     # INVERSION: two riders close a gap; given gap, first speed, and meeting distance, find second speed
-    v1=random.randint(10,40); v2=random.randint(10,40)
-    mult=random.randint(3,12); d=(v1+v2)*mult
+    kn=K["rate_closing"]
+    v1=kn.randint("v1"); v2=kn.randint("v2")
+    mult=kn.randint("mult"); d=(v1+v2)*mult
     metfirst=d*v1//(v1+v2)
     if (d*v1)%(v1+v2)!=0: return None
     # give them d, v1, and the distance the FIRST traveled; ask for v2
@@ -702,7 +708,8 @@ def c_rate():
 @concept("three_number_system",[11])
 def c_3num():
     # 3-var system, ask for product or specific combo (needs all three solved, not just one)
-    third=random.randint(4,20); mult=random.randint(3,7); off=random.randint(15,50)
+    kn=K["three_number_system"]
+    third=kn.randint("third"); mult=kn.randint("mult"); off=kn.randint("off")
     first=mult*third; second=third+off
     total=first+second+third
     ans=first*third - second
@@ -718,9 +725,10 @@ def c_3num():
 @concept("mean_removal",[19,41,64])
 def c_meanrem():
     # exact construction: x2 = n*m - x1 - (n-2)*m2 is always an integer; pick params so x2 in range
+    kn=K["mean_removal"]
     for _ in range(20):
-        n=random.randint(6,12); m=random.randint(30,70); m2=random.randint(30,70)
-        x1=random.randint(15,80)
+        n=kn.randint("n"); m=kn.randint("m"); m2=kn.randint("m2")
+        x1=kn.randint("x1")
         x2=n*m-x1-(n-2)*m2
         if 10<=x2<=95:
             return (random.choice([
@@ -734,9 +742,10 @@ def c_meanrem():
 
 @concept("point_rotation",[9,39])
 def c_rotation():
-    x=random.randint(-20,20); y=random.randint(-20,20)
-    cx=random.randint(-10,10); cy=random.randint(-10,10)
-    deg=random.choice([90,180,270]); dx,dy=x-cx,y-cy
+    kn=K["point_rotation"]
+    x=kn.randint("x"); y=kn.randint("y")
+    cx=kn.randint("cx"); cy=kn.randint("cy")
+    deg=kn.choice("deg"); dx,dy=x-cx,y-cy
     if deg==90: nx,ny=-dy,dx
     elif deg==180: nx,ny=-dx,-dy
     else: nx,ny=dy,-dx
@@ -751,8 +760,9 @@ def c_rotation():
 @concept("percent_compound",[52,73])
 def c_pctcompound():
     # INVERSION, construct to guarantee integer final: choose base divisible by 100
-    base=random.choice([400,500,600,800,1000,1200,1500,2000]); up=random.choice([10,20,25,50])
-    down=random.choice([10,20,25,40,50])
+    kn=K["percent_compound"]
+    base=kn.choice("base"); up=kn.choice("up")
+    down=kn.choice("down")
     after_up=base*(100+up)//100
     final=after_up*(100-down)//100
     return (random.choice([
@@ -782,7 +792,8 @@ def c_ppdiv():
 @concept("arith_series_sum",[72])
 def c_arithsum():
     # INVERSION: smallest number of terms n so the arithmetic-series sum first exceeds T
-    a=random.randint(2,15); d=random.randint(2,9); T=random.randint(300,3000)
+    kn=K["arith_series_sum"]
+    a=kn.randint("a"); d=kn.randint("d"); T=kn.randint("T")
     n=0; tot=0
     while tot<=T:
         n+=1; tot+=a+(n-1)*d
@@ -797,7 +808,8 @@ def c_arithsum():
 @concept("sum_of_squares",[7,53])
 def c_sumsq():
     # COUNTING: among partial sums S_k = 1^2+..+k^2 for k=1..n, how many are divisible by m?
-    n=random.randint(20,60); m=random.choice([3,4,5,6,7])
+    kn=K["sum_of_squares"]
+    n=kn.randint("n"); m=kn.choice("m")
     cnt=0; run=0
     for k in range(1,n+1):
         run+=k*k
@@ -813,7 +825,8 @@ def c_sumsq():
 
 @concept("digit_count_bigprod",[60])
 def c_digitcount():
-    a=random.randint(2,9); b=random.randint(8,25); c=random.randint(2,9); d=random.randint(5,20)
+    kn=K["digit_count_bigprod"]
+    a=kn.randint("a"); b=kn.randint("b"); c=kn.randint("c"); d=kn.randint("d")
     val=(a**b)*(c**d); ans=len(str(val))
     if ans<5: return None
     return (random.choice([
@@ -828,8 +841,7 @@ def c_digitcount():
 def c_frobenius():
     # COUNTING: how many positive integers are NOT representable as ax+by (x,y>=0)?
     # = (a-1)(b-1)/2 for coprime a,b -- but make them COMPUTE by reasoning, larger pairs
-    pairs=[(4,9),(5,8),(6,11),(7,11),(5,12),(7,13),(8,11),(9,13),(7,17),(8,15)]
-    a,b=random.choice(pairs)
+    a,b=K["frobenius_stamps"].choice("pairs")
     if gcd(a,b)!=1: return None
     ans=(a-1)*(b-1)//2
     return (random.choice([
@@ -842,7 +854,7 @@ def c_frobenius():
 
 @concept("vieta_pair_count",[70,38])
 def c_vietacount():
-    c=random.choice([16,24,32,36,48,60,72,80,90,96,120])
+    c=K["vieta_pair_count"].choice("c")
     trip=set(); R=15
     for r1 in range(-R,R+1):
         if r1==0 or c%r1: continue
@@ -884,20 +896,21 @@ def c_contfrac():
 def c_primeseq():
     # count primes among first K terms of a simple generated sequence
     # v9: avoid clustering -- pick d coprime-ish to small primes so terms aren't all composite
-    d=random.choice([2,4,6,10,14]); a=random.choice([1,3,7,9,11,13]); K=random.randint(10,18)
-    cnt=sum(1 for k in range(K) if (a+k*d)<2_000_000 and ISPRIME[a+k*d])
+    kn=K["primality_in_sequence"]
+    d=kn.choice("d"); a=kn.choice("a"); Kn=kn.randint("K")
+    cnt=sum(1 for k in range(Kn) if (a+k*d)<2_000_000 and ISPRIME[a+k*d])
     return (random.choice([
-        f"Consider the sequence {a}, {a+d}, {a+2*d}, ... How many of its first {K} terms are prime?",
-        f"How many primes are among the first {K} terms of the arithmetic sequence starting at {a} with step {d}?",
-        f"Of the first {K} terms of the sequence beginning {a} and increasing by {d}, how many are prime numbers?",
-        f"Count the prime numbers in the first {K} terms of the sequence {a}, {a+d}, {a+2*d}, ....",
-        f"In the sequence with first term {a} and common difference {d}, how many of the first {K} terms are prime?",
+        f"Consider the sequence {a}, {a+d}, {a+2*d}, ... How many of its first {Kn} terms are prime?",
+        f"How many primes are among the first {Kn} terms of the arithmetic sequence starting at {a} with step {d}?",
+        f"Of the first {Kn} terms of the sequence beginning {a} and increasing by {d}, how many are prime numbers?",
+        f"Count the prime numbers in the first {Kn} terms of the sequence {a}, {a+d}, {a+2*d}, ....",
+        f"In the sequence with first term {a} and common difference {d}, how many of the first {Kn} terms are prime?",
     ]), cnt, "primality_in_sequence")
 
 @concept("distinct_product_count",[74])
 def c_distprod():
     # spread: vary number of dice (3) AND number of faces -> different counts
-    n=3; faces=random.choice([4,5,6,8])
+    n=3; faces=K["distinct_product_count"].choice("faces")
     from itertools import product
     prods=set()
     for combo in product(range(1,faces+1),repeat=n):
@@ -988,7 +1001,8 @@ def c_system():
 
 @concept("unit_conversion_area",[77])
 def c_unitarea():
-    width_mm=random.choice([5,6,8,10,13,15]); length_m=random.randint(10,40)
+    kn=K["unit_conversion_area"]
+    width_mm=kn.choice("width_mm"); length_m=kn.randint("length_m")
     # area in cm^2: width in cm = width_mm/10, length in cm = length_m*100
     # area = (width_mm/10) * (length_m*100) = width_mm*length_m*10
     ans=width_mm*length_m*10
@@ -1005,7 +1019,7 @@ def c_unitarea():
 # ===================================================================
 @concept("count_obtuse_triangles",[18])
 def c_obtuse():
-    P=random.randint(11,16)  # v9: small enough to enumerate by hand (~15-25 triangles)
+    P=K["count_obtuse_triangles"].randint("P")  # v9: small enough to enumerate by hand (~15-25 triangles)
     cnt=0
     for a in range(1,P):
         for b in range(a,P):

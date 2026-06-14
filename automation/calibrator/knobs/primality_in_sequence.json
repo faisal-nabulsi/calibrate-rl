@@ -1,0 +1,48 @@
+{
+  "params": {
+    "d": {
+      "value": [
+        2,
+        4,
+        6,
+        10,
+        14
+      ],
+      "type": "choice",
+      "envelope": [
+        1,
+        20
+      ],
+      "knob_class": "C"
+    },
+    "a": {
+      "value": [
+        1,
+        3,
+        7,
+        9,
+        11,
+        13
+      ],
+      "type": "choice",
+      "envelope": [
+        1,
+        30
+      ],
+      "knob_class": "num"
+    },
+    "K": {
+      "value": [
+        10,
+        18
+      ],
+      "type": "randint",
+      "envelope": [
+        5,
+        30
+      ],
+      "knob_class": "C"
+    }
+  },
+  "locked": false
+}
