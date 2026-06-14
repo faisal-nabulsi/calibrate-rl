@@ -2,8 +2,8 @@
 
 from .anthropic_provider import ClaudeSonnet
 from .base import GenerationResult, Provider
-from .gemini_provider import GeminiPro
-from .muse_provider import MuseSpark
+from .gemini_provider import GeminiFlash
+from .muse_provider import LlamaMaverick
 from .openai_provider import GPT55
 from .qwen_provider import QwenPlus
 
@@ -11,7 +11,7 @@ from .qwen_provider import QwenPlus
 # bare user prompt, no system prompt, no tools, single stateless call.
 REGISTRY: dict[str, type[Provider]] = {
     cls.name: cls
-    for cls in (ClaudeSonnet, GPT55, GeminiPro, QwenPlus, MuseSpark)
+    for cls in (ClaudeSonnet, GPT55, GeminiFlash, QwenPlus, LlamaMaverick)
 }
 
 __all__ = ["Provider", "GenerationResult", "REGISTRY"]

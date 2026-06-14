@@ -1,14 +1,14 @@
-"""Gemini 3.1 Pro under test — incognito, via the google-genai SDK
-(key in GEMINI_API_KEY). Pro is the strongest Gemini for this legal-NLP suite;
-override to flash (or any snapshot) with GEMINI_MODEL if rate limits bite."""
+"""Gemini under test — incognito, via the google-genai SDK (key in GEMINI_API_KEY).
+Defaults to gemini-3.5-flash: the strongest Gemini available on the free tier
+(3.1-pro-preview requires paid billing). Override with GEMINI_MODEL."""
 
 import os
 
 from .base import MAX_TOKENS, GenerationResult, Provider
 
 
-class GeminiPro(Provider):
-    name = "gemini-3.1-pro"
+class GeminiFlash(Provider):
+    name = "gemini-3.5-flash"
 
     def __init__(self) -> None:
         self._client = None
@@ -23,7 +23,7 @@ class GeminiPro(Provider):
     def generate(self, prompt_text: str) -> GenerationResult:
         from google.genai import types
 
-        model = os.getenv("GEMINI_MODEL", "gemini-3.1-pro-preview")
+        model = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
         params = {"model": model, "max_output_tokens": MAX_TOKENS}
         # Incognito: prompt as the sole user content, no system_instruction, no tools.
         response = self._get_client().models.generate_content(
