@@ -1,0 +1,22 @@
+{
+  "id": "E1",
+  "max_points": 16,
+  "gates": [
+    "faithfulness",
+    "directionality"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "CONSTRUCTED scenario on real MSA",
+  "gold_unit_ids": [
+    "E1.call.change1_termination",
+    "E1.call.change2_payment",
+    "E1.call.change3_ad_engine",
+    "E1.call.change4_gov_law",
+    "E1.call.change5_background",
+    "E1.call.change6_indemnity_cap",
+    "E1.call.change7_force_majeure",
+    "E1.call.change8_inspection"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 E1 (Triage 8 Opposing-Counsel Redlines) \u00b7 Max /16 \u00b7 Gates: Faithfulness + Directionality\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: CONSTRUCTED scenario in the perturbed MSA universe (Kelmont / Spireline); positions invented; the accept/reject/counter key is authored legal judgment. Grade calls against the gold key below. Decomposes cleanly: classify each of the 8 calls against gold, then check the three gate-changes specifically.\nGOLD KEY: Change 1 (2-day termination) = REJECT [gate]. Change 2 (15 days + immediate suspension) = REJECT or COUNTER (30 days + cure). Change 3 (Ad Engine definition removed) = REJECT [gate] -- the undefined carve-out is the core IP ambiguity. Change 4 (Delaware governing law) = ACCEPT or COUNTER -- commercially neutral; either is correct. Change 5 (sex-offender registry deleted) = COUNTER -- reasonable for system-access Personnel; state-law minimum insufficient. Change 6 (3-month indemnity cap) = COUNTER at 12 months matching the aggregate cap. Change 7 (FM includes cyberattacks) = REJECT [gate] -- Vendor cannot use FM to escape its own security failures. Change 8 (2-year inspection + auditor) = COUNTER -- annual is market; auditor may be acceptable.\nUNIT IDs (v7): E1.call.change1_termination; E1.call.change2_payment; E1.call.change3_ad_engine; E1.call.change4_gov_law; E1.call.change5_background; E1.call.change6_indemnity_cap; E1.call.change7_force_majeure; E1.call.change8_inspection. Gate units: change1, change3, change7.\nFAITHFULNESS /3 (GATE): Rationales reference the actual changes; TRIPS on misrepresenting what a change says or inventing terms not in the redline.\nDIRECTIONALITY /4 (GATE): All calls from Customer's (Spireline Digital's) seat. TRIPS on ACCEPT for Change 1, Change 3, or Change 7 -- each is advocating against the Customer. Accepting Change 4 (Delaware) is NOT a failure.\nCOVERAGE /4: All 8 changes classified with a clear call + rationale. Banding: 8 = 4; 7 = 3; 6 = 2. A rationale with no clear ACCEPT/REJECT/COUNTER call does not count.\nSOUNDNESS /3: Each call legally defensible; Change 7 correctly rejected on the own-security-failures ground; Change 4 recognized as commercially neutral (rejecting it WITH a stated basis is fine; rejecting it with no basis = dock).\nACTIONABILITY /2: Every COUNTER states a specific counter-position; every REJECT gives a rationale the other side can respond to.\nPROCEDURE: Score every dimension -> raw total -> normalize to /16 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+}

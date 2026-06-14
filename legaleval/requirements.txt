@@ -1,0 +1,6 @@
+anthropic>=0.92.0
+pydantic>=2.0
+python-dotenv>=1.0
+# Uncomment as providers come online:
+# openai
+# google-genai

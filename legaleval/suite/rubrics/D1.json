@@ -1,0 +1,25 @@
+{
+  "id": "D1",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "SYNTHETIC/CONSTRUCTED (drafted from brief)",
+  "gold_unit_ids": [
+    "D1.gate.scope_creep",
+    "D1.provision.ci_definition",
+    "D1.provision.compelled_disclosure",
+    "D1.provision.exclusions_x4",
+    "D1.provision.gov_law_ny",
+    "D1.provision.injunctive_no_bond",
+    "D1.provision.mutual",
+    "D1.provision.no_residuals",
+    "D1.provision.nonsolicit_1y",
+    "D1.provision.return_destruction",
+    "D1.provision.survival_3y",
+    "D1.provision.term_2y"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 D1 (Draft NDA from Business Description) \u00b7 Max /12 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: SYNTHETIC -- drafted from the brief; the 11 required provisions in the prompt are the gold. Faithfulness here means fidelity to the instructions.\nFAITHFULNESS /3 (GATE): No scope creep. TRIPS on adding unrequested provisions (IP ownership, indemnification, arbitration), wrong governing law (must be New York), or wrong durations (2-year term; 3-year survival; 1-year non-solicit).\nCOVERAGE /4: All 11 required provisions present. Critical checks: all FOUR standard exclusions; injunctive relief WITHOUT requirement of bond or surety (frequently dropped); the no-residuals clause (rarely in default templates); survival duration explicitly stated as 3 years.\nUNIT IDs (v7): D1.provision.mutual; D1.provision.ci_definition; D1.provision.exclusions_x4; D1.provision.compelled_disclosure; D1.provision.return_destruction; D1.provision.term_2y; D1.provision.survival_3y; D1.provision.injunctive_no_bond; D1.provision.no_residuals; D1.provision.gov_law_ny; D1.provision.nonsolicit_1y. Gate unit: D1.gate.scope_creep.\nSOUNDNESS /3: Mutual structure -- obligations run both directions symmetrically (one-sided structure = dock); defined terms used consistently; draft is legally coherent and enforceable.\nACTIONABILITY /2: Complete agreement -- recitals, effective date, signature blocks; redline-ready without substantial revision.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+}

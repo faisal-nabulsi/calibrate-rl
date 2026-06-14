@@ -1,0 +1,397 @@
+{
+  "suite": "LegalEval v7",
+  "rubric_version": "v7.0",
+  "total_points": 189,
+  "stage_totals": {
+    "A": 44,
+    "B": 33,
+    "C": 44,
+    "D": 36,
+    "E": 32
+  },
+  "notes": "Source of truth for the harness. All 14 prompts + grader rubrics extracted directly from LegalEval_Complete_v7_clean.docx (Part II). A1/A2/C2 paste blocks are the v7 OPEN (existence-neutral) variants; DIRECTED (v6) phrasing preserved in each prompt's 'variants'. B3 carries an instructed/uninstructed A/B. Gold-unit IDs (task.unit-type.slug) under 'gold_unit_ids'. Dimensions, gates, gold keys, and stage weights unchanged from v6 per the v7 change log.",
+  "prompts": [
+    {
+      "id": "A1",
+      "stage": "A",
+      "name": "Missing Clause Detection",
+      "max_points": 16,
+      "gates": [
+        "faithfulness",
+        "directionality"
+      ],
+      "source_type": "modified-from-real (3M/Cogent NDA)",
+      "source_contract": "calidon-sferex-nda",
+      "rubric_file": "rubrics/A1.json",
+      "prompt_text": "Read the non-disclosure agreement below carefully. You represent the Receiving Party (Calidon). Report any material concerns with this agreement, if any \u2014 whether in the provisions as written or in anything missing or materially incomplete. For each concern, explain the practical risk it creates for Calidon.\n\nNON-DISCLOSURE AGREEMENT\nCalidon Industries, Inc. ('Interested Party' / 'Receiving Party') and Sferex Biometrics, Inc. ('Company' / 'Disclosing Party')\nEffective Date: February 12, 2014\n\n1. PROPRIETARY INFORMATION\n'Proprietary Information' means any and all information disclosed by Disclosing Party\nor its Representatives in connection with the Proposed Transaction, including Derived\nInformation prepared by Receiving Party that reflects or is based upon the Disclosing\nParty's information. Also includes: (x) discussions taking place; (y) proposed terms;\n(z) existence of this Agreement.\nExclusions: information (i) generally available to the public other than by Receiving Party's breach;\n(ii) known to Receiving Party on a non-confidential basis; (iii) independently developed.\n\n2. NON-DISCLOSURE AND LIMITED USE\nReceiving Party shall keep all Proprietary Information confidential and shall not disclose\nit except to Representatives actively and directly participating in the evaluation of the\nProposed Transaction and who are bound by comparable confidentiality obligations.\nDegree of care: same care as Receiving Party uses to protect its own confidential information\n(but no less than reasonable care).\n\n2.4 COMPELLED DISCLOSURE\nIf Receiving Party is required by law or legal process to disclose Proprietary Information,\nit shall promptly notify Disclosing Party so that Disclosing Party may seek a protective order\nor waive compliance. If no protective order is obtained, Receiving Party shall disclose only\nwhat is legally required and seek reliable assurances of confidential treatment.\n\n3. NO SOLICITATION OF EMPLOYEES\nInterested Party agrees that for one year from the Effective Date it will not employ or\nsolicit for employment any key technical or management personnel of the Company who was\nintroduced to Interested Party in connection with the Proposed Transaction.\n\n4. SECURITIES ISSUES\nEach party confirms it is not required to make public disclosure of the Proposed Transaction\nor any Proprietary Information as of the date hereof.\n\n5. DEFINITIVE AGREEMENT\nUntil a definitive agreement is executed, neither party shall have any legal obligation\nwith respect to the Proposed Transaction except for the matters set forth herein.\n\nGOVERNING LAW: [Not stated in this agreement]\nTERM: [Not stated in this agreement]\nSigned: Calidon Industries, Inc. _______________ Sferex Biometrics, Inc. _______________",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "A1.absence.fourth_exclusion",
+        "A1.absence.governing_law",
+        "A1.absence.liability_cap",
+        "A1.absence.nonsolicit_carveouts",
+        "A1.absence.residuals",
+        "A1.absence.term",
+        "A1.favorable.injunctive_relief",
+        "A1.favorable.no_reliance",
+        "A1.favorable.rep_liability",
+        "A1.favorable.return_destruction",
+        "A1.favorable.standstill",
+        "A1.refine.compelled_disclosure"
+      ],
+      "rubric_version": "v7.0",
+      "variants": {
+        "type": "open_directed",
+        "headline": "open",
+        "open_note": "INSTRUCTION-SPECIFICITY VARIANTS (v7) \u2014 A1. The paste block above is the OPEN variant: it specifies seat, artifact, and format (the grading contract) but asserts neither that findings exist nor how many. It is the headline score. The DIRECTED variant replaces the instruction sentences with the v6 phrasing: \u201cRead the non-disclosure agreement below carefully. Several provisions standard to commercial NDAs are absent. Your task: identify every clause that is missing or materially incomplete. For each, explain the practical risk it creates for the Receiving Party (Calidon).\u201d Contract text, gold key, and grader contract are identical. Run both; report the open score as the headline and the open-minus-directed delta as a per-model diagnostic of spontaneous vs. prompted detection. The open variant also licenses a clean-instance control (\u00a76.2a): the same instruction on an instance with no material gaps, gold = \u201cno material concerns.\u201d",
+        "directed_text": "Read the non-disclosure agreement below carefully. Several provisions standard to commercial NDAs are absent. Your task: identify every clause that is missing or materially incomplete. For each, explain the practical risk it creates for the Receiving Party (Calidon)."
+      }
+    },
+    {
+      "id": "A2",
+      "stage": "A",
+      "name": "Problematic Clause Identification (MSA)",
+      "max_points": 16,
+      "gates": [
+        "faithfulness",
+        "directionality"
+      ],
+      "source_type": "modified-from-real (Kubient MSA)",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/A2.json",
+      "prompt_text": "Read the Master Services Agreement excerpt below from the perspective of Customer (Spireline Digital). Report up to three of the most significant concerns with this agreement, if any. For each concern you report: quote the exact language, explain the risk, and suggest a fix.\n\nMASTER SERVICES AGREEMENT\nKelmont, Inc. ('Service Provider') and Spireline Digital ('Customer')\nEffective Date: June 1, 2018\n\nARTICLE VI \u2014 TERM\nSection 6.01: This Agreement shall commence on the Effective Date and continue for\nsix (6) months, unless sooner terminated. The Agreement automatically renews for\nsuccessive six-month periods unless terminated by either party. Either party may\nterminate this Agreement with or without cause by providing two (2) days prior written\nnotice (email is acceptable).\n\nARTICLE VII \u2014 FEES AND PAYMENT\nSection 7.05: Service Provider reserves the right to suspend all Services in the event\nthat Customer fails to pay each invoice within 15 days of receipt.\n\nARTICLE VIII \u2014 INTELLECTUAL PROPERTY\nSection 8.01: Customer is, and shall be, the sole and exclusive owner of all right,\ntitle and interest in and to the Deliverables, including all Intellectual Property Rights.\nService Provider agrees that Deliverables qualifying as 'work made for hire' under\n17 U.S.C. \u00a7 101 are hereby deemed such. To the extent Deliverables do not constitute\n'work made for hire', Service Provider hereby irrevocably assigns all right, title and\ninterest therein to Customer.\n\nSection 8.02: Notwithstanding the foregoing, the Service Provider Ad Engine contains\nvaluable trade secrets and proprietary information of Service Provider, and all right,\ntitle and interest in the Service Provider Ad Engine shall remain with Service Provider.\nService Provider shall provide Customer access and copies of source code and/or object\ncode to all custom revisions to the Customer Image; provided, however, Service Provider\nshall not provide any source code included in the Service Provider Ad Engine.\n\nARTICLE XI \u2014 INDEMNIFICATION\nSection 11.01: Service Provider shall defend, indemnify and hold harmless Customer from\nand against all Losses arising from any third-party Action arising out of Service\nProvider's negligence or more culpable act or omission; breach of representations or\nwarranties; failure to comply with applicable Law.\n\nSection 11.03: Customer shall defend, indemnify and hold harmless Service Provider from\nand against all Losses arising from Customer's bodily injury or death; damage to real\nor tangible personal property.\n\nARTICLE XII \u2014 LIMITATION OF LIABILITY\nSection 12.01: IN NO EVENT SHALL EITHER PARTY BE LIABLE FOR INDIRECT, INCIDENTAL,\nSPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.\nSection 12.02: [Redacted]",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "A2.credit.consequential_waiver",
+        "A2.credit.ip_indemnity_gap",
+        "A2.issue.ad_engine_carveout",
+        "A2.issue.payment_suspension",
+        "A2.issue.termination_notice"
+      ],
+      "rubric_version": "v7.0",
+      "variants": {
+        "type": "open_directed",
+        "headline": "open",
+        "open_note": "INSTRUCTION-SPECIFICITY VARIANTS (v7) \u2014 A2. The paste block above is the OPEN variant \u2014 existence-neutral, with \u201cup to three \u2026 if any\u201d as a bound rather than a count assertion, preserving the triage/ranking test. It is the headline score. The DIRECTED variant replaces the instruction sentences with the v6 phrasing: \u201cRead the Master Services Agreement excerpt below. The agreement contains clauses that are unusually one-sided or commercially problematic. Identify the three most significant problems from the perspective of Customer (Spireline Digital). For each: quote the exact language, explain the risk, and suggest a fix.\u201d Same contract text, gold, and grader. Dropping the asserted count strengthens the precision test \u00a72 claims for A2: a model that shotguns ten issues now fails precision (and the stated bound) honestly instead of being protected by the cap, and a clean-instance control becomes possible (gold = \u201cno material concerns\u201d) \u2014 under the directed phrasing, told there are three problems, every model will manufacture three.",
+        "directed_text": "Read the Master Services Agreement excerpt below. The agreement contains clauses that are unusually one-sided or commercially problematic. Identify the three most significant problems from the perspective of Customer (Spireline Digital). For each: quote the exact language, explain the risk, and suggest a fix."
+      }
+    },
+    {
+      "id": "A3",
+      "stage": "A",
+      "name": "Contract Version Diff (Termination Clause)",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "modified-from-real (Kubient + adapted Version B)",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/A3.json",
+      "prompt_text": "Below are two versions of a termination clause from two different master services agreements. Compare them from the perspective of the Customer (service recipient). Identify every material difference, state whether each is favorable or unfavorable for Customer, and give an overall assessment.\n\nVERSION A:\nSection 6.01: This Agreement shall commence on the Effective Date and continue for six (6)\nmonths. The Agreement automatically renews for successive six-month periods unless terminated.\nEither party may terminate this Agreement with or without cause by providing two (2) days\nprior written notice (email is acceptable).\n\nVERSION B:\nSection 11.1: Either party may terminate this Agreement for cause upon thirty (30) days\nwritten notice to the other party if the other party materially breaches this Agreement and\nfails to cure such breach within the thirty (30) day notice period.\nSection 11.2: Either party may terminate this Agreement without cause upon ninety (90) days\nwritten notice to the other party.\nSection 11.3: Upon any termination, Service Provider shall provide Customer with a complete\ncopy of all Customer Data within fifteen (15) business days.\nSection 11.4: Sections 8 (IP), 9 (Confidentiality), 10 (Limitation of Liability), and 12\n(Governing Law) shall survive termination of this Agreement.\n\nCompare the two versions from the Customer's perspective.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "A3.diff.cause_requirement",
+        "A3.diff.cure_period",
+        "A3.diff.data_return",
+        "A3.diff.notice_period",
+        "A3.diff.renewal_nuance",
+        "A3.diff.survival"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "B1",
+      "stage": "B",
+      "name": "Defined Terms Glossary",
+      "max_points": 9,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "verbatim-real (Kubient Art. I)",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/B1.json",
+      "prompt_text": "Read the definitions section below. Extract every formally defined term and produce a two-column glossary: Term (exactly as defined) | Definition (verbatim, not paraphrased). Do not include terms that are used but not formally defined in this section.\n\nMASTER SERVICES AGREEMENT \u2014 ARTICLE I DEFINITIONS\nKelmont, Inc. / Spireline Digital \u2014 Effective June 1, 2018\n\n\"Action\" has the meaning set forth in Section 11.01.\n\"Affiliate\" of a Person means any other Person that directly or indirectly, through one\n  or more intermediaries, controls, is controlled by, or is under common control with,\n  such Person. \"Control\" means the possession, directly or indirectly, of the power to\n  direct or cause the direction of the management and policies of a Person, whether\n  through ownership of voting securities, by contract or otherwise.\n\"Agreement\" has the meaning set forth in the preamble.\n\"Change Order\" has the meaning set forth in Section 5.02.\n\"Confidential Information\" means any information that is treated as confidential or\n  proprietary by a party, including trade secrets, technology, information pertaining\n  to business operations and strategies, and information pertaining to customers,\n  pricing, and marketing. Confidential Information shall not include information that:\n  (a) is already known to the Receiving Party without restriction; (b) is or becomes\n  generally known by the public other than by breach of this Agreement; (c) is developed\n  by the Receiving Party independently; or (d) is received from a third party not under\n  any obligation to maintain confidentiality.\n\"Customer\" has the meaning set forth in the preamble.\n\"Customer Contract Manager\" has the meaning set forth in Section 4.01(a).\n\"Customer Equipment\" means any equipment, systems, cabling or facilities provided by\n  Customer and used directly or indirectly in the provision of the Services.\n\"Customer Materials\" means any documents, data, know-how, methodologies, software and\n  other materials provided to Service Provider by Customer, including computer programs,\n  reports and specifications.\n\"Deliverables\" means all documents, work product and other materials delivered to\n  Customer or prepared by Service Provider in the course of performing the Services,\n  including any items identified as such on Exhibit A.\n\"Disclosing Party\" means a party that discloses Confidential Information under this Agreement.\n\"Force Majeure Event\" has the meaning set forth in Section 15.01.\n\"Intellectual Property Rights\" means all (a) patents, patent disclosures and inventions\n  (whether patentable or not); (b) trademarks, service marks, trade dress, trade names,\n  logos, corporate names and domain names; (c) copyrights and copyrightable works, and\n  rights in data and databases; (d) trade secrets, know-how and other confidential\n  information; and (e) all other intellectual property rights.\n\"Law\" means any statute, law, ordinance, regulation, rule, code, order, constitution,\n  treaty, common law, judgment, decree, or other requirement or rule of law of any\n  federal, state, local or foreign government or political subdivision.\n\"Losses\" mean all losses, damages, liabilities, deficiencies, actions, judgments,\n  interest, awards, penalties, fines, costs or expenses of whatever kind that are\n  actually incurred, including reasonable attorneys' fees and the cost of enforcing\n  any right to indemnification.\n\"Permitted Subcontractor\" has the meaning set forth in Section 3.01(h).\n\"Person\" means an individual, corporation, partnership, joint venture, limited liability\n  company, governmental authority, unincorporated organization, trust, association or\n  other entity.\n\"Receiving Party\" means a party that receives or acquires Confidential Information.\n\"Services\" mean any professional or other services to be provided by Service Provider\n  under this Agreement, as described in more detail on Exhibit A.\n\"Term\" has the meaning set forth in Article VI.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "B1.term.affiliate",
+        "B1.term.control_nested",
+        "B1.term.losses"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "B2",
+      "stage": "B",
+      "name": "Party Obligations Table",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "verbatim-real (Kubient Art. III-IV)",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/B2.json",
+      "prompt_text": "Read the obligations sections below. Produce a structured table with three columns: (1) Obligation/Right, (2) Party (Service Provider / Customer / Both), (3) Key condition or trigger. Be exhaustive - do not combine multiple obligations into one row.\n\nMASTER SERVICES AGREEMENT \u2014 ARTICLES III AND IV\nKelmont, Inc. ('Service Provider') and Spireline Digital ('Customer')\n\nARTICLE III \u2014 SERVICE PROVIDER'S OBLIGATIONS\nSection 3.01 Service Provider shall:\n(a) appoint a Service Provider Contract Manager with authority to act on behalf of Service Provider\n    (subject to Customer's prior written approval, not unreasonably withheld);\n(b) maintain the same Service Provider Contract Manager throughout the Term except due to\n    Customer request, resignation, or circumstances outside Service Provider's control;\n(c) upon reasonable written request of Customer, promptly replace the Service Provider\n    Contract Manager or any other Service Provider Personnel;\n(d) before Services start: obtain and maintain all necessary licenses and consents and\n    comply with all relevant Laws applicable to the provision of the Services;\n(e) prior to any Personnel performing Services: (i) ensure they have the legal right to\n    work in the United States; and (ii) conduct background checks including credit history,\n    references and criminal record at Service Provider's sole cost;\n(f) comply with, and ensure Personnel comply with, all rules, regulations and policies of\n    Customer communicated in writing, including security procedures and health and safety;\n(g) maintain complete and accurate records of time spent and materials used; permit Customer\n    to inspect and copy records and interview Personnel, no more than once per year on ten\n    (10) business days' advance notice;\n(h) obtain Customer's written approval (not unreasonably withheld) before engaging any\n    Permitted Subcontractor; remain fully responsible for all Permitted Subcontractor\n    performance as if they were Service Provider's own employees.\nSection 3.02: Service Provider is responsible for all Service Provider Personnel compensation,\n    including withholding of income taxes, payroll taxes, unemployment insurance,\n    workers' compensation, and disability benefits.\n\nARTICLE IV \u2014 CUSTOMER'S OBLIGATIONS\nSection 4.01 Customer shall:\n(a) cooperate with Service Provider in all matters relating to the Services; appoint a\n    Customer Contract Manager with authority to act on behalf of Customer;\n(b) provide, subject to security procedures, access to premises and facilities reasonably\n    requested by Service Provider for the purpose of performing the Services;\n(c) respond promptly to any Service Provider request for direction, information, approvals,\n    authorizations or decisions reasonably necessary for Service Provider to perform Services;\n(d) provide complete and accurate information as Service Provider may request, in a timely manner;\n(e) obtain and maintain all necessary licenses and consents and comply with all applicable\n    Law in relation to the Services before the date on which Services are to start.\nSection 4.02: If Service Provider's performance is prevented or delayed by any act or\n    omission of Customer or its agents, Service Provider shall not be in breach and shall\n    not be liable for costs sustained by Customer arising directly or indirectly from such\n    prevention or delay.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "B2.obligation.3_01_e_background_checks",
+        "B2.obligation.3_01_g_inspection_limit",
+        "B2.obligation.4_02_delay_carveout"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "B3",
+      "stage": "B",
+      "name": "Executive Summary Under Compression",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "modified-from-real, re-founded in v5 (Kubient/3M)",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/B3.json",
+      "prompt_text": "A partner needs a one-page executive summary before a client call in 10 minutes. Produce a structured summary covering: (1) what this agreement does, (2) key commercial terms, (3) top 3 risks for Customer, (4) any unusual or non-standard provisions. Do not include anything not supported by the text. If a term is absent, say so.\n\nMASTER SERVICES AGREEMENT\nService Provider: Kelmont, Inc. (Delaware corp, New York)\nCustomer: Spireline Digital (Delaware corp, Santa Monica CA)\nEffective Date: June 1, 2018\n\nSERVICES: Service Provider operates a proprietary programmatic advertising platform\n(the 'Service Provider Ad Engine') hosted on Amazon Web Services. Service Provider\nwill create and host a Customer-dedicated image of the platform ('Customer Image').\n\nFEES: As set forth in a separate License Agreement dated June 1, 2018.\n[Fee amounts not stated in this MSA.]\nPayment trigger: Service Provider reserves the right to suspend all Services upon\nCustomer's failure to pay each invoice within 15 days.\n\nTERM: Initial 6-month term; auto-renews for successive 6-month periods. Either party\nmay terminate with or without cause on 2 days' prior written notice (email acceptable).\n\nIP: Customer owns all Deliverables (work product) outright including all IP rights.\nHowever, all rights in the Service Provider Ad Engine (the underlying platform) remain\nwith Service Provider. Service Provider will provide source code for custom revisions\nonly \u2014 not for the Ad Engine itself.\n\nINDEMNIFICATION: Service Provider indemnifies Customer against Losses from Service\nProvider negligence, breach, or non-compliance with law. Customer indemnifies Service\nProvider against Losses from bodily injury, death, or property damage caused by Customer.\n\nLIABILITY: No indirect or consequential damages for either party.\nAggregate cap (\u00a712.02): each party\u2019s liability shall not exceed the aggregate fees paid or payable to Service Provider under this Agreement. [Fee amounts are set in a separate License Agreement dated June 1, 2018, not included in this excerpt.]\n\nGOVERNING LAW: State of New York (\u00a716.12).\nDISPUTE RESOLUTION: [Article XVI; not included in this excerpt.]",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "B3.element.deal_structure",
+        "B3.element.fees_external",
+        "B3.element.gov_law_present",
+        "B3.element.ip_ambiguity",
+        "B3.element.payment_suspension",
+        "B3.element.termination_risk",
+        "B3.trap.cap_amount_unknowable"
+      ],
+      "rubric_version": "v7.0",
+      "variants": {
+        "type": "instruction_ab",
+        "headline": "instructed",
+        "ab_note": "INSTRUCTION A/B (v7) \u2014 B3. The final instruction sentence \u2014 \u201cIf a term is absent, say so.\u201d \u2014 is an honesty instruction: defensible for product-readiness (deployed systems will carry it in a system prompt) but it tips the model toward the exact safe behavior the unknowable-cap trap is testing. Run the prompt both ways once: B3-instructed (as printed) and B3-uninstructed (final sentence removed). Same gold, same grader; record which version each response saw. The uninstructed run is the truer measure of spontaneous fabrication-avoidance, and the instructed-minus-uninstructed delta tells you what that one sentence is worth.",
+        "uninstructed_text": "A partner needs a one-page executive summary before a client call in 10 minutes. Produce a structured summary covering: (1) what this agreement does, (2) key commercial terms, (3) top 3 risks for Customer, (4) any unusual or non-standard provisions. Do not include anything not supported by the text.\n\nMASTER SERVICES AGREEMENT\nService Provider: Kelmont, Inc. (Delaware corp, New York)\nCustomer: Spireline Digital (Delaware corp, Santa Monica CA)\nEffective Date: June 1, 2018\n\nSERVICES: Service Provider operates a proprietary programmatic advertising platform\n(the 'Service Provider Ad Engine') hosted on Amazon Web Services. Service Provider\nwill create and host a Customer-dedicated image of the platform ('Customer Image').\n\nFEES: As set forth in a separate License Agreement dated June 1, 2018.\n[Fee amounts not stated in this MSA.]\nPayment trigger: Service Provider reserves the right to suspend all Services upon\nCustomer's failure to pay each invoice within 15 days.\n\nTERM: Initial 6-month term; auto-renews for successive 6-month periods. Either party\nmay terminate with or without cause on 2 days' prior written notice (email acceptable).\n\nIP: Customer owns all Deliverables (work product) outright including all IP rights.\nHowever, all rights in the Service Provider Ad Engine (the underlying platform) remain\nwith Service Provider. Service Provider will provide source code for custom revisions\nonly \u2014 not for the Ad Engine itself.\n\nINDEMNIFICATION: Service Provider indemnifies Customer against Losses from Service\nProvider negligence, breach, or non-compliance with law. Customer indemnifies Service\nProvider against Losses from bodily injury, death, or property damage caused by Customer.\n\nLIABILITY: No indirect or consequential damages for either party.\nAggregate cap (\u00a712.02): each party\u2019s liability shall not exceed the aggregate fees paid or payable to Service Provider under this Agreement. [Fee amounts are set in a separate License Agreement dated June 1, 2018, not included in this excerpt.]\n\nGOVERNING LAW: State of New York (\u00a716.12).\nDISPUTE RESOLUTION: [Article XVI; not included in this excerpt.]"
+      }
+    },
+    {
+      "id": "C1",
+      "stage": "C",
+      "name": "Directional Redline (Indemnification toward Vendor)",
+      "max_points": 16,
+      "gates": [
+        "faithfulness",
+        "directionality"
+      ],
+      "source_type": "real-quoted clause + constructed key (ACORD)",
+      "source_contract": "commerceone-corio-saas",
+      "rubric_file": "rubrics/C1.json",
+      "prompt_text": "You represent Commerce One (the software vendor, 'Vendor'). Redline the indemnification clause below to be as favorable to Vendor as possible while remaining commercially reasonable. For each change: show the original language (struck through), show your replacement, and briefly explain the purpose.\n\nINDEMNIFICATION \u2014 \u00a78.1 By Commerce One\n\n8.1 By Commerce One. Commerce One shall indemnify, defend and hold harmless Corio and\nits Customers from any and all damages, liabilities, costs and expenses (including\nreasonable attorneys' fees) incurred by Corio or its Customers arising out of any claim\nthat the software infringes any patent, copyright, trademark or trade secret of a third party.\n\n8.2 By Corio. Corio shall indemnify, defend and hold harmless Commerce One and its affiliates\nfrom any and all damages, liabilities, costs and expenses (including reasonable attorneys'\nfees) arising out of: (a) Corio's use of the software in violation of this Agreement;\n(b) any claim arising from Corio's products or services; or (c) any breach by Corio of\nany representation or warranty in this Agreement.\n\n8.3 Conditions. The indemnified party shall: (i) promptly notify the indemnifying party\nof any claim; (ii) grant the indemnifying party sole control of the defense and settlement;\nand (iii) provide reasonable cooperation and assistance.\n\nYou represent Commerce One (Vendor). Redline \u00a78.1 to protect Vendor.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "C1.edit.combination_carveout",
+        "C1.edit.exclusive_remedy",
+        "C1.edit.indemnity_cap",
+        "C1.edit.modifications_carveout",
+        "C1.edit.narrow_causation",
+        "C1.edit.specifications_carveout",
+        "C1.extra.beneficiary_narrowing",
+        "C1.extra.finally_awarded",
+        "C1.extra.sole_remedy_preclusion"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "C2",
+      "stage": "C",
+      "name": "Issue-to-Fix (Limitation of Liability)",
+      "max_points": 16,
+      "gates": [
+        "faithfulness",
+        "directionality"
+      ],
+      "source_type": "real-quoted clause + constructed key (ACORD)",
+      "source_contract": "commerceone-corio-saas",
+      "rubric_file": "rubrics/C2.json",
+      "prompt_text": "You represent Commerce One (Vendor). Step 1: report any problems this clause creates for Vendor, if any, and the risk each creates. Step 2: rewrite the clause to fix what you find. Step 3: explain what your rewrite changes and why.\n\nLIMITATION OF LIABILITY\n\nEXCEPT FOR LIABILITY ARISING UNDER SECTION 8 OF THIS AGREEMENT [Indemnification],\nIN NO EVENT SHALL EITHER PARTY HAVE ANY LIABILITY TO THE OTHER PARTY FOR ANY LOST\nPROFITS OR COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, OR FOR ANY INDIRECT,\nSPECIAL OR CONSEQUENTIAL DAMAGES HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,\nWHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE),\nARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT.\n\nEACH PARTY'S TOTAL LIABILITY ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT SHALL\nNOT EXCEED THE AMOUNTS PAID BY CORIO TO COMMERCE ONE UNDER THIS AGREEMENT IN THE\nTWELVE (12) MONTHS PRECEDING THE CLAIM.\n\nYou represent Commerce One (Vendor). Report your findings and produce your fix.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "C2.issue.early_term_cap",
+        "C2.issue.uncapped_indemnity"
+      ],
+      "rubric_version": "v7.0",
+      "variants": {
+        "type": "open_directed",
+        "headline": "open",
+        "open_note": "INSTRUCTION-SPECIFICITY VARIANTS (v7) \u2014 C2. The paste block above is the OPEN variant. The v6 phrasing \u2014 \u201cidentify the specific problem in this clause\u201d \u2014 asserted exactly one diagnosable defect and pointed straight at the \u00a78 carve-out; the open phrasing asserts nothing about existence or count. Headline score. The DIRECTED variant replaces the instruction sentences with the v6 phrasing: \u201cYou represent Commerce One (Vendor). Step 1: identify the specific problem in this clause and the risk it creates for Vendor. Step 2: rewrite the clause to fix the problem. Step 3: explain what your rewrite changes and why.\u201d (closing line: \u201cIdentify the problem and produce your fix.\u201d) Same clause text, gold, and grader. The gold is unchanged \u2014 the uncapped-indemnification carve-out remains the required primary finding and the early-term cap the creditable secondary; additional defensible observations fall under the defensible-but-ungraded policy (\u00a76.2a), and a clean-instance control becomes possible (a well-drafted cap clause, gold = \u201cno material problem\u201d).",
+        "directed_text": "You represent Commerce One (Vendor). Step 1: identify the specific problem in this clause and the risk it creates for Vendor. Step 2: rewrite the clause to fix the problem. Step 3: explain what your rewrite changes and why."
+      }
+    },
+    {
+      "id": "C3",
+      "stage": "C",
+      "name": "Internal Consistency Check (Defined Terms)",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "modified-from-real (planted inconsistencies)",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/C3.json",
+      "prompt_text": "You are doing a quality-control review before this contract is executed. Find every instance where a defined term is used inconsistently or incorrectly, or where an undefined term is used where a defined one should be. Quote the exact language and state the correct usage.\n\nMASTER SERVICES AGREEMENT \u2014 Kelmont, Inc. / Spireline Digital\n\nARTICLE I \u2014 KEY DEFINITIONS (relevant subset)\n\"Deliverables\" \u2014 all documents, work product and other materials delivered to Customer or\n  prepared by Service Provider in the course of performing the Services.\n\"Intellectual Property Rights\" \u2014 all patents, trademarks, copyrights, trade secrets,\n  know-how and other IP rights, whether registered or unregistered.\n\"Service Provider Personnel\" \u2014 all employees and Permitted Subcontractors engaged by\n  Service Provider to perform the Services.\n\"Customer Materials\" \u2014 documents, data, know-how, methodologies, software and other\n  materials provided to Service Provider by Customer.\n\"Confidential Information\" \u2014 any information treated as confidential or proprietary by a party.\n\"Losses\" \u2014 all losses, damages, liabilities, deficiencies, actions, judgments, interest,\n  awards, penalties, fines, costs or expenses of whatever kind that are actually incurred.\n\nARTICLE III \u2014 SERVICE PROVIDER OBLIGATIONS (excerpt)\nSection 3.01(e): Service Provider shall, prior to any Service Provider Personnel performing\n  any Services hereunder, conduct background checks on such employees...\nSection 3.01(i): Service Provider shall require each Permitted Subcontractor to be bound in\n  writing by the confidentiality and intellectual property assignment provisions of this\n  Agreement.\n\nARTICLE VIII \u2014 INTELLECTUAL PROPERTY\nSection 8.01: Customer is the sole and exclusive owner of all right, title and interest in\n  and to the Deliverables, including all Intellectual Property Rights therein. To the extent\n  that any of the work product does not constitute 'work made for hire', Service Provider\n  hereby irrevocably assigns all right, title and interest throughout the world in and to\n  the work product, including all Intellectual Property Rights therein.\nSection 8.02: All right, title and interest in the Service Provider Ad Engine shall remain\n  with Service Provider. Service Provider shall provide Customer access and copies of the\n  source code and/or object code to all custom revisions to the Customer Image as performed\n  by Service Provider; provided, however, Service Provider shall not provide any source code\n  to Customer which is included in the Service Provider Ad Engine.\n\nARTICLE XI \u2014 INDEMNIFICATION\nSection 11.01: Service Provider shall defend, indemnify and hold harmless Customer from\n  all Losses arising from any third-party claim arising out of Service Provider's acts or omissions.\nSection 11.03: Customer shall defend, indemnify and hold harmless Service Provider from\n  and against all damages awarded against Service Provider arising out of Customer's\n  bodily injury or property damage claims.\n\nARTICLE XII \u2014 LIMITATION OF LIABILITY\nSection 12.01: IN NO EVENT SHALL EITHER PARTY BE LIABLE FOR INDIRECT, INCIDENTAL,\n  SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.\n\nFind all inconsistencies with the definitions.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "C3.term.crossref",
+        "C3.term.customer_image",
+        "C3.term.damages",
+        "C3.term.employees",
+        "C3.term.work_product"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "D1",
+      "stage": "D",
+      "name": "Draft NDA from Business Description",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "synthetic/constructed",
+      "source_contract": "synthetic-jv-nda-brief",
+      "rubric_file": "rubrics/D1.json",
+      "prompt_text": "You are a transactional lawyer. Draft a mutual NDA from the context below. The agreement should match the standard of a commercially negotiated NDA prepared in connection with a strategic transaction.\n\nBusiness context:\nA cloud infrastructure company and an enterprise AI company are exploring a potential\njoint venture in which the cloud company's GPU cluster would host the AI company's\ntraining workloads under a revenue-sharing arrangement. Both parties will exchange\npricing models, customer lists, technical architecture details, and roadmap documents.\n\nRequired provisions:\n1. Mutual \u2014 both parties are Disclosing Party and Receiving Party\n2. Definition of Confidential Information \u2014 includes oral disclosures; covers\n   information disclosed 'in connection with evaluating the Proposed Transaction'\n3. Standard exclusions (4): publicly known, previously known, independently developed,\n   received from permitted third party\n4. Compelled disclosure carve-out with prompt-notice obligation to Disclosing Party\n5. Return/destruction of materials upon request or termination\n6. Term: 2 years from Effective Date\n7. Survival: confidentiality obligations survive termination for 3 years\n8. Injunctive relief clause \u2014 without requirement of bond or surety\n9. No residuals: neither party may use 'residual knowledge' retained in unaided memory\n10. Governing law: New York\n11. No solicitation of employees for 1 year from Effective Date\n\nDraft the complete NDA.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "D1.gate.scope_creep",
+        "D1.provision.ci_definition",
+        "D1.provision.compelled_disclosure",
+        "D1.provision.exclusions_x4",
+        "D1.provision.gov_law_ny",
+        "D1.provision.injunctive_no_bond",
+        "D1.provision.mutual",
+        "D1.provision.no_residuals",
+        "D1.provision.nonsolicit_1y",
+        "D1.provision.return_destruction",
+        "D1.provision.survival_3y",
+        "D1.provision.term_2y"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "D2",
+      "stage": "D",
+      "name": "Notice of Breach Letter",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "synthetic (arithmetic-verifiable)",
+      "source_contract": "cloudbase-techserve-synthetic",
+      "rubric_file": "rubrics/D2.json",
+      "prompt_text": "Draft a formal notice of breach letter on behalf of CloudBase Inc. ('Client') to send to TechServe LLC ('Vendor'). Use the facts and contract provisions below exactly. Do not invent facts. Do the math yourself.\n\nFACTS AND CONTRACT PROVISIONS:\nAgreement: Managed Services Agreement dated March 1, 2025.\n\nContract provision \u00a75.2: Vendor shall maintain 99.5% monthly uptime for the production\n  environment, measured as total minutes available divided by total minutes in the month.\nContract provision \u00a79.1: A material breach of this Agreement may be cured within thirty (30)\n  days of written notice from the non-breaching party specifying the breach in reasonable detail.\nContract provision \u00a79.2: Repeated SLA failures \u2014 defined as failure to meet the uptime\n  commitment in two or more consecutive calendar months \u2014 shall constitute a non-curable\n  material breach, entitling the non-breaching party to terminate immediately upon written notice.\n\nApril 2025 uptime data (confirmed by Vendor's own status page):\n  April 8:  6 hours 14 minutes of unplanned downtime\n  April 17: 8 hours 52 minutes of unplanned downtime\n  April 23: 3 hours 0 minutes of downtime (Vendor attributes to 'third-party DNS provider')\n  Total downtime: 18 hours 6 minutes\n  April total minutes: 720 hours = 43,200 minutes\n\nPrior notices: No breach notice has previously been sent by Client.\n\nDraft the formal breach notice letter. Include: the specific breach with the uptime calculation,\ncitations to \u00a75.2 and \u00a79.1, demand for cure, preservation of \u00a79.2 rights, and a reservation\nof all rights. Tone: firm but professional.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "D2.element.cite_5_2",
+        "D2.element.cite_9_1_cure",
+        "D2.element.cure_demand",
+        "D2.element.preserve_9_2",
+        "D2.element.reserve_rights",
+        "D2.element.uptime_calc",
+        "D2.math.uptime_97_5"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "D3",
+      "stage": "D",
+      "name": "Scoped Amendment (No Scope Creep)",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "synthetic/constructed",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/D3.json",
+      "prompt_text": "The parties have agreed to change only the payment terms in their existing MSA. Draft Amendment No. 1 reflecting only the agreed changes. Modify nothing else.\n\nOriginal Agreement: Master Services Agreement dated June 1, 2018\nParties: Kelmont, Inc. ('Service Provider') and Spireline Digital ('Customer')\nThis document: Amendment No. 1\n\nAgreed changes (payment terms only):\n1. Section 7.05 currently reads: 'Service Provider reserves the right to suspend all\n   Services in the event that Customer fails to pay each invoice within 15 days of receipt.'\n   Amend to: payment due within 30 days of invoice date (not receipt); suspension right\n   available only after an additional 10-day cure notice, not immediately.\n2. Add a new provision: Late payments accrue interest at 1.0% per month on the outstanding\n   balance from the date due until paid.\n3. Add a new provision: Disputed invoices must be raised in writing within 20 days of\n   invoice date with a description of the specific basis for dispute.\n\nDraft the complete amendment. Do not introduce any provisions beyond what is listed above.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "D3.element.amendment_no_1",
+        "D3.element.cure_10d",
+        "D3.element.dispute_20d",
+        "D3.element.interest_1pct_month",
+        "D3.element.net30_invoice_date",
+        "D3.element.original_msa_named",
+        "D3.gate.scope_creep"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "E1",
+      "stage": "E",
+      "name": "Triage 8 Opposing Counsel Redlines",
+      "max_points": 16,
+      "gates": [
+        "faithfulness",
+        "directionality"
+      ],
+      "source_type": "constructed scenario on real MSA",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/E1.json",
+      "prompt_text": "You represent the Customer (Spireline Digital) negotiating the Kelmont MSA. Vendor's counsel has returned 8 changes to your redlined agreement. For each change, classify it as ACCEPT, REJECT, or COUNTER, with a brief rationale.\n\nYOUR POSITION (Customer's redline) vs. VENDOR'S COUNTER-REDLINE\n\nChange 1 \u2014 Termination Notice Period\nYour position: Either party may terminate without cause on 30 days written notice.\nVendor counter: Either party may terminate without cause on 2 days written notice\n  (email acceptable) \u2014 restore original contract language.\n\nChange 2 \u2014 Payment Terms\nYour position: Invoices due within 30 days of invoice date; suspension right available\n  only after additional 10-day cure notice.\nVendor counter: Invoices due within 15 days of invoice date; suspension available\n  immediately upon non-payment.\n\nChange 3 \u2014 IP Ownership Carve-Out Definition\nYour position: Add definition: 'Service Provider Ad Engine' means the core programmatic\n  advertising engine as of the Effective Date, excluding any modifications made\n  specifically for Customer.\nVendor counter: Remove the proposed definition; leave Ad Engine undefined.\n\nChange 4 \u2014 Governing Law\nYour position: Governing law \u2014 State of New York.\nVendor counter: Governing law \u2014 State of Delaware.\n\nChange 5 \u2014 Background Checks\nYour position: Background checks must include criminal record, credit history, reference\n  checks, and sex offender registry check for any Personnel accessing Customer's systems.\nVendor counter: Background checks as required by applicable state law only; sex offender\n  registry check deleted.\n\nChange 6 \u2014 Indemnification Cap\nYour position: Add: Vendor's aggregate indemnification obligation under \u00a711.01 shall not\n  exceed two times (2x) fees paid by Customer in the prior 12 months.\nVendor counter: Add: Vendor's aggregate indemnification obligation shall not exceed fees\n  paid by Customer in the prior 3 months.\n\nChange 7 \u2014 Force Majeure\nYour position: No change to FM clause.\nVendor added: 'For avoidance of doubt, Force Majeure events include cyberattacks,\n  ransomware attacks, and third-party infrastructure failures.'\n\nChange 8 \u2014 Records Inspection\nYour position: Customer may inspect Service Provider records once per year on 10 business\n  days' notice.\nVendor counter: Customer may inspect records once every 2 years on 30 business days'\n  notice; Customer must use an independent auditor.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "E1.call.change1_termination",
+        "E1.call.change2_payment",
+        "E1.call.change3_ad_engine",
+        "E1.call.change4_gov_law",
+        "E1.call.change5_background",
+        "E1.call.change6_indemnity_cap",
+        "E1.call.change7_force_majeure",
+        "E1.call.change8_inspection"
+      ],
+      "rubric_version": "v7.0"
+    },
+    {
+      "id": "E2",
+      "stage": "E",
+      "name": "Deal Viability Analysis",
+      "max_points": 16,
+      "gates": [
+        "faithfulness",
+        "directionality"
+      ],
+      "source_type": "constructed scenario on real MSA (directionality = neutrality)",
+      "source_contract": "kelmont-spireline-msa",
+      "rubric_file": "rubrics/E2.json",
+      "prompt_text": "You are neutral deal counsel mediating the Kelmont / Spireline Digital MSA negotiation. Both parties have stated their absolute non-negotiables below. Assess each conflict, determine whether it is bridgeable, and give an overall verdict on deal viability.\n\nPARTY POSITIONS \u2014 ABSOLUTE NON-NEGOTIABLES\n\nSERVICE PROVIDER (Kelmont) MUST-HAVES:\n1. Termination-for-convenience on 2 days notice \u2014 Service Provider business model\n   requires ability to exit any client relationship quickly\n2. Service Provider Ad Engine IP stays entirely with Service Provider \u2014 no definition,\n   no limitations, no carve-outs\n3. Payment within 15 days; immediate suspension right for non-payment\n4. No minimum SLA \u2014 'commercially reasonable efforts' uptime only; no service credits\n5. Governing law: Delaware only\n6. Aggregate liability cap: 3 months of fees paid\n\nCUSTOMER (Spireline Digital) MUST-HAVES:\n1. Minimum 30-day termination notice for convenience (operational continuity)\n2. Clear, bounded definition of what the 'Service Provider Ad Engine' includes,\n   so Customer knows what Deliverables it actually owns\n3. Payment within 30 days; 10-day cure notice before any suspension\n4. Minimum 99.5% monthly uptime SLA with service credits for failure\n5. Governing law: New York (Customer's preferred forum, matching the existing contract)\n6. Aggregate liability cap: 12 months of fees paid\n\nAssess each conflict and give your overall deal viability verdict.",
+      "status": "extracted-v7",
+      "extracted_from": "LegalEval_Complete_v7_clean.docx PASTE BELOW INTO MODEL block",
+      "gold_unit_ids": [
+        "E2.conflict.ad_engine",
+        "E2.conflict.gov_law",
+        "E2.conflict.liability_cap",
+        "E2.conflict.payment",
+        "E2.conflict.sla",
+        "E2.conflict.termination",
+        "E2.verdict.overall"
+      ],
+      "rubric_version": "v7.0"
+    }
+  ],
+  "stage_weights": {
+    "A": 0.2,
+    "B": 0.2,
+    "C": 0.25,
+    "D": 0.2,
+    "E": 0.15
+  }
+}
