@@ -1,0 +1,18 @@
+{
+  "id": "C3",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "MODIFIED-FROM-REAL (planted defined-term inconsistencies)",
+  "gold_unit_ids": [
+    "C3.term.crossref",
+    "C3.term.customer_image",
+    "C3.term.damages",
+    "C3.term.employees",
+    "C3.term.work_product"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 C3 (Internal Consistency Check (Defined Terms)) \u00b7 Max /12 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: Perturbed from the same MSA (parties fictionalized to Kelmont / Spireline). The five inconsistencies were planted by editing the excerpt and are genuinely true of this fictional instance; the underlying real filing uses the defined terms correctly (real Section 11.03 uses 'Losses'). The model was NOT told the excerpt is adapted. Grade findings against the excerpt as printed; recall of the real filing cannot collide with the gold.\nFAITHFULNESS /3 (GATE): Each finding quotes the exact problematic language. TRIPS on invented inconsistencies or paraphrase-instead-of-quote presented as quotation.\nCOVERAGE /4: Five planted inconsistencies: (1) Section 3.01(e) 'employees' where defined term is 'Service Provider Personnel' -- narrows background checks, subcontractor gap [highest priority]; (2) Section 8.01 'work product' (twice) where 'Deliverables' applies -- assignment ambiguity [highest priority]; (3) Section 11.03 'damages' where 'Losses' applies -- materially narrows Customer's indemnification obligation; (4) Section 8.02 'Customer Image' undefined in Article I -- source-code access ambiguity; (5) Section 3.01(i) provisions referenced by description with no section cross-reference -- breaks on renumbering. Banding: 5 = 4; 4 = 3; 3 = 2; 2 = 1.\nUNIT IDs (v7): C3.term.employees; C3.term.work_product; C3.term.damages; C3.term.customer_image; C3.term.crossref.\nSOUNDNESS /3: For each finding, states the correct defined term AND why the substitution matters legally. Must NOT flag Section 12.01 or Section 11.01 -- both use terms correctly; flagging them = dock.\nACTIONABILITY /2: Organized by location; each finding complete: location + problem + correct usage + risk.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence.\n\nStage D \u2014 Drafting from Instructions\n\"Write this from scratch or from a brief\"\n\nApplicable dimensions: Faithfulness /3 (gate) \u00b7 Coverage /4 \u00b7 Soundness /3 \u00b7 Actionability /2 \u2014 drafting to spec, no advocacy"
+}

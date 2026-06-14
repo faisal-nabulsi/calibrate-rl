@@ -1,0 +1,16 @@
+{
+  "id": "B2",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "VERBATIM-REAL (Kubient Art. III\u2013IV; header parties relabeled)",
+  "gold_unit_ids": [
+    "B2.obligation.3_01_e_background_checks",
+    "B2.obligation.3_01_g_inspection_limit",
+    "B2.obligation.4_02_delay_carveout"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 B2 (Party Obligations Table) \u00b7 Max /12 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: VERBATIM-REAL Articles III-IV, confirmed against the filing; only header party names relabeled (Kelmont / Spireline).\nFAITHFULNESS /3 (GATE): No invented obligations; conditions quoted from contract language, not loosely paraphrased. TRIPS on fabricated obligations or conditions.\nCOVERAGE /4: Minimum 13 distinct rows (8+ Service Provider, 3+ Customer, 2 shared/cross-cutting). Critical items: Section 3.01(e) background checks; Section 3.01(g) once-per-year inspection limit on 10 business days' notice; Section 4.02 Customer-delay carve-out. Collapsing multiple obligations into one row = dock.\nUNIT IDs (v7): B2.obligation.<section_slug> per row (e.g. B2.obligation.3_01_e_background_checks; B2.obligation.3_01_g_inspection_limit; B2.obligation.4_02_delay_carveout).\nSOUNDNESS /3: Party assignment (SP / Customer / Both) correct on every row; condition/trigger column correctly captured ('10 business days', 'not unreasonably withheld', 'prior to Services start'). Wrong-party assignment or blank/wrong triggers = dock.\nACTIONABILITY /2: Three-column table; atomic rows; scannable.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+}

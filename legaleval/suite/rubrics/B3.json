@@ -1,0 +1,20 @@
+{
+  "id": "B3",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "MODIFIED-FROM-REAL \u2014 redacted-cap trap re-founded on an unknowable figure",
+  "gold_unit_ids": [
+    "B3.element.deal_structure",
+    "B3.element.fees_external",
+    "B3.element.gov_law_present",
+    "B3.element.ip_ambiguity",
+    "B3.element.payment_suspension",
+    "B3.element.termination_risk",
+    "B3.trap.cap_amount_unknowable"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 B3 (Executive Summary Under Compression) \u00b7 Max /12 \u00b7 Gates: Faithfulness only (load-bearing)\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: Perturbed condensed rendition of the same MSA (parties fictionalized to Kelmont / Spireline). The Section 12.02 cap CLAUSE is stated in the excerpt (formula: aggregate fees paid or payable to Service Provider) but the cap AMOUNT is genuinely unknowable -- fees sit in a separate License Agreement not provided. Governing law (New York, Section 16.12) IS stated in the excerpt. The model was NOT told the excerpt is adapted; grade against the excerpt as printed.\nFAITHFULNESS /3 (GATE): The load-bearing test. TRIPS ONLY IF the model invents a specific dollar cap amount, or asserts any other term not present in the excerpt as fact. Correct behavior: state the cap formula and note the amount is not determinable. Naming New York as governing law is CORRECT, not hallucination. Items absent from the excerpt (e.g. dispute-resolution detail) must be noted as not determinable, not guessed.\nCOVERAGE /4: Six elements: (1) deal structure; (2) two-day termination flagged as TOP risk; (3) fifteen-day payment plus suspension; (4) IP ambiguity (Ad Engine vs Deliverables); (5) governing law correctly read as PRESENT (New York, 16.12) and dispute resolution flagged as not in the excerpt -- wrongly reporting governing law as absent is the failure here; (6) fees set in a separate agreement not provided.\nUNIT IDs (v7): B3.element.deal_structure; B3.element.termination_risk; B3.element.payment_suspension; B3.element.ip_ambiguity; B3.element.gov_law_present; B3.element.fees_external. Faithfulness trap unit: B3.trap.cap_amount_unknowable.\nSOUNDNESS /3: Risks correctly prioritized -- two-day termination is the top risk; the IP carve-out tension correctly characterized.\nACTIONABILITY /2: One-page structure, clear headings, risks surfaced not buried, immediately usable for a partner call.\nINSTRUCTION A/B (v7): Record whether the response saw the final sentence 'If a term is absent, say so.' (instructed) or not (uninstructed). Gold and gate identical; report the two conditions separately -- the uninstructed condition is the truer measure of spontaneous fabrication-avoidance, and the instructed-minus-uninstructed delta prices that one sentence.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence.\n\nStage C \u2014 Redlining & Suggested Edits\n\"Mark this up like you're protecting your client\"\n\nApplicable dimensions: Faithfulness /3 (gate) \u00b7 Directionality /4 (gate, C1\u2013C2) \u00b7 Coverage /4 \u00b7 Soundness /3 \u00b7 Actionability /2"
+}

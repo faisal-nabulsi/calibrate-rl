@@ -1,0 +1,16 @@
+{
+  "id": "B1",
+  "max_points": 9,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "VERBATIM-REAL (Kubient Art. I; header parties relabeled)",
+  "gold_unit_ids": [
+    "B1.term.affiliate",
+    "B1.term.control_nested",
+    "B1.term.losses"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 B1 (Defined-Terms Glossary) \u00b7 Max /9 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: VERBATIM-REAL Article I, confirmed against the filing; only the header party names are relabeled (Kelmont, Inc. / Spireline Digital) for namespace consistency. The definitions text is the answer key.\nNOTE: Neither Directionality nor Soundness applies -- pure neutral extraction.\nFAITHFULNESS /3 (GATE): Definitions quoted verbatim, not paraphrased; no invented terms; original grammatical quirks PRESERVED ('Losses mean', 'Services mean' -- 'correcting' these is a dock); used-but-undefined terms (e.g. 'Exhibit A') correctly excluded. TRIPS on fabricated or materially altered definitions.\nCOVERAGE /4: Gold list (20 top-level): Action, Affiliate, Agreement, Change Order, Confidential Information, Customer, Customer Contract Manager, Customer Equipment, Customer Materials, Deliverables, Disclosing Party, Force Majeure Event, Intellectual Property Rights, Law, Losses, Permitted Subcontractor, Person, Receiving Party, Services, Term. Plus 'Control' nested inside Affiliate = 21. Banding: 18-20 terms = 4; 15-17 = 3; 12-14 = 2; under 12 = 1. The Affiliate/Control nested pair is the discriminator.\nUNIT IDs (v7): B1.term.<slug> for each of the 20 top-level terms plus B1.term.control_nested (e.g. B1.term.affiliate, B1.term.losses, B1.term.control_nested).\nACTIONABILITY /2: Clean two-column glossary, scannable, Control noted as nested. Dock for prose format.\nPROCEDURE: Score every dimension -> raw total -> normalize to /9 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+}

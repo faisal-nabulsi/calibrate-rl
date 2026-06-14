@@ -1,0 +1,20 @@
+{
+  "id": "D3",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "SYNTHETIC/CONSTRUCTED (drafted from brief)",
+  "gold_unit_ids": [
+    "D3.element.amendment_no_1",
+    "D3.element.cure_10d",
+    "D3.element.dispute_20d",
+    "D3.element.interest_1pct_month",
+    "D3.element.net30_invoice_date",
+    "D3.element.original_msa_named",
+    "D3.gate.scope_creep"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 D3 (Scoped Amendment) \u00b7 Max /12 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: SYNTHETIC -- drafted from the brief; party names fictionalized (Kelmont, Inc. / Spireline Digital) to match the perturbed MSA universe. The three listed payment changes are the gold. Faithfulness = scope discipline.\nFAITHFULNESS /3 (GATE): TRIPS on scope creep -- ANY modification beyond the three listed payment changes (term, IP, indemnification, governing law, anything else), or omission of the continuity clause ('All other terms remain in full force and effect').\nCOVERAGE /4: Six elements: (1) original MSA identified by full name + June 1, 2018 date; (2) labeled 'Amendment No. 1'; (3) Section 7.05 amended to 30 days from invoice DATE (not receipt); (4) 10-day cure notice before suspension; (5) 1.0% per month late interest; (6) 20-day dispute window requiring a description of the specific basis.\nUNIT IDs (v7): D3.element.original_msa_named; D3.element.amendment_no_1; D3.element.net30_invoice_date; D3.element.cure_10d; D3.element.interest_1pct_month; D3.element.dispute_20d. Gate unit: D3.gate.scope_creep.\nSOUNDNESS /3: Payment trigger correctly moved to 'invoice date' (the date/receipt distinction matters legally; 'receipt' = dock); interest per MONTH not per year; amendment mechanics correct.\nACTIONABILITY /2: Complete amendment -- title, recitals identifying the original agreement, numbered changes, continuity clause, signature blocks.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence.\n\nStage E \u2014 Negotiation Simulation\n\"They sent this back \u2014 now what?\"\n\nApplicable dimensions: Faithfulness /3 (gate) \u00b7 Directionality /4 (gate) \u00b7 Coverage /4 \u00b7 Soundness /3 \u00b7 Actionability /2"
+}

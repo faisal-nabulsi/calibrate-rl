@@ -1,0 +1,21 @@
+{
+  "id": "E2",
+  "max_points": 16,
+  "gates": [
+    "faithfulness",
+    "directionality"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "CONSTRUCTED scenario on real MSA (directionality = neutrality)",
+  "gold_unit_ids": [
+    "E2.conflict.ad_engine",
+    "E2.conflict.gov_law",
+    "E2.conflict.liability_cap",
+    "E2.conflict.payment",
+    "E2.conflict.sla",
+    "E2.conflict.termination",
+    "E2.verdict.overall"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 E2 (Deal Viability Analysis) \u00b7 Max /16 \u00b7 Gates: Faithfulness + Directionality (= neutrality)\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: CONSTRUCTED scenario in the perturbed MSA universe (Kelmont / Spireline); party must-haves are invented; the bridgeability key is authored commercial judgment flagged as the suite's highest-priority item for attorney review. Validate grader kappa here before trusting it; route low-confidence items to human audit.\nGOLD KEY: ALL SIX conflicts are bridgeable. (1) Termination 2 vs 30 days -- bridgeable at 15-20 days; the '2-day business model' claim is a bargaining position, not a true constraint [the key Soundness move]. (2) Ad Engine definition -- bridgeable with drafting: Vendor keeps the underlying engine, Customer owns custom work on top, perimeter documented. (3) Payment 15 vs 30 + cure -- bridgeable; Net 30 is market. (4) SLA vs best-efforts -- difficult but bridgeable; narrow SLA with low credit cap (~10% of monthly fees). (5) Delaware vs New York -- bridgeable; both commercial-law states, neither materially stronger. (6) Cap 3 vs 12 months -- bridgeable at 6 months.\nUNIT IDs (v7): E2.conflict.termination; E2.conflict.ad_engine; E2.conflict.payment; E2.conflict.sla; E2.conflict.gov_law; E2.conflict.liability_cap; plus E2.verdict.overall.\nFAITHFULNESS /3 (GATE): Each party's stated must-haves represented accurately. TRIPS on misstating a non-negotiable or inventing a constraint not listed.\nDIRECTIONALITY /4 (GATE, = NEUTRALITY): The correct direction is balanced neutrality -- both parties' reasonable interests acknowledged. TRIPS if the analysis systematically favors one party.\nCOVERAGE /4: All six conflicts assessed with an explicit bridgeable / not-bridgeable verdict, plus an overall deal-viability verdict.\nSOUNDNESS /3: Distinguishes genuine business-model constraints from negotiating positions -- accepting the 2-day termination claim uncritically = dock; declaring ANY of the six conflicts a true dealbreaker = merits error, dock.\nACTIONABILITY /2: Concrete path-to-bridge for each conflict; overall verdict with a clear recommendation (not 'could be negotiated').\nPROCEDURE: Score every dimension -> raw total -> normalize to /16 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence.\n\nAppendix \u2014 Quick Reference Scorecard\nScore each prompt against its applicable dimensions, normalize to its stated max, then apply gate caps before averaging. 'n/a' = dimension not scored for that prompt. F = Faithfulness, D = Directionality.\n\n>\n\n>Prompt"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "D2",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "SYNTHETIC (arithmetic-verifiable)",
+  "gold_unit_ids": [
+    "D2.element.cite_5_2",
+    "D2.element.cite_9_1_cure",
+    "D2.element.cure_demand",
+    "D2.element.preserve_9_2",
+    "D2.element.reserve_rights",
+    "D2.element.uptime_calc",
+    "D2.math.uptime_97_5"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 D2 (Notice of Breach Letter) \u00b7 Max /12 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: SYNTHETIC facts; the arithmetic is self-verifying. Gold math: 18h 6m = 1,086 minutes downtime; 43,200 - 1,086 = 42,114 available; 42,114 / 43,200 = 97.5% uptime vs 99.5% required; shortfall 2.0 percentage points.\nFAITHFULNESS /3 (GATE): The math/fact-fidelity test. TRIPS on wrong arithmetic presented as fact, invented breach instances, or a fabricated cure deadline.\nCOVERAGE /4: Six elements: (1) the uptime calculation shown; (2) Section 5.2 cited; (3) Section 9.1 cited with the 30-day cure; (4) demand for cure; (5) Section 9.2 rights PRESERVED without being triggered; (6) reservation of all rights.\nUNIT IDs (v7): D2.element.uptime_calc; D2.element.cite_5_2; D2.element.cite_9_1_cure; D2.element.cure_demand; D2.element.preserve_9_2; D2.element.reserve_rights. Gold arithmetic unit: D2.math.uptime_97_5.\nSOUNDNESS /3: Demands cure, NOT immediate termination -- only one month has failed, Section 9.2 (two consecutive months) is not yet triggered; premature termination assertion = dock. Treats the third-party DNS attribution as NOT a valid excuse; accepting it as a defense = dock.\nACTIONABILITY /2: Letter format -- salutation, date, subject line, signature block; firm but professional tone.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+}

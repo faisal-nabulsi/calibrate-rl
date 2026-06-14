@@ -1,0 +1,19 @@
+{
+  "id": "A3",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "MODIFIED-FROM-REAL (Kubient + adapted Version B)",
+  "gold_unit_ids": [
+    "A3.diff.cause_requirement",
+    "A3.diff.cure_period",
+    "A3.diff.data_return",
+    "A3.diff.notice_period",
+    "A3.diff.renewal_nuance",
+    "A3.diff.survival"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 A3 (Contract Version Diff) \u00b7 Max /12 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: Two real termination clauses (Version A: from the MSA underlying A2, near-verbatim; Version B: adapted from a second real MSA). Model-facing labels are neutral (VERSION A / VERSION B). Grade against the versions as printed.\nNOTE: Directionality is NOT scored -- comparison, not advocacy. Assessing each difference's direction for the Customer lives under SOUNDNESS.\nFAITHFULNESS /3 (GATE): No invented differences; both versions quoted/characterized accurately. TRIPS on inventing provisions present in neither version.\nCOVERAGE /4: Five material differences, all expected: (1) notice period 2 days vs 30/90; (2) cause requirement absent vs present; (3) cure period absent vs 30 days; (4) data return absent vs 15 business days; (5) survival clause absent vs present. Auto-renewal nuance (A's short notice makes renewals easier to avoid) = partial credit. Missing notice-period or data-return = dock.\nUNIT IDs (v7): A3.diff.notice_period; A3.diff.cause_requirement; A3.diff.cure_period; A3.diff.data_return; A3.diff.survival; A3.diff.renewal_nuance (partial credit).\nSOUNDNESS /3: Gold directions -- every difference is unfavorable to Customer in Version A except the renewal nuance (mixed). Version A's 2-day notice must be assessed as SEVERELY unfavorable, not equivalent or acceptable. Dock for misclassifying any direction.\nACTIONABILITY /2: Clear favorable/unfavorable verdict per difference plus an overall Customer-perspective assessment. Dock for a list with no verdicts.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence.\n\nStage B \u2014 Summarization & Extraction\n\"Give me the TL;DR a partner would want\"\n\nApplicable dimensions: Faithfulness /3 (gate) \u00b7 Coverage /4 \u00b7 Soundness /3 \u00b7 Actionability /2 \u2014 no Directionality (neutral tasks)"
+}

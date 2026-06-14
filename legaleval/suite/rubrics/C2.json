@@ -1,0 +1,16 @@
+{
+  "id": "C2",
+  "max_points": 16,
+  "gates": [
+    "faithfulness",
+    "directionality"
+  ],
+  "rubric_version": "v7.0",
+  "provenance": "REAL-QUOTED clause + constructed key (ACORD)",
+  "gold_unit_ids": [
+    "C2.issue.early_term_cap",
+    "C2.issue.uncapped_indemnity"
+  ],
+  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 C2 (Issue-to-Fix (Limitation of Liability)) \u00b7 Max /16 \u00b7 Gates: Faithfulness + Directionality\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: Real quoted clause (via ACORD); no planted gap, real party names retained; the gold is legal-judgment, authored. Grade against the clause as printed.\nFAITHFULNESS /3 (GATE): TRIPS on fabricated additional problems or misquoting the clause/cap language.\nDIRECTIONALITY /4 (GATE): Vendor's (Commerce One's) seat throughout; the proposed fix must protect Vendor. TRIPS if the fix increases Vendor exposure or the analysis takes Corio's side.\nCOVERAGE /4: PRIMARY (required): Section 8 indemnification is carved out of the consequential-damages exclusion, so Vendor's indemnification exposure is uncapped -- unlimited IP liability sits outside the cap; the fix must cap Section 8 obligations (e.g. 12 months' fees or a fixed multiple). SECONDARY (partial credit): the cap is 'amounts paid by Corio' -- early in the contract Vendor's recoverable damages approach zero even when Corio breaches.\nSOUNDNESS /3: Correctly recognizes the consequential-damages exclusion itself is well-drafted and NOT the problem (claiming it is = dock); the proposed rewrite actually closes the Section 8 gap; symmetry fix to 8.2 optional but creditable.\nACTIONABILITY /2: The rewrite is usable clause language, not a description of what the clause should do.\nVARIANTS (v7): The OPEN variant (headline) asks for 'any problems ... if any'; the DIRECTED variant (v6 phrasing) asserts a single specific problem, pointing at the carve-out. Gold identical: C2.issue.uncapped_indemnity required; C2.issue.early_term_cap partial credit. OPEN-VARIANT GRADING: further defensible observations are DEFENSIBLE-UNGRADED; claiming the consequential-damages exclusion itself is broken remains a Soundness dock under either variant. CLEAN INSTANCE: on a clean sibling instance (a well-drafted cap clause), gold = 'no material problem'; a manufactured defect stated as fact trips Faithfulness.\nPROCEDURE: Score every dimension -> raw total -> normalize to /16 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+}
