@@ -9,11 +9,16 @@ class ClaudeSonnet(Provider):
     name = "claude-sonnet-4-6"
 
     def __init__(self) -> None:
-        self.client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env
+        self._client = None  # built lazily so the registry needs no key to instantiate
+
+    def _get_client(self) -> anthropic.Anthropic:
+        if self._client is None:
+            self._client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY from env
+        return self._client
 
     def generate(self, prompt_text: str) -> GenerationResult:
         params = {"model": "claude-sonnet-4-6", "max_tokens": MAX_TOKENS}
-        response = self.client.messages.create(
+        response = self._get_client().messages.create(
             **params,
             # Incognito: no system prompt, no tools, no thinking config beyond default.
             messages=[{"role": "user", "content": prompt_text}],
