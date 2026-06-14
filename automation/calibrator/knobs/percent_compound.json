@@ -1,0 +1,52 @@
+{
+  "params": {
+    "base": {
+      "value": [
+        400,
+        500,
+        600,
+        800,
+        1000,
+        1200,
+        1500,
+        2000
+      ],
+      "type": "choice",
+      "envelope": [
+        100,
+        5000
+      ],
+      "knob_class": "num"
+    },
+    "up": {
+      "value": [
+        10,
+        20,
+        25,
+        50
+      ],
+      "type": "choice",
+      "envelope": [
+        5,
+        100
+      ],
+      "knob_class": "num"
+    },
+    "down": {
+      "value": [
+        10,
+        20,
+        25,
+        40,
+        50
+      ],
+      "type": "choice",
+      "envelope": [
+        5,
+        100
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

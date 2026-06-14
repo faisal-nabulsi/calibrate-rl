@@ -1,0 +1,33 @@
+{
+  "params": {
+    "width_mm": {
+      "value": [
+        5,
+        6,
+        8,
+        10,
+        13,
+        15
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        50
+      ],
+      "knob_class": "num"
+    },
+    "length_m": {
+      "value": [
+        10,
+        40
+      ],
+      "type": "randint",
+      "envelope": [
+        5,
+        100
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

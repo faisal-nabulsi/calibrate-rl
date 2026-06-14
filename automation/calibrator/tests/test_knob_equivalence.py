@@ -34,7 +34,15 @@ from automation.calibrator.knob_loader import (  # noqa: E402
 TARGETS = ["triangular_filter_count", "log_laws", "ordered_triple_constraint",
            "constrained_subset_count", "inclusion_exclusion_3set",
            "constrained_divisor_count", "complex_modulus_power",
-           "modular_exponent", "divisor_sum_filter", "prime_power_divisors"]
+           "modular_exponent", "divisor_sum_filter", "prime_power_divisors",
+           # 19 reserved depth-1 partner atomics (knob-wired in this PR)
+           "arith_series_sum", "arith_term_filter", "count_obtuse_triangles",
+           "digit_count_bigprod", "distinct_product_count", "frobenius_stamps",
+           "geo_first_exceed", "infinite_product_exp", "mean_removal",
+           "percent_compound", "point_rotation", "primality_in_sequence",
+           "rate_closing", "sum_of_squares", "three_number_system",
+           "trapezoid_area", "unit_conversion_area", "vieta_pair_count",
+           "vieta_sumcubes"]
 
 # the old inline literals, verbatim from pre-refactor skeleton_injector_v12.py
 OLD_INLINE = {
@@ -60,6 +68,29 @@ OLD_INLINE = {
     "divisor_sum_filter": {"n": [105, 3000], "cond": ["odd", "even"]},
     "prime_power_divisors": {"D": [12, 16, 18, 20, 24, 28, 30, 36, 40, 48, 60,
                                    64, 72, 80, 90, 96]},
+    # 19 reserved depth-1 partner atomics — old inline literals, verbatim:
+    "arith_term_filter": {"a": [3, 15], "d": [2, 9], "n": [30, 60], "dv": [3, 4, 5, 6]},
+    "geo_first_exceed": {"a": [2, 9], "r": [2, 3], "bound": [800, 60000]},
+    "vieta_sumcubes": {"r1": [2, 20], "r2": [2, 20]},
+    "infinite_product_exp": {"base": [4, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24, 27], "r": [2, 3]},
+    "trapezoid_area": {"h": [4, 6, 8, 10, 12], "k": [6, 40]},
+    "rate_closing": {"v1": [10, 40], "v2": [10, 40], "mult": [3, 12]},
+    "three_number_system": {"third": [4, 20], "mult": [3, 7], "off": [15, 50]},
+    "mean_removal": {"n": [6, 12], "m": [30, 70], "m2": [30, 70], "x1": [15, 80]},
+    "point_rotation": {"x": [-20, 20], "y": [-20, 20], "cx": [-10, 10], "cy": [-10, 10],
+                       "deg": [90, 180, 270]},
+    "percent_compound": {"base": [400, 500, 600, 800, 1000, 1200, 1500, 2000],
+                         "up": [10, 20, 25, 50], "down": [10, 20, 25, 40, 50]},
+    "arith_series_sum": {"a": [2, 15], "d": [2, 9], "T": [300, 3000]},
+    "sum_of_squares": {"n": [20, 60], "m": [3, 4, 5, 6, 7]},
+    "digit_count_bigprod": {"a": [2, 9], "b": [8, 25], "c": [2, 9], "d": [5, 20]},
+    "frobenius_stamps": {"pairs": [[4, 9], [5, 8], [6, 11], [7, 11], [5, 12], [7, 13],
+                                   [8, 11], [9, 13], [7, 17], [8, 15]]},
+    "vieta_pair_count": {"c": [16, 24, 32, 36, 48, 60, 72, 80, 90, 96, 120]},
+    "primality_in_sequence": {"d": [2, 4, 6, 10, 14], "a": [1, 3, 7, 9, 11, 13], "K": [10, 18]},
+    "distinct_product_count": {"faces": [4, 5, 6, 8]},
+    "unit_conversion_area": {"width_mm": [5, 6, 8, 10, 13, 15], "length_m": [10, 40]},
+    "count_obtuse_triangles": {"P": [11, 16]},
 }
 
 
