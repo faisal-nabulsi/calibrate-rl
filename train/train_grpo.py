@@ -16,10 +16,11 @@ Run shape (depth-0 goldilocks hillclimb):
   goldilocks, ~every prompt produces gradient (no ghost-batching waste).
   KL penalty (beta) anchors the policy; DAPO loss normalizes across active tokens.
 
-Generation: vanilla model.generate() -- no vLLM, no paged attention.
-vLLM colocate has PEFT convergence bugs (trl#2856, vllm#14483).
-Paged attention runs out of cache blocks at our batch size.
-For 1.5B on L40S, vanilla generation is fast enough (~5GB KV cache).
+Generation: vanilla model.generate() by default; set USE_VLLM=1 for vLLM colocate
+(7B v12 run, ~3-5x faster rollouts). The old PEFT+vLLM convergence bug
+(trl#2856 / vllm#14483) was FIXED in trl#2873 (Feb 2025); temp=1.0 sidesteps the
+temp != 1 unscaled-logprob bug (#4159). bf16 7B colocate on 48GB is tight -> gate
+the full run on a short OOM dry-run.
 
 Usage:
     bash setup.sh                        # install deps + build dataset (once)
@@ -114,6 +115,21 @@ peft_config = LoraConfig(
 )
 
 
+# ── vLLM generation (gated) ──────────────────────────────────────────────────
+# Default OFF (legacy/1.5B path unchanged). USE_VLLM=1 enables vLLM colocate for
+# the 7B v12 run. Convergence bug trl#2856 fixed in trl#2873; colocate+PEFT hang
+# (#3671) is multi-GPU only (we're single-GPU); temp=1.0 dodges #4159. TIS
+# (vllm_importance_sampling_correction) defaults on and handles the rollout/train
+# logprob mismatch. Kwargs only passed when ON, so an older TRL is unaffected
+# unless you opt in (the OOM dry-run will surface any version/memory issue).
+_use_vllm = bool(int(os.environ.get("USE_VLLM", "0")))
+vllm_kwargs = dict(
+    use_vllm=True,
+    vllm_mode="colocate",
+    vllm_gpu_memory_utilization=float(os.environ.get("VLLM_GPU_UTIL", "0.3")),
+    vllm_enable_sleep_mode=True,   # free vLLM VRAM during optimizer.step()
+) if _use_vllm else {}
+
 # ── Training config ─────────────────────────────────────────────────────────
 training_args = GRPOConfig(
     output_dir=os.environ.get("RESUME_OUTPUT_DIR", f"./checkpoint/run_{RUN_TIMESTAMP}"),
@@ -131,13 +147,7 @@ training_args = GRPOConfig(
     temperature=1.0,
 
     # ── Generation ──────────────────────────────────────────────────────
-    # Plain model.generate() -- no vLLM, no paged attention.
-    # vLLM colocate: PEFT + vLLM has known convergence bugs (trl#2856).
-    # Paged attention: runs out of cache blocks at our batch size (128
-    # sequences × 1024 tokens exceeds the default block pool).
-    # For 1.5B on L40S (48GB), vanilla generation is fast enough and
-    # the KV cache (~5GB for 128 sequences) fits easily.
-    use_vllm=False,
+    # vLLM is merged in from vllm_kwargs below (gated by USE_VLLM); default off.
 
     # ── Batch sizing ───────────────────────────────────────────────────
     # Effective batch per optimizer step = per_device_train_batch_size ×
@@ -182,6 +192,7 @@ training_args = GRPOConfig(
 
     # Misc
     seed=42,
+    **vllm_kwargs,   # USE_VLLM=1 -> vLLM colocate; empty otherwise
 )
 
 

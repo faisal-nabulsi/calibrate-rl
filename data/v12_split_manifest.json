@@ -1,0 +1,43 @@
+{
+  "seed": 42,
+  "source": "calib_v12_2048_7B.json",
+  "dropped_concept": "log_laws",
+  "train": 449,
+  "holdout": 79,
+  "reserve_too_hard": 90,
+  "concepts": 27,
+  "holdout_per_concept": {
+    "algebraic_system_2eq": 3,
+    "alternating_cubes": 3,
+    "box_diagonal_sq": 2,
+    "complement_prob_mn": 3,
+    "complex_eq_solcount": 3,
+    "complex_modulus_power": 3,
+    "constrained_digit_count": 3,
+    "constrained_divisor_count": 3,
+    "constrained_subset_count": 3,
+    "continued_fraction": 3,
+    "count_pythagorean": 3,
+    "custom_binary_op": 3,
+    "divisor_sum_filter": 3,
+    "equalization_fraction": 3,
+    "inclusion_exclusion_3set": 3,
+    "lattice_points_circle": 2,
+    "lcm_gcd_system": 3,
+    "modular_exponent": 3,
+    "multi_constraint_square": 3,
+    "ordered_triple_constraint": 3,
+    "perfect_square_divisible": 3,
+    "poly_remainder": 3,
+    "polynomial_sign_intervals": 3,
+    "prime_power_divisors": 3,
+    "roots_of_unity_sum": 3,
+    "telescoping_mn": 3,
+    "triangular_filter_count": 3
+  },
+  "holdout_band": "goldilocks+borderline",
+  "thin_concepts_2heldout": [
+    "box_diagonal_sq",
+    "lattice_points_circle"
+  ]
+}
