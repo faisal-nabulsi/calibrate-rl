@@ -21,6 +21,7 @@ class OpenAICompatProvider(Provider):
     model_env: str = ""             # optional env var that overrides default_model
     base_url_env: str = ""          # optional env var that overrides default_base_url
     default_base_url: str | None = None   # None => the openai SDK's own endpoint
+    token_param: str = "max_tokens"  # newer OpenAI models need "max_completion_tokens"
 
     def __init__(self) -> None:
         self._client = None
@@ -43,7 +44,7 @@ class OpenAICompatProvider(Provider):
 
     def generate(self, prompt_text: str) -> GenerationResult:
         model = self._model()
-        params = {"model": model, "max_tokens": MAX_TOKENS}
+        params = {"model": model, self.token_param: MAX_TOKENS}
         response = self._get_client().chat.completions.create(
             **params,
             # Incognito: bare user turn, no system prompt, no tools.

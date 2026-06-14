@@ -23,7 +23,7 @@ class GeminiPro(Provider):
     def generate(self, prompt_text: str) -> GenerationResult:
         from google.genai import types
 
-        model = os.getenv("GEMINI_MODEL", "gemini-3.1-pro")
+        model = os.getenv("GEMINI_MODEL", "gemini-3.1-pro-preview")
         params = {"model": model, "max_output_tokens": MAX_TOKENS}
         # Incognito: prompt as the sole user content, no system_instruction, no tools.
         response = self._get_client().models.generate_content(

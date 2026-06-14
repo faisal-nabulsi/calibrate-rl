@@ -1,0 +1,2 @@
+prompt_id,provider,sample,raw,max,norm_uncapped,norm,capped,precision,gates_tripped,tier0_flags
+A1,claude-sonnet-4-6,0,9.0,16,0.5625,0.5625,False,1.0,,
