@@ -400,9 +400,10 @@ def c_chain_cdc_modexp():
 # machinery as the first wave: oracles compose -> gold exact; the surface EMBEDS A's
 # quantity (model must compute it), never a "first/then" recipe; feed-gated to B's
 # envelope; intermediate_gold in meta. Each has a text recomputer in prep/check_dataset.py.
-# Low-cardinality sources target modexp (a^e mod m stays high-entropy regardless of the
-# count's distinct-cardinality — the #55 rationale); only the highest-cardinality source
-# (sum_of_squares: n x m) targets prime_power_divisors (D -> single smallest-N, low entropy).
+# ALL eight target modexp: a^e mod m stays high-entropy even when the count's distinct-
+# cardinality is low (the #55 rationale). A build-time diversity check found the ordered_triple
+# (N) and prime_power_divisors (D) targets COLLAPSE answer diversity — each intermediate maps to
+# ~one final (top3 0.27-0.57, static-gate fail) — so every chain feeds the count into an exponent.
 # ===================================================================
 def _obtuse_count(P):
     cnt=0
