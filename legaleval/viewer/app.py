@@ -35,6 +35,162 @@ DIM_ABBR = {"faithfulness": "Faith", "directionality": "Dir", "coverage": "Cov",
             "soundness": "Sound", "actionability": "Action"}
 STAGES = {"A": "Issue-spotting", "B": "Summarization & Extraction", "C": "Redlining",
           "D": "Drafting", "E": "Negotiation"}
+# Per-stage explainer for the Overview page: (what the task is, why it matters for the benchmark).
+STAGE_INFO = {
+    "A": ("Find the legal problems in a document — missing protections, problematic clauses, "
+          "and whether each gap helps or hurts the client.",
+          "The highest-judgment, lowest-scoring work (A1 is the hardest task). Catching what's "
+          "<i>absent</i> — and which absences are actually favorable — is where every model fails most."),
+    "B": ("Pull and condense specific facts or terms from a contract — defined-term glossaries, "
+          "key figures, structured extracts.",
+          "The mechanical floor: faithfulness is near-ceiling here, so this stage is the control "
+          "that proves models rarely fabricate — weakness elsewhere is judgment, not reading."),
+    "C": ("Mark up a clause in the client's favor — directional editing toward an assigned seat.",
+          "The most discriminating stage. Advocate-a-side editing is where directional drift and "
+          "gate trips concentrate (C1/C2), separating strong models from weak ones."),
+    "D": ("Produce a new document or clause from a brief — NDA, notice of breach, scoped amendment.",
+          "Tests scope fidelity: does the model add only what's asked? The faithfulness / scope-creep "
+          "gate lives here and is the single largest source of cross-judge disagreement."),
+    "E": ("Reason across a whole deal — triage opposing-counsel redlines, assess deal viability.",
+          "Holistic legal judgment under fluent prose: soundness failures (calling a bridgeable deal "
+          "dead) and long-context frame-holding surface here, not in extraction or drafting."),
+}
+
+
+def categories_html(order, pmeta):
+    """Overview explainer: each task category (stage) + why it matters."""
+    cnt = {st: sum(1 for pid in order if pid.startswith(st)) for st in STAGES}
+    items = "".join(
+        f"<li style='margin:8px 0'><b>{st} · {STAGES[st]}</b> "
+        f"<span class='meta'>({cnt[st]} prompt{'s' if cnt[st] != 1 else ''})</span><br>"
+        f"{what} <i>Why it matters:</i> {why}</li>"
+        for st, (what, why) in STAGE_INFO.items())
+    return ('<h3 style="margin-top:26px">Task categories (the five stages)</h3>'
+            '<p class="meta">What each category tests, and why it earns a place in the benchmark.</p>'
+            f'<ul style="list-style:none;padding-left:0">{items}</ul>')
+
+
+# Per-dimension explainer: name -> (max points, is_gate, what it measures, why it matters).
+DIM_INFO = {
+    "faithfulness": (3, True,
+        "Does the answer stick to the facts and clauses actually in the instance — no fabricated "
+        "clauses, invented figures, or asserted facts that aren't shown?",
+        "A <b>gate</b>: any trip caps the score at 0.40, because hallucinated law is the highest-risk "
+        "error. It's near-ceiling (~96%), so the real risk here is judgment, not invention."),
+    "directionality": (4, True,
+        "Does the answer advocate for the <i>assigned</i> party — never argue the wrong side or add "
+        "terms that help the counterparty?",
+        "A <b>gate</b>, and the weakest dimension (~74%). Taking and holding the client's side is core "
+        "to legal advocacy; it's where weaker models drift (the Qwen/Llama gate trips)."),
+    "coverage": (4, False,
+        "Did the answer find <i>all</i> the issues or points the gold key expects — completeness across "
+        "the required findings?",
+        "Measures thoroughness: how much of the expected analysis the model actually surfaces, versus "
+        "stopping at the obvious one or two points."),
+    "soundness": (3, False,
+        "Is the legal reasoning correct — valid analysis and the right conclusions, not just confident "
+        "prose?",
+        "The second-weakest dimension. Reaching the correct legal answer is where models fail under "
+        "fluent writing (e.g. declaring a bridgeable deal 'dead' on E2)."),
+    "actionability": (2, False,
+        "Is the output usable in practice — deployable clause language, clear recommendations, concrete "
+        "next steps?",
+        "Captures practical value: whether a lawyer could act on the answer as-is, not just whether it's "
+        "analytically right."),
+}
+
+
+def dimensions_html():
+    """Overview explainer: each grading dimension + why it matters."""
+    items = "".join(
+        f"<li style='margin:8px 0'><b>{d.title()}</b> "
+        f"<span class='meta'>(max {mx} pt{'s' if mx != 1 else ''}{', GATE' if gate else ''})</span><br>"
+        f"{what} <i>Why it matters:</i> {why}</li>"
+        for d, (mx, gate, what, why) in DIM_INFO.items())
+    return ('<h3 style="margin-top:26px">Grading categories (the five dimensions)</h3>'
+            '<p class="meta">Every response is scored on these five dimensions against a gold rubric. '
+            'The two <b>gates</b> (Faithfulness, Directionality) cap a tripping response at 0.40.</p>'
+            f'<ul style="list-style:none;padding-left:0">{items}</ul>')
+
+
+def next_version_html():
+    """Standalone page: the changes planned for the next version (v8)."""
+    def sec(title, lead, items, ordered=False):
+        tag = "ol" if ordered else "ul"
+        lis = "".join(f"<li style='margin:7px 0'>{x}</li>" for x in items)
+        return (f'<h3 style="margin-top:24px">{title}</h3>'
+                f'<p class="meta">{lead}</p><{tag}>{lis}</{tag}>')
+    return f"""
+    <div class="crumb">Next version</div><h2>What to change for v8</h2>
+    <p>A working plan for the next benchmark version, grounded in the v7 run. The headline finding:
+    the weak point is not the dimension scoring (already tight via forced per-criterion sub-judgments)
+    but the <b>gates</b> — the binary, score-capping calls. Two independent judges agreed on gate
+    decisions only <b>~77%</b> of the time, and the disagreement is overwhelmingly on
+    <b>Faithfulness</b>, one-directional (gpt-5.5 over-trips a fuzzy bar). By the κ≥0.80 trust rule
+    (“ambiguity is a rubric bug, not a grader bug”), the gate rubric needs tightening before publishing.</p>
+
+    {sec("1 · Grading &amp; gates (highest leverage)",
+         "Make gate decisions reproducible by removing interpretation room — not by adding judge discretion.", [
+        "<b>Add a per-prompt <code>gate_conditions</code> field.</b> Today prompts only carry "
+        "<code>gates:[faithfulness, directionality]</code> with no spelled-out triggers, so judges "
+        "improvise. v8 gives each gate a <b>closed allow/deny list</b> (the v6-A1 style: “trips ONLY on …”).",
+        "<b>Split the overloaded Faithfulness gate by task type.</b> On analysis/extraction it means "
+        "“don’t assert facts not in the instance”; on drafting (D-stage) it means “no scope creep.” "
+        "Same name, different failure mode — give drafting its own <b>scope-fidelity</b> gate.",
+        "<b>Ship a drafting allow/deny whitelist.</b> D1 split 5/5 (all models pass on Opus, trip on "
+        "gpt-5.5) over whether a standard “No License; Ownership” NDA clause is fabrication. Whitelist "
+        "standard boilerplate (no-license, no-reverse-engineering, no-warranty, counterparts) as "
+        "non-tripping; list what DOES trip (IP assignment, indemnity, arbitration, governing-law change)."],
+        ordered=False)}
+
+    {sec("2 · Judge discretion (the flexibility question)",
+         "Gates get near-zero live discretion; the judge’s judgment feeds the rubric OFFLINE, never the score online.", [
+        "Let the judge emit an explicit <b>“not covered by the enumerated conditions”</b> verdict on a "
+        "novel case instead of guessing trip/pass — it routes to the existing human-confirm queue.",
+        "Require a <b>proposed_condition</b> field: what rule would resolve it. A human ratifies it into "
+        "the <i>next</i> rubric version. Discretion becomes input to the rubric, not a freelance score.",
+        "Invariants: reproducibility (same rubric_version → same scores; any behavior change bumps the "
+        "version), the κ trust model, and auditability (novel calls visible in the queue, not hidden)."])}
+
+    {sec("3 · Prompt edits (these few need a re-run)",
+         "Most v8 work is re-grading; only prompts whose TEXT changes need their model responses regenerated.", [
+        "<b>C2</b> — make the directionality trip condition single + explicit (it’s genuinely "
+        "mixed-direction today, which is why it lands in human-confirm).",
+        "<b>E2</b> — its seat is “neutral deal counsel,” so a <i>partisan</i> directionality gate is "
+        "incoherent. Replace with a <b>neutrality</b> gate (trips on taking either side) or drop it.",
+        "<b>D1 + drafting prompts</b> — state the assumption license explicitly: “you may supply standard "
+        "reasonable terms; do NOT add [closed list],” aligning the prompt with the gate."])}
+
+    {sec("4 · Prompt-generation rules",
+         "Bake the fixes into how prompts are authored so the problems can’t recur.", [
+        "Enumerable per-gate trip conditions are a <b>hard authoring requirement</b>, co-drafted with the "
+        "gold key — a prompt can’t reach “ready” without them.",
+        "Tag every prompt with a <b>task-type</b> and bind the gate definition to it, so the "
+        "Faithfulness name-overload never returns.",
+        "A <b>directionality gate may only attach to a named partisan seat</b>; neutral-counsel prompts "
+        "get a neutrality gate instead.",
+        "<b>Self-containment:</b> any clause/section the gold or a gate depends on must be present in the "
+        "shown text (handles the “did the model pull from the original contract?” risk)."])}
+
+    {sec("5 · New task types to add",
+         "Oriented to raise discrimination AND reduce judge ambiguity. (Quantitative/computational tasks were considered and dropped — models are already strong there.)", [
+        "<b>Clean / no-issue instances</b> — gold = “no material issue.” Measures over-flagging (the A1 "
+        "bucket-split blind spot) and is a benchmark-wide control: does a model invent risk under pressure?",
+        "<b>Authority-bounded Q&amp;A with a world-vs-instance trap</b> — a modified statute/case excerpt, "
+        "answerable only from the excerpt where the real law differs. The cleanest Faithfulness discriminator.",
+        "<b>Cross-document consistency</b> — two related docs (MSA + SOW) → “do these conflict?” Stresses "
+        "Soundness and long-context frame-holding.",
+        "<b>Multi-turn frame-holding negotiation</b> — respond to a counterparty’s counter across turns; "
+        "targets the #1 directional-drift failure. Grading-heavy, so stage it after the discretion valve exists."])}
+
+    {sec("Settled boundary decisions",
+         "So they don’t get re-litigated.", [
+        "<b>Keep the baseline incognito</b> — the party is already named in sentence 1 of every prompt, so "
+        "no role/system-prompt priming; the directionality trips are genuine role-adherence failures.",
+        "The <b>“role-primed variant” is parked</b> (revisit only on request).",
+        "<b>Report cross-family</b> (Opus + gpt-5.5-pro), not single-judge — each judge is lenient in-family."])}
+    <p class="meta" style="margin-top:22px">Derived from run 2026-06-14T16-40-43 (Opus 4.8 vs gpt-5.5 cross-judge analysis). This is a plan, not yet applied.</p>
+    """
 
 app = Flask(__name__)
 
@@ -119,6 +275,7 @@ BASE = """
 <nav class="side">
  <h1>⚖️ LegalEval</h1>
  <a href="/" class="{{ 'on' if page=='ov' }}">Overview & results</a>
+ <a href="/next" class="{{ 'on' if page=='next' }}">Next version (v8) plan</a>
  {% for st,sname in stages.items() %}<div class="stg">{{st}} · {{sname}}</div>
    {% for pid in order if pid.startswith(st) %}
      <a href="/prompt/{{pid}}" class="{{ 'on' if pid==cur }}">{{pid}} · {{pmeta[pid].name}}</a>
@@ -323,13 +480,20 @@ def index():
     The Opus 4.8 judge scores 5 dimensions (Faithfulness, Directionality, Coverage, Soundness, Actionability)
     against a gold rubric; code normalizes to 0–1 and <b>caps any gate-tripping response at 0.40</b> (a gate trips on
     fabrication or advocating the wrong party). Pick a prompt on the left to see all five responses + their grades and rationale.</p>
-    <h3>Overall ranking (mean normalized score, after gate cap)</h3>
+    {categories_html(order, pmeta)}
+    {dimensions_html()}
+    <h3 style="margin-top:26px">Overall ranking (mean normalized score, after gate cap)</h3>
     <table><tr><th>#</th><th>Model</th><th>Mean</th><th>Gate trips</th></tr>{rows}</table>
     {struggle_html(grades, cells, pmeta)}
     <p class="meta">⚠ k=1 single judge sample; margins overlap within CIs. Opus grading Claude Sonnet is same-family
     (self-grading caveat). Edit prompts/rubrics from any prompt page.</p>
     """
     return render(body, page="ov", cur=None)
+
+
+@app.route("/next")
+def next_version():
+    return render(next_version_html(), page="next", cur=None)
 
 
 @app.route("/prompt/<pid>")
