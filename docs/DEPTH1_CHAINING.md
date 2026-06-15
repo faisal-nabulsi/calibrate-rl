@@ -174,7 +174,13 @@ wave 3 = 11 (value → base). **Every concept is now covered** — all 28 depth-
 | 2 | geo_first_exceed → modular_exponent | index → exponent e | 7 |
 | 2 | digit_count_bigprod → modular_exponent | digit count → exponent e | 60 |
 | 2 | sum_of_squares → modular_exponent | count → exponent e | 7,53 |
-| 3 | arith_series_sum / distinct_product_count / mean_removal / rate_closing / trapezoid_area / percent_compound / three_number_system / infinite_product_exp / vieta_sumcubes / unit_conversion_area / point_rotation → modular_exponent | **value V → base** (`Vᵏ mod m`) | (partner-only) |
+| 3 | arith_series_sum / distinct_product_count / mean_removal / rate_closing / trapezoid_area / percent_compound / three_number_system / infinite_product_exp / vieta_sumcubes / unit_conversion_area / point_rotation → modular_exponent | **value V → base** (`Vᵏ mod m`) | (feeder-only) |
+
+> **AMC tagging convention.** A chain's `@concept` AMC tag is the **feeder's** AMC, not the
+> target's. The only chain that legitimately carries `55` is `constrained_divisor_count → modular_exponent`
+> — the real cdc×modexp #55 composition (§6a). The other 19 modexp-ending chains just *use* modexp as
+> a high-entropy sink, so tagging them `55` would falsely inflate #55 coverage in rollups; they carry
+> only their feeder's AMC.
 
 **Why wave 3 feeds the *base* (a different pattern).** These 10 are *value*-producers — a count has
 a natural role as an exponent, but an arbitrary value doesn't. They're tagged in the code as
