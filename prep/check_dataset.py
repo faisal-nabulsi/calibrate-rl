@@ -421,183 +421,84 @@ def rc_log_laws(p):
     return tot
 
 
-def rc_chain_log_laws__ordered_triple_constraint(p):
-    # depth-1 composite: the triple-sum target is embedded as
-    # log_B(B^e1 · B^e2 / B^e3). Recover N via _log_arg (validates every factor
-    # is an exact power of B), then count triples 0≤a<b<c with a+b+c=N — same
-    # brute force as rc_ordered_triple_constraint, but N comes from the log,
-    # never from a bare integer in the text.
-    m = re.search(r"log[_\s]*\{?(\d+)\}?\s*\(([^)]*)\)", p)
-    if not m: return None
-    N = _log_arg(m.group(2), int(m.group(1)))
-    if N is None or N < 0: return None
-    return sum(1 for a, b, c in combinations(range(0, N + 1), 3) if a + b + c == N)
-
-
-def _cdc_from_text(p, N):
-    # shared: count divisors of N per the embedded cdc condition (odd / >t / <t).
-    # N comes from the composite's A-step (computed below), never a bare integer.
-    if N is None or N < 1:
-        return None
-    ds = divisors(N)
-    if "odd" in p:
-        return sum(1 for d in ds if d % 2 == 1)
-    gt = re.search(r"greater than (\d+)", p)
-    lt = re.search(r"less than (\d+)", p)
-    if gt:
-        return sum(1 for d in ds if d > int(gt.group(1)))
-    if lt:
-        return sum(1 for d in ds if d < int(lt.group(1)))
-    return None
-
-def rc_chain_prime_power_divisors__constrained_divisor_count(p):
-    # depth-1: A=ppd embeds "smallest int with exactly D positive divisors"; recover D,
-    # recompute N (smallest with D divisors) independently, then count per the cdc clause.
-    m = re.search(r"exactly (\d+) positive divisors", p)
-    if not m:
-        return None
-    D = int(m.group(1))
-    N = 1
-    while num_divisors(N) != D:
-        N += 1
-        if N > 10**6:          # bounded (mirrors the generator guard); awkward D -> unverifiable
-            return None
-    return _cdc_from_text(p, N)
-
-def rc_chain_constrained_divisor_count__modular_exponent(p):
-    # depth-1: A=cdc embeds "divisors of NUM that are {odd|greater than t|less than t}" -> e;
-    # recompute e independently, then B=modexp: ans = a^e mod m (exponent is the symbolic "e").
-    A = re.search(r"divisors of (\d+)", p)
-    if not A:
-        return None
-    ds = divisors(int(A.group(1)))
-    if "odd" in p:
-        e = sum(1 for d in ds if d % 2 == 1)
-    else:
-        gt = re.search(r"greater than (\d+)", p)
-        lt = re.search(r"less than (\d+)", p)
-        if gt:
-            e = sum(1 for d in ds if d > int(gt.group(1)))
-        elif lt:
-            e = sum(1 for d in ds if d < int(lt.group(1)))
-        else:
-            return None
-    am = re.search(r"(\d+)\s*\^\s*e\b", p)              # base a (anchored on ^e)
-    mm = re.search(r"(?:divided by|mod)\s+(\d+)", p)    # modulus m
-    if not (am and mm):
-        return None
-    return pow(int(am.group(1)), e, int(mm.group(1)))
-
-
-# ── depth-1 second-wave chains: a count-producer A feeds modular_exponent's e ───
-# Each recovers A's params from the embedded text, recomputes the count e
-# independently, then B=modexp: a^e mod m (a is the base anchored on "^e").
-def _modexp_tail(p, e):
-    if e is None:
-        return None
-    mb = re.search(r"(\d+)\s*\^\s*e\b", p)              # modexp base (anchored on ^e)
-    mm = re.search(r"(?:divided by|mod)\s+(\d+)", p)    # modulus
-    if not (mb and mm):
-        return None
-    return pow(int(mb.group(1)), e, int(mm.group(1)))
-
 def _isprime_td(x):
     if x < 2: return False
     i = 2
-    while i * i <= x:
+    while i*i <= x:
         if x % i == 0: return False
         i += 1
     return True
 
-def rc_chain_count_obtuse_triangles__modular_exponent(p):
+# ── atomic recomputers for partner feeders (salvaged from the removed wave-2 chain
+#    recomputers); these let the diverse-chain recomputer recompute V for partner-fed chains.
+def rc_count_obtuse_triangles(p):
     g = re.search(r"perimeter at most (\d+)", p)
     if not g: return None
     P = int(g.group(1)); cnt = 0
     for a in range(1, P):
         for b in range(a, P):
             for c in range(b, P):
-                if a + b + c > P: break
-                if a + b <= c: continue
-                if c * c > a * a + b * b: cnt += 1
-    return _modexp_tail(p, cnt)
+                if a+b+c > P: break
+                if a+b <= c: continue
+                if c*c > a*a+b*b: cnt += 1
+    return cnt
 
-def rc_chain_arith_term_filter__modular_exponent(p):
-    nt = re.search(r"first (\d+) terms", p); st = re.search(r"first term (\d+)", p)
-    df = re.search(r"common difference (\d+)", p); dv = re.search(r"(?:divisible by|multiples of) (\d+)", p)
-    if not (nt and st and df and dv): return None
-    nterms, start, diff, d = int(nt.group(1)), int(st.group(1)), int(df.group(1)), int(dv.group(1))
-    return _modexp_tail(p, sum(1 for k in range(nterms) if (start + k * diff) % d == 0))
-
-def rc_chain_primality_in_sequence__modular_exponent(p):
+def rc_primality_in_sequence(p):
     pt = re.search(r"first (\d+) terms", p); ps = re.search(r"first term (\d+)", p)
     pd = re.search(r"common difference (\d+)", p)
     if not (pt and ps and pd): return None
-    pterms, pstart, pdiff = int(pt.group(1)), int(ps.group(1)), int(pd.group(1))
-    return _modexp_tail(p, sum(1 for k in range(pterms) if _isprime_td(pstart + k * pdiff)))
+    return sum(1 for k in range(int(pt.group(1))) if _isprime_td(int(ps.group(1))+k*int(pd.group(1))))
 
-def rc_chain_vieta_pair_count__modular_exponent(p):
+def rc_vieta_pair_count(p):
     g = re.search(r"qx\s*\+\s*(\d+)", p)
     if not g: return None
     c = int(g.group(1)); trip = set(); R = 15
-    for r1 in range(-R, R + 1):
+    for r1 in range(-R, R+1):
         if r1 == 0 or c % r1: continue
-        for r2 in range(r1 + 1, R + 1):
+        for r2 in range(r1+1, R+1):
             if r2 == 0: continue
-            p12 = r1 * r2
+            p12 = r1*r2
             if p12 == 0 or (-c) % p12: continue
-            r3 = (-c) // p12
+            r3 = (-c)//p12
             if r3 in (r1, r2) or r3 == 0: continue
             trip.add(tuple(sorted((r1, r2, r3))))
-    return _modexp_tail(p, len(trip))
+    return len(trip)
 
-def rc_chain_frobenius_stamps__modular_exponent(p):
+def rc_frobenius_stamps(p):
     g = re.search(r"(\d+)x\s*\+\s*(\d+)y", p)
     if not g: return None
     fa, fb = int(g.group(1)), int(g.group(2))
-    return _modexp_tail(p, (fa - 1) * (fb - 1) // 2)
+    return (fa-1)*(fb-1)//2
 
-def rc_chain_geo_first_exceed__modular_exponent(p):
+def rc_geo_first_exceed(p):
     bd = re.search(r"exceeds (\d+)", p); st = re.search(r"first term (\d+)", p)
     rt = re.search(r"common ratio (\d+)", p)
     if not (bd and st and rt): return None
     a, r, bound = int(st.group(1)), int(rt.group(1)), int(bd.group(1))
     k, term = 1, a
     while term <= bound:
-        k += 1; term = a * r ** (k - 1)
-    return _modexp_tail(p, k)
+        k += 1; term = a*r**(k-1)
+    return k
 
-def rc_chain_digit_count_bigprod__modular_exponent(p):
-    pairs = re.findall(r"(\d+)\s*\^\s*(\d+)", p)        # a^b, c^d (mbase^e excluded: e is non-numeric)
+def rc_digit_count_bigprod(p):
+    pairs = re.findall(r"(\d+)\s*\^\s*(\d+)", p)
     if len(pairs) < 2: return None
     (a, b), (c, d) = pairs[0], pairs[1]
-    e = len(str((int(a) ** int(b)) * (int(c) ** int(d))))
-    return _modexp_tail(p, e)
+    return len(str((int(a)**int(b)) * (int(c)**int(d))))
 
-def rc_chain_sum_of_squares__modular_exponent(p):
-    nn = re.search(r"k\s*≤\s*(\d+)", p); mm = re.search(r"divisible by (\d+)", p)
+def rc_sum_of_squares(p):
+    nn = re.search(r"k\s*\u2264\s*(\d+)", p); mm = re.search(r"divisible by (\d+)", p)
     if not (nn and mm): return None
     n, m = int(nn.group(1)), int(mm.group(1))
     cnt = run = 0
-    for k in range(1, n + 1):
-        run += k * k
+    for k in range(1, n+1):
+        run += k*k
         if run % m == 0: cnt += 1
-    return _modexp_tail(p, cnt)
+    return cnt
 
 
 RECOMPUTERS = {
-    "chain_count_obtuse_triangles__modular_exponent": rc_chain_count_obtuse_triangles__modular_exponent,
-    "chain_arith_term_filter__modular_exponent": rc_chain_arith_term_filter__modular_exponent,
-    "chain_primality_in_sequence__modular_exponent": rc_chain_primality_in_sequence__modular_exponent,
-    "chain_vieta_pair_count__modular_exponent": rc_chain_vieta_pair_count__modular_exponent,
-    "chain_frobenius_stamps__modular_exponent": rc_chain_frobenius_stamps__modular_exponent,
-    "chain_geo_first_exceed__modular_exponent": rc_chain_geo_first_exceed__modular_exponent,
-    "chain_digit_count_bigprod__modular_exponent": rc_chain_digit_count_bigprod__modular_exponent,
-    "chain_sum_of_squares__modular_exponent": rc_chain_sum_of_squares__modular_exponent,
     "continued_fraction": rc_continued_fraction,
-    "chain_prime_power_divisors__constrained_divisor_count":
-        rc_chain_prime_power_divisors__constrained_divisor_count,
-    "chain_constrained_divisor_count__modular_exponent":
-        rc_chain_constrained_divisor_count__modular_exponent,
     "custom_binary_op": rc_custom_binary_op,
     "modular_exponent": rc_modular_exponent,
     "constrained_divisor_count": rc_constrained_divisor_count,
@@ -626,7 +527,13 @@ RECOMPUTERS = {
     "constrained_subset_count": rc_constrained_subset_count,
     "equalization_fraction": rc_equalization_fraction,
     "log_laws": rc_log_laws,
-    "chain_log_laws__ordered_triple_constraint": rc_chain_log_laws__ordered_triple_constraint,
+    "count_obtuse_triangles": rc_count_obtuse_triangles,
+    "primality_in_sequence": rc_primality_in_sequence,
+    "vieta_pair_count": rc_vieta_pair_count,
+    "frobenius_stamps": rc_frobenius_stamps,
+    "geo_first_exceed": rc_geo_first_exceed,
+    "digit_count_bigprod": rc_digit_count_bigprod,
+    "sum_of_squares": rc_sum_of_squares,
 }
 
 
