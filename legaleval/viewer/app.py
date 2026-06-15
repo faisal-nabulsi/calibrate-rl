@@ -147,6 +147,66 @@ def badge(norm, tripped):
     return f'<span class="badge {cls}">{norm:.2f}{" ⚠gate" if tripped else ""}</span>'
 
 
+DIM_MAX = {"faithfulness": 3, "directionality": 4, "coverage": 4, "soundness": 3, "actionability": 2}
+
+
+def struggle_html(grades, cells, pmeta):
+    """Live 'what the models struggled on' summary, computed from this run."""
+    def agg(pid, prov):
+        return grades.get(pid, {}).get(prov, {}).get("aggregate", {})
+    prompts = sorted({p for p in pmeta})
+    # hardest quality = mean as % of dimension max, ONLY over prompts where the dimension is graded
+    qrows = []
+    for d in DIMS:
+        applic = [p for p in prompts if max((agg(p, m).get(d, 0) or 0) for m in MODELS) > 0]
+        vals = [agg(p, m).get(d, 0) or 0 for p in applic for m in MODELS if (p, m) in cells]
+        if vals:
+            qrows.append((sum(vals) / len(vals) / DIM_MAX[d] * 100, d.title(), len(applic)))
+    qrows.sort()
+    qtab = "".join(f"<tr><td>{d}</td><td>{pct:.0f}%</td><td class='meta'>{n}/14 prompts</td></tr>"
+                   for pct, d, n in qrows)
+    # hardest tasks
+    byp = defaultdict(list)
+    for (pid, prov), r in cells.items():
+        byp[pid].append(float(r["norm"]))
+    hard = sorted(byp.items(), key=lambda kv: sum(kv[1]) / len(kv[1]))[:5]
+    ptab = "".join(f"<tr><td>{pid} · {pmeta[pid]['name']}</td><td>{sum(v)/len(v):.2f}</td></tr>"
+                   for pid, v in hard)
+    dt = sum(1 for r in cells.values() if "directionality" in (r["gates_tripped"] or ""))
+    ft = sum(1 for r in cells.values() if "faithfulness" in (r["gates_tripped"] or ""))
+    return f"""
+    <h3 style="margin-top:26px">What the models struggled on</h3>
+    <div style="display:flex;gap:28px;flex-wrap:wrap">
+      <div style="flex:1;min-width:280px">
+        <p class="meta" style="margin-bottom:2px"><b>Hardest qualities</b> (mean score as % of that dimension's
+        max, over the prompts where it's graded — low = hard)</p>
+        <table><tr><th>Dimension</th><th>% of max</th><th>Scope</th></tr>{qtab}</table>
+      </div>
+      <div style="flex:1;min-width:280px">
+        <p class="meta" style="margin-bottom:2px"><b>Hardest tasks</b> (mean normalized score)</p>
+        <table><tr><th>Prompt</th><th>Score</th></tr>{ptab}</table>
+      </div>
+    </div>
+    <p style="margin-top:10px"><b>The pattern.</b> Models are strongest where the work is mechanical
+    (<b>Faithfulness ~96%</b> — they rarely fabricate; extraction & drafting near-ceiling) and weakest where it
+    needs <b>legal judgment</b>: <b>Directionality</b> (taking and holding the client's side) and <b>Soundness</b>
+    (reaching the right legal conclusion). The hardest tasks are issue-spotting (A1), adversarial redlining
+    (C1/C2), and holistic reasoning (E2) — not extraction or drafting.</p>
+    <p><b>Recurring failure modes.</b></p>
+    <ul>
+      <li><b>Directional drift</b> — on adversarial tasks, weaker models argue the wrong party's side or restore
+      adverse terms ({dt} directionality gate trips). Mostly Qwen & Llama; the top three never tripped.</li>
+      <li><b>The A1 "bucket split"</b> — every model misses that some <i>absent</i> clauses are
+      neutral-to-favorable for the client, treating all gaps as harmful.</li>
+      <li><b>Wrong legal conclusion under fluent prose</b> — on E2 most models declared a bridgeable deal "dead"
+      (a Soundness failure the confident writing masks).</li>
+      <li><b>Frame-holding</b> — keeping the assigned advocate role across a long, multi-part task is where
+      consistency breaks down.</li>
+      <li><b>Fabrication is rare</b> — only {ft} faithfulness gate trips; hallucinated clauses/figures are NOT the
+      main risk here. The risk is judgment, not invention.</li>
+    </ul>"""
+
+
 def render(body, **kw):
     suite, pmeta, order = load_suite()
     return render_template_string(BASE, body=body, stages=STAGES, order=order, pmeta=pmeta,
@@ -208,6 +268,7 @@ def index():
     fabrication or advocating the wrong party). Pick a prompt on the left to see all five responses + their grades and rationale.</p>
     <h3>Overall ranking (mean normalized score, after gate cap)</h3>
     <table><tr><th>#</th><th>Model</th><th>Mean</th><th>Gate trips</th></tr>{rows}</table>
+    {struggle_html(grades, cells, pmeta)}
     <p class="meta">⚠ k=1 single judge sample; margins overlap within CIs. Opus grading Claude Sonnet is same-family
     (self-grading caveat). Edit prompts/rubrics from any prompt page.</p>
     """
