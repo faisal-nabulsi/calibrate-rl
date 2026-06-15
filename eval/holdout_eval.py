@@ -233,7 +233,8 @@ class HeldoutEvalCallback(TrainerCallback):
     def __init__(self, tokenizer, per_step_sets=None, endpoint_sets=None,
                  eval_every=50, max_new_tokens=1024, k=1, temperature=0.0,
                  batch_size=8, logger=None, transcripts_dir=None,
-                 early_stop_patience=None, early_stop_metric="mean_pass_rate"):
+                 early_stop_patience=None, early_stop_metric="mean_pass_rate",
+                 early_stop_min_decline=0.02):
         self.tok = tokenizer
         self.per_step = dict(per_step_sets or {})
         self.endpoint = dict(endpoint_sets or {})
@@ -244,8 +245,9 @@ class HeldoutEvalCallback(TrainerCallback):
         self._began = False
         self.transcripts_dir = transcripts_dir
         self._wandb_defined = False
-        self.es_patience = early_stop_patience   # stop if monitor metric doesn't improve for N evals
+        self.es_patience = early_stop_patience   # stop after N consecutive evals >= min_decline below best
         self.es_metric = early_stop_metric
+        self.es_min_decline = early_stop_min_decline
         self._best = -1.0
         self._wait = 0
 
@@ -307,18 +309,23 @@ class HeldoutEvalCallback(TrainerCallback):
             if self.es_patience and res:
                 mpr = next(iter(res.values()), {}).get(self.es_metric)
                 if mpr is not None:
-                    if mpr > self._best + 1e-4:
-                        self._best, self._wait = mpr, 0
-                    else:
+                    # Count consecutive evals sitting >= min_decline BELOW the running best
+                    # (a real overtrain decline — not a plateau, not a noise wiggle).
+                    if mpr <= self._best - self.es_min_decline:
                         self._wait += 1
-                        if self._wait >= self.es_patience:
-                            control.should_training_stop = True
-                            msg = (f"[holdout] EARLY STOP @ step {state.global_step}: "
-                                   f"{self.es_metric} no improvement for {self._wait} evals "
-                                   f"(best={self._best:.4f}). Best checkpoint is the one to use.")
-                            print(msg, flush=True)
-                            if self.log:
-                                self.log.info(msg)
+                    else:
+                        self._wait = 0
+                    if mpr > self._best:
+                        self._best = mpr
+                    if self._wait >= self.es_patience:
+                        control.should_training_stop = True
+                        msg = (f"[holdout] EARLY STOP @ step {state.global_step}: "
+                               f"{self.es_metric} fell >={self.es_min_decline} below best "
+                               f"({self._best:.4f}) for {self._wait} consecutive evals. "
+                               f"Use the best checkpoint, not this one.")
+                        print(msg, flush=True)
+                        if self.log:
+                            self.log.info(msg)
 
     def on_train_end(self, args, state, control, model=None, **kw):
         if model is not None:                       # final: monitor + AMC "after"
