@@ -150,30 +150,84 @@ def badge(norm, tripped):
 DIM_MAX = {"faithfulness": 3, "directionality": 4, "coverage": 4, "soundness": 3, "actionability": 2}
 
 
-def struggle_html(grades, cells, pmeta):
-    """Live 'what the models struggled on' summary, computed from this run."""
+def struggle_stats(grades, cells, pmeta):
+    """Compute the struggle/focus metrics from one run. Shared by the GUI and the
+    standalone report tool so both read the same numbers."""
     def agg(pid, prov):
         return grades.get(pid, {}).get(prov, {}).get("aggregate", {})
     prompts = sorted({p for p in pmeta})
+    n_prompts = len(prompts)
     # hardest quality = mean as % of dimension max, ONLY over prompts where the dimension is graded
-    qrows = []
+    qpct = {}
     for d in DIMS:
         applic = [p for p in prompts if max((agg(p, m).get(d, 0) or 0) for m in MODELS) > 0]
         vals = [agg(p, m).get(d, 0) or 0 for p in applic for m in MODELS if (p, m) in cells]
         if vals:
-            qrows.append((sum(vals) / len(vals) / DIM_MAX[d] * 100, d.title(), len(applic)))
-    qrows.sort()
-    qtab = "".join(f"<tr><td>{d}</td><td>{pct:.0f}%</td><td class='meta'>{n}/14 prompts</td></tr>"
-                   for pct, d, n in qrows)
-    # hardest tasks
+            qpct[d] = (sum(vals) / len(vals) / DIM_MAX[d] * 100, len(applic))
+    qsorted = sorted(qpct.items(), key=lambda kv: kv[1][0])  # low (=hard) first
+    # per-task mean + model spread
     byp = defaultdict(list)
     for (pid, prov), r in cells.items():
         byp[pid].append(float(r["norm"]))
-    hard = sorted(byp.items(), key=lambda kv: sum(kv[1]) / len(kv[1]))[:5]
-    ptab = "".join(f"<tr><td>{pid} · {pmeta[pid]['name']}</td><td>{sum(v)/len(v):.2f}</td></tr>"
-                   for pid, v in hard)
+    hard = sorted(byp.items(), key=lambda kv: sum(kv[1]) / len(kv[1]))
+    spread = {pid: (max(v) - min(v)) for pid, v in byp.items() if len(v) > 1}
+    # gate trips overall + per task
     dt = sum(1 for r in cells.values() if "directionality" in (r["gates_tripped"] or ""))
     ft = sum(1 for r in cells.values() if "faithfulness" in (r["gates_tripped"] or ""))
+    tgate = defaultdict(int)
+    for (pid, prov), r in cells.items():
+        if r["gates_tripped"]:
+            tgate[pid] += 1
+    return {
+        "qsorted": qsorted, "qpct": qpct, "n_prompts": n_prompts,
+        "hard": hard, "byp": byp, "spread": spread,
+        "dt": dt, "ft": ft, "tgate": tgate, "pmeta": pmeta,
+    }
+
+
+def focus_recs(s):
+    """Derive 'what to focus on next' bullets (as (title, body) tuples) from struggle_stats."""
+    pmeta = s["pmeta"]
+    weak = [d for d, _ in s["qsorted"][:2]]
+    weak_names = " + ".join(d.title() for d in weak)
+    ceiling = [d.title() for d, (pct, _) in s["qpct"].items() if pct >= 90]
+    ceil_names = ", ".join(ceiling) if ceiling else "the top dimensions"
+    discr = sorted(s["spread"].items(), key=lambda kv: -kv[1])[:4]
+    discr_str = ", ".join(f"{pid} (Δ{v:.2f})" for pid, v in discr)
+    gate_tasks = sorted(s["tgate"].items(), key=lambda kv: -kv[1])
+    gate_str = ", ".join(f"{pid} ({c} trip{'s' if c > 1 else ''})" for pid, c in gate_tasks) or "none this run"
+    hp, hv = s["hard"][0]
+    hmean = sum(hv) / len(hv)
+    return [
+        ("More adversarial / directional tasks",
+         f"The gate trips ({gate_str}) and the widest model spread ({discr_str}) are on the "
+         f"advocate-a-side prompts — the most <i>discriminating</i> items. More C1/C2-style "
+         f"“redline toward your client” and E2-style verdict prompts sharpen ranking power."),
+        (f"Expand the hardest family ({hp} · {pmeta[hp]['name']}, mean {hmean:.2f})",
+         "It's the lowest-scoring task — an issue-spotting failure where models treat every gap as "
+         "harmful, missing that some <i>absent</i> clauses are neutral-to-favorable for the client. "
+         "Build 2–3 more prompts that hinge on whether an omission helps or hurts your side."),
+        (f"Stress {weak_names}",
+         "The two weakest dimensions. Build holistic-judgment prompts (E2-style) that force the right "
+         "overall conclusion under fluent prose — where confident writing masks a wrong verdict."),
+        (f"De-prioritize near-ceiling dimensions ({ceil_names})",
+         "Near-ceiling across all models — high coverage but low discrimination. Pure extraction / "
+         "drafting rarely separates models, so it's low-value for ranking."),
+    ]
+
+
+def struggle_html(grades, cells, pmeta):
+    """Live 'what the models struggled on' + 'what to focus on next', computed from this run."""
+    s = struggle_stats(grades, cells, pmeta)
+    np = s["n_prompts"]
+    qtab = "".join(f"<tr><td>{d.title()}</td><td>{pct:.0f}%</td><td class='meta'>{n}/{np} prompts</td></tr>"
+                   for d, (pct, n) in s["qsorted"])
+    ptab = "".join(f"<tr><td>{pid} · {pmeta[pid]['name']}</td><td>{sum(v)/len(v):.2f}</td></tr>"
+                   for pid, v in s["hard"][:5])
+    dt, ft = s["dt"], s["ft"]
+    weak2 = " and ".join(f"<b>{d.title()}</b>" for d, _ in s["qsorted"][:2])
+    faith = s["qpct"].get("faithfulness", (0, 0))[0]
+    foc = "".join(f"<li><b>{t}.</b> {b}</li>" for t, b in focus_recs(s))
     return f"""
     <h3 style="margin-top:26px">What the models struggled on</h3>
     <div style="display:flex;gap:28px;flex-wrap:wrap">
@@ -188,10 +242,10 @@ def struggle_html(grades, cells, pmeta):
       </div>
     </div>
     <p style="margin-top:10px"><b>The pattern.</b> Models are strongest where the work is mechanical
-    (<b>Faithfulness ~96%</b> — they rarely fabricate; extraction & drafting near-ceiling) and weakest where it
-    needs <b>legal judgment</b>: <b>Directionality</b> (taking and holding the client's side) and <b>Soundness</b>
-    (reaching the right legal conclusion). The hardest tasks are issue-spotting (A1), adversarial redlining
-    (C1/C2), and holistic reasoning (E2) — not extraction or drafting.</p>
+    (<b>Faithfulness {faith:.0f}%</b> — they rarely fabricate; extraction & drafting near-ceiling) and weakest where
+    it needs <b>legal judgment</b>: {weak2} (taking and holding the client's side; reaching the right legal
+    conclusion). The hardest tasks are issue-spotting, adversarial redlining, and holistic reasoning — not
+    extraction or drafting.</p>
     <p><b>Recurring failure modes.</b></p>
     <ul>
       <li><b>Directional drift</b> — on adversarial tasks, weaker models argue the wrong party's side or restore
@@ -204,7 +258,10 @@ def struggle_html(grades, cells, pmeta):
       consistency breaks down.</li>
       <li><b>Fabrication is rare</b> — only {ft} faithfulness gate trips; hallucinated clauses/figures are NOT the
       main risk here. The risk is judgment, not invention.</li>
-    </ul>"""
+    </ul>
+    <h3 style="margin-top:26px">What to focus prompts on next</h3>
+    <p class="meta">Derived from this run — where scores collapse and where models separate.</p>
+    <ol>{foc}</ol>"""
 
 
 def render(body, **kw):
