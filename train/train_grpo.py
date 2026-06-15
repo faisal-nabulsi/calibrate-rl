@@ -30,7 +30,17 @@ Usage:
 
 import os
 import json
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+import sys
+# Make `core` (repo root) + `holdout_eval` (eval/) importable no matter how we launch.
+# `python train/train_grpo.py` only puts train/ on sys.path -> the 06-15 ModuleNotFoundError.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _p in (_REPO_ROOT, os.path.join(_REPO_ROOT, "eval")):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+# expandable_segments cuts fragmentation for the HF-generate path, but vLLM's sleep-mode
+# CuMemAllocator asserts it's OFF (pytorch#147851) -> only set it when vLLM is disabled.
+if not bool(int(os.environ.get("USE_VLLM", "0"))):
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import torch
 import logging
 from datetime import datetime, timezone
@@ -93,9 +103,13 @@ def build_prompt(example):
 from datasets import Dataset
 from holdout_eval import HeldoutEvalCallback
 
-EVAL_EVERY = int(os.environ.get("EVAL_EVERY", "27"))   # holdout monitor cadence (steps)
-EVAL_K = 16               # pass@8 ...
-EVAL_TEMP = 1.0          # ... temp 1.0 — measures the goldilocks pass-rate training should lift
+EVAL_EVERY = int(os.environ.get("EVAL_EVERY", "10"))   # full-79 held-out eval cadence (steps)
+# K=4 for the LIVE monitor (full 79 problems) — cheap trend; headline is mean_pass_rate
+# (per-rollout success rate), the un-confounded signal training should lift. The accurate
+# K=8 number is a POST-HOC re-eval of the best checkpoint(s) on the full 79 (not in-run).
+# pass@K saturates ~1.0 on goldilocks problems and is ignored.
+EVAL_K = int(os.environ.get("EVAL_K", "4"))
+EVAL_TEMP = 1.0          # temp 1.0 — same as calibration sampling
 
 logger.info("Loading goldilocks train + held-out sets ...")
 train_rows = json.load(open(os.environ.get("TRAIN_DATA", "data/goldilocks_train_v10.json")))
@@ -185,7 +199,8 @@ training_args = GRPOConfig(
 
     # Logging & saving
     logging_steps=1,
-    save_steps=27,
+    save_steps=int(os.environ.get("SAVE_STEPS", "10")), # == EVAL_EVERY: every eval step has a checkpoint to pick from
+    max_grad_norm=1.0,                                  # clip the /std-amplification spikes (grad_norm hit 1.38 unclipped)
     log_completions=True,            # log (prompt, completion) pairs to W&B
     num_completions_to_print=2,      # only print 2 examples to terminal
     report_to="wandb" if (os.environ.get("WANDB_API_KEY") or os.environ.get("WANDB_TOKEN")) else "none",
@@ -243,11 +258,37 @@ trainer = GRPOTrainer(
 # at step 0, every EVAL_EVERY steps, and end. AMC is OFF for this hillclimb loop.
 trainer.add_callback(HeldoutEvalCallback(
     eval_tokenizer,
-    per_step_sets={"holdout_gold": holdout_skel},
-    endpoint_sets=None,
+    per_step_sets={"holdout": holdout_skel},         # FULL 79 held-out, K=4, every EVAL_EVERY steps
+    endpoint_sets=None,                              # K=8 headline = post-hoc re-eval of the best ckpts
     eval_every=EVAL_EVERY, k=EVAL_K, temperature=EVAL_TEMP,
     max_new_tokens=training_args.max_completion_length, logger=logger,
+    transcripts_dir=os.path.join(training_args.output_dir, "holdout_transcripts"),
+    early_stop_patience=int(os.environ.get("EARLY_STOP_PATIENCE", "2")),
+    early_stop_min_decline=float(os.environ.get("EARLY_STOP_MIN_DECLINE", "0.02")),
 ))
+
+# Durable artifact sync: push the run dir to S3 after every checkpoint save, so a hard
+# stop-instances (8h watchdog / capacity) can't strand the run like it did 06-15 — the
+# train path otherwise never syncs (only the sample path does). Gated on SYNC_S3_URI.
+SYNC_S3_URI = os.environ.get("SYNC_S3_URI")
+if SYNC_S3_URI:
+    import subprocess
+    from transformers import TrainerCallback as _TCb
+    class SyncToS3Callback(_TCb):
+        def _sync(self, args, state):
+            dest = SYNC_S3_URI.rstrip("/") + "/"
+            try:
+                subprocess.run(["aws", "s3", "sync", args.output_dir, dest, "--only-show-errors"],
+                               check=False, timeout=900)
+                logger.info(f"[s3-sync] {args.output_dir} -> {dest} @ step {state.global_step}")
+            except Exception as e:
+                logger.warning(f"[s3-sync] failed @ step {state.global_step}: {e}")
+        def on_save(self, args, state, control, **kw):
+            self._sync(args, state)                       # every checkpoint
+        def on_train_end(self, args, state, control, **kw):
+            self._sync(args, state)                       # final state + the last eval's transcripts
+    trainer.add_callback(SyncToS3Callback())
+    logger.info(f"  S3 sync-on-save:  ENABLED -> {SYNC_S3_URI}")
 
 
 # ── Train ───────────────────────────────────────────────────────────────────
