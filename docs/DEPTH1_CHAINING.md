@@ -157,32 +157,43 @@ If you're reading the code, here's everything depth-1 added on top of the depth-
 
 ## 9. What's covered today
 
-**Depth-1 chains (11 total).** First wave = 3 (varied targets), second wave = 8 (all → modexp):
+**Depth-1 chains (21 total).** Wave 1 = 3 (varied targets), wave 2 = 8 (count → exponent),
+wave 3 = 10 (value → base):
 
-| wave | chain (feeder → target) | feeder's intermediate | AMC |
+| wave | chain (feeder → target) | feeder's intermediate → role | AMC |
 |---|---|---|---|
-| 1 | log_laws → ordered_triple_constraint | log value → triple-sum | 21,47 |
+| 1 | log_laws → ordered_triple_constraint | log value → triple-sum N | 21,47 |
 | 1 | prime_power_divisors → constrained_divisor_count | smallest-N-with-D-divisors → count its divisors | 75 |
 | 1 | constrained_divisor_count → modular_exponent | divisor count → exponent | 55 |
-| 2 | count_obtuse_triangles → modular_exponent | obtuse-triangle count → exponent | 18 |
-| 2 | arith_term_filter → modular_exponent | # divisible AP terms → exponent | 72 |
-| 2 | primality_in_sequence → modular_exponent | # primes in a sequence → exponent | 37 |
-| 2 | vieta_pair_count → modular_exponent | # integer-root params → exponent | 70 |
-| 2 | frobenius_stamps → modular_exponent | # non-representable amounts → exponent | 71 |
-| 2 | geo_first_exceed → modular_exponent | first-term-to-exceed index → exponent | 7 |
-| 2 | digit_count_bigprod → modular_exponent | digit count → exponent | 60 |
-| 2 | sum_of_squares → modular_exponent | # divisible partial-sums → exponent | 7,53 |
+| 2 | count_obtuse_triangles → modular_exponent | count → exponent e | 18 |
+| 2 | arith_term_filter → modular_exponent | count → exponent e | 72 |
+| 2 | primality_in_sequence → modular_exponent | count → exponent e | 37 |
+| 2 | vieta_pair_count → modular_exponent | count → exponent e | 70 |
+| 2 | frobenius_stamps → modular_exponent | count → exponent e | 71 |
+| 2 | geo_first_exceed → modular_exponent | index → exponent e | 7 |
+| 2 | digit_count_bigprod → modular_exponent | digit count → exponent e | 60 |
+| 2 | sum_of_squares → modular_exponent | count → exponent e | 7,53 |
+| 3 | arith_series_sum / distinct_product_count / mean_removal / rate_closing / trapezoid_area / percent_compound / three_number_system / infinite_product_exp / vieta_sumcubes / unit_conversion_area → modular_exponent | **value V → base** (`Vᵏ mod m`) | (partner-only) |
 
-**Depth-1 partner atomics (19, single-step).** These are *also* taught directly as one-step
-concepts (so the model knows each concept), separate from the chains. The 8 above are the
-"count-producing" partners that *also* anchor a chain. The remaining 11 — `infinite_product_exp,
-unit_conversion_area, vieta_sumcubes, three_number_system, mean_removal, rate_closing,
-trapezoid_area, percent_compound, point_rotation, distinct_product_count` — produce
-large/arbitrary values (or can't be a feeder), so they're **atomics only**: chaining them would
-be contrived, so we don't.
+**Why wave 3 feeds the *base* (a different pattern).** These 10 are *value*-producers — a count has
+a natural role as an exponent, but an arbitrary value doesn't. They're tagged in the code as
+"irreducibly one-step": a single-step problem **can't be calibrated into the goldilocks band**
+(base either trivially solves it or answer-hacks it), so they're *useless as standalone atomics* and
+**must** be composed to become a training signal. We feed the computed value `V` as the modexp
+**base** — `Vᵏ mod m`, well-posed for any `V≥2` — because the `Vᵏ mod m` tail is high-entropy even
+when the atomic `V` is thin (it fixes the diversity problem the standalone atomics had). The hand-off
+is admittedly contrived (a "value" has no natural number-theory role), and these map to **partner-only
+AMC that base already solves** — so wave 3 is low-AMC-value; its purpose is making these concepts
+goldilocks-trainable + general multi-step practice. Gold = `pow(V,k,m)`, exact by construction (the
+atomic's gold `V` is reused). `point_rotation` is excluded — its answer can be negative.
 
-**Not yet:** 3-concept chains; goldilocks *calibration* of the chains (must be done against the
-depth-0-trained model, which is the next milestone); any chain whose composition isn't natural.
+> **Verification note for wave 3:** unlike waves 1–2, these have **no `check_dataset` recomputer**
+> (UNCHECKED, same as the partner atomics). Golds are construction-correct (reused atomic `V` +
+> `pow`) and build-verified, but there's no durable independent text-recompute. Add recomputers if
+> these ever feed a high-stakes run.
+
+**Not yet:** 3-concept chains; goldilocks *calibration* of the chains (against the depth-0-trained
+model — next milestone); wave-3 `check_dataset` recomputers; `point_rotation`.
 
 ---
 

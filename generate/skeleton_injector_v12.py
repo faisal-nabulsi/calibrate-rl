@@ -1283,6 +1283,56 @@ def build(per):
             add(r[0],r[1],name)
             made+=1
 
+# ===================================================================
+# DEPTH-1 CHAINING — third wave: value-producer A -> modular_exponent.
+# The value-producer partners lack a natural count-style hand-off (a count -> an
+# exponent is meaningful; an arbitrary value isn't), so we feed the computed value
+# as the modexp BASE: answer = V^k mod m, well-posed for any V>=2 and high-entropy
+# (the V^k mod m tail makes the composite answers diverse even when the atomic V is
+# thin). Reuses the atomic generator for V + its embedded sub-question, so the gold
+# is pow(V,k,m) -- exact by construction (atomic gold V is correct, then modexp).
+# AMC-low-value contrived wave (Faisal-approved): these map to partner-only AMC base
+# already solves; the value is (a) making otherwise-untrainable single-step atomics
+# goldilocks-trainable and (b) general multi-step practice. check_dataset recomputers
+# deferred (UNCHECKED, as for the partner atomics) -- golds are construction-correct.
+# point_rotation is excluded: its answer can be negative (can't feed any param).
+_VALUE_CHAINS=[
+    ("chain_arith_series_sum__modular_exponent","arith_series_sum",[72,55]),
+    ("chain_distinct_product_count__modular_exponent","distinct_product_count",[74,55]),
+    ("chain_mean_removal__modular_exponent","mean_removal",[19,55]),
+    ("chain_rate_closing__modular_exponent","rate_closing",[43,55]),
+    ("chain_trapezoid_area__modular_exponent","trapezoid_area",[67,55]),
+    ("chain_percent_compound__modular_exponent","percent_compound",[52,55]),
+    ("chain_three_number_system__modular_exponent","three_number_system",[11,55]),
+    ("chain_infinite_product_exp__modular_exponent","infinite_product_exp",[20,55]),
+    ("chain_vieta_sumcubes__modular_exponent","vieta_sumcubes",[6,55]),
+    ("chain_unit_conversion_area__modular_exponent","unit_conversion_area",[77,55]),
+]
+def _register_value_chain(name, atomic, amc):
+    @concept(name, amc)
+    def _gen(_n=name, _a=atomic):
+        kn=K[_n]
+        afn=next(f for nm,f,_ in REGISTRY if nm==_a)   # atomic generator (V + sub-question)
+        sub=afn()
+        if sub is None: return None
+        V=sub[1]
+        if not isinstance(V,int) or V<2: return None    # need a usable base
+        k=kn.randint("k"); m=kn.randint("m")
+        ans=pow(V,k,m)                                   # B's oracle (modexp), V as base
+        if ans<2: return None
+        q=sub[0].strip().rstrip(".")
+        prob=random.choice([
+            f"Let V be the answer to this problem: “{q}” What is the remainder when V^{k} is divided by {m}?",
+            f"Define V as the answer to: “{q}” Find the remainder when V^{k} is divided by {m}.",
+            f"Suppose V is the answer to the following. “{q}” Compute V^{k} mod {m}.",
+            f"Let V solve: “{q}” What is V^{k} mod {m}?",
+        ])
+        meta={"depth":1,"chain":{"components":[_a,"modular_exponent"],"fed_param":"base","intermediate_gold":V}}
+        return (prob, ans, _n, meta)
+    return _gen
+for _nm,_at,_amc in _VALUE_CHAINS:
+    _register_value_chain(_nm,_at,_amc)
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--per",type=int,default=150)
