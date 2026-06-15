@@ -300,305 +300,6 @@ def c_triples():
         f"Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c={N}.",
     ]), cnt, "ordered_triple_constraint")
 
-# ===================================================================
-# DEPTH-1 CHAINING (Addendum A) — composites compose parent oracles
-# ===================================================================
-@concept("chain_log_laws__ordered_triple_constraint",[21,47])
-def c_chain_loglaws_triples():
-    # Pilot composite (Addendum A), Option-A draw: sample the TARGET N FIRST (uniform,
-    # in-band) so composite answers stay FLAT, then DERIVE a log expression whose value
-    # e1+e2-e3 == N. Review fix (PR #41): the old draw set N = e1+e2-e3, a bell-shaped
-    # sum clipped at 25 -> top3 0.388 (answer-hack shape) AND mass in ordered_triple's
-    # too-hard 21-25 band. Inverting the draw flattens answers and centers N in-band; the
-    # num-no-widening rule means this initial spread is the only shot at it.
-    # Oracles still compose: gold := _triples_gold(N), exact by construction. Surface EMBEDS
-    # the log (model must evaluate it to recover N), never a "first/then" recipe.
-    kn=K["chain_log_laws__ordered_triple_constraint"]
-    N=kn.randint("N")                                  # flat target -> flat composite answers
-    gold=_triples_gold(N)                              # B's oracle on the (embedded) value
-    if gold<5: return None                             # B's own validity guard
-    base=kn.choice("base"); e3=kn.randint("e3")
-    s=N+e3                                              # need e1+e2 = N+e3  ->  e1+e2-e3 = N
-    lo=max(4, s-20); hi=min(20, s-4)                   # keep e1,e2 inside log_laws's [4,20] envelope
-    if lo>hi: return None
-    e1=random.randint(lo,hi); e2=s-e1
-    expr=f"log_{base}({base}^{e1} · {base}^{e2} / {base}^{e3})"   # evaluates to N; embedded
-    prob=random.choice([
-        f"How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c = {expr}?",
-        f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {expr}?",
-        f"In how many ways can {expr} be written as a+b+c with 0≤a<b<c (integers)?",
-        f"Count the integer triples (a,b,c) with 0≤a<b<c whose sum equals {expr}.",
-    ])
-    meta={"depth":1,"chain":{"components":["log_laws","ordered_triple_constraint"],
-                              "fed_param":"N","intermediate_gold":N}}
-    return (prob, gold, "chain_log_laws__ordered_triple_constraint", meta)
-
-@concept("chain_prime_power_divisors__constrained_divisor_count",[75])
-def c_chain_ppd_cdc():
-    # Depth-1 composite (Addendum A) — AMC #75 = prime_power_divisors x constrained_divisor_count.
-    # A = ppd: N := smallest int with exactly D divisors. N is divisor-RICH by construction, so
-    # it auto-satisfies the num_pool "must have rich divisor structure" caveat (chain_compat
-    # semantic_caveats[0]) — the one risk of cdc-as-target is eliminated for free. B = cdc on N.
-    # Oracles compose -> gold exact. Surface EMBEDS A's quantity (model must compute N), no recipe.
-    kn=K["chain_prime_power_divisors__constrained_divisor_count"]
-    D=kn.choice("D")
-    # D envelope tightened to the live span [12,48] (kathryne #42 nit 1): a plain [lo,hi]
-    # can't capture the full valid-D set (it's non-contiguous — e.g. D=13 -> N=4096 > 2520),
-    # so any residual in-span dead D is caught SAFELY below (bounded search -> resample,
-    # then the cdc-envelope gate), never a hang or wrong data.
-    N=_smallest_with_ndiv(D)                           # bounded search (charizard #42 flag 1)
-    if N is None: return None
-    nlo,nhi=_parent_envelope("constrained_divisor_count","num_pool")  # feed-legal: READ B's
-    if not (nlo<=N<=nhi): return None                  # envelope, never hard-code (kathryne #42 fix2)
-    cond=kn.choice("cond")                             # knob locks cond to {gt,lt}: "odd" count
-    t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
-    cnt=_cdc_count(N,cond,t); desc=_cdc_desc(cond,t)
-    if cnt<3: return None                              # cdc's own validity guard
-    expr=f"the smallest positive integer with exactly {D} positive divisors"
-    prob=random.choice([
-        f"Let N be {expr}. How many positive divisors of N are {desc}?",
-        f"Suppose N is {expr}. Of the positive divisors of N, how many are {desc}?",
-        f"Let N denote {expr}. Count the positive divisors of N that are {desc}.",
-        f"If N is {expr}, find the number of positive divisors of N that are {desc}.",
-    ])
-    meta={"depth":1,"chain":{"components":["prime_power_divisors","constrained_divisor_count"],
-                              "fed_param":"num_pool","intermediate_gold":N}}
-    return (prob, cnt, "chain_prime_power_divisors__constrained_divisor_count", meta)
-
-@concept("chain_constrained_divisor_count__modular_exponent",[55])
-def c_chain_cdc_modexp():
-    # Depth-1 composite (Addendum A) — AMC #55 ingredients constrained_divisor_count x
-    # modular_exponent (pairs-only v1; divisor_sum_filter is the 3rd ingredient, deferred to
-    # the 3-way wave). Direction cdc->modexp.e (compat-map VALID edge, frac 0.84): A=cdc count
-    # becomes B=modexp's EXPONENT. modexp is the high-entropy TARGET, so composite answers stay
-    # diverse (cdc-as-target collapses to small divisor counts: top3 0.59 -> rejected). Oracles
-    # compose -> gold exact. Surface EMBEDS the divisor count as e (model must compute it).
-    kn=K["chain_constrained_divisor_count__modular_exponent"]
-    num=kn.choice("num_pool"); cond=kn.choice("cond")
-    t=kn.choice("gt_thresholds") if cond=="gt" else kn.choice("lt_thresholds") if cond=="lt" else None
-    e=_cdc_count(num,cond,t)                            # A's oracle (cdc) -> B's exponent
-    elo,ehi=_parent_envelope("modular_exponent","e")    # feed-legal: READ B's e envelope,
-    if not (elo<=e<=ehi): return None                   # never hard-code (kathryne #42 fix2)
-    a=kn.randint("a"); m=kn.randint("m")
-    ans=pow(a,e,m)                                      # B's oracle (modexp)
-    if ans<5: return None                               # modexp's own validity guard
-    desc=_cdc_desc(cond,t)
-    prob=random.choice([
-        f"Let e be the number of positive divisors of {num} that are {desc}. What is the remainder when {a}^e is divided by {m}?",
-        f"Suppose e is the number of positive divisors of {num} that are {desc}. Find {a}^e mod {m}.",
-        f"Let e denote how many positive divisors of {num} are {desc}. Compute the remainder when {a}^e is divided by {m}.",
-        f"If e is the number of positive divisors of {num} that are {desc}, what is the remainder when {a}^e is divided by {m}?",
-    ])
-    meta={"depth":1,"chain":{"components":["constrained_divisor_count","modular_exponent"],
-                              "fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_constrained_divisor_count__modular_exponent", meta)
-
-# ===================================================================
-# DEPTH-1 CHAINING — second wave: natural count-producer composites.
-# A partner that computes a COUNT feeds that count into a count-shaped param of B
-# (modexp exponent e / ordered_triple target N / prime_power divisor-target D). Same
-# machinery as the first wave: oracles compose -> gold exact; the surface EMBEDS A's
-# quantity (model must compute it), never a "first/then" recipe; feed-gated to B's
-# envelope; intermediate_gold in meta. Each has a text recomputer in prep/check_dataset.py.
-# ALL eight target modexp: a^e mod m stays high-entropy even when the count's distinct-
-# cardinality is low (the #55 rationale). A build-time diversity check found the ordered_triple
-# (N) and prime_power_divisors (D) targets COLLAPSE answer diversity — each intermediate maps to
-# ~one final (top3 0.27-0.57, static-gate fail) — so every chain feeds the count into an exponent.
-# ===================================================================
-def _obtuse_count(P):
-    cnt=0
-    for a in range(1,P):
-        for b in range(a,P):
-            for c in range(b,P):
-                if a+b+c>P: break
-                if a+b<=c: continue
-                if c*c>a*a+b*b: cnt+=1
-    return cnt
-def _arithfilter_count(start,diff,nterms,dv):
-    return sum(1 for k in range(nterms) if (start+k*diff)%dv==0)
-def _primeseq_count(pstart,pdiff,pterms):
-    return sum(1 for k in range(pterms) if (pstart+k*pdiff)<2_000_000 and ISPRIME[pstart+k*pdiff])
-def _geo_first_exceed_idx(a,r,bound):
-    k=1; term=a
-    while term<=bound: k+=1; term=a*r**(k-1)
-    return k
-def _vieta_triple_count(c):
-    trip=set(); R=15
-    for r1 in range(-R,R+1):
-        if r1==0 or c%r1: continue
-        for r2 in range(r1+1,R+1):
-            if r2==0: continue
-            p12=r1*r2
-            if p12==0 or (-c)%p12: continue
-            r3=(-c)//p12
-            if r3 in (r1,r2) or r3==0: continue
-            trip.add(tuple(sorted((r1,r2,r3))))
-    return len(trip)
-def _frobenius_nonrep(a,b):
-    return (a-1)*(b-1)//2
-def _digitprod_ndigits(a,b,c,d):
-    return len(str((a**b)*(c**d)))
-def _sumsq_div_count(n,m):
-    cnt=0; run=0
-    for k in range(1,n+1):
-        run+=k*k
-        if run%m==0: cnt+=1
-    return cnt
-
-@concept("chain_count_obtuse_triangles__modular_exponent",[18])
-def c_chain_obtuse_modexp():
-    kn=K["chain_count_obtuse_triangles__modular_exponent"]
-    P=kn.randint("P")
-    e=_obtuse_count(P)                                   # A's oracle (count) -> B's exponent
-    elo,ehi=_parent_envelope("modular_exponent","e")
-    if not (elo<=e<=ehi): return None
-    a=kn.randint("a"); m=kn.randint("m")
-    ans=pow(a,e,m)
-    if ans<5: return None
-    prob=random.choice([
-        f"Let e be the number of obtuse triangles with integer side lengths and perimeter at most {P}. What is the remainder when {a}^e is divided by {m}?",
-        f"Suppose e is the number of obtuse integer-sided triangles with perimeter at most {P}. Find {a}^e mod {m}.",
-        f"Let e denote how many integer-sided triangles with perimeter at most {P} are obtuse. Compute the remainder when {a}^e is divided by {m}.",
-        f"If e is the number of obtuse triangles with integer sides and perimeter at most {P}, what is the remainder when {a}^e is divided by {m}?",
-    ])
-    meta={"depth":1,"chain":{"components":["count_obtuse_triangles","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_count_obtuse_triangles__modular_exponent", meta)
-
-@concept("chain_arith_term_filter__modular_exponent",[72])
-def c_chain_arithfilter_modexp():
-    kn=K["chain_arith_term_filter__modular_exponent"]
-    start=kn.randint("start"); diff=kn.randint("diff"); nterms=kn.randint("nterms"); dv=kn.choice("dv")
-    e=_arithfilter_count(start,diff,nterms,dv)
-    elo,ehi=_parent_envelope("modular_exponent","e")
-    if not (elo<=e<=ehi): return None
-    a=kn.randint("a"); m=kn.randint("m")
-    ans=pow(a,e,m)
-    if ans<5: return None
-    prob=random.choice([
-        f"Let e be how many of the first {nterms} terms of the arithmetic sequence with first term {start} and common difference {diff} are divisible by {dv}. What is the remainder when {a}^e is divided by {m}?",
-        f"Suppose e is the number of the first {nterms} terms of the arithmetic progression (first term {start}, common difference {diff}) that are divisible by {dv}. Find {a}^e mod {m}.",
-        f"Let e denote how many of the first {nterms} terms of the sequence with first term {start} and common difference {diff} are multiples of {dv}. Compute the remainder when {a}^e is divided by {m}.",
-        f"If e is the number of the first {nterms} terms of an arithmetic sequence (first term {start}, common difference {diff}) divisible by {dv}, what is the remainder when {a}^e is divided by {m}?",
-    ])
-    meta={"depth":1,"chain":{"components":["arith_term_filter","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_arith_term_filter__modular_exponent", meta)
-
-@concept("chain_primality_in_sequence__modular_exponent",[37])
-def c_chain_primeseq_modexp():
-    kn=K["chain_primality_in_sequence__modular_exponent"]
-    pdiff=kn.choice("pdiff"); pstart=kn.choice("pstart"); pterms=kn.randint("pterms")
-    e=_primeseq_count(pstart,pdiff,pterms)
-    elo,ehi=_parent_envelope("modular_exponent","e")
-    if not (elo<=e<=ehi): return None
-    a=kn.randint("a"); m=kn.randint("m")
-    ans=pow(a,e,m)
-    if ans<5: return None
-    prob=random.choice([
-        f"Let e be the number of primes among the first {pterms} terms of the sequence with first term {pstart} and common difference {pdiff}. What is the remainder when {a}^e is divided by {m}?",
-        f"Suppose e is how many of the first {pterms} terms of the arithmetic sequence (first term {pstart}, common difference {pdiff}) are prime. Find {a}^e mod {m}.",
-        f"Let e denote the number of prime numbers among the first {pterms} terms of the sequence with first term {pstart} and common difference {pdiff}. Compute the remainder when {a}^e is divided by {m}.",
-        f"If e is the count of primes among the first {pterms} terms of the sequence with first term {pstart} and common difference {pdiff}, what is the remainder when {a}^e is divided by {m}?",
-    ])
-    meta={"depth":1,"chain":{"components":["primality_in_sequence","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_primality_in_sequence__modular_exponent", meta)
-
-@concept("chain_vieta_pair_count__modular_exponent",[70])
-def c_chain_vieta_modexp():
-    kn=K["chain_vieta_pair_count__modular_exponent"]
-    c=kn.choice("c")
-    e=_vieta_triple_count(c)
-    elo,ehi=_parent_envelope("modular_exponent","e")
-    if not (elo<=e<=ehi): return None
-    a=kn.randint("a"); m=kn.randint("m")
-    ans=pow(a,e,m)
-    if ans<5: return None
-    prob=random.choice([
-        f"Let e be the number of ordered pairs of integers (p,q) for which x³+px²+qx+{c} has three distinct integer roots. What is the remainder when {a}^e is divided by {m}?",
-        f"Suppose e is how many integer pairs (p,q) make x³+px²+qx+{c} have three distinct integer roots. Find {a}^e mod {m}.",
-        f"Let e denote the number of integer pairs (p,q) for which x³+px²+qx+{c} factors into three distinct integer roots. Compute the remainder when {a}^e is divided by {m}.",
-        f"If e is the number of ordered integer pairs (p,q) giving x³+px²+qx+{c} three distinct integer roots, what is the remainder when {a}^e is divided by {m}?",
-    ])
-    meta={"depth":1,"chain":{"components":["vieta_pair_count","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_vieta_pair_count__modular_exponent", meta)
-
-@concept("chain_frobenius_stamps__modular_exponent",[71])
-def c_chain_frobenius_modexp():
-    kn=K["chain_frobenius_stamps__modular_exponent"]
-    fa,fb=kn.choice("pairs")
-    e=_frobenius_nonrep(fa,fb)
-    elo,ehi=_parent_envelope("modular_exponent","e")
-    if not (elo<=e<=ehi): return None
-    a=kn.randint("a"); m=kn.randint("m")
-    ans=pow(a,e,m)
-    if ans<5: return None
-    prob=random.choice([
-        f"Let e be the number of positive integers that cannot be expressed as {fa}x+{fb}y for nonnegative integers x and y. What is the remainder when {a}^e is divided by {m}?",
-        f"Suppose e is how many positive integers cannot be written as {fa}x+{fb}y with x,y nonnegative integers. Find {a}^e mod {m}.",
-        f"Let e denote the number of positive integers not expressible as {fa}x+{fb}y for nonnegative integers x and y. Compute the remainder when {a}^e is divided by {m}.",
-        f"If e is the count of positive integers that cannot be represented as {fa}x+{fb}y (x,y nonnegative integers), what is the remainder when {a}^e is divided by {m}?",
-    ])
-    meta={"depth":1,"chain":{"components":["frobenius_stamps","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_frobenius_stamps__modular_exponent", meta)
-
-@concept("chain_geo_first_exceed__modular_exponent",[7])
-def c_chain_geo_modexp():
-    kn=K["chain_geo_first_exceed__modular_exponent"]
-    a=kn.randint("a"); r=kn.choice("r"); bound=kn.randint("bound")
-    e=_geo_first_exceed_idx(a,r,bound)                   # A's oracle (index) -> B's exponent
-    elo,ehi=_parent_envelope("modular_exponent","e")
-    if not (elo<=e<=ehi): return None
-    mbase=kn.randint("mbase"); mmod=kn.randint("mmod")
-    ans=pow(mbase,e,mmod)
-    if ans<5: return None
-    expr=f"the position of the first term that exceeds {bound} in the geometric sequence with first term {a} and common ratio {r}"
-    prob=random.choice([
-        f"Let e be {expr}. What is the remainder when {mbase}^e is divided by {mmod}?",
-        f"Suppose e is {expr}. Find {mbase}^e mod {mmod}.",
-        f"Let e denote {expr}. Compute the remainder when {mbase}^e is divided by {mmod}.",
-        f"If e is {expr}, what is the remainder when {mbase}^e is divided by {mmod}?",
-    ])
-    meta={"depth":1,"chain":{"components":["geo_first_exceed","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_geo_first_exceed__modular_exponent", meta)
-
-@concept("chain_digit_count_bigprod__modular_exponent",[60])
-def c_chain_digit_modexp():
-    kn=K["chain_digit_count_bigprod__modular_exponent"]
-    a=kn.randint("a"); b=kn.randint("b"); c=kn.randint("c"); d=kn.randint("d")
-    e=_digitprod_ndigits(a,b,c,d)
-    elo,ehi=_parent_envelope("modular_exponent","e")
-    if not (elo<=e<=ehi): return None
-    mbase=kn.randint("mbase"); mmod=kn.randint("mmod")
-    ans=pow(mbase,e,mmod)
-    if ans<5: return None
-    expr=f"the number of digits in the base-ten representation of {a}^{b} · {c}^{d}"
-    prob=random.choice([
-        f"Let e be {expr}. What is the remainder when {mbase}^e is divided by {mmod}?",
-        f"Suppose e is {expr}. Find {mbase}^e mod {mmod}.",
-        f"Let e denote {expr}. Compute the remainder when {mbase}^e is divided by {mmod}.",
-        f"If e is {expr}, what is the remainder when {mbase}^e is divided by {mmod}?",
-    ])
-    meta={"depth":1,"chain":{"components":["digit_count_bigprod","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_digit_count_bigprod__modular_exponent", meta)
-
-@concept("chain_sum_of_squares__modular_exponent",[7])
-def c_chain_sumsq_modexp():
-    kn=K["chain_sum_of_squares__modular_exponent"]
-    n=kn.randint("n"); m=kn.choice("m")
-    e=_sumsq_div_count(n,m)                              # A's oracle (count) -> B's exponent
-    elo,ehi=_parent_envelope("modular_exponent","e")
-    if not (elo<=e<=ehi): return None
-    mbase=kn.randint("mbase"); mmod=kn.randint("mmod")
-    ans=pow(mbase,e,mmod)
-    if ans<5: return None
-    expr=f"the number of integers k with 1≤k≤{n} for which 1²+2²+…+k² is divisible by {m}"
-    prob=random.choice([
-        f"Let e be {expr}. What is the remainder when {mbase}^e is divided by {mmod}?",
-        f"Suppose e is {expr}. Find {mbase}^e mod {mmod}.",
-        f"Let e denote {expr}. Compute the remainder when {mbase}^e is divided by {mmod}.",
-        f"If e is {expr}, what is the remainder when {mbase}^e is divided by {mmod}?",
-    ])
-    meta={"depth":1,"chain":{"components":["sum_of_squares","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
-    return (prob, ans, "chain_sum_of_squares__modular_exponent", meta)
 
 @concept("arith_term_filter",[72])
 def c_arithfilter():
@@ -1293,58 +994,132 @@ def build(per):
             add(r[0],r[1],name)
             made+=1
 
+
 # ===================================================================
-# DEPTH-1 CHAINING — third wave: value-producer A -> modular_exponent.
-# The value-producer partners lack a natural count-style hand-off (a count -> an
-# exponent is meaningful; an arbitrary value isn't), so we feed the computed value
-# as the modexp BASE: answer = V^k mod m, well-posed for any V>=2 and high-entropy
-# (the V^k mod m tail makes the composite answers diverse even when the atomic V is
-# thin). Reuses the atomic generator for V + its embedded sub-question, so the gold
-# is pow(V,k,m) -- exact by construction (atomic gold V is correct, then modexp).
-# AMC-low-value contrived wave (Faisal-approved): these map to partner-only AMC base
-# already solves; the value is (a) making otherwise-untrainable single-step atomics
-# goldilocks-trainable and (b) general multi-step practice. check_dataset recomputers
-# deferred (UNCHECKED, as for the partner atomics) -- golds are construction-correct.
-# point_rotation: its coordinate-sum answer can be negative, but the generic V>=2
-# filter below simply redraws those, so it feeds the base like any other value-producer
-# (no atomic change -> the equivalence fixture stays intact).
-_VALUE_CHAINS=[
-    ("chain_arith_series_sum__modular_exponent","arith_series_sum",[72]),
-    ("chain_distinct_product_count__modular_exponent","distinct_product_count",[74]),
-    ("chain_mean_removal__modular_exponent","mean_removal",[19]),
-    ("chain_rate_closing__modular_exponent","rate_closing",[43]),
-    ("chain_trapezoid_area__modular_exponent","trapezoid_area",[67]),
-    ("chain_percent_compound__modular_exponent","percent_compound",[52]),
-    ("chain_three_number_system__modular_exponent","three_number_system",[11]),
-    ("chain_infinite_product_exp__modular_exponent","infinite_product_exp",[20]),
-    ("chain_vieta_sumcubes__modular_exponent","vieta_sumcubes",[6]),
-    ("chain_unit_conversion_area__modular_exponent","unit_conversion_area",[77]),
-    ("chain_point_rotation__modular_exponent","point_rotation",[9,39]),
-]
-def _register_value_chain(name, atomic, amc):
-    @concept(name, amc)
-    def _gen(_n=name, _a=atomic):
-        kn=K[_n]
-        afn=next(f for nm,f,_ in REGISTRY if nm==_a)   # atomic generator (V + sub-question)
-        sub=afn()
-        if sub is None: return None
+# DEPTH-1 CHAINING (diverse targets) — one factory, multi-input targets, 47 chains.
+# Each chain feeds a FEEDER concept's answer V into ONE input of a MULTI-INPUT target,
+# letting the target's OTHER inputs supply independent entropy so the composite answer stays
+# diverse (single-input targets collapse to ~one answer). Targets + the 47-feeder assignment
+# come from tools/scan_chain_targets.py (top3<=0.30; EVERY one of the 47 concepts appears as a
+# feeder; modexp used only where a feeder fits no other target's envelope). Surface is
+# embed-not-announce: "Let V be the answer to: <sub-question>. <target question using V>".
+# Gold = the feeder's own oracle (V) fed into the target oracle -> exact by construction.
+# AMC-targeting dropped by design (general composition, not #55/#75). check_dataset text
+# recomputers + knob-wiring deferred (construction-verified; calib is curriculum-gated).
+# ===================================================================
+def _feeder(name): return next(f for nm,f,_ in REGISTRY if nm==name)
+def _lcm(a,b): return a*b//gcd(a,b)
+
+# adapter(V) -> (answer|None, clause): draws the target's OTHER inputs; clause embeds V
+# SYMBOLICALLY (the model must compute V first), answer uses the actual V.
+def _a_modexp_base(V):
+    k=random.randint(2,6); m=random.choice([50,97,221,264,503,997])
+    return (pow(V,k,m), f"What is the remainder when V^{k} is divided by {m}?")
+def _a_modexp_exp(V):
+    a=random.choice([2,3,5,6,7]); m=random.choice([50,97,221,264,503,997])
+    return (pow(a,V,m), f"What is the remainder when {a}^V is divided by {m}?")
+def _a_algebraic_x(V):
+    y=random.randint(5,25); z=random.randint(5,25)
+    a1=random.randint(1,7); b1=random.randint(1,7); c1=random.randint(1,7)
+    a2=random.randint(1,7); b2=random.randint(1,7); c2=random.randint(1,7)
+    if b1*c2-b2*c1==0: return (None,"")
+    d1=a1*V+b1*y+c1*z; d2=a2*V+b2*y+c2*z
+    return (V+y+z, f"Positive integers x, y, z satisfy x=V, {a1}x+{b1}y+{c1}z={d1}, and {a2}x+{b2}y+{c2}z={d2}. Find x+y+z.")
+def _a_telescoping_N(V):
+    gap=random.choice([2,3]); s=sum(Fraction(1,k*(k+gap)) for k in range(1,V+1))
+    return (s.numerator+s.denominator, f"Compute the sum of 1/(k(k+{gap})) for k=1 to V as a reduced fraction m/n; find m+n.")
+def _a_digit_target(V):
+    lo=random.choice([1000,2000,3000]); hi=lo+random.choice([1000,2000])
+    return (sum(1 for x in range(lo,hi) if sum(int(c) for c in str(x))==V),
+            f"How many integers from {lo} to {hi-1} have digits summing to exactly V?")
+def _a_ie3_U(V):
+    a,b,c=sorted(random.sample([2,3,4,5,6,7],3))
+    return (V//a+V//b+V//c-V//_lcm(a,b)-V//_lcm(a,c)-V//_lcm(b,c)+V//_lcm(a,_lcm(b,c)),
+            f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
+def _a_perfsq_limit(V):
+    div=random.choice([4,9,16,25,36,49]); rd=int(div**0.5); cnt=0; k=1
+    while (rd*k)**2<V: cnt+=1; k+=1
+    return (cnt, f"How many perfect squares less than V are divisible by {div}?")
+def _a_multisquare_limit(V):
+    d=random.choice([4,9]); last=random.choice([1,4,5,6,9]); cnt=0; k=1
+    while k*k<V:
+        if (k*k)%d==0 and (k*k)%10==last: cnt+=1
+        k+=1
+    return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
+def _a_equalize_g(V):
+    if V<3: return (None,"")
+    fn=random.choice([Fraction(1,3),Fraction(1,2),Fraction(1,4),Fraction(2,3),Fraction(3,4),
+                      Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),Fraction(5,6),
+                      Fraction(3,8),Fraction(5,8)])
+    pour=1-((V-1)+fn)/V
+    return (pour.numerator+pour.denominator,
+            f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")
+def _a_complement_faces(V):
+    if V<3: return (None,"")
+    thr=random.choice([Fraction(2,3),Fraction(3,4),Fraction(4,5)]); r=1
+    while 1-Fraction((V-1)**r,V**r)<=thr:
+        r+=1
+        if r>60: return (None,"")
+    return (r, f"A V-sided die is rolled repeatedly. What is the fewest rolls so the probability a specific face appears at least once first exceeds {thr.numerator}/{thr.denominator}?")
+
+# tkey -> (adapter, target_concept, fed_input_label, fed_lo, fed_hi)
+_ADAPT={
+ "modexp_base":(_a_modexp_base,"modular_exponent","base",2,10**12),
+ "modexp_exp":(_a_modexp_exp,"modular_exponent","exponent",2,40),
+ "algebraic_x":(_a_algebraic_x,"algebraic_system_2eq","x",1,60),
+ "telescoping_N":(_a_telescoping_N,"telescoping_mn","N",3,30),
+ "digit_target":(_a_digit_target,"constrained_digit_count","digit_sum_target",5,27),
+ "ie3_U":(_a_ie3_U,"inclusion_exclusion_3set","U",60,9000),
+ "perfsq_limit":(_a_perfsq_limit,"perfect_square_divisible","limit",300,200000),
+ "multisquare_limit":(_a_multisquare_limit,"multi_constraint_square","limit",600,80000),
+ "equalize_g":(_a_equalize_g,"equalization_fraction","g",3,14),
+ "complement_faces":(_a_complement_faces,"complement_prob_mn","faces",3,30),
+}
+# feeder -> tkey  (tools/scan_chain_targets.py; covers all 47 concepts as feeders)
+_DIVERSE_CHAINS={
+ "algebraic_system_2eq":"algebraic_x","alternating_cubes":"multisquare_limit",
+ "arith_series_sum":"digit_target","arith_term_filter":"digit_target",
+ "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"complement_faces",
+ "complex_eq_solcount":"equalize_g","complex_modulus_power":"digit_target",
+ "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
+ "constrained_subset_count":"complement_faces","continued_fraction":"ie3_U",
+ "count_obtuse_triangles":"equalize_g","count_pythagorean":"algebraic_x",
+ "custom_binary_op":"perfsq_limit","digit_count_bigprod":"complement_faces",
+ "distinct_product_count":"modexp_base","divisor_sum_filter":"perfsq_limit",
+ "equalization_fraction":"digit_target","frobenius_stamps":"telescoping_N",
+ "geo_first_exceed":"equalize_g","inclusion_exclusion_3set":"ie3_U",
+ "infinite_product_exp":"modexp_base","lattice_points_circle":"ie3_U",
+ "lcm_gcd_system":"ie3_U","log_laws":"complement_faces","mean_removal":"modexp_base",
+ "modular_exponent":"modexp_base","multi_constraint_square":"algebraic_x",
+ "ordered_triple_constraint":"digit_target","percent_compound":"algebraic_x",
+ "perfect_square_divisible":"telescoping_N","point_rotation":"modexp_exp",
+ "poly_remainder":"telescoping_N","polynomial_sign_intervals":"algebraic_x",
+ "primality_in_sequence":"equalize_g","prime_power_divisors":"perfsq_limit",
+ "rate_closing":"telescoping_N","roots_of_unity_sum":"equalize_g",
+ "sum_of_squares":"complement_faces","telescoping_mn":"perfsq_limit",
+ "three_number_system":"ie3_U","trapezoid_area":"algebraic_x",
+ "triangular_filter_count":"algebraic_x","unit_conversion_area":"perfsq_limit",
+ "vieta_pair_count":"algebraic_x","vieta_sumcubes":"ie3_U",
+}
+def _register_diverse_chain(feeder,tkey):
+    adapt,tconcept,flabel,flo,fhi=_ADAPT[tkey]
+    cname=f"chain_{feeder}__{tconcept}"
+    @concept(cname,[])
+    def _gen(_f=feeder,_ad=adapt,_lo=flo,_hi=fhi,_t=tconcept,_fl=flabel,_cn=cname):
+        sub=_feeder(_f)()
+        if sub is None or not isinstance(sub[1],int): return None
         V=sub[1]
-        if not isinstance(V,int) or V<2: return None    # need a usable base
-        k=kn.randint("k"); m=kn.randint("m")
-        ans=pow(V,k,m)                                   # B's oracle (modexp), V as base
-        if ans<2: return None
+        if not (_lo<=V<=_hi): return None
+        ans,clause=_ad(V)
+        if not isinstance(ans,int) or ans<2: return None
         q=sub[0].strip().rstrip(".")
-        prob=random.choice([
-            f"Let V be the answer to this problem: “{q}” What is the remainder when V^{k} is divided by {m}?",
-            f"Define V as the answer to: “{q}” Find the remainder when V^{k} is divided by {m}.",
-            f"Suppose V is the answer to the following. “{q}” Compute V^{k} mod {m}.",
-            f"Let V solve: “{q}” What is V^{k} mod {m}?",
-        ])
-        meta={"depth":1,"chain":{"components":[_a,"modular_exponent"],"fed_param":"base","intermediate_gold":V}}
-        return (prob, ans, _n, meta)
+        prob=f"Let V be the answer to this problem: “{q}” {clause}"
+        meta={"depth":1,"chain":{"components":[_f,_t],"fed_param":_fl,"intermediate_gold":V}}
+        return (prob,ans,_cn,meta)
     return _gen
-for _nm,_at,_amc in _VALUE_CHAINS:
-    _register_value_chain(_nm,_at,_amc)
+for _f,_tk in _DIVERSE_CHAINS.items():
+    _register_diverse_chain(_f,_tk)
+
 
 def main():
     ap=argparse.ArgumentParser()

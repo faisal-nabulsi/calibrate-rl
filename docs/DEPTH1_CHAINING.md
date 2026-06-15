@@ -74,16 +74,33 @@ are too common. See §6.
 
 ---
 
-## 4. Why every current chain ends in `modular_exponent` (a real lesson)
+## 4. The diversity rule: multi-input targets (not "everything ends in modexp")
 
-We *tried* to vary the target (some chains ending in "count ordered triples," some in "smallest
-number with D divisors"). A diversity check caught a problem: those targets **collapse** — each
-intermediate maps to basically one final answer, so the answers cluster (top-3 share 27–57%,
-which fails the gate). `modular_exponent` (`a^e mod m`) stays diverse even when the count `e` only
-takes a few values, because `a` and `m` change every time. So **all second-wave chains feed a
-count into an exponent.** Variety comes from the *eight different counting concepts* on the front
-end, not from the back end. (The first-wave chains use other targets that *do* stay diverse —
-see the coverage table.)
+An earlier design fed every chain into `modular_exponent`, because the first targets we tried
+(count-ordered-triples, smallest-number-with-D-divisors) **collapse** — each intermediate maps to
+basically one final answer, so the answers cluster (top-3 27–57%, gate fail). But modexp isn't
+special. The real rule:
+
+> **A target stays answer-diverse iff it is MULTI-INPUT.** Feed the intermediate `V` into *one* of
+> the target's inputs and let its *other* inputs supply independent entropy. Single-input targets
+> (cdc-count, ordered-triple, ppd, …) collapse because the one fed value determines the answer.
+
+`modular_exponent` works because `Vᵏ mod m` has the modulus + other base as free entropy — but so do
+plenty of concepts. `tools/scan_chain_targets.py` measures this empirically and the current chain set
+spreads the final step across **9 distinct target concepts** (modexp is now only the *fallback* for the
+few feeders whose output fits no other target's envelope). The menu, with the input we feed:
+
+| target | fed input | free entropy from |
+|---|---|---|
+| algebraic_system_2eq | `x` (one unknown) | the other two unknowns `y,z` |
+| inclusion_exclusion_3set | range bound `U` | the divisor triple `a,b,c` |
+| perfect_square_divisible | `limit` | the divisor `div` |
+| telescoping_mn | term count `N` | the gap |
+| constrained_digit_count | digit-sum target | the range `[lo,hi]` |
+| equalization_fraction | #glasses `g` | the fill fraction |
+| complement_prob_mn | #die faces | the threshold |
+| multi_constraint_square | `limit` | divisor + last-digit |
+| modular_exponent | base / exponent | the other base + modulus (fallback) |
 
 ---
 
@@ -157,52 +174,34 @@ If you're reading the code, here's everything depth-1 added on top of the depth-
 
 ## 9. What's covered today
 
-**Depth-1 chains (22 total).** Wave 1 = 3 (varied targets), wave 2 = 8 (count → exponent),
-wave 3 = 11 (value → base). **Every concept is now covered** — all 28 depth-0 atomics plus all
-19 depth-1 partners (each partner anchors a chain):
+**Depth-1 chains (47 total) — one per concept, maximally diverse.** Every one of the 47 concepts
+(28 depth-0 atomics + 19 partners) appears as a **feeder** exactly once, and the final step is spread
+across **9 distinct target concepts** (§4 menu). modexp is now only **5/47 (11%)** — the fallback for
+the 5 feeders whose output fits no other target's envelope (`modular_exponent, infinite_product_exp,
+mean_removal, point_rotation, distinct_product_count`).
 
-| wave | chain (feeder → target) | feeder's intermediate → role | AMC |
-|---|---|---|---|
-| 1 | log_laws → ordered_triple_constraint | log value → triple-sum N | 21,47 |
-| 1 | prime_power_divisors → constrained_divisor_count | smallest-N-with-D-divisors → count its divisors | 75 |
-| 1 | constrained_divisor_count → modular_exponent | divisor count → exponent | 55 |
-| 2 | count_obtuse_triangles → modular_exponent | count → exponent e | 18 |
-| 2 | arith_term_filter → modular_exponent | count → exponent e | 72 |
-| 2 | primality_in_sequence → modular_exponent | count → exponent e | 37 |
-| 2 | vieta_pair_count → modular_exponent | count → exponent e | 70 |
-| 2 | frobenius_stamps → modular_exponent | count → exponent e | 71 |
-| 2 | geo_first_exceed → modular_exponent | index → exponent e | 7 |
-| 2 | digit_count_bigprod → modular_exponent | digit count → exponent e | 60 |
-| 2 | sum_of_squares → modular_exponent | count → exponent e | 7,53 |
-| 3 | arith_series_sum / distinct_product_count / mean_removal / rate_closing / trapezoid_area / percent_compound / three_number_system / infinite_product_exp / vieta_sumcubes / unit_conversion_area / point_rotation → modular_exponent | **value V → base** (`Vᵏ mod m`) | (feeder-only) |
+Built by one factory in `generate/skeleton_injector_v12.py` (`_register_diverse_chain` + the `_ADAPT`
+target adapters + the `_DIVERSE_CHAINS` feeder→target map). Final-step distribution:
 
-> **AMC tagging convention.** A chain's `@concept` AMC tag is the **feeder's** AMC, not the
-> target's. The only chain that legitimately carries `55` is `constrained_divisor_count → modular_exponent`
-> — the real cdc×modexp #55 composition (§6a). The other 19 modexp-ending chains just *use* modexp as
-> a high-entropy sink, so tagging them `55` would falsely inflate #55 coverage in rollups; they carry
-> only their feeder's AMC.
+| target concept | # chains |
+|---|---|
+| algebraic_system_2eq | 8 |
+| inclusion_exclusion_3set | 7 |
+| perfect_square_divisible | 6 |
+| equalization_fraction / complement_prob_mn / telescoping_mn / constrained_digit_count / modular_exponent | 5 each |
+| multi_constraint_square | 1 |
 
-**Why wave 3 feeds the *base* (a different pattern).** These 10 are *value*-producers — a count has
-a natural role as an exponent, but an arbitrary value doesn't. They're tagged in the code as
-"irreducibly one-step": a single-step problem **can't be calibrated into the goldilocks band**
-(base either trivially solves it or answer-hacks it), so they're *useless as standalone atomics* and
-**must** be composed to become a training signal. We feed the computed value `V` as the modexp
-**base** — `Vᵏ mod m`, well-posed for any `V≥2` — because the `Vᵏ mod m` tail is high-entropy even
-when the atomic `V` is thin (it fixes the diversity problem the standalone atomics had). The hand-off
-is admittedly contrived (a "value" has no natural number-theory role), and these map to **partner-only
-AMC that base already solves** — so wave 3 is low-AMC-value; its purpose is making these concepts
-goldilocks-trainable + general multi-step practice. Gold = `pow(V,k,m)`, exact by construction (the
-atomic's gold `V` is reused). `point_rotation`'s coordinate-sum answer can be negative, but the same
-`V≥2` filter simply redraws those (≈46% yield), so it feeds the base like any other value-producer —
-no atomic change needed, so the equivalence fixture stays intact.
+**Verification** (`tools/verify_diverse_chains.py`): 47/47 chains pass — **0 gold mismatches, 0 unparsed**,
+top-3 ≤ 0.30, full feeder coverage. Golds are construction-correct (feeder's own oracle `V` → target
+oracle) *and* independently text-recomputed from the target clause + the stored `intermediate_gold`.
 
-> **Verification note for wave 3:** unlike waves 1–2, these have **no `check_dataset` recomputer**
-> (UNCHECKED, same as the partner atomics). Golds are construction-correct (reused atomic `V` +
-> `pow`) and build-verified, but there's no durable independent text-recompute. Add recomputers if
-> these ever feed a high-stakes run.
+**AMC-targeting dropped by design.** The old set hand-picked #55/#75 directions; this set optimizes
+*diversity + coverage* (general composition is the goal — depth-0/AMC is capped, §0). Chains carry no
+AMC tag. The assignment is reproducible via `tools/scan_chain_targets.py`.
 
-**Not yet:** 3-concept chains; goldilocks *calibration* of the chains (against the depth-0-trained
-model — next milestone); wave-3 `check_dataset` recomputers.
+**Deferred (same as before):** per-chain `knobs/*.json` wiring and the `check_dataset` recomputers
+(the build-time recompute in `verify_diverse_chains.py` is the current gold gate); goldilocks
+*calibration* against the depth-0-trained model (curriculum-gated); 3-concept chains.
 
 ---
 

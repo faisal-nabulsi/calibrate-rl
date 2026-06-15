@@ -568,6 +568,17 @@ decision (Faisal wants it; Michael skeptical).
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
 ### 2026-06-15
+- [faisal] **Depth-1 chaining redesigned for target diversity — 47 chains, 9 distinct targets, modexp 20/22 → 5/47.** The old set
+  funneled ~every chain into `modular_exponent` (the model would only ever learn "chain → exponentiate"). Found the real rule:
+  **a target stays answer-diverse iff it's MULTI-INPUT** — feed the intermediate into ONE input, let the others supply entropy
+  (single-input targets collapse). `tools/scan_chain_targets.py` scans all 47 feeders × a multi-input target menu, measures top-3 +
+  feed-legality, and produces a coverage-complete diverse assignment. Rebuilt the chains in **v12** (NOT v13 — v13 is the parked
+  framings copy) via one factory (`_register_diverse_chain` + `_ADAPT` adapters + `_DIVERSE_CHAINS` map), replacing the old wave-1/2/3
+  + value-chain code. **All 47 concepts appear as a feeder (full coverage); final step spread across 9 targets** (algebraic 8, ie3 7,
+  perfsq 6, equalize/complement/telescoping/digit/modexp 5 each, multisquare 1). `tools/verify_diverse_chains.py`: 47/47 pass — **0 gold
+  mismatches / 0 unparsed** (each composite text-recomputed from the clause + stored `intermediate_gold`), top-3 ≤ 0.30. AMC-targeting
+  dropped by design (general composition; depth-0/AMC is capped). Knob-wiring + check_dataset recomputers deferred (build-time recompute
+  is the current gate); calib still curriculum-gated. Doc updated (`docs/DEPTH1_CHAINING.md` §4 + §9). → PR.
 - [faisal] **Depth-0 phrasing expansion -> new generator `skeleton_injector_v13.py` (10 framings on all 28 concepts).** Motivation:
   the v12 depth-0 run's held-out peaked at step ~14 then faded (template-memorization / early saturation), and AMC = novel phrasings,
   so surface diversity is the transfer lever. v13 = v12 + 5->10 framings on every depth-0 generator (24 expanded; 4 already had >=10:
