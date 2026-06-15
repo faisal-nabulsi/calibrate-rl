@@ -34,7 +34,14 @@ from automation.calibrator.knob_loader import (  # noqa: E402
 TARGETS = ["triangular_filter_count", "log_laws", "ordered_triple_constraint",
            "constrained_subset_count", "inclusion_exclusion_3set",
            "constrained_divisor_count", "complex_modulus_power",
-           "modular_exponent", "divisor_sum_filter", "prime_power_divisors"]
+           "modular_exponent", "divisor_sum_filter", "prime_power_divisors",
+           # depth-1 partner atomics that REMAIN byte-equivalent to the #65 wiring.
+           # The other 12 partners were intentionally restructured for answer-diversity
+           # (the diversity PR), so they left the wiring-equivalence baseline — they are
+           # now guarded by static_checks (top3/dedupe) + check_dataset golds instead.
+           "arith_series_sum", "arith_term_filter", "digit_count_bigprod",
+           "mean_removal", "point_rotation", "rate_closing", "three_number_system",
+           "vieta_sumcubes"]
 
 # the old inline literals, verbatim from pre-refactor skeleton_injector_v12.py
 OLD_INLINE = {
@@ -60,6 +67,17 @@ OLD_INLINE = {
     "divisor_sum_filter": {"n": [105, 3000], "cond": ["odd", "even"]},
     "prime_power_divisors": {"D": [12, 16, 18, 20, 24, 28, 30, 36, 40, 48, 60,
                                    64, 72, 80, 90, 96]},
+    # depth-1 partner atomics still on the wiring baseline (the other 12 were
+    # restructured for diversity and dropped from this check — see TARGETS note):
+    "arith_term_filter": {"a": [3, 15], "d": [2, 9], "n": [30, 60], "dv": [3, 4, 5, 6]},
+    "rate_closing": {"v1": [10, 40], "v2": [10, 40], "mult": [3, 12]},
+    "three_number_system": {"third": [4, 20], "mult": [3, 7], "off": [15, 50]},
+    "point_rotation": {"x": [-20, 20], "y": [-20, 20], "cx": [-10, 10], "cy": [-10, 10],
+                       "deg": [90, 180, 270]},
+    "arith_series_sum": {"a": [2, 15], "d": [2, 9], "T": [300, 3000]},
+    "digit_count_bigprod": {"a": [2, 9], "b": [8, 25], "c": [2, 9], "d": [5, 20]},
+    "mean_removal": {"n": [6, 12], "m": [30, 70], "m2": [30, 70], "x1": [15, 80]},
+    "vieta_sumcubes": {"r1": [2, 20], "r2": [2, 20]},
 }
 
 

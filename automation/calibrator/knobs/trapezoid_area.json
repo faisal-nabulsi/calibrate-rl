@@ -1,0 +1,32 @@
+{
+  "params": {
+    "h": {
+      "value": [
+        4,
+        6,
+        8,
+        10,
+        12
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        20
+      ],
+      "knob_class": "num"
+    },
+    "k": {
+      "value": [
+        6,
+        50
+      ],
+      "type": "randint",
+      "envelope": [
+        4,
+        60
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

@@ -1,0 +1,45 @@
+{
+  "params": {
+    "base": {
+      "value": [
+        4,
+        6,
+        8,
+        9,
+        10,
+        12,
+        14,
+        15,
+        16,
+        18,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      "type": "choice",
+      "envelope": [
+        4,
+        30
+      ],
+      "knob_class": "num"
+    },
+    "r": {
+      "value": [
+        2,
+        3
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        5
+      ],
+      "knob_class": "C"
+    }
+  },
+  "locked": false
+}

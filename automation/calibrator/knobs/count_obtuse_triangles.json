@@ -1,0 +1,29 @@
+{
+  "params": {
+    "plo": {
+      "value": [
+        6,
+        12
+      ],
+      "type": "randint",
+      "envelope": [
+        6,
+        25
+      ],
+      "knob_class": "C"
+    },
+    "pspan": {
+      "value": [
+        3,
+        6
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        20
+      ],
+      "knob_class": "C"
+    }
+  },
+  "locked": false
+}

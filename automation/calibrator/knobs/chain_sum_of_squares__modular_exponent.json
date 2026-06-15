@@ -1,0 +1,61 @@
+{
+  "components": [
+    "sum_of_squares",
+    "modular_exponent"
+  ],
+  "fed_param": "e",
+  "params": {
+    "n": {
+      "value": [
+        20,
+        60
+      ],
+      "type": "randint",
+      "envelope": [
+        10,
+        100
+      ],
+      "knob_class": "C"
+    },
+    "m": {
+      "value": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        12
+      ],
+      "knob_class": "C"
+    },
+    "mbase": {
+      "value": [
+        2,
+        9
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        12
+      ],
+      "knob_class": "num"
+    },
+    "mmod": {
+      "value": [
+        50,
+        299
+      ],
+      "type": "randint",
+      "envelope": [
+        30,
+        500
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

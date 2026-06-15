@@ -489,7 +489,110 @@ def rc_chain_constrained_divisor_count__modular_exponent(p):
     return pow(int(am.group(1)), e, int(mm.group(1)))
 
 
+# ── depth-1 second-wave chains: a count-producer A feeds modular_exponent's e ───
+# Each recovers A's params from the embedded text, recomputes the count e
+# independently, then B=modexp: a^e mod m (a is the base anchored on "^e").
+def _modexp_tail(p, e):
+    if e is None:
+        return None
+    mb = re.search(r"(\d+)\s*\^\s*e\b", p)              # modexp base (anchored on ^e)
+    mm = re.search(r"(?:divided by|mod)\s+(\d+)", p)    # modulus
+    if not (mb and mm):
+        return None
+    return pow(int(mb.group(1)), e, int(mm.group(1)))
+
+def _isprime_td(x):
+    if x < 2: return False
+    i = 2
+    while i * i <= x:
+        if x % i == 0: return False
+        i += 1
+    return True
+
+def rc_chain_count_obtuse_triangles__modular_exponent(p):
+    g = re.search(r"perimeter at most (\d+)", p)
+    if not g: return None
+    P = int(g.group(1)); cnt = 0
+    for a in range(1, P):
+        for b in range(a, P):
+            for c in range(b, P):
+                if a + b + c > P: break
+                if a + b <= c: continue
+                if c * c > a * a + b * b: cnt += 1
+    return _modexp_tail(p, cnt)
+
+def rc_chain_arith_term_filter__modular_exponent(p):
+    nt = re.search(r"first (\d+) terms", p); st = re.search(r"first term (\d+)", p)
+    df = re.search(r"common difference (\d+)", p); dv = re.search(r"(?:divisible by|multiples of) (\d+)", p)
+    if not (nt and st and df and dv): return None
+    nterms, start, diff, d = int(nt.group(1)), int(st.group(1)), int(df.group(1)), int(dv.group(1))
+    return _modexp_tail(p, sum(1 for k in range(nterms) if (start + k * diff) % d == 0))
+
+def rc_chain_primality_in_sequence__modular_exponent(p):
+    pt = re.search(r"first (\d+) terms", p); ps = re.search(r"first term (\d+)", p)
+    pd = re.search(r"common difference (\d+)", p)
+    if not (pt and ps and pd): return None
+    pterms, pstart, pdiff = int(pt.group(1)), int(ps.group(1)), int(pd.group(1))
+    return _modexp_tail(p, sum(1 for k in range(pterms) if _isprime_td(pstart + k * pdiff)))
+
+def rc_chain_vieta_pair_count__modular_exponent(p):
+    g = re.search(r"qx\s*\+\s*(\d+)", p)
+    if not g: return None
+    c = int(g.group(1)); trip = set(); R = 15
+    for r1 in range(-R, R + 1):
+        if r1 == 0 or c % r1: continue
+        for r2 in range(r1 + 1, R + 1):
+            if r2 == 0: continue
+            p12 = r1 * r2
+            if p12 == 0 or (-c) % p12: continue
+            r3 = (-c) // p12
+            if r3 in (r1, r2) or r3 == 0: continue
+            trip.add(tuple(sorted((r1, r2, r3))))
+    return _modexp_tail(p, len(trip))
+
+def rc_chain_frobenius_stamps__modular_exponent(p):
+    g = re.search(r"(\d+)x\s*\+\s*(\d+)y", p)
+    if not g: return None
+    fa, fb = int(g.group(1)), int(g.group(2))
+    return _modexp_tail(p, (fa - 1) * (fb - 1) // 2)
+
+def rc_chain_geo_first_exceed__modular_exponent(p):
+    bd = re.search(r"exceeds (\d+)", p); st = re.search(r"first term (\d+)", p)
+    rt = re.search(r"common ratio (\d+)", p)
+    if not (bd and st and rt): return None
+    a, r, bound = int(st.group(1)), int(rt.group(1)), int(bd.group(1))
+    k, term = 1, a
+    while term <= bound:
+        k += 1; term = a * r ** (k - 1)
+    return _modexp_tail(p, k)
+
+def rc_chain_digit_count_bigprod__modular_exponent(p):
+    pairs = re.findall(r"(\d+)\s*\^\s*(\d+)", p)        # a^b, c^d (mbase^e excluded: e is non-numeric)
+    if len(pairs) < 2: return None
+    (a, b), (c, d) = pairs[0], pairs[1]
+    e = len(str((int(a) ** int(b)) * (int(c) ** int(d))))
+    return _modexp_tail(p, e)
+
+def rc_chain_sum_of_squares__modular_exponent(p):
+    nn = re.search(r"k\s*≤\s*(\d+)", p); mm = re.search(r"divisible by (\d+)", p)
+    if not (nn and mm): return None
+    n, m = int(nn.group(1)), int(mm.group(1))
+    cnt = run = 0
+    for k in range(1, n + 1):
+        run += k * k
+        if run % m == 0: cnt += 1
+    return _modexp_tail(p, cnt)
+
+
 RECOMPUTERS = {
+    "chain_count_obtuse_triangles__modular_exponent": rc_chain_count_obtuse_triangles__modular_exponent,
+    "chain_arith_term_filter__modular_exponent": rc_chain_arith_term_filter__modular_exponent,
+    "chain_primality_in_sequence__modular_exponent": rc_chain_primality_in_sequence__modular_exponent,
+    "chain_vieta_pair_count__modular_exponent": rc_chain_vieta_pair_count__modular_exponent,
+    "chain_frobenius_stamps__modular_exponent": rc_chain_frobenius_stamps__modular_exponent,
+    "chain_geo_first_exceed__modular_exponent": rc_chain_geo_first_exceed__modular_exponent,
+    "chain_digit_count_bigprod__modular_exponent": rc_chain_digit_count_bigprod__modular_exponent,
+    "chain_sum_of_squares__modular_exponent": rc_chain_sum_of_squares__modular_exponent,
     "continued_fraction": rc_continued_fraction,
     "chain_prime_power_divisors__constrained_divisor_count":
         rc_chain_prime_power_divisors__constrained_divisor_count,

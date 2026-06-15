@@ -63,10 +63,10 @@ in-band problems. **The deliverable is the METHOD, not any single checkpoint.**
 | Eval | Cara |
 | RL review | Zaid |
 | Running GPU calibration / training / eval (AWS L40S box) | `awesome-ash` (training executor; executes, doesn't design; lives ON the L40S — on-demand, online only while the box is up) |
-| Sampling runs (the two AWS L4 boxes) | `sam`, `sadie` (sampling executors; live ON their L4 boxes — on-demand, online only while their box is up, reachable ~60s after box start) |
+| Sampling runs (the three AWS L4 boxes) | `sam`, `sadie`, `sage` (sampling executors; live ON their L4 boxes — on-demand, online only while their box is up, reachable ~60s after box start) |
 | Calibration-loop orchestrator processes (t3) | `thinkrock` (automation home, NOT a conversational agent — don't @mention it expecting replies) |
 
-**GPU-box agents (sam, sadie, awesome-ash) live ON their boxes** — Slack listeners
+**GPU-box agents (sam, sadie, sage, awesome-ash) live ON their boxes** — Slack listeners
 are NOT centralized on the t3. Wake ritual: after a box boots, verify its agent
 answers a "hi" in Slack — if silent, a human re-enables events on that bot's Slack
 app page. GPU-box agents run under pm2 with `--max-restarts 5` so a broken install
@@ -239,6 +239,10 @@ do NOT widen their number range. log_laws/custom_binary_op 0% is a v11
 representation bug ("free vs impossible" phrasing), not difficulty — standardize.
 
 ## 6. Depth-1 partners & chaining plan
+
+> **Plain-language architecture guide: [`docs/DEPTH1_CHAINING.md`](docs/DEPTH1_CHAINING.md)** —
+> how chains work, how we pick which two concepts to combine, what knobs are, why the static
+> gate matters, the 3-concept idea, and the full coverage table. Read that first if new here.
 
 A **depth-1 partner** is an *atomic* building block held in reserve for
 composition — NOT itself a composition (many are individually easy). A **depth-1
@@ -430,7 +434,7 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
   skeleton_dataset_v11_clean, calib_v11_2048_7B (500×8).
 - `results/`: base 32/83, checkpoint-120 34/83, trainer_state_120step, holdout
   matrix · `training_completions/*.parquet` ×120.
-- Compute: **AWS (primary)** — L40S training box `i-07455ba55e473769d` (34.226.11.242) + 2× L4
+- Compute: **AWS (primary)** — L40S training box `i-07455ba55e473769d` (34.226.11.242) + 3× L4
   sampling boxes; agents (kathryne/gilbert/charizard/awesome-ash) hosted on AWS 24/7. Runbook:
   `AWS_SETUP_FAISAL.md`. (Earlier: Lightning A100/L4, Vast.ai, GCP `qwen7bv3training`.)
   Tracking: W&B `rl-intro`/`tiny-math-solver`.
@@ -540,9 +544,12 @@ decision (Faisal wants it; Michael skeptical).
       `job_poller.sh` doesn't catch boxes that go idle later (e.g. after a manual kill).
 - [ ] [boxes] optional: set `ESCALATE_SLACK_IDS` (space-separated) in `/etc/calibrate-rl-job.env`
       on sam/sadie/ash to add the on-call to pages — the code already always includes the owner.
-- [ ] [gilbert] depth-1 **expansion IF transfer shows** (diagnostic + first depth-1 train run):
-      more feed-legal pairs from the 76 valid `chain_compat_v2` edges + the 3-way #55 (chain in
-      the wired-but-unchained `divisor_sum_filter`).
+- [~] [faisal] depth-1 **expansion underway** (hybrid plan, Faisal's call to cover all concepts now,
+      not gated on transfer): all 19 partners knob-wired (#65); **8 natural count→modexp chains built +
+      verified** (#66) → 11 depth-1 composites total; architecture guide `docs/DEPTH1_CHAINING.md`.
+      Still open: (a) goldilocks-calibrate the 11 chains **against the depth-0 model** (gated);
+      (b) build the combined 11-chain depth-1 pool for base/trained sampling; (c) 3-way #55
+      (chain in the wired `divisor_sum_filter`); (d) the 19 as depth-0 atomics in the next depth-0 set.
 - [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
       does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
       final depth-0 decision.
@@ -559,6 +566,43 @@ decision (Faisal wants it; Michael skeptical).
       plenty of Max usage headroom, would save API spend. **(faisal, bring up next meeting)**
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-15
+- [gilbert] **Fleet: added `sage`, a third L4 sampling executor.** Same role as `sam`/`sadie` (on-demand
+  sampling/calibration/eval; lives ON its L4 box, online only while up, reachable ~60s after boot;
+  pm2 `--max-restarts 5`). Updated §2 (ownership row → three L4 boxes; GPU-box-agents line) and §10
+  (2× → 3× L4 sampling boxes). NOTE for whoever provisions the box: `sage`'s bot ID must be added to
+  `AGENT_BOTS` in `slack-handler.ts` (bot-repo) or the read-only/chain guards won't cover it (§8 lesson),
+  and the wake ritual / boot poller (`calibrate-job-poller.service`) must be set up as on sam/sadie.
+- [faisal] **Depth-1 chaining — closed coverage + fixed AMC over-tagging.** (a) Chained `point_rotation`, the last uncovered partner
+  (#69 had merged before the earlier point_rotation push reached it, so it never landed — redone off main): its coord-sum can be
+  negative but the `V≥2` filter just redraws (≈46% yield), no atomic change → fixture intact. **Now 47/47 concepts covered, 22 chains.**
+  (b) **Holistic AMC retag** (gilbert's PR-#69 note 2): of the 20 modexp-ending chains, **18 carried a spurious `55`** (8 wave-2 +
+  10 wave-3 — they only *use* modexp as a sink) → dropped, keeping each feeder's own AMC; point_rotation was added clean as `[9,39]`
+  (never bore it); only the real cdc×modexp `chain_constrained_divisor_count__modular_exponent` keeps `[55]` (§6a). Stops #55 looking
+  far more "covered" than its real training value in rollups. Gate PASS, equivalence PASS. → PR #70 (3 reviewers ✓, cosmetic nits only).
+- [faisal] **Depth-1 chaining — third wave: 10 value-producer → modexp chains (teach the remaining partners).** The value-producers
+  (arith_series_sum, distinct_product_count, mean_removal, rate_closing, trapezoid_area, percent_compound, three_number_system,
+  infinite_product_exp, vieta_sumcubes, unit_conversion_area) are "irreducibly one-step" — useless as standalone atomics (can't hit
+  goldilocks; base solves or answer-hacks them), so they MUST be multi-step. They lack a natural count→exponent role, so we feed the
+  computed value V as the modexp **base** (`Vᵏ mod m`): well-posed for any V≥2, high-entropy (fixes the thin-atomic diversity), gold
+  exact by construction (reuses the atomic's V). All 11 PASS static_checks (top3 4–12%, dedupe 100%, golds 0 bad). `point_rotation`
+  included too — its coord-sum can be negative but the `V≥2` filter just redraws (≈46% yield), no atomic change so the equivalence
+  fixture stays intact. **Every concept is now covered: 28 depth-0 atomics + all 19 partners; depth-1 chains = 22 total.** Caveats:
+  contrived hand-off + low AMC value (partner-only AMC base already solves) + no check_dataset recomputer (UNCHECKED,
+  construction-verified). Doc updated (`docs/DEPTH1_CHAINING.md` wave 3).
+- [faisal] **Depth-1 chaining — knob-wired all 19 partners + built the 8-chain second wave + wrote the architecture guide.**
+  (1) **Knob-wired all 19 reserved partner atomics** (PR #65): externalized each generator's literals to
+  `knobs/<concept>.json` (num/C/S + envelopes), equivalence test extended to 29 concepts → **5800 seed-draws
+  byte-identical**, arith_term_filter recompute 12/12. Renamed primality_in_sequence's local `K` (shadowed the
+  global KnobBank). (2) **Built 8 natural depth-1 chains** (PR #66), hybrid track (b): count-producer → modular
+  exponent (`a^e mod m`). Picked modexp for all after a diversity check showed ordered_triple/prime_power targets
+  COLLAPSE (top3 0.27–0.57); modexp stays high-entropy. Verified: static_checks PASS ×8 (top3 0.09–0.16),
+  check_dataset **480/480 golds, 0 mismatches**. Depth-1 composites now total **11** (3 first-wave + 8). (3) **Doc:**
+  `docs/DEPTH1_CHAINING.md` (plain-language architecture: pick-which-to-combine, knobs, static gate, 3-concept idea,
+  coverage table). **Design split (hybrid):** the 19 partners are taught as depth-0 *atomics* (coverage); only the 8
+  count-producers also anchor a *chain* (multi-step) — the other 11 produce arbitrary values, so chaining them would
+  be contrived. Goldilocks calibration of the chains still gated on the depth-0-trained model.
 
 ### 2026-06-12
 - [gilbert] **Diagnostic LANDED + ANALYZED — the composition gap is real in all 3 composites.** 300×8@2048 vs base: intermediate_hit_rate (rollout computes the step-A atom) vs final pass — #55 cdc→modexp 0.86 hit / 0.46 pass (strict detector 0.79, conclusion unchanged); pilot log_laws→otc 0.98 / 0.37; #75 ppd→cdc 0.84 / 0.66. P(pass|atom-miss) ≈ 0.00–0.04 on two chains; 24–61% of ALL rollouts compute the atom then fail the composite (spot-checked: botched CRT after correct e; stars-and-bars ignoring a<b<c after correct log; off-by-one divisor counts after correct N). Precondition for depth-1 training confirmed: chaining deficit, not atom deficit. Base calib read: 154/300 goldilocks; pilot skews hard, #75 easy, #55 centered. Findings `results/chain_depth1_base_diag_300_findings.md`, script `analysis/chain_composition_gap.py`, data `data/chain_depth1_base_diag_300.json` → PR. Depth-1 training still curriculum-gated on the depth-0 model. sam self-stopped clean.
