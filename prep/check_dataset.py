@@ -630,6 +630,113 @@ RECOMPUTERS = {
 }
 
 
+# ── depth-1 diverse chains (v12 _DIVERSE_CHAINS): recompute FULLY independently ──
+#   1. split the embedded sub-question (the feeder's standalone text) from the target clause;
+#   2. recompute the intermediate V by running the FEEDER's own atomic recomputer on the
+#      sub-question (no trust in stored meta — if the feeder has no recomputer the chain is
+#      honestly UNCHECKED); 3. recompute the target step from the clause + V.
+def _lcm2(a, b): return a*b//gcd(a, b)
+
+def _chain_split(problem):
+    parts = problem.split("”")
+    if len(parts) < 2: return None, None
+    return parts[0].split("“", 1)[-1], parts[-1]   # (sub-question, target clause)
+
+def _recompute_target(target, c, V):
+    if target == "modular_exponent":
+        m = int(re.search(r"divided by (\d+)", c).group(1))
+        mb = re.search(r"V\^(\d+)", c); me = re.search(r"(\d+)\^V", c)
+        if mb: return pow(V, int(mb.group(1)), m)
+        if me: return pow(int(me.group(1)), V, m)
+        return None
+    if target == "algebraic_system_2eq":
+        rows = re.findall(r"(\d+)x\+(\d+)y\+(\d+)z=(\d+)", c)
+        if len(rows) != 2: return None
+        (a1,b1,c1,d1),(a2,b2,c2,d2) = [tuple(map(int, r)) for r in rows]
+        det = b1*c2-b2*c1
+        if det == 0: return None
+        y = Fraction(d1-a1*V)*c2 - Fraction(d2-a2*V)*c1
+        z = Fraction(b1)*(d2-a2*V) - Fraction(b2)*(d1-a1*V)
+        y, z = y/det, z/det
+        s = V+y+z
+        return int(s) if s.denominator == 1 else None
+    if target == "telescoping_mn":
+        gap = int(re.search(r"k\+(\d+)", c).group(1))
+        s = sum(Fraction(1, k*(k+gap)) for k in range(1, V+1))
+        return s.numerator+s.denominator
+    if target == "constrained_digit_count":
+        lo, hi = (int(x) for x in re.search(r"from (\d+) to (\d+)", c).groups())
+        return sum(1 for x in range(lo, hi+1) if sum(int(d) for d in str(x)) == V)
+    if target == "inclusion_exclusion_3set":
+        a, b, d = (int(x) for x in re.search(r"divisible by (\d+), (\d+), or (\d+)", c).groups())
+        return (V//a+V//b+V//d-V//_lcm2(a,b)-V//_lcm2(a,d)-V//_lcm2(b,d)+V//_lcm2(a,_lcm2(b,d)))
+    if target == "perfect_square_divisible":
+        div = int(re.search(r"divisible by (\d+)", c).group(1)); rd = isqrt(div); cnt = 0; k = 1
+        while (rd*k)**2 < V: cnt += 1; k += 1
+        return cnt
+    if target == "multi_constraint_square":
+        d = int(re.search(r"divisible by (\d+)", c).group(1))
+        last = int(re.search(r"end in the digit (\d+)", c).group(1)); cnt = 0; k = 1
+        while k*k < V:
+            if (k*k) % d == 0 and (k*k) % 10 == last: cnt += 1
+            k += 1
+        return cnt
+    if target == "equalization_fraction":
+        n, dn = (int(x) for x in re.search(r"one is (\d+)/(\d+) full", c).groups())
+        pour = 1 - ((V-1)+Fraction(n, dn))/V
+        return pour.numerator+pour.denominator
+    if target == "complement_prob_mn":
+        n, dn = (int(x) for x in re.search(r"exceeds (\d+)/(\d+)", c).groups())
+        thr = Fraction(n, dn); r = 1
+        while 1 - Fraction((V-1)**r, V**r) <= thr:
+            r += 1
+            if r > 60: return None
+        return r
+    return None
+
+# feeder -> target concept (mirror of v12 _DIVERSE_CHAINS o _ADAPT); chain = chain_<feeder>__<target>
+_CHAIN_TARGET = {
+ "algebraic_system_2eq":"algebraic_system_2eq","alternating_cubes":"multi_constraint_square",
+ "arith_series_sum":"constrained_digit_count","arith_term_filter":"constrained_digit_count",
+ "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"complement_prob_mn",
+ "complex_eq_solcount":"equalization_fraction","complex_modulus_power":"constrained_digit_count",
+ "constrained_digit_count":"inclusion_exclusion_3set","constrained_divisor_count":"telescoping_mn",
+ "constrained_subset_count":"complement_prob_mn","continued_fraction":"inclusion_exclusion_3set",
+ "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"algebraic_system_2eq",
+ "custom_binary_op":"perfect_square_divisible","digit_count_bigprod":"complement_prob_mn",
+ "distinct_product_count":"modular_exponent","divisor_sum_filter":"perfect_square_divisible",
+ "equalization_fraction":"constrained_digit_count","frobenius_stamps":"telescoping_mn",
+ "geo_first_exceed":"equalization_fraction","inclusion_exclusion_3set":"inclusion_exclusion_3set",
+ "infinite_product_exp":"modular_exponent","lattice_points_circle":"inclusion_exclusion_3set",
+ "lcm_gcd_system":"inclusion_exclusion_3set","log_laws":"complement_prob_mn",
+ "mean_removal":"modular_exponent","modular_exponent":"modular_exponent",
+ "multi_constraint_square":"algebraic_system_2eq","ordered_triple_constraint":"constrained_digit_count",
+ "percent_compound":"algebraic_system_2eq","perfect_square_divisible":"telescoping_mn",
+ "point_rotation":"modular_exponent","poly_remainder":"telescoping_mn",
+ "polynomial_sign_intervals":"algebraic_system_2eq","primality_in_sequence":"equalization_fraction",
+ "prime_power_divisors":"perfect_square_divisible","rate_closing":"telescoping_mn",
+ "roots_of_unity_sum":"equalization_fraction","sum_of_squares":"complement_prob_mn",
+ "telescoping_mn":"perfect_square_divisible","three_number_system":"inclusion_exclusion_3set",
+ "trapezoid_area":"algebraic_system_2eq","triangular_filter_count":"algebraic_system_2eq",
+ "unit_conversion_area":"perfect_square_divisible","vieta_pair_count":"algebraic_system_2eq",
+ "vieta_sumcubes":"inclusion_exclusion_3set",
+}
+def _make_chain_rc(feeder, target):
+    def rc(problem):
+        sub, clause = _chain_split(problem)
+        if sub is None: return None
+        ffn = RECOMPUTERS.get(feeder)          # the FEEDER's own atomic recomputer
+        if ffn is None: return None            # feeder not independently checkable -> UNCHECKED
+        try: V = ffn(sub)
+        except Exception: return None
+        if not isinstance(V, int): return None
+        try: return _recompute_target(target, clause, V)
+        except Exception: return None
+    return rc
+for _cf, _ct in _CHAIN_TARGET.items():
+    RECOMPUTERS[f"chain_{_cf}__{_ct}"] = _make_chain_rc(_cf, _ct)
+
+
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else "data/skeleton_dataset_v10.json"
     rows = json.load(open(path))
