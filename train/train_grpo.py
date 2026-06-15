@@ -104,8 +104,11 @@ from datasets import Dataset
 from holdout_eval import HeldoutEvalCallback
 
 EVAL_EVERY = int(os.environ.get("EVAL_EVERY", "27"))   # holdout monitor cadence (steps)
-EVAL_K = 16               # pass@8 ...
-EVAL_TEMP = 1.0          # ... temp 1.0 — measures the goldilocks pass-rate training should lift
+# 8 rollouts (matches the v12 calibration) — the HEADLINE metric is mean_pass_rate
+# (per-rollout success rate over the 79 held-out problems), the un-confounded signal
+# training should lift. pass@K saturates ~1.0 on goldilocks problems and is ignored.
+EVAL_K = int(os.environ.get("EVAL_K", "8"))
+EVAL_TEMP = 1.0          # temp 1.0 — same as calibration sampling
 
 logger.info("Loading goldilocks train + held-out sets ...")
 train_rows = json.load(open(os.environ.get("TRAIN_DATA", "data/goldilocks_train_v10.json")))
