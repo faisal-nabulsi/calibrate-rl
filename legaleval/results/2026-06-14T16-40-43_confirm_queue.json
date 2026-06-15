@@ -1,0 +1,116 @@
+[
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/A2_llama-4-maverick_s0.json",
+    "norm": 0.4,
+    "gates_tripped": [
+      "gate_directionality"
+    ],
+    "needs_human_confirm": true,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/B1_llama-4-maverick_s0.json",
+    "norm": 0.7778,
+    "gates_tripped": [],
+    "needs_human_confirm": false,
+    "tier0_flags": [
+      "only 15/20 gold terms found"
+    ]
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/C1_llama-4-maverick_s0.json",
+    "norm": 0.375,
+    "gates_tripped": [
+      "gate_directionality"
+    ],
+    "needs_human_confirm": false,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/C2_claude-sonnet-4-6_s0.json",
+    "norm": 0.8125,
+    "gates_tripped": [],
+    "needs_human_confirm": true,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/C2_llama-4-maverick_s0.json",
+    "norm": 0.4,
+    "gates_tripped": [
+      "gate_directionality"
+    ],
+    "needs_human_confirm": true,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/C2_qwen-3.7-plus_s0.json",
+    "norm": 0.375,
+    "gates_tripped": [
+      "gate_directionality"
+    ],
+    "needs_human_confirm": true,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/D1_gpt-5.5_s0.json",
+    "norm": 0.9583,
+    "gates_tripped": [],
+    "needs_human_confirm": true,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/D3_gpt-5.5_s0.json",
+    "norm": 1.0,
+    "gates_tripped": [],
+    "needs_human_confirm": false,
+    "tier0_flags": [
+      "continuity_clause"
+    ]
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/D3_llama-4-maverick_s0.json",
+    "norm": 0.4,
+    "gates_tripped": [
+      "gate_faithfulness"
+    ],
+    "needs_human_confirm": true,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/D3_qwen-3.7-plus_s0.json",
+    "norm": 0.4,
+    "gates_tripped": [
+      "gate_faithfulness"
+    ],
+    "needs_human_confirm": true,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/E1_qwen-3.7-plus_s0.json",
+    "norm": 0.4,
+    "gates_tripped": [
+      "gate_directionality"
+    ],
+    "needs_human_confirm": false,
+    "tier0_flags": []
+  },
+  {
+    "judge": "claude-opus-4-8",
+    "file": "grades/claude-opus-4-8/E2_claude-sonnet-4-6_s0.json",
+    "norm": 0.8125,
+    "gates_tripped": [],
+    "needs_human_confirm": true,
+    "tier0_flags": []
+  }
+]
