@@ -116,6 +116,44 @@ def rc_count_pythagorean(t):
             if c*c == c2 and c <= H: cnt += 1
     return cnt
 
+def _ndiv(n):
+    c = 0; i = 1
+    while i*i <= n:
+        if n % i == 0: c += 1 if i*i == n else 2
+        i += 1
+    return c
+
+def rc_box_diagonal_sq(t):
+    m = re.search(r"exactly\s+(\d+)\s+(?:positive\s+)?divisors", t)
+    if not m: return None
+    k = int(m.group(1)); dims = []; nn = 2
+    while len(dims) < 3 and nn < 500:
+        if _ndiv(nn) == k: dims.append(nn)
+        nn += 1
+    if len(dims) < 3: return None
+    a, b, c = dims
+    return a*a + b*b + c*c
+
+def rc_lattice_points_circle(t):
+    R = None
+    m = re.search(r"radius\s+(\d+)", t) or re.search(r"distance\s+(\d+)", t)
+    if m: R = int(m.group(1))
+    if R is None:
+        m = re.search(r"(\d+)²", t)       # a literal "{R}²" (x²/y² have letters, not digits)
+        if m: R = int(m.group(1))
+    if R is None:
+        m = re.search(r"[≤<]=?\s*(\d+)", t)  # "x²+y² <= R*R"  -> the bound is R²
+        if m: R = math.isqrt(int(m.group(1)))
+    if R is None: return None
+    return sum(1 for x in range(-R, R+1) for y in range(-R, R+1) if x*x + y*y <= R*R)
+
+def rc_ordered_triple_constraint(t):
+    nums = _ints(t)
+    if not nums: return None
+    N = max(nums)
+    return sum(1 for a in range(0, N) for b in range(a+1, N) for c in range(b+1, N+1)
+               if a + b + c == N)
+
 RECOMPUTERS = {
     "modular_exponent": rc_modular_exponent,
     "inclusion_exclusion_3set": rc_inclusion_exclusion_3set,
@@ -126,6 +164,9 @@ RECOMPUTERS = {
     "perfect_square_divisible": rc_perfect_square_divisible,
     "triangular_filter_count": rc_triangular_filter_count,
     "count_pythagorean": rc_count_pythagorean,
+    "box_diagonal_sq": rc_box_diagonal_sq,
+    "lattice_points_circle": rc_lattice_points_circle,
+    "ordered_triple_constraint": rc_ordered_triple_constraint,
 }
 
 def _norm(s):  # framing fingerprint: digits -> #

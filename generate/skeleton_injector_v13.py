@@ -328,6 +328,11 @@ def c_triples():
         f"In how many ways can {N} be written as a+b+c with 0≤a<b<c (integers)?",
         f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {N}?",
         f"Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c={N}.",
+        f"How many integer triples (a,b,c) with 0≤a<b<c have sum a+b+c equal to {N}?",
+        f"Find the number of triples (a,b,c) of integers satisfying 0≤a<b<c and a+b+c={N}.",
+        f"For how many integer triples (a,b,c) with 0≤a<b<c does a+b+c={N}?",
+        f"Determine how many triples (a,b,c) of integers with 0≤a<b<c add up to {N}.",
+        f"Count the ways to choose integers a, b, c with 0≤a<b<c and a+b+c={N}.",
     ]), cnt, "ordered_triple_constraint")
 
 # ===================================================================
@@ -915,6 +920,11 @@ def c_boxdiag():
         f"Let the edges of a box be the three smallest numbers (by value) having exactly {k} positive divisors. Compute the square of the space diagonal.",
         f"A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly {k} divisors. What is the squared length of its diagonal?",
         f"Take the three smallest integers (by value) with exactly {k} divisors as a box's dimensions. What is the square of its space diagonal?",
+        f"A rectangular box's edges are the three smallest positive integers that each have exactly {k} divisors. Find the square of its space diagonal.",
+        f"The three smallest integers with exactly {k} divisors each are used as a box's edge lengths. What is d², where d is the space diagonal?",
+        f"Form a box whose dimensions are the smallest three positive integers having exactly {k} divisors. Compute the square of its space diagonal.",
+        f"If a box's edges are the three least integers (by value) each with exactly {k} divisors, what is the square of its space diagonal?",
+        f"A box has edge lengths equal to the three smallest numbers that each have exactly {k} divisors. Give the square of the space diagonal.",
     ]), a*a+b*b+c*c, "box_diagonal_sq")
 
 @concept("trapezoid_area",[67,30])
@@ -1303,6 +1313,11 @@ def c_lattice():
         f"How many points with integer coordinates lie within distance {R} of the origin?",
         f"Find the number of integer points (x,y) with x²+y² ≤ {R*R}.",
         f"How many lattice points are inside or on a circle of radius {R} about the origin?",
+        f"How many lattice points (x,y) lie inside or on the circle x²+y²={R}²?",
+        f"Count the integer-coordinate points within or on a circle of radius {R} centered at the origin.",
+        f"How many integer points lie within distance {R} of the origin (including the boundary)?",
+        f"Count the integer points (x,y) on or inside the circle of radius {R} around the origin.",
+        f"How many lattice points satisfy x² + y² ≤ {R}²?",
     ]), cnt, "lattice_points_circle")
 
 @concept("count_pythagorean",[66,76])
