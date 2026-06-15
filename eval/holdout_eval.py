@@ -232,7 +232,8 @@ class HeldoutEvalCallback(TrainerCallback):
 
     def __init__(self, tokenizer, per_step_sets=None, endpoint_sets=None,
                  eval_every=50, max_new_tokens=1024, k=1, temperature=0.0,
-                 batch_size=8, logger=None, transcripts_dir=None):
+                 batch_size=8, logger=None, transcripts_dir=None,
+                 early_stop_patience=None, early_stop_metric="mean_pass_rate"):
         self.tok = tokenizer
         self.per_step = dict(per_step_sets or {})
         self.endpoint = dict(endpoint_sets or {})
@@ -243,13 +244,19 @@ class HeldoutEvalCallback(TrainerCallback):
         self._began = False
         self.transcripts_dir = transcripts_dir
         self._wandb_defined = False
+        self.es_patience = early_stop_patience   # stop if monitor metric doesn't improve for N evals
+        self.es_metric = early_stop_metric
+        self._best = -1.0
+        self._wait = 0
 
     def _run(self, model, step, sets, when):
         import os, json
+        out_metrics = {}
         for name, probs in sets.items():
             res = evaluate(model, self.tok, probs,
                            collect_transcripts=bool(self.transcripts_dir), **self.kw)
             m, records = res if isinstance(res, tuple) else (res, None)
+            out_metrics[name] = m
             line = f"[holdout-eval step {step} | {when}] {name}: " + \
                    "  ".join(f"{mk}={mv}" for mk, mv in m.items())
             print(line, flush=True)
@@ -285,6 +292,7 @@ class HeldoutEvalCallback(TrainerCallback):
             except Exception as e:
                 if self.log:
                     self.log.warning(f"[holdout] wandb eval log failed: {e}")
+        return out_metrics
 
     def on_train_begin(self, args, state, control, model=None, **kw):
         if model is not None and not self._began:   # baseline: monitor + AMC "before"
@@ -293,7 +301,24 @@ class HeldoutEvalCallback(TrainerCallback):
 
     def on_step_end(self, args, state, control, model=None, **kw):
         if model is not None and state.global_step > 0 and state.global_step % self.every == 0:
-            self._run(model, state.global_step, self.per_step, "periodic")  # monitor only
+            res = self._run(model, state.global_step, self.per_step, "periodic")  # monitor only
+            # Patience-based early-stop on the monitor's headline metric, so we don't burn
+            # steps past the held-out peak (06-15: the useful training was very early).
+            if self.es_patience and res:
+                mpr = next(iter(res.values()), {}).get(self.es_metric)
+                if mpr is not None:
+                    if mpr > self._best + 1e-4:
+                        self._best, self._wait = mpr, 0
+                    else:
+                        self._wait += 1
+                        if self._wait >= self.es_patience:
+                            control.should_training_stop = True
+                            msg = (f"[holdout] EARLY STOP @ step {state.global_step}: "
+                                   f"{self.es_metric} no improvement for {self._wait} evals "
+                                   f"(best={self._best:.4f}). Best checkpoint is the one to use.")
+                            print(msg, flush=True)
+                            if self.log:
+                                self.log.info(msg)
 
     def on_train_end(self, args, state, control, model=None, **kw):
         if model is not None:                       # final: monitor + AMC "after"

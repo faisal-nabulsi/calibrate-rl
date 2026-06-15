@@ -103,7 +103,7 @@ def build_prompt(example):
 from datasets import Dataset
 from holdout_eval import HeldoutEvalCallback
 
-EVAL_EVERY = int(os.environ.get("EVAL_EVERY", "27"))   # holdout monitor cadence (steps)
+EVAL_EVERY = int(os.environ.get("EVAL_EVERY", "7"))    # MONITOR cadence — cheap subset, not the full held-out
 # 8 rollouts (matches the v12 calibration) — the HEADLINE metric is mean_pass_rate
 # (per-rollout success rate over the 79 held-out problems), the un-confounded signal
 # training should lift. pass@K saturates ~1.0 on goldilocks problems and is ignored.
@@ -113,6 +113,13 @@ EVAL_TEMP = 1.0          # temp 1.0 — same as calibration sampling
 logger.info("Loading goldilocks train + held-out sets ...")
 train_rows = json.load(open(os.environ.get("TRAIN_DATA", "data/goldilocks_train_v10.json")))
 holdout_skel = json.load(open(os.environ.get("HOLDOUT_DATA", "data/goldilocks_holdout_v10.json")))
+# Cheap per-step MONITOR = a seeded subset so the dense (every EVAL_EVERY) eval doesn't
+# dominate runtime; the FULL held-out runs only at begin/end (the headline number).
+# 06-15 lesson: full held-out @ every-14 was ~3-4x the training cost.
+import random as _rnd
+HOLDOUT_MON_N = int(os.environ.get("HOLDOUT_MON_N", "32"))
+holdout_mon = (holdout_skel if len(holdout_skel) <= HOLDOUT_MON_N
+               else _rnd.Random(42).sample(holdout_skel, HOLDOUT_MON_N))
 dataset = Dataset.from_list(train_rows).map(build_prompt)
 logger.info(f"Train (goldilocks): {len(dataset)} | held-out goldilocks: {len(holdout_skel)} "
             f"| AMC: OFF (small hillclimb loop)")
@@ -198,7 +205,8 @@ training_args = GRPOConfig(
 
     # Logging & saving
     logging_steps=1,
-    save_steps=27,
+    save_steps=int(os.environ.get("SAVE_STEPS", "7")),  # dense -> keep the held-out-best ckpt (06-15 lost the step-14 best)
+    max_grad_norm=1.0,                                  # clip the /std-amplification spikes (grad_norm hit 1.38 unclipped)
     log_completions=True,            # log (prompt, completion) pairs to W&B
     num_completions_to_print=2,      # only print 2 examples to terminal
     report_to="wandb" if (os.environ.get("WANDB_API_KEY") or os.environ.get("WANDB_TOKEN")) else "none",
@@ -256,11 +264,12 @@ trainer = GRPOTrainer(
 # at step 0, every EVAL_EVERY steps, and end. AMC is OFF for this hillclimb loop.
 trainer.add_callback(HeldoutEvalCallback(
     eval_tokenizer,
-    per_step_sets={"holdout_gold": holdout_skel},
-    endpoint_sets=None,
+    per_step_sets={"holdout_mon": holdout_mon},     # cheap subset, every EVAL_EVERY steps
+    endpoint_sets={"holdout_full": holdout_skel},   # full set, begin + end only (the headline)
     eval_every=EVAL_EVERY, k=EVAL_K, temperature=EVAL_TEMP,
     max_new_tokens=training_args.max_completion_length, logger=logger,
     transcripts_dir=os.path.join(training_args.output_dir, "holdout_transcripts"),
+    early_stop_patience=int(os.environ.get("EARLY_STOP_PATIENCE", "3")),  # stop ~3 evals past the peak
 ))
 
 # Durable artifact sync: push the run dir to S3 after every checkpoint save, so a hard
