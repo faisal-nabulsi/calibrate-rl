@@ -571,9 +571,10 @@ decision (Faisal wants it; Michael skeptical).
 - [faisal] **Depth-1 chaining — closed coverage + fixed AMC over-tagging.** (a) Chained `point_rotation`, the last uncovered partner
   (#69 had merged before the earlier point_rotation push reached it, so it never landed — redone off main): its coord-sum can be
   negative but the `V≥2` filter just redraws (≈46% yield), no atomic change → fixture intact. **Now 47/47 concepts covered, 22 chains.**
-  (b) **Holistic AMC retag** (gilbert's PR-#69 note 2): 19 of the 20 modexp-ending chains carried a spurious `55` (they only *use*
-  modexp as a sink) → dropped, keeping each feeder's own AMC; only the real cdc×modexp `chain_constrained_divisor_count__modular_exponent`
-  keeps `[55]` (§6a). Stops #55 looking 19× more "covered" than its real training value in rollups. Gate PASS, equivalence PASS. → PR.
+  (b) **Holistic AMC retag** (gilbert's PR-#69 note 2): of the 20 modexp-ending chains, **18 carried a spurious `55`** (8 wave-2 +
+  10 wave-3 — they only *use* modexp as a sink) → dropped, keeping each feeder's own AMC; point_rotation was added clean as `[9,39]`
+  (never bore it); only the real cdc×modexp `chain_constrained_divisor_count__modular_exponent` keeps `[55]` (§6a). Stops #55 looking
+  far more "covered" than its real training value in rollups. Gate PASS, equivalence PASS. → PR #70 (3 reviewers ✓, cosmetic nits only).
 - [faisal] **Depth-1 chaining — third wave: 10 value-producer → modexp chains (teach the remaining partners).** The value-producers
   (arith_series_sum, distinct_product_count, mean_removal, rate_closing, trapezoid_area, percent_compound, three_number_system,
   infinite_product_exp, vieta_sumcubes, unit_conversion_area) are "irreducibly one-step" — useless as standalone atomics (can't hit
