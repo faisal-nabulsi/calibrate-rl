@@ -40,7 +40,8 @@ TARGETS = ["triangular_filter_count", "log_laws", "ordered_triple_constraint",
            # (the diversity PR), so they left the wiring-equivalence baseline — they are
            # now guarded by static_checks (top3/dedupe) + check_dataset golds instead.
            "arith_series_sum", "arith_term_filter", "digit_count_bigprod",
-           "mean_removal", "point_rotation", "rate_closing", "three_number_system"]
+           "mean_removal", "point_rotation", "rate_closing", "three_number_system",
+           "vieta_sumcubes"]
 
 # the old inline literals, verbatim from pre-refactor skeleton_injector_v12.py
 OLD_INLINE = {
@@ -76,6 +77,7 @@ OLD_INLINE = {
     "arith_series_sum": {"a": [2, 15], "d": [2, 9], "T": [300, 3000]},
     "digit_count_bigprod": {"a": [2, 9], "b": [8, 25], "c": [2, 9], "d": [5, 20]},
     "mean_removal": {"n": [6, 12], "m": [30, 70], "m2": [30, 70], "x1": [15, 80]},
+    "vieta_sumcubes": {"r1": [2, 20], "r2": [2, 20]},
 }
 
 

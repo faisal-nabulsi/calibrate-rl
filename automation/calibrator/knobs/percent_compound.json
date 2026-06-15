@@ -37,7 +37,7 @@
         5,
         100
       ],
-      "knob_class": "C"
+      "knob_class": "num"
     },
     "down": {
       "value": [
@@ -60,7 +60,7 @@
         5,
         100
       ],
-      "knob_class": "C"
+      "knob_class": "num"
     }
   },
   "locked": false
