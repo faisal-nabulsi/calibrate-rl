@@ -15,7 +15,9 @@
     "r": {
       "value": [
         2,
-        3
+        3,
+        4,
+        5
       ],
       "type": "choice",
       "envelope": [

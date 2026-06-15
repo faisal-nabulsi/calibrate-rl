@@ -19,7 +19,7 @@
     "length_m": {
       "value": [
         10,
-        40
+        55
       ],
       "type": "randint",
       "envelope": [
