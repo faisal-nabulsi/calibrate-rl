@@ -63,10 +63,10 @@ in-band problems. **The deliverable is the METHOD, not any single checkpoint.**
 | Eval | Cara |
 | RL review | Zaid |
 | Running GPU calibration / training / eval (AWS L40S box) | `awesome-ash` (training executor; executes, doesn't design; lives ON the L40S — on-demand, online only while the box is up) |
-| Sampling runs (the two AWS L4 boxes) | `sam`, `sadie` (sampling executors; live ON their L4 boxes — on-demand, online only while their box is up, reachable ~60s after box start) |
+| Sampling runs (the three AWS L4 boxes) | `sam`, `sadie`, `sage` (sampling executors; live ON their L4 boxes — on-demand, online only while their box is up, reachable ~60s after box start) |
 | Calibration-loop orchestrator processes (t3) | `thinkrock` (automation home, NOT a conversational agent — don't @mention it expecting replies) |
 
-**GPU-box agents (sam, sadie, awesome-ash) live ON their boxes** — Slack listeners
+**GPU-box agents (sam, sadie, sage, awesome-ash) live ON their boxes** — Slack listeners
 are NOT centralized on the t3. Wake ritual: after a box boots, verify its agent
 answers a "hi" in Slack — if silent, a human re-enables events on that bot's Slack
 app page. GPU-box agents run under pm2 with `--max-restarts 5` so a broken install
@@ -434,7 +434,7 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
   skeleton_dataset_v11_clean, calib_v11_2048_7B (500×8).
 - `results/`: base 32/83, checkpoint-120 34/83, trainer_state_120step, holdout
   matrix · `training_completions/*.parquet` ×120.
-- Compute: **AWS (primary)** — L40S training box `i-07455ba55e473769d` (34.226.11.242) + 2× L4
+- Compute: **AWS (primary)** — L40S training box `i-07455ba55e473769d` (34.226.11.242) + 3× L4
   sampling boxes; agents (kathryne/gilbert/charizard/awesome-ash) hosted on AWS 24/7. Runbook:
   `AWS_SETUP_FAISAL.md`. (Earlier: Lightning A100/L4, Vast.ai, GCP `qwen7bv3training`.)
   Tracking: W&B `rl-intro`/`tiny-math-solver`.
@@ -568,6 +568,12 @@ decision (Faisal wants it; Michael skeptical).
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
 ### 2026-06-15
+- [gilbert] **Fleet: added `sage`, a third L4 sampling executor.** Same role as `sam`/`sadie` (on-demand
+  sampling/calibration/eval; lives ON its L4 box, online only while up, reachable ~60s after boot;
+  pm2 `--max-restarts 5`). Updated §2 (ownership row → three L4 boxes; GPU-box-agents line) and §10
+  (2× → 3× L4 sampling boxes). NOTE for whoever provisions the box: `sage`'s bot ID must be added to
+  `AGENT_BOTS` in `slack-handler.ts` (bot-repo) or the read-only/chain guards won't cover it (§8 lesson),
+  and the wake ritual / boot poller (`calibrate-job-poller.service`) must be set up as on sam/sadie.
 - [faisal] **Depth-1 chaining — closed coverage + fixed AMC over-tagging.** (a) Chained `point_rotation`, the last uncovered partner
   (#69 had merged before the earlier point_rotation push reached it, so it never landed — redone off main): its coord-sum can be
   negative but the `V≥2` filter just redraws (≈46% yield), no atomic change → fixture intact. **Now 47/47 concepts covered, 22 chains.**
