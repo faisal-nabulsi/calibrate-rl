@@ -445,7 +445,7 @@ def _sumsq_div_count(n,m):
         if run%m==0: cnt+=1
     return cnt
 
-@concept("chain_count_obtuse_triangles__modular_exponent",[18,55])
+@concept("chain_count_obtuse_triangles__modular_exponent",[18])
 def c_chain_obtuse_modexp():
     kn=K["chain_count_obtuse_triangles__modular_exponent"]
     P=kn.randint("P")
@@ -464,7 +464,7 @@ def c_chain_obtuse_modexp():
     meta={"depth":1,"chain":{"components":["count_obtuse_triangles","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
     return (prob, ans, "chain_count_obtuse_triangles__modular_exponent", meta)
 
-@concept("chain_arith_term_filter__modular_exponent",[72,55])
+@concept("chain_arith_term_filter__modular_exponent",[72])
 def c_chain_arithfilter_modexp():
     kn=K["chain_arith_term_filter__modular_exponent"]
     start=kn.randint("start"); diff=kn.randint("diff"); nterms=kn.randint("nterms"); dv=kn.choice("dv")
@@ -483,7 +483,7 @@ def c_chain_arithfilter_modexp():
     meta={"depth":1,"chain":{"components":["arith_term_filter","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
     return (prob, ans, "chain_arith_term_filter__modular_exponent", meta)
 
-@concept("chain_primality_in_sequence__modular_exponent",[37,55])
+@concept("chain_primality_in_sequence__modular_exponent",[37])
 def c_chain_primeseq_modexp():
     kn=K["chain_primality_in_sequence__modular_exponent"]
     pdiff=kn.choice("pdiff"); pstart=kn.choice("pstart"); pterms=kn.randint("pterms")
@@ -502,7 +502,7 @@ def c_chain_primeseq_modexp():
     meta={"depth":1,"chain":{"components":["primality_in_sequence","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
     return (prob, ans, "chain_primality_in_sequence__modular_exponent", meta)
 
-@concept("chain_vieta_pair_count__modular_exponent",[70,55])
+@concept("chain_vieta_pair_count__modular_exponent",[70])
 def c_chain_vieta_modexp():
     kn=K["chain_vieta_pair_count__modular_exponent"]
     c=kn.choice("c")
@@ -521,7 +521,7 @@ def c_chain_vieta_modexp():
     meta={"depth":1,"chain":{"components":["vieta_pair_count","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
     return (prob, ans, "chain_vieta_pair_count__modular_exponent", meta)
 
-@concept("chain_frobenius_stamps__modular_exponent",[71,55])
+@concept("chain_frobenius_stamps__modular_exponent",[71])
 def c_chain_frobenius_modexp():
     kn=K["chain_frobenius_stamps__modular_exponent"]
     fa,fb=kn.choice("pairs")
@@ -540,7 +540,7 @@ def c_chain_frobenius_modexp():
     meta={"depth":1,"chain":{"components":["frobenius_stamps","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
     return (prob, ans, "chain_frobenius_stamps__modular_exponent", meta)
 
-@concept("chain_geo_first_exceed__modular_exponent",[7,55])
+@concept("chain_geo_first_exceed__modular_exponent",[7])
 def c_chain_geo_modexp():
     kn=K["chain_geo_first_exceed__modular_exponent"]
     a=kn.randint("a"); r=kn.choice("r"); bound=kn.randint("bound")
@@ -560,7 +560,7 @@ def c_chain_geo_modexp():
     meta={"depth":1,"chain":{"components":["geo_first_exceed","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
     return (prob, ans, "chain_geo_first_exceed__modular_exponent", meta)
 
-@concept("chain_digit_count_bigprod__modular_exponent",[60,55])
+@concept("chain_digit_count_bigprod__modular_exponent",[60])
 def c_chain_digit_modexp():
     kn=K["chain_digit_count_bigprod__modular_exponent"]
     a=kn.randint("a"); b=kn.randint("b"); c=kn.randint("c"); d=kn.randint("d")
@@ -580,7 +580,7 @@ def c_chain_digit_modexp():
     meta={"depth":1,"chain":{"components":["digit_count_bigprod","modular_exponent"],"fed_param":"e","intermediate_gold":e}}
     return (prob, ans, "chain_digit_count_bigprod__modular_exponent", meta)
 
-@concept("chain_sum_of_squares__modular_exponent",[7,55])
+@concept("chain_sum_of_squares__modular_exponent",[7])
 def c_chain_sumsq_modexp():
     kn=K["chain_sum_of_squares__modular_exponent"]
     n=kn.randint("n"); m=kn.choice("m")
@@ -1305,18 +1305,21 @@ def build(per):
 # already solves; the value is (a) making otherwise-untrainable single-step atomics
 # goldilocks-trainable and (b) general multi-step practice. check_dataset recomputers
 # deferred (UNCHECKED, as for the partner atomics) -- golds are construction-correct.
-# point_rotation is excluded: its answer can be negative (can't feed any param).
+# point_rotation: its coordinate-sum answer can be negative, but the generic V>=2
+# filter below simply redraws those, so it feeds the base like any other value-producer
+# (no atomic change -> the equivalence fixture stays intact).
 _VALUE_CHAINS=[
-    ("chain_arith_series_sum__modular_exponent","arith_series_sum",[72,55]),
-    ("chain_distinct_product_count__modular_exponent","distinct_product_count",[74,55]),
-    ("chain_mean_removal__modular_exponent","mean_removal",[19,55]),
-    ("chain_rate_closing__modular_exponent","rate_closing",[43,55]),
-    ("chain_trapezoid_area__modular_exponent","trapezoid_area",[67,55]),
-    ("chain_percent_compound__modular_exponent","percent_compound",[52,55]),
-    ("chain_three_number_system__modular_exponent","three_number_system",[11,55]),
-    ("chain_infinite_product_exp__modular_exponent","infinite_product_exp",[20,55]),
-    ("chain_vieta_sumcubes__modular_exponent","vieta_sumcubes",[6,55]),
-    ("chain_unit_conversion_area__modular_exponent","unit_conversion_area",[77,55]),
+    ("chain_arith_series_sum__modular_exponent","arith_series_sum",[72]),
+    ("chain_distinct_product_count__modular_exponent","distinct_product_count",[74]),
+    ("chain_mean_removal__modular_exponent","mean_removal",[19]),
+    ("chain_rate_closing__modular_exponent","rate_closing",[43]),
+    ("chain_trapezoid_area__modular_exponent","trapezoid_area",[67]),
+    ("chain_percent_compound__modular_exponent","percent_compound",[52]),
+    ("chain_three_number_system__modular_exponent","three_number_system",[11]),
+    ("chain_infinite_product_exp__modular_exponent","infinite_product_exp",[20]),
+    ("chain_vieta_sumcubes__modular_exponent","vieta_sumcubes",[6]),
+    ("chain_unit_conversion_area__modular_exponent","unit_conversion_area",[77]),
+    ("chain_point_rotation__modular_exponent","point_rotation",[9,39]),
 ]
 def _register_value_chain(name, atomic, amc):
     @concept(name, amc)

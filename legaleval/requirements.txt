@@ -1,6 +1,9 @@
 anthropic>=0.92.0
+openai>=1.40
+google-genai>=1.0
 pydantic>=2.0
 python-dotenv>=1.0
-# Uncomment as providers come online:
-# openai
-# google-genai
+# viewer UI + docx export tooling
+flask>=3.0
+markdown>=3.5
+python-docx>=1.1

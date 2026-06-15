@@ -2,14 +2,16 @@
 
 from .anthropic_provider import ClaudeSonnet
 from .base import GenerationResult, Provider
+from .gemini_provider import GeminiFlash
+from .muse_provider import LlamaMaverick
+from .openai_provider import GPT55
+from .qwen_provider import QwenPlus
 
-# TODO: implement and register the other four models under test:
-#   openai_provider.GPT55        (OPENAI_API_KEY)
-#   gemini_provider.GeminiFlash  (GEMINI_API_KEY)
-#   qwen_provider.QwenPlus       (QWEN_API_KEY)
-#   muse_provider.MuseSpark      (MUSE_API_KEY)
+# The five models under test. Each enforces the incognito contract (base.py):
+# bare user prompt, no system prompt, no tools, single stateless call.
 REGISTRY: dict[str, type[Provider]] = {
-    ClaudeSonnet.name: ClaudeSonnet,
+    cls.name: cls
+    for cls in (ClaudeSonnet, GPT55, GeminiFlash, QwenPlus, LlamaMaverick)
 }
 
 __all__ = ["Provider", "GenerationResult", "REGISTRY"]
