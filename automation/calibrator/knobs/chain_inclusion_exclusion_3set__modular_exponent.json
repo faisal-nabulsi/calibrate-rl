@@ -1,6 +1,6 @@
 {
   "components": [
-    "unit_conversion_area",
+    "inclusion_exclusion_3set",
     "modular_exponent"
   ],
   "fed_param": "base",

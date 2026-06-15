@@ -1,0 +1,22 @@
+{
+  "components": [
+    "constrained_divisor_count",
+    "telescoping_mn"
+  ],
+  "fed_param": "N",
+  "params": {
+    "gap": {
+      "value": [
+        2,
+        3
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        4
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

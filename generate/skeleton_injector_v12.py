@@ -1012,43 +1012,44 @@ def build(per):
 # ===================================================================
 def _feeder(name): return next(f for nm,f,_ in REGISTRY if nm==name)
 
-# adapter(V) -> (answer|None, clause): draws the target's OTHER inputs; clause embeds V
-# SYMBOLICALLY (the model must compute V first), answer uses the actual V.
-def _a_modexp_base(V):
-    k=random.randint(2,6); m=random.choice([50,97,221,264,503,997])
+# adapter(V, kn) -> (answer|None, clause): draws the target's OTHER inputs from the chain's
+# knob file kn (int params; fraction/triple params stay inline). Clause embeds V SYMBOLICALLY
+# (the model must compute V first); answer uses the actual V. kn = K["chain_<feeder>__<target>"].
+def _a_modexp_base(V, kn):
+    k=kn.randint("k"); m=kn.randint("m")
     return (pow(V,k,m), f"What is the remainder when V^{k} is divided by {m}?")
-def _a_modexp_exp(V):
-    a=random.choice([2,3,5,6,7]); m=random.choice([50,97,221,264,503,997])
+def _a_modexp_exp(V, kn):
+    a=kn.choice("a"); m=kn.randint("m")
     return (pow(a,V,m), f"What is the remainder when {a}^V is divided by {m}?")
-def _a_algebraic_x(V):
-    y=random.randint(5,25); z=random.randint(5,25)
-    a1=random.randint(1,7); b1=random.randint(1,7); c1=random.randint(1,7)
-    a2=random.randint(1,7); b2=random.randint(1,7); c2=random.randint(1,7)
+def _a_algebraic_x(V, kn):
+    y=kn.randint("y"); z=kn.randint("z")
+    a1=kn.randint("coef"); b1=kn.randint("coef"); c1=kn.randint("coef")
+    a2=kn.randint("coef"); b2=kn.randint("coef"); c2=kn.randint("coef")
     if b1*c2-b2*c1==0: return (None,"")
     d1=a1*V+b1*y+c1*z; d2=a2*V+b2*y+c2*z
     return (V+y+z, f"Positive integers x, y, z satisfy x=V, {a1}x+{b1}y+{c1}z={d1}, and {a2}x+{b2}y+{c2}z={d2}. Find x+y+z.")
-def _a_telescoping_N(V):
-    gap=random.choice([2,3]); s=sum(Fraction(1,k*(k+gap)) for k in range(1,V+1))
+def _a_telescoping_N(V, kn):
+    gap=kn.choice("gap"); s=sum(Fraction(1,k*(k+gap)) for k in range(1,V+1))
     return (s.numerator+s.denominator, f"Compute the sum of 1/(k(k+{gap})) for k=1 to V as a reduced fraction m/n; find m+n.")
-def _a_digit_target(V):
-    lo=random.choice([1000,2000,3000]); hi=lo+random.choice([1000,2000])
+def _a_digit_target(V, kn):
+    lo=kn.choice("lo"); hi=lo+kn.choice("span")
     return (sum(1 for x in range(lo,hi) if sum(int(c) for c in str(x))==V),
             f"How many integers from {lo} to {hi-1} have digits summing to exactly V?")
-def _a_ie3_U(V):
+def _a_ie3_U(V, kn):
     a,b,c=sorted(random.sample([2,3,4,5,6,7],3))
     return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
             f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
-def _a_perfsq_limit(V):
-    div=random.choice([4,9,16,25,36,49]); rd=int(div**0.5); cnt=0; k=1
+def _a_perfsq_limit(V, kn):
+    div=kn.choice("div"); rd=int(div**0.5); cnt=0; k=1
     while (rd*k)**2<V: cnt+=1; k+=1
     return (cnt, f"How many perfect squares less than V are divisible by {div}?")
-def _a_multisquare_limit(V):
-    d=random.choice([4,9]); last=random.choice([1,4,5,6,9]); cnt=0; k=1
+def _a_multisquare_limit(V, kn):
+    d=kn.choice("d"); last=kn.choice("last"); cnt=0; k=1
     while k*k<V:
         if (k*k)%d==0 and (k*k)%10==last: cnt+=1
         k+=1
     return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
-def _a_equalize_g(V):
+def _a_equalize_g(V, kn):
     if V<3: return (None,"")
     fn=random.choice([Fraction(1,3),Fraction(1,2),Fraction(1,4),Fraction(2,3),Fraction(3,4),
                       Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),Fraction(5,6),
@@ -1056,7 +1057,7 @@ def _a_equalize_g(V):
     pour=1-((V-1)+fn)/V
     return (pour.numerator+pour.denominator,
             f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")
-def _a_complement_faces(V):
+def _a_complement_faces(V, kn):
     if V<3: return (None,"")
     thr=random.choice([Fraction(2,3),Fraction(3,4),Fraction(4,5)]); r=1
     while 1-Fraction((V-1)**r,V**r)<=thr:
@@ -1112,7 +1113,7 @@ def _register_diverse_chain(feeder,tkey):
         if sub is None or not isinstance(sub[1],int): return None
         V=sub[1]
         if not (_lo<=V<=_hi): return None
-        ans,clause=_ad(V)
+        ans,clause=_ad(V, K[_cn])
         if not isinstance(ans,int) or ans<2: return None
         q=sub[0].strip().rstrip(".")
         prob=f"Let V be the answer to this problem.\n“{q}”\n{clause}"

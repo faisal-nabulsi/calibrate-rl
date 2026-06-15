@@ -1,0 +1,9 @@
+{
+  "components": [
+    "geo_first_exceed",
+    "equalization_fraction"
+  ],
+  "fed_param": "g",
+  "params": {},
+  "locked": false
+}

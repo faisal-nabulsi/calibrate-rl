@@ -1,31 +1,32 @@
 {
   "components": [
     "arith_series_sum",
-    "modular_exponent"
+    "constrained_digit_count"
   ],
-  "fed_param": "base",
+  "fed_param": "digit_sum_target",
   "params": {
-    "k": {
+    "lo": {
       "value": [
-        2,
-        6
+        1000,
+        2000,
+        3000
       ],
-      "type": "randint",
+      "type": "choice",
       "envelope": [
-        2,
-        8
+        500,
+        5000
       ],
       "knob_class": "num"
     },
-    "m": {
+    "span": {
       "value": [
-        50,
-        997
-      ],
-      "type": "randint",
-      "envelope": [
-        30,
+        1000,
         2000
+      ],
+      "type": "choice",
+      "envelope": [
+        500,
+        3000
       ],
       "knob_class": "num"
     }

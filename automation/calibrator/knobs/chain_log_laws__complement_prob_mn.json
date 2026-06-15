@@ -1,0 +1,9 @@
+{
+  "components": [
+    "log_laws",
+    "complement_prob_mn"
+  ],
+  "fed_param": "faces",
+  "params": {},
+  "locked": false
+}

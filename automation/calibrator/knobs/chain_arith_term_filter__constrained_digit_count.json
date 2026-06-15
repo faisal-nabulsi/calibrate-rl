@@ -1,34 +1,32 @@
 {
   "components": [
-    "point_rotation",
-    "modular_exponent"
+    "arith_term_filter",
+    "constrained_digit_count"
   ],
-  "fed_param": "exponent",
+  "fed_param": "digit_sum_target",
   "params": {
-    "a": {
+    "lo": {
       "value": [
-        2,
-        3,
-        5,
-        6,
-        7
+        1000,
+        2000,
+        3000
       ],
       "type": "choice",
       "envelope": [
-        2,
-        9
+        500,
+        5000
       ],
       "knob_class": "num"
     },
-    "m": {
+    "span": {
       "value": [
-        50,
-        997
-      ],
-      "type": "randint",
-      "envelope": [
-        30,
+        1000,
         2000
+      ],
+      "type": "choice",
+      "envelope": [
+        500,
+        3000
       ],
       "knob_class": "num"
     }

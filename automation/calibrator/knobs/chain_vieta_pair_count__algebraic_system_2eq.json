@@ -1,0 +1,46 @@
+{
+  "components": [
+    "vieta_pair_count",
+    "algebraic_system_2eq"
+  ],
+  "fed_param": "x",
+  "params": {
+    "y": {
+      "value": [
+        5,
+        25
+      ],
+      "type": "randint",
+      "envelope": [
+        3,
+        40
+      ],
+      "knob_class": "num"
+    },
+    "z": {
+      "value": [
+        5,
+        25
+      ],
+      "type": "randint",
+      "envelope": [
+        3,
+        40
+      ],
+      "knob_class": "num"
+    },
+    "coef": {
+      "value": [
+        1,
+        7
+      ],
+      "type": "randint",
+      "envelope": [
+        1,
+        9
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}
