@@ -18,7 +18,9 @@ bug). Add a concept by registering a recomputer in RECOMPUTERS; nothing else cha
   INJECTOR=generate/skeleton_injector_v12.py python3 tools/verify_framings.py [--n 4000] [--concept X]
 """
 import os, re, sys, math, argparse, importlib.util
-from collections import defaultdict
+from collections import defaultdict, Counter
+from fractions import Fraction
+from functools import reduce
 
 INJ = os.environ.get("INJECTOR", "generate/skeleton_injector_v13.py")
 
@@ -154,8 +156,102 @@ def rc_ordered_triple_constraint(t):
     return sum(1 for a in range(0, N) for b in range(a+1, N) for c in range(b+1, N+1)
                if a + b + c == N)
 
+def _smallest_with_ndiv(D, cap=10**6):
+    n = 1
+    while n <= cap:
+        if _ndiv(n) == D: return n
+        n += 1
+    return None
+
+def rc_algebraic_system_2eq(t):
+    rows = re.findall(r"(\d+)x\+(\d+)y\+(\d+)z=(\d+)", t)
+    if len(rows) != 3: return None
+    A = [[int(rows[i][j]) for j in range(3)] for i in range(3)]
+    Dv = [int(rows[i][3]) for i in range(3)]
+    def det3(M):
+        return (M[0][0]*(M[1][1]*M[2][2]-M[1][2]*M[2][1])
+                - M[0][1]*(M[1][0]*M[2][2]-M[1][2]*M[2][0])
+                + M[0][2]*(M[1][0]*M[2][1]-M[1][1]*M[2][0]))
+    det = det3(A)
+    if det == 0: return None
+    tot = Fraction(0)
+    for col in range(3):
+        M = [r[:] for r in A]
+        for i in range(3): M[i][col] = Dv[i]
+        tot += Fraction(det3(M), det)
+    return int(tot) if tot.denominator == 1 else None
+
+def rc_log_laws(t):
+    bm = re.search(r"log_(\d+)", t)
+    if not bm: return None
+    exps = [int(e) for e in re.findall(rf"{bm.group(1)}\^(\d+)", t)]
+    if len(exps) != 3: return None
+    return exps[0] + exps[1] - exps[2]
+
+def rc_prime_power_divisors(t):
+    m = re.search(r"(?:exactly|precisely)\s+(\d+)", t)   # ignore the '0' in "n>0"
+    if not m: return None
+    return _smallest_with_ndiv(int(m.group(1)))
+
+def rc_complex_modulus_power(t):
+    nums = _ints(t)
+    if not nums: return None
+    N = max(nums); rt = math.isqrt(N)
+    return sum(a+b for a in range(1, rt+1) for b in range(a, rt+1) if a*a+b*b == N)
+
+def rc_roots_of_unity_sum(t):
+    vals = [n for n in _ints(t) if n != 1]
+    if len(set(vals)) < 2: return None
+    return reduce(math.gcd, vals)
+
+def rc_complement_prob_mn(t):
+    fm = re.search(r"(\d+)-sided", t); tm = re.search(r"(\d+)\s*/\s*(\d+)", t)
+    if not (fm and tm): return None
+    faces = int(fm.group(1)); thr = Fraction(int(tm.group(1)), int(tm.group(2)))
+    r = 1
+    while 1 - Fraction((faces-1)**r, faces**r) <= thr:
+        r += 1
+        if r > 50: return None
+    return r
+
+def rc_multi_constraint_square(t):
+    lim = re.search(r"(?:less than|smaller than|below|under|<)\s*(\d+)", t)
+    dm = re.search(r"(?:divisible by|multiples? of)\s*(\d+)", t)
+    lastm = re.search(r"(?:end(?:s|ing)?(?:\s+(?:with|in))?\s+(?:the\s+)?(?:digit\s+)?"
+                      r"|last digit(?:\s+is)?\s+|units digit\s+)(\d+)", t)
+    if not (lim and dm and lastm): return None
+    limit, d, last = int(lim.group(1)), int(dm.group(1)), int(lastm.group(1))
+    cnt = 0; k = 1
+    while k*k < limit:
+        if (k*k) % d == 0 and (k*k) % 10 == last: cnt += 1
+        k += 1
+    return cnt
+
+def rc_constrained_digit_count(t):
+    vals = sorted(set(_ints(t)))
+    if len(vals) < 3: return None
+    target, lo, hi = vals[0], vals[1], vals[-1]
+    return sum(1 for x in range(lo, hi+1) if sum(int(c) for c in str(x)) == target)
+
+def rc_equalization_fraction(t):
+    gm = re.search(r"(\d+)\s+(?:identical\s+|equal\s+)?glasses", t)
+    fm = re.search(r"(\d+)\s*/\s*(\d+)", t)   # only digit-fraction is fn; "m/n" uses letters
+    if not (gm and fm): return None
+    g = int(gm.group(1)); fn = Fraction(int(fm.group(1)), int(fm.group(2)))
+    pour = 1 - ((g-1) + fn) / g
+    return pour.numerator + pour.denominator
+
 RECOMPUTERS = {
     "modular_exponent": rc_modular_exponent,
+    "algebraic_system_2eq": rc_algebraic_system_2eq,
+    "log_laws": rc_log_laws,
+    "prime_power_divisors": rc_prime_power_divisors,
+    "complex_modulus_power": rc_complex_modulus_power,
+    "roots_of_unity_sum": rc_roots_of_unity_sum,
+    "complement_prob_mn": rc_complement_prob_mn,
+    "multi_constraint_square": rc_multi_constraint_square,
+    "constrained_digit_count": rc_constrained_digit_count,
+    "equalization_fraction": rc_equalization_fraction,
     "inclusion_exclusion_3set": rc_inclusion_exclusion_3set,
     "lcm_gcd_system": rc_lcm_gcd_system,
     "alternating_cubes": rc_alternating_cubes,

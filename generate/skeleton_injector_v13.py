@@ -769,6 +769,11 @@ def c_msquare():
         f"Of perfect squares under {limit}, how many are divisible by {d} and end in {last}?",
         f"How many squares less than {limit} are both divisible by {d} and ending in {last}?",
         f"Find the count of perfect squares < {limit} that are divisible by {d} and have units digit {last}.",
+        f"How many perfect squares below {limit} are divisible by {d} and end with the digit {last}?",
+        f"Count perfect squares less than {limit} that are multiples of {d} and end in {last}.",
+        f"Of all perfect squares under {limit}, how many are divisible by {d} and have last digit {last}?",
+        f"How many squares smaller than {limit} are divisible by {d} and end in the digit {last}?",
+        f"Determine how many perfect squares below {limit} are both multiples of {d} and end in {last}.",
     ]), cnt, "multi_constraint_square")
 
 @concept("vieta_sumcubes",[6,31])
@@ -818,6 +823,11 @@ def c_loglaws():
         f"Evaluate log_{base}({base}^{e1} · {base}^{e2}) - log_{base}({base}^{e3}).",
         f"What is log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3})?",
         f"Simplify log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}) to an integer.",
+        f"Determine log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}).",
+        f"Combine using log laws: log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}).",
+        f"Reduce log_{base}({base}^{e1} · {base}^{e2}) - log_{base}({base}^{e3}) to an integer.",
+        f"Using the product and quotient rules, evaluate log_{base}({base}^{e1} · {base}^{e2} / {base}^{e3}).",
+        f"What integer equals log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3})?",
     ]), _loglaws_gold(e1,e2,e3), "log_laws")
 
 @concept("infinite_product_exp",[20])
@@ -853,6 +863,11 @@ def c_rou():
         f"Count the complex numbers z with z^{n}=1 and z^{m}=1.",
         f"How many values of z satisfy both z^{n}=1 and z^{m}=1?",
         f"The {n}th roots of unity and the {m}th roots of unity share how many common values?",
+        f"How many complex numbers are both {n}th roots of unity and {m}th roots of unity?",
+        f"Find the number of z with z^{n}=1 and z^{m}=1 simultaneously.",
+        f"How many complex z are common to the {n}th roots of unity and the {m}th roots of unity?",
+        f"Count the z satisfying both z^{n}=1 and z^{m}=1.",
+        f"How many complex numbers are simultaneously roots of z^{n}=1 and z^{m}=1?",
     ]), ans, "roots_of_unity_sum")
 
 @concept("complex_modulus_power",[68,13])
@@ -880,6 +895,11 @@ def c_cmod(_cands=[]):
         f"Over all representations of {N} as a²+b² with 0<a≤b, what is the total of (a+b)?",
         f"Sum a+b over all positive-integer pairs (a≤b) with a²+b²={N}.",
         f"How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²={N}?",
+        f"Add up a+b over every pair of positive integers a≤b satisfying a²+b²={N}.",
+        f"For each way to write {N} as a²+b² with positive integers a≤b, sum a+b; what is the total?",
+        f"What is the total of (a+b) taken over all positive-integer pairs a≤b with a²+b²={N}?",
+        f"Consider all positive integers a≤b with a²+b²={N}; report the sum of a+b across them.",
+        f"Summing a+b over each positive-integer solution (a≤b) of a²+b²={N} gives what value?",
     ]), ans, "complex_modulus_power")
 
 @concept("complement_prob_mn",[24,61])
@@ -898,6 +918,11 @@ def c_compprob():
         f"Rolling a {faces}-sided die, find the minimum number of rolls so P(a chosen face appears) > {thr.numerator}/{thr.denominator}.",
         f"For a {faces}-sided die, what is the least roll count making the probability of at least one specified face exceed {thr.numerator}/{thr.denominator}?",
         f"How many rolls of a {faces}-sided die are needed before the probability of a specific face first surpasses {thr.numerator}/{thr.denominator}?",
+        f"A fair {faces}-sided die is rolled repeatedly; how many rolls until the probability of a chosen face appearing at least once first exceeds {thr.numerator}/{thr.denominator}?",
+        f"What is the smallest number of rolls of a {faces}-sided die for which the chance a specific face has appeared first tops {thr.numerator}/{thr.denominator}?",
+        f"Roll a {faces}-sided die repeatedly. The fewest rolls making P(a particular face appears) exceed {thr.numerator}/{thr.denominator} is what?",
+        f"How many rolls of a {faces}-sided die are required for the probability of seeing one specified face to first go above {thr.numerator}/{thr.denominator}?",
+        f"Determine the minimum rolls of a {faces}-sided die so that the probability a given face shows up at least once exceeds {thr.numerator}/{thr.denominator}.",
     ]), r, "complement_prob_mn")
 
 
@@ -1051,6 +1076,11 @@ def c_ppdiv():
         f"The smallest number whose divisor count is exactly {D} — what is it?",
         f"Determine the minimum positive integer that has precisely {D} divisors.",
         f"What is the smallest integer n such that n has exactly {D} positive divisors?",
+        f"Which is the smallest positive integer having exactly {D} divisors?",
+        f"Find the smallest n>0 whose number of positive divisors is exactly {D}.",
+        f"What is the least positive integer that has exactly {D} divisors in total?",
+        f"Identify the smallest positive integer with a divisor count of exactly {D}.",
+        f"Give the smallest positive integer possessing exactly {D} positive divisors.",
     ]), n, "prime_power_divisors")
 
 @concept("arith_series_sum",[72])
@@ -1225,6 +1255,11 @@ def c_digitconstraint():
         f"Among the numbers {lo} through {hi-1}, how many have digits that add up to {target}?",
         f"How many integers between {lo} and {hi-1} (inclusive of {lo}) have a digit sum of {target}?",
         f"Find the count of integers in the range {lo} to {hi-1} with digit sum equal to {target}.",
+        f"How many integers from {lo} to {hi-1} have digit sum exactly {target}?",
+        f"Count integers x with {lo} ≤ x ≤ {hi-1} whose digits sum to {target}.",
+        f"Of the integers {lo} through {hi-1}, how many have digit sum {target}?",
+        f"How many whole numbers in [{lo}, {hi-1}] have digits adding to {target}?",
+        f"Find how many integers between {lo} and {hi-1} inclusive have a digit sum of {target}.",
     ]), cnt, "constrained_digit_count")
 
 @concept("equalization_fraction",[65])
@@ -1240,6 +1275,11 @@ def c_equalize():
         f"You have {g} equal glasses, {g-1} full and one {fn} full. The fraction poured from each full glass to equalize is m/n in lowest terms; report m+n.",
         f"To equalize {g} glasses ({g-1} full, one {fn} full), you pour m/n of a glass from each full one. Find m+n in lowest terms.",
         f"With {g} glasses, {g-1} full and one at {fn}, the equalizing pour from each full glass is m/n irreducible. What is m+n?",
+        f"There are {g} equal glasses: {g-1} are full and one is {fn} full. Pouring equally from each full glass to make all the same, the poured fraction is m/n in lowest terms. Find m+n.",
+        f"{g} identical glasses have {g-1} full and one {fn} full. The fraction poured from each full glass to equalize them, reduced to m/n, gives what m+n?",
+        f"To level {g} glasses where {g-1} are full and one is {fn} full, you pour the same fraction m/n from each full glass. In lowest terms, what is m+n?",
+        f"With {g} glasses ({g-1} full, one {fn} full), equalizing requires pouring m/n of a glass from each full one. Give m+n in lowest terms.",
+        f"Among {g} equal glasses, {g-1} are full and one is {fn} full; the equalizing pour per full glass is m/n irreducible. What is m+n?",
     ]), ans, "equalization_fraction")
 
 @concept("algebraic_system_2eq",[44])
@@ -1261,6 +1301,11 @@ def c_system():
         f"Three equations: {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}. What is x+y+z?",
         f"Given the system {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}, compute x+y+z.",
         f"Find x+y+z if {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, and {a3}x+{b3}y+{c3}z={d3}.",
+        f"The positive integers x, y, z solve {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, and {a3}x+{b3}y+{c3}z={d3}. Determine x+y+z.",
+        f"What is x+y+z for the positive-integer solution of {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}?",
+        f"A system reads {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}. For positive integers x,y,z, find x+y+z.",
+        f"If {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, and {a3}x+{b3}y+{c3}z={d3} with x,y,z positive integers, what is x+y+z?",
+        f"For positive integers satisfying {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}, give the value of x+y+z.",
     ]), x+y+z, "algebraic_system_2eq")
 
 @concept("unit_conversion_area",[77])
