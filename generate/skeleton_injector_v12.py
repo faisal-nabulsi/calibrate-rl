@@ -796,8 +796,11 @@ def c_contfrac():
     for _ in range(depth-1):
         f=a+1/f
     ans=f.numerator+f.denominator
+    explicit=str(a)                          # depth-correct nested form (was: a ternary that
+    for _ in range(depth-1):                 # rendered a 3-level fraction for depth==5 while the
+        explicit=f"{a}+1/({explicit})"       # gold was the 5-level value -> wrong text vs gold)
     return (random.choice([
-        f"The value of {a}+1/({a}+1/({a}+1/{a})) is m/n in lowest terms. What is m+n?" if depth==4 else f"The value of {a}+1/({a}+1/{a}) is m/n in lowest terms. What is m+n?",
+        f"The value of {explicit} is m/n in lowest terms. What is m+n?",
         f"Write the continued fraction with {depth} levels of {a} (i.e. {a}+1/({a}+1/(...))) as a reduced fraction m/n; find m+n.",
         f"A continued fraction repeats {a} for {depth} levels. Expressed as m/n in lowest terms, what is m+n?",
         f"Evaluate the nested fraction {a}+1/({a}+1/(...)) with {depth} total {a}'s as m/n irreducible; report m+n.",
@@ -1008,7 +1011,6 @@ def build(per):
 # recomputers + knob-wiring deferred (construction-verified; calib is curriculum-gated).
 # ===================================================================
 def _feeder(name): return next(f for nm,f,_ in REGISTRY if nm==name)
-def _lcm(a,b): return a*b//gcd(a,b)
 
 # adapter(V) -> (answer|None, clause): draws the target's OTHER inputs; clause embeds V
 # SYMBOLICALLY (the model must compute V first), answer uses the actual V.
@@ -1034,7 +1036,7 @@ def _a_digit_target(V):
             f"How many integers from {lo} to {hi-1} have digits summing to exactly V?")
 def _a_ie3_U(V):
     a,b,c=sorted(random.sample([2,3,4,5,6,7],3))
-    return (V//a+V//b+V//c-V//_lcm(a,b)-V//_lcm(a,c)-V//_lcm(b,c)+V//_lcm(a,_lcm(b,c)),
+    return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
             f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
 def _a_perfsq_limit(V):
     div=random.choice([4,9,16,25,36,49]); rd=int(div**0.5); cnt=0; k=1
@@ -1077,9 +1079,9 @@ _ADAPT={
 }
 # feeder -> tkey  (tools/scan_chain_targets.py; covers all 47 concepts as feeders)
 _DIVERSE_CHAINS={
- "algebraic_system_2eq":"algebraic_x","alternating_cubes":"multisquare_limit",
+ "algebraic_system_2eq":"modexp_base","alternating_cubes":"multisquare_limit",
  "arith_series_sum":"digit_target","arith_term_filter":"digit_target",
- "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"complement_faces",
+ "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"telescoping_N",
  "complex_eq_solcount":"equalize_g","complex_modulus_power":"digit_target",
  "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
  "constrained_subset_count":"complement_faces","continued_fraction":"ie3_U",
@@ -1087,10 +1089,10 @@ _DIVERSE_CHAINS={
  "custom_binary_op":"perfsq_limit","digit_count_bigprod":"complement_faces",
  "distinct_product_count":"modexp_base","divisor_sum_filter":"perfsq_limit",
  "equalization_fraction":"digit_target","frobenius_stamps":"telescoping_N",
- "geo_first_exceed":"equalize_g","inclusion_exclusion_3set":"ie3_U",
+ "geo_first_exceed":"equalize_g","inclusion_exclusion_3set":"modexp_base",
  "infinite_product_exp":"modexp_base","lattice_points_circle":"ie3_U",
  "lcm_gcd_system":"ie3_U","log_laws":"complement_faces","mean_removal":"modexp_base",
- "modular_exponent":"modexp_base","multi_constraint_square":"algebraic_x",
+ "modular_exponent":"ie3_U","multi_constraint_square":"algebraic_x",
  "ordered_triple_constraint":"digit_target","percent_compound":"algebraic_x",
  "perfect_square_divisible":"telescoping_N","point_rotation":"modexp_exp",
  "poly_remainder":"telescoping_N","polynomial_sign_intervals":"algebraic_x",
@@ -1113,7 +1115,7 @@ def _register_diverse_chain(feeder,tkey):
         ans,clause=_ad(V)
         if not isinstance(ans,int) or ans<2: return None
         q=sub[0].strip().rstrip(".")
-        prob=f"Let V be the answer to this problem: “{q}” {clause}"
+        prob=f"Let V be the answer to this problem.\n“{q}”\n{clause}"
         meta={"depth":1,"chain":{"components":[_f,_t],"fed_param":_fl,"intermediate_gold":V}}
         return (prob,ans,_cn,meta)
     return _gen

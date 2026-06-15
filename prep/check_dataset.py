@@ -696,9 +696,9 @@ def _recompute_target(target, c, V):
 
 # feeder -> target concept (mirror of v12 _DIVERSE_CHAINS o _ADAPT); chain = chain_<feeder>__<target>
 _CHAIN_TARGET = {
- "algebraic_system_2eq":"algebraic_system_2eq","alternating_cubes":"multi_constraint_square",
+ "algebraic_system_2eq":"modular_exponent","alternating_cubes":"multi_constraint_square",
  "arith_series_sum":"constrained_digit_count","arith_term_filter":"constrained_digit_count",
- "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"complement_prob_mn",
+ "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"telescoping_mn",
  "complex_eq_solcount":"equalization_fraction","complex_modulus_power":"constrained_digit_count",
  "constrained_digit_count":"inclusion_exclusion_3set","constrained_divisor_count":"telescoping_mn",
  "constrained_subset_count":"complement_prob_mn","continued_fraction":"inclusion_exclusion_3set",
@@ -706,10 +706,10 @@ _CHAIN_TARGET = {
  "custom_binary_op":"perfect_square_divisible","digit_count_bigprod":"complement_prob_mn",
  "distinct_product_count":"modular_exponent","divisor_sum_filter":"perfect_square_divisible",
  "equalization_fraction":"constrained_digit_count","frobenius_stamps":"telescoping_mn",
- "geo_first_exceed":"equalization_fraction","inclusion_exclusion_3set":"inclusion_exclusion_3set",
+ "geo_first_exceed":"equalization_fraction","inclusion_exclusion_3set":"modular_exponent",
  "infinite_product_exp":"modular_exponent","lattice_points_circle":"inclusion_exclusion_3set",
  "lcm_gcd_system":"inclusion_exclusion_3set","log_laws":"complement_prob_mn",
- "mean_removal":"modular_exponent","modular_exponent":"modular_exponent",
+ "mean_removal":"modular_exponent","modular_exponent":"inclusion_exclusion_3set",
  "multi_constraint_square":"algebraic_system_2eq","ordered_triple_constraint":"constrained_digit_count",
  "percent_compound":"algebraic_system_2eq","perfect_square_divisible":"telescoping_mn",
  "point_rotation":"modular_exponent","poly_remainder":"telescoping_mn",
