@@ -79,7 +79,7 @@ def main() -> None:
     out_dir = RUNS / run_id / "responses"
     out_dir.mkdir(parents=True)
 
-    skipped, truncated, done = [], [], 0
+    skipped, truncated, failed, done = [], [], [], 0
     for prompt in prompts:
         prompt_text, variant_used = resolve_variant(prompt, args.variant)
         if not prompt_text:
@@ -87,7 +87,15 @@ def main() -> None:
             continue
         for name, provider in providers.items():
             for sample in range(args.n):
-                result = provider.generate(prompt_text)
+                # One model erroring (bad key, wrong endpoint, rate limit) must not
+                # abort the whole multi-model run — record it and keep going.
+                try:
+                    result = provider.generate(prompt_text)
+                except Exception as exc:  # noqa: BLE001 — surface any provider failure
+                    cell = f"{prompt['id']} x {name} s{sample}"
+                    failed.append(f"{cell}: {type(exc).__name__}: {exc}")
+                    print(f"  {cell}: FAILED — {type(exc).__name__}: {exc}")
+                    continue
                 record = {
                     "run_id": run_id,
                     "prompt_id": prompt["id"],
@@ -119,6 +127,9 @@ def main() -> None:
     if truncated:
         print(f"WARNING — {len(truncated)} truncated response(s); grade.py will "
               f"exclude them by default:\n  " + "\n  ".join(truncated))
+    if failed:
+        print(f"FAILED — {len(failed)} generation(s) errored (run continued):\n  "
+              + "\n  ".join(failed))
 
 
 if __name__ == "__main__":
