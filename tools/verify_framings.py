@@ -21,6 +21,7 @@ import os, re, sys, math, argparse, importlib.util
 from collections import defaultdict, Counter
 from fractions import Fraction
 from functools import reduce
+from itertools import combinations
 
 INJ = os.environ.get("INJECTOR", "generate/skeleton_injector_v13.py")
 
@@ -241,8 +242,44 @@ def rc_equalization_fraction(t):
     pour = 1 - ((g-1) + fn) / g
     return pour.numerator + pour.denominator
 
+def rc_telescoping_mn(t):
+    gm = re.search(r"k\s*\+\s*(\d+)", t)
+    if gm:                                  # framings using the "k(k+gap)" form
+        gap = int(gm.group(1)); N = max(_ints(t))
+    else:                                   # explicit "1/(1·(1+gap)) + ... + 1/(N·(N+gap))"
+        prods = re.findall(r"(\d+)·(\d+)", t)
+        if not prods: return None
+        gap = int(prods[0][1]) - int(prods[0][0])
+        N = max(int(a) for a, _ in prods)
+    s = sum(Fraction(1, k*(k+gap)) for k in range(1, N+1))
+    return s.numerator + s.denominator
+
+def rc_continued_fraction(t):
+    dm = re.search(r"(\d+)[\s-]*(?:levels|level|total)", t)
+    am = re.search(r"(?:of|from|repeats)\s+(\d+)", t) or re.search(r"(\d+)'s", t)
+    if dm and am:
+        depth = int(dm.group(1)); a = int(am.group(1))
+    else:                                   # explicit form: count the repeated base
+        nums = _ints(t)
+        if not nums: return None
+        a = Counter(nums).most_common(1)[0][0]; depth = nums.count(a)
+    f = Fraction(a)
+    for _ in range(depth-1): f = a + 1/f
+    return f.numerator + f.denominator
+
+def rc_constrained_subset_count(t):
+    nm = re.search(r"(\d+)\s*\}", t) or re.search(r"first\s+(\d+)", t)
+    mvm = re.search(r"(?:remainder|congruent to|≡|sum to)\s*(\d+)", t)
+    modm = re.search(r"(?:divided by|division by|modulo|multiple of|\(mod|\bmod)\s*(\d+)", t)
+    if not (nm and mvm and modm): return None
+    n = int(nm.group(1)); mv = int(mvm.group(1)); mod = int(modm.group(1))
+    return sum(1 for c in combinations(range(1, n+1), 3) if sum(c) % mod == mv)
+
 RECOMPUTERS = {
     "modular_exponent": rc_modular_exponent,
+    "telescoping_mn": rc_telescoping_mn,
+    "continued_fraction": rc_continued_fraction,
+    "constrained_subset_count": rc_constrained_subset_count,
     "algebraic_system_2eq": rc_algebraic_system_2eq,
     "log_laws": rc_log_laws,
     "prime_power_divisors": rc_prime_power_divisors,

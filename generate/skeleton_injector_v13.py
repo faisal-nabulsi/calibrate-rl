@@ -263,6 +263,11 @@ def c_tele():
         f"Sum 1/(k(k+{gap})) from k=1 to {N}; write it as m/n irreducible and report m+n.",
         f"Compute 1/(1·{1+gap})+...+1/({N}·{N+gap}) as m/n in lowest terms; what is m+n?",
         f"The series sum of 1/(k(k+{gap})), k up to {N}, equals m/n reduced. Find m+n.",
+        f"Evaluate the sum of 1/(k(k+{gap})) for k from 1 to {N}, written as m/n in lowest terms; find m+n.",
+        f"The sum of 1/(k(k+{gap})) over k=1 to {N} is m/n reduced. What is m+n?",
+        f"Adding 1/(k(k+{gap})) for k=1,2,...,{N} gives m/n in lowest terms. Report m+n.",
+        f"What is m+n if the sum of 1/(k(k+{gap})) for k=1 up to {N} equals m/n irreducible?",
+        f"Compute the total of 1/(k(k+{gap})) from k=1 to {N} as a reduced fraction m/n and give m+n.",
     ]), ans, "telescoping_mn")
 
 @concept("perfect_square_divisible",[59])
@@ -311,6 +316,11 @@ def c_subsets():
         f"Count the 3-element subsets of the first {n} positive integers{consphrase} with sum ≡ {mv} (mod {mod}).",
         f"How many size-3 subsets of {{1..{n}}} have sum ≡ {mv} mod {mod}{consphrase}?",
         f"How many 3-element subsets of {{1..{n}}} sum to {mv} more than a multiple of {mod}{consphrase}?",
+        f"How many 3-element subsets of {{1,...,{n}}} have a sum congruent to {mv} modulo {mod}{consphrase}?",
+        f"From the set {{1,...,{n}}}, how many 3-element subsets have sum ≡ {mv} (mod {mod}){consphrase}?",
+        f"Count the 3-subsets of {{1,...,{n}}} whose elements sum to {mv} modulo {mod}{consphrase}.",
+        f"How many ways are there to pick a 3-element subset of {{1..{n}}} with sum leaving remainder {mv} on division by {mod}{consphrase}?",
+        f"Of all 3-element subsets of {{1,...,{n}}}, how many have sum ≡ {mv} mod {mod}{consphrase}?",
     ]), cnt, "constrained_subset_count")
 
 @concept("ordered_triple_constraint",[21,47])
@@ -1175,12 +1185,20 @@ def c_contfrac():
     for _ in range(depth-1):
         f=a+1/f
     ans=f.numerator+f.denominator
+    explicit=str(a)                                  # depth-correct nested form (v11/12 framing-1
+    for _ in range(depth-1):                         # bug: ternary showed a 3-level fraction for
+        explicit=f"{a}+1/({explicit})"               # depth==5 while the gold was the 5-level value)
     return (random.choice([
-        f"The value of {a}+1/({a}+1/({a}+1/{a})) is m/n in lowest terms. What is m+n?" if depth==4 else f"The value of {a}+1/({a}+1/{a}) is m/n in lowest terms. What is m+n?",
+        f"The value of {explicit} is m/n in lowest terms. What is m+n?",
         f"Write the continued fraction with {depth} levels of {a} (i.e. {a}+1/({a}+1/(...))) as a reduced fraction m/n; find m+n.",
         f"A continued fraction repeats {a} for {depth} levels. Expressed as m/n in lowest terms, what is m+n?",
         f"Evaluate the nested fraction {a}+1/({a}+1/(...)) with {depth} total {a}'s as m/n irreducible; report m+n.",
         f"The {depth}-level continued fraction built from {a} equals m/n reduced. What is m+n?",
+        f"The continued fraction with {depth} levels of {a} equals m/n in lowest terms. Find m+n.",
+        f"A nested fraction repeats {a} across {depth} levels; as m/n reduced, what is m+n?",
+        f"Express the {depth}-level continued fraction built from {a} as m/n irreducible and give m+n.",
+        f"Compute m+n where the continued fraction with {depth} total copies of {a} equals m/n in lowest terms.",
+        f"Built from {a} repeated over {depth} levels, the continued fraction equals m/n in lowest terms; report m+n.",
     ]), ans, "continued_fraction")
 
 # ===================================================================
