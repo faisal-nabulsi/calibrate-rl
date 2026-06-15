@@ -1,14 +1,26 @@
 {
   "params": {
-    "P": {
+    "plo": {
       "value": [
-        11,
-        16
+        8,
+        18
       ],
       "type": "randint",
       "envelope": [
-        8,
+        6,
         25
+      ],
+      "knob_class": "C"
+    },
+    "pspan": {
+      "value": [
+        4,
+        12
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        20
       ],
       "knob_class": "C"
     }

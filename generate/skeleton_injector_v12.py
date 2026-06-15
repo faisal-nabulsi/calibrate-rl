@@ -968,8 +968,15 @@ def c_rotation():
 def c_pctcompound():
     # INVERSION, construct to guarantee integer final: choose base divisible by 100
     kn=K["percent_compound"]
-    base=kn.choice("base"); up=kn.choice("up")
-    down=kn.choice("down")
+    base=kn.choice("base")
+    # widen the up/down pools but keep the final EXACT: with base divisible by 100,
+    # (100+up)(100-down) ≡ -up*down (mod 100), so final is integer iff up*down ≡ 0 (mod 100).
+    # Resample until that holds -> diverse 'down' (the answer) without breaking exactness.
+    up=down=None
+    for _ in range(60):
+        u=kn.choice("up"); d=kn.choice("down")
+        if (u*d)%100==0: up,down=u,d; break
+    if down is None: return None
     after_up=base*(100+up)//100
     final=after_up*(100-down)//100
     return (random.choice([
@@ -1116,8 +1123,8 @@ def c_primeseq():
 
 @concept("distinct_product_count",[74])
 def c_distprod():
-    # spread: vary number of dice (3) AND number of faces -> different counts
-    n=3; faces=K["distinct_product_count"].choice("faces")
+    # spread: vary number of dice AND number of faces -> different counts (n now a knob)
+    kn=K["distinct_product_count"]; n=kn.randint("n"); faces=kn.choice("faces")
     from itertools import product
     prods=set()
     for combo in product(range(1,faces+1),repeat=n):
@@ -1226,21 +1233,24 @@ def c_unitarea():
 # ===================================================================
 @concept("count_obtuse_triangles",[18])
 def c_obtuse():
-    P=K["count_obtuse_triangles"].randint("P")  # v9: small enough to enumerate by hand (~15-25 triangles)
+    kn=K["count_obtuse_triangles"]
+    plo=kn.randint("plo"); phi=plo+kn.randint("pspan")  # perimeter window [plo,phi] (hand-countable)
     cnt=0
-    for a in range(1,P):
-        for b in range(a,P):
-            for c in range(b,P):
-                if a+b+c>P: break
+    for a in range(1,phi):
+        for b in range(a,phi):
+            for c in range(b,phi):
+                s=a+b+c
+                if s>phi: break
+                if s<plo: continue
                 if a+b<=c: continue
                 if c*c>a*a+b*b: cnt+=1
     if cnt<2: return None
     return (random.choice([
-        f"How many triangles with integer side lengths and perimeter at most {P} are obtuse?",
-        f"Count the obtuse triangles with integer sides and perimeter ≤ {P}.",
-        f"How many integer-sided triangles of perimeter at most {P} have an obtuse angle?",
-        f"Find the number of obtuse integer-sided triangles with perimeter no greater than {P}.",
-        f"Among triangles with integer sides and perimeter ≤ {P}, how many are obtuse?",
+        f"How many triangles with integer side lengths and perimeter between {plo} and {phi} (inclusive) are obtuse?",
+        f"Count the obtuse triangles with integer sides whose perimeter is from {plo} to {phi}.",
+        f"How many integer-sided triangles with perimeter at least {plo} and at most {phi} have an obtuse angle?",
+        f"Find the number of obtuse integer-sided triangles whose perimeter is between {plo} and {phi} inclusive.",
+        f"Among triangles with integer sides and perimeter in [{plo}, {phi}], how many are obtuse?",
     ]), cnt, "count_obtuse_triangles")
 
 @concept("lattice_points_circle",[82])
