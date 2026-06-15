@@ -1305,7 +1305,9 @@ def build(per):
 # already solves; the value is (a) making otherwise-untrainable single-step atomics
 # goldilocks-trainable and (b) general multi-step practice. check_dataset recomputers
 # deferred (UNCHECKED, as for the partner atomics) -- golds are construction-correct.
-# point_rotation is excluded: its answer can be negative (can't feed any param).
+# point_rotation: its coordinate-sum answer can be negative, but the generic V>=2
+# filter below simply redraws those, so it feeds the base like any other value-producer
+# (no atomic change -> the equivalence fixture stays intact).
 _VALUE_CHAINS=[
     ("chain_arith_series_sum__modular_exponent","arith_series_sum",[72,55]),
     ("chain_distinct_product_count__modular_exponent","distinct_product_count",[74,55]),
@@ -1317,6 +1319,7 @@ _VALUE_CHAINS=[
     ("chain_infinite_product_exp__modular_exponent","infinite_product_exp",[20,55]),
     ("chain_vieta_sumcubes__modular_exponent","vieta_sumcubes",[6,55]),
     ("chain_unit_conversion_area__modular_exponent","unit_conversion_area",[77,55]),
+    ("chain_point_rotation__modular_exponent","point_rotation",[9,39,55]),
 ]
 def _register_value_chain(name, atomic, amc):
     @concept(name, amc)

@@ -157,8 +157,9 @@ If you're reading the code, here's everything depth-1 added on top of the depth-
 
 ## 9. What's covered today
 
-**Depth-1 chains (21 total).** Wave 1 = 3 (varied targets), wave 2 = 8 (count → exponent),
-wave 3 = 10 (value → base):
+**Depth-1 chains (22 total).** Wave 1 = 3 (varied targets), wave 2 = 8 (count → exponent),
+wave 3 = 11 (value → base). **Every concept is now covered** — all 28 depth-0 atomics plus all
+19 depth-1 partners (each partner anchors a chain):
 
 | wave | chain (feeder → target) | feeder's intermediate → role | AMC |
 |---|---|---|---|
@@ -173,7 +174,7 @@ wave 3 = 10 (value → base):
 | 2 | geo_first_exceed → modular_exponent | index → exponent e | 7 |
 | 2 | digit_count_bigprod → modular_exponent | digit count → exponent e | 60 |
 | 2 | sum_of_squares → modular_exponent | count → exponent e | 7,53 |
-| 3 | arith_series_sum / distinct_product_count / mean_removal / rate_closing / trapezoid_area / percent_compound / three_number_system / infinite_product_exp / vieta_sumcubes / unit_conversion_area → modular_exponent | **value V → base** (`Vᵏ mod m`) | (partner-only) |
+| 3 | arith_series_sum / distinct_product_count / mean_removal / rate_closing / trapezoid_area / percent_compound / three_number_system / infinite_product_exp / vieta_sumcubes / unit_conversion_area / point_rotation → modular_exponent | **value V → base** (`Vᵏ mod m`) | (partner-only) |
 
 **Why wave 3 feeds the *base* (a different pattern).** These 10 are *value*-producers — a count has
 a natural role as an exponent, but an arbitrary value doesn't. They're tagged in the code as
@@ -185,7 +186,9 @@ when the atomic `V` is thin (it fixes the diversity problem the standalone atomi
 is admittedly contrived (a "value" has no natural number-theory role), and these map to **partner-only
 AMC that base already solves** — so wave 3 is low-AMC-value; its purpose is making these concepts
 goldilocks-trainable + general multi-step practice. Gold = `pow(V,k,m)`, exact by construction (the
-atomic's gold `V` is reused). `point_rotation` is excluded — its answer can be negative.
+atomic's gold `V` is reused). `point_rotation`'s coordinate-sum answer can be negative, but the same
+`V≥2` filter simply redraws those (≈46% yield), so it feeds the base like any other value-producer —
+no atomic change needed, so the equivalence fixture stays intact.
 
 > **Verification note for wave 3:** unlike waves 1–2, these have **no `check_dataset` recomputer**
 > (UNCHECKED, same as the partner atomics). Golds are construction-correct (reused atomic `V` +
@@ -193,7 +196,7 @@ atomic's gold `V` is reused). `point_rotation` is excluded — its answer can be
 > these ever feed a high-stakes run.
 
 **Not yet:** 3-concept chains; goldilocks *calibration* of the chains (against the depth-0-trained
-model — next milestone); wave-3 `check_dataset` recomputers; `point_rotation`.
+model — next milestone); wave-3 `check_dataset` recomputers.
 
 ---
 

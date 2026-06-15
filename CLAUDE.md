@@ -573,9 +573,11 @@ decision (Faisal wants it; Michael skeptical).
   infinite_product_exp, vieta_sumcubes, unit_conversion_area) are "irreducibly one-step" — useless as standalone atomics (can't hit
   goldilocks; base solves or answer-hacks them), so they MUST be multi-step. They lack a natural count→exponent role, so we feed the
   computed value V as the modexp **base** (`Vᵏ mod m`): well-posed for any V≥2, high-entropy (fixes the thin-atomic diversity), gold
-  exact by construction (reuses the atomic's V). All 10 PASS static_checks (top3 4–12%, dedupe 100%, golds 0 bad). Depth-1 chains now
-  **21 total**. Caveats: contrived hand-off + low AMC value (partner-only AMC base already solves) + no check_dataset recomputer
-  (UNCHECKED, construction-verified). `point_rotation` excluded (negative answers). Doc updated (`docs/DEPTH1_CHAINING.md` wave 3).
+  exact by construction (reuses the atomic's V). All 11 PASS static_checks (top3 4–12%, dedupe 100%, golds 0 bad). `point_rotation`
+  included too — its coord-sum can be negative but the `V≥2` filter just redraws (≈46% yield), no atomic change so the equivalence
+  fixture stays intact. **Every concept is now covered: 28 depth-0 atomics + all 19 partners; depth-1 chains = 22 total.** Caveats:
+  contrived hand-off + low AMC value (partner-only AMC base already solves) + no check_dataset recomputer (UNCHECKED,
+  construction-verified). Doc updated (`docs/DEPTH1_CHAINING.md` wave 3).
 - [faisal] **Depth-1 chaining — knob-wired all 19 partners + built the 8-chain second wave + wrote the architecture guide.**
   (1) **Knob-wired all 19 reserved partner atomics** (PR #65): externalized each generator's literals to
   `knobs/<concept>.json` (num/C/S + envelopes), equivalence test extended to 29 concepts → **5800 seed-draws
