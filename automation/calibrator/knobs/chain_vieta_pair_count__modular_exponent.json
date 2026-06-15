@@ -1,0 +1,55 @@
+{
+  "components": [
+    "vieta_pair_count",
+    "modular_exponent"
+  ],
+  "fed_param": "e",
+  "params": {
+    "c": {
+      "value": [
+        16,
+        24,
+        32,
+        36,
+        48,
+        60,
+        72,
+        80,
+        90,
+        96,
+        120
+      ],
+      "type": "choice",
+      "envelope": [
+        8,
+        200
+      ],
+      "knob_class": "num"
+    },
+    "a": {
+      "value": [
+        2,
+        9
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        12
+      ],
+      "knob_class": "num"
+    },
+    "m": {
+      "value": [
+        50,
+        299
+      ],
+      "type": "randint",
+      "envelope": [
+        30,
+        500
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}
