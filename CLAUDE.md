@@ -567,6 +567,18 @@ decision (Faisal wants it; Michael skeptical).
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
+### 2026-06-15
+- [faisal] **Depth-0 phrasing expansion -> new generator `skeleton_injector_v13.py` (10 framings on all 28 concepts).** Motivation:
+  the v12 depth-0 run's held-out peaked at step ~14 then faded (template-memorization / early saturation), and AMC = novel phrasings,
+  so surface diversity is the transfer lever. v13 = v12 + 5->10 framings on every depth-0 generator (24 expanded; 4 already had >=10:
+  constrained_divisor_count/divisor_sum_filter/poly_remainder/polynomial_sign_intervals). **v12 left UNTOUCHED** so in-flight depth-0
+  training + depth-1 chains are undisturbed; v13 is the generator for the phrasing-expanded overnight sampling (run with
+  `INJECTOR=generate/skeleton_injector_v13.py` + a FRESH calibration pass -- wordings shift per-concept pass rates). New gate
+  `tools/verify_framings.py` independently re-solves every framing from text and asserts == stored gold: **24/24 concepts, 0 mismatch /
+  0 unparsed** over thousands of samples each. Surfaced + fixed a latent bug in `continued_fraction` (framing-1 ternary showed a 3-level
+  fraction for depth==5 while the gold was the 5-level value -> now builds the depth-correct nested form). Spot-check confirmed phrasings
+  are diverse + gold-consistent across wordings. -> PR.
+
 ### 2026-06-14
 - [faisal] **Depth-1 chaining — third wave: 10 value-producer → modexp chains (teach the remaining partners).** The value-producers
   (arith_series_sum, distinct_product_count, mean_removal, rate_closing, trapezoid_area, percent_compound, three_number_system,
