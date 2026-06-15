@@ -240,6 +240,10 @@ representation bug ("free vs impossible" phrasing), not difficulty — standardi
 
 ## 6. Depth-1 partners & chaining plan
 
+> **Plain-language architecture guide: [`docs/DEPTH1_CHAINING.md`](docs/DEPTH1_CHAINING.md)** —
+> how chains work, how we pick which two concepts to combine, what knobs are, why the static
+> gate matters, the 3-concept idea, and the full coverage table. Read that first if new here.
+
 A **depth-1 partner** is an *atomic* building block held in reserve for
 composition — NOT itself a composition (many are individually easy). A **depth-1
 problem** is a composition of 2+ atomic concepts; that's what chaining produces.
@@ -540,9 +544,12 @@ decision (Faisal wants it; Michael skeptical).
       `job_poller.sh` doesn't catch boxes that go idle later (e.g. after a manual kill).
 - [ ] [boxes] optional: set `ESCALATE_SLACK_IDS` (space-separated) in `/etc/calibrate-rl-job.env`
       on sam/sadie/ash to add the on-call to pages — the code already always includes the owner.
-- [ ] [gilbert] depth-1 **expansion IF transfer shows** (diagnostic + first depth-1 train run):
-      more feed-legal pairs from the 76 valid `chain_compat_v2` edges + the 3-way #55 (chain in
-      the wired-but-unchained `divisor_sum_filter`).
+- [~] [faisal] depth-1 **expansion underway** (hybrid plan, Faisal's call to cover all concepts now,
+      not gated on transfer): all 19 partners knob-wired (#65); **8 natural count→modexp chains built +
+      verified** (#66) → 11 depth-1 composites total; architecture guide `docs/DEPTH1_CHAINING.md`.
+      Still open: (a) goldilocks-calibrate the 11 chains **against the depth-0 model** (gated);
+      (b) build the combined 11-chain depth-1 pool for base/trained sampling; (c) 3-way #55
+      (chain in the wired `divisor_sum_filter`); (d) the 19 as depth-0 atomics in the next depth-0 set.
 - [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
       does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
       final depth-0 decision.
@@ -559,6 +566,20 @@ decision (Faisal wants it; Michael skeptical).
       plenty of Max usage headroom, would save API spend. **(faisal, bring up next meeting)**
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-14
+- [faisal] **Depth-1 chaining — knob-wired all 19 partners + built the 8-chain second wave + wrote the architecture guide.**
+  (1) **Knob-wired all 19 reserved partner atomics** (PR #65): externalized each generator's literals to
+  `knobs/<concept>.json` (num/C/S + envelopes), equivalence test extended to 29 concepts → **5800 seed-draws
+  byte-identical**, arith_term_filter recompute 12/12. Renamed primality_in_sequence's local `K` (shadowed the
+  global KnobBank). (2) **Built 8 natural depth-1 chains** (PR #66), hybrid track (b): count-producer → modular
+  exponent (`a^e mod m`). Picked modexp for all after a diversity check showed ordered_triple/prime_power targets
+  COLLAPSE (top3 0.27–0.57); modexp stays high-entropy. Verified: static_checks PASS ×8 (top3 0.09–0.16),
+  check_dataset **480/480 golds, 0 mismatches**. Depth-1 composites now total **11** (3 first-wave + 8). (3) **Doc:**
+  `docs/DEPTH1_CHAINING.md` (plain-language architecture: pick-which-to-combine, knobs, static gate, 3-concept idea,
+  coverage table). **Design split (hybrid):** the 19 partners are taught as depth-0 *atomics* (coverage); only the 8
+  count-producers also anchor a *chain* (multi-step) — the other 11 produce arbitrary values, so chaining them would
+  be contrived. Goldilocks calibration of the chains still gated on the depth-0-trained model.
 
 ### 2026-06-12
 - [gilbert] **Diagnostic LANDED + ANALYZED — the composition gap is real in all 3 composites.** 300×8@2048 vs base: intermediate_hit_rate (rollout computes the step-A atom) vs final pass — #55 cdc→modexp 0.86 hit / 0.46 pass (strict detector 0.79, conclusion unchanged); pilot log_laws→otc 0.98 / 0.37; #75 ppd→cdc 0.84 / 0.66. P(pass|atom-miss) ≈ 0.00–0.04 on two chains; 24–61% of ALL rollouts compute the atom then fail the composite (spot-checked: botched CRT after correct e; stars-and-bars ignoring a<b<c after correct log; off-by-one divisor counts after correct N). Precondition for depth-1 training confirmed: chaining deficit, not atom deficit. Base calib read: 154/300 goldilocks; pilot skews hard, #75 easy, #55 centered. Findings `results/chain_depth1_base_diag_300_findings.md`, script `analysis/chain_composition_gap.py`, data `data/chain_depth1_base_diag_300.json` → PR. Depth-1 training still curriculum-gated on the depth-0 model. sam self-stopped clean.
