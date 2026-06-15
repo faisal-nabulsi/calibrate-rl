@@ -30,7 +30,17 @@ Usage:
 
 import os
 import json
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+import sys
+# Make `core` (repo root) + `holdout_eval` (eval/) importable no matter how we launch.
+# `python train/train_grpo.py` only puts train/ on sys.path -> the 06-15 ModuleNotFoundError.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _p in (_REPO_ROOT, os.path.join(_REPO_ROOT, "eval")):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+# expandable_segments cuts fragmentation for the HF-generate path, but vLLM's sleep-mode
+# CuMemAllocator asserts it's OFF (pytorch#147851) -> only set it when vLLM is disabled.
+if not bool(int(os.environ.get("USE_VLLM", "0"))):
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import torch
 import logging
 from datetime import datetime, timezone
@@ -247,7 +257,27 @@ trainer.add_callback(HeldoutEvalCallback(
     endpoint_sets=None,
     eval_every=EVAL_EVERY, k=EVAL_K, temperature=EVAL_TEMP,
     max_new_tokens=training_args.max_completion_length, logger=logger,
+    transcripts_dir=os.path.join(training_args.output_dir, "holdout_transcripts"),
 ))
+
+# Durable artifact sync: push the run dir to S3 after every checkpoint save, so a hard
+# stop-instances (8h watchdog / capacity) can't strand the run like it did 06-15 — the
+# train path otherwise never syncs (only the sample path does). Gated on SYNC_S3_URI.
+SYNC_S3_URI = os.environ.get("SYNC_S3_URI")
+if SYNC_S3_URI:
+    import subprocess
+    from transformers import TrainerCallback as _TCb
+    class SyncToS3Callback(_TCb):
+        def on_save(self, args, state, control, **kw):
+            dest = SYNC_S3_URI.rstrip("/") + "/"
+            try:
+                subprocess.run(["aws", "s3", "sync", args.output_dir, dest, "--only-show-errors"],
+                               check=False, timeout=900)
+                logger.info(f"[s3-sync] {args.output_dir} -> {dest} @ step {state.global_step}")
+            except Exception as e:
+                logger.warning(f"[s3-sync] failed @ step {state.global_step}: {e}")
+    trainer.add_callback(SyncToS3Callback())
+    logger.info(f"  S3 sync-on-save:  ENABLED -> {SYNC_S3_URI}")
 
 
 # ── Train ───────────────────────────────────────────────────────────────────

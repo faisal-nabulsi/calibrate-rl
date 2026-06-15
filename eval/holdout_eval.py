@@ -121,7 +121,8 @@ def load_amc(limit=None):
 # ── core eval ─────────────────────────────────────────────────────────────────
 @torch.no_grad()
 def evaluate(model, tokenizer, problems, *, system_prompt=SYSTEM_PROMPT,
-             max_new_tokens=1024, k=1, temperature=0.0, batch_size=8):
+             max_new_tokens=1024, k=1, temperature=0.0, batch_size=8,
+             collect_transcripts=False):
     """pass@k over `problems` (list of {problem, answer}) with the real grader.
 
     Returns a metrics dict: pass@k, n, boxed_rate, mean_completion_tokens.
@@ -145,6 +146,7 @@ def evaluate(model, tokenizer, problems, *, system_prompt=SYSTEM_PROMPT,
     n_boxed = 0
     total_tokens = 0
     total_samples = 0
+    records = []
 
     for start in range(0, n, batch_size):
         batch = problems[start:start + batch_size]
@@ -172,26 +174,38 @@ def evaluate(model, tokenizer, problems, *, system_prompt=SYSTEM_PROMPT,
             samples = texts[i * k:(i + 1) * k]
             rows = gen[i * k:(i + 1) * k]
             hit = False
+            samp_recs = []
             for s, toks in zip(samples, rows):
                 pred, method = extract_predicted_answer(s)
                 if method == "boxed":
                     n_boxed += 1
                 total_tokens += int((toks != tokenizer.eos_token_id).sum().item())
                 total_samples += 1
-                if gold is not None and pred is not None and _numbers_match(pred, gold):
+                ok = gold is not None and pred is not None and _numbers_match(pred, gold)
+                if ok:
                     hit = True
                     correct_rollouts += 1
+                if collect_transcripts:
+                    samp_recs.append({"pred": pred, "method": method,
+                                      "correct": bool(ok), "text": s})
             n_correct += int(hit)
+            if collect_transcripts:
+                records.append({"problem": p["problem"], "gold": gold,
+                                "skeleton_type": p.get("skeleton_type"),
+                                "any_correct": bool(hit),
+                                "n_correct_rollouts": sum(1 for r in samp_recs if r["correct"]),
+                                "k": k, "samples": samp_recs})
 
     if was_training:
         model.train()
-    return {
+    out = {
         f"pass@{k}": round(n_correct / n, 4) if n else 0.0,
         "n": n,
         "mean_pass_rate": round(correct_rollouts / total_samples, 4) if total_samples else 0.0,
         "boxed_rate": round(n_boxed / total_samples, 4) if total_samples else 0.0,
         "mean_completion_tokens": round(total_tokens / total_samples, 1) if total_samples else 0.0,
     }
+    return (out, records) if collect_transcripts else out
 
 
 # ── training callback ─────────────────────────────────────────────────────────
@@ -218,7 +232,7 @@ class HeldoutEvalCallback(TrainerCallback):
 
     def __init__(self, tokenizer, per_step_sets=None, endpoint_sets=None,
                  eval_every=50, max_new_tokens=1024, k=1, temperature=0.0,
-                 batch_size=8, logger=None):
+                 batch_size=8, logger=None, transcripts_dir=None):
         self.tok = tokenizer
         self.per_step = dict(per_step_sets or {})
         self.endpoint = dict(endpoint_sets or {})
@@ -227,21 +241,50 @@ class HeldoutEvalCallback(TrainerCallback):
                        temperature=temperature, batch_size=batch_size)
         self.log = logger
         self._began = False
+        self.transcripts_dir = transcripts_dir
+        self._wandb_defined = False
 
     def _run(self, model, step, sets, when):
+        import os, json
         for name, probs in sets.items():
-            m = evaluate(model, self.tok, probs, **self.kw)
+            res = evaluate(model, self.tok, probs,
+                           collect_transcripts=bool(self.transcripts_dir), **self.kw)
+            m, records = res if isinstance(res, tuple) else (res, None)
             line = f"[holdout-eval step {step} | {when}] {name}: " + \
-                   "  ".join(f"{k}={v}" for k, v in m.items())
+                   "  ".join(f"{mk}={mv}" for mk, mv in m.items())
             print(line, flush=True)
             if self.log:
                 self.log.info(line)
+            # Save transcripts to JSONL — survives even if W&B drops the point, and is
+            # what the post-hoc analysis (arithmetic-decay / by-framing) needs. The old
+            # eval discarded completions entirely (06-15 gap).
+            if self.transcripts_dir and records is not None:
+                try:
+                    os.makedirs(self.transcripts_dir, exist_ok=True)
+                    fp = os.path.join(self.transcripts_dir, f"{name}_step{step}_{when}.jsonl")
+                    with open(fp, "w") as f:
+                        for rec in records:
+                            f.write(json.dumps(rec) + "\n")
+                except Exception as e:
+                    if self.log:
+                        self.log.warning(f"[holdout] transcript save failed: {e}")
+            # W&B: log on a dedicated eval/step axis so off-cadence eval points are NOT
+            # dropped as out-of-order (06-15: only step 0 survived because step= collided
+            # with the trainer's committed step). No silent except — surface failures.
             try:
                 import wandb
                 if wandb.run is not None:
-                    wandb.log({f"eval/{name}/{k}": v for k, v in m.items()}, step=step)
-            except Exception:
-                pass
+                    if not self._wandb_defined:
+                        wandb.define_metric("eval/step")
+                        wandb.define_metric("eval/*", step_metric="eval/step")
+                        self._wandb_defined = True
+                    wandb.log({"eval/step": step,
+                               **{f"eval/{name}/{mk}": mv for mk, mv in m.items()}})
+                elif self.log:
+                    self.log.warning("[holdout] wandb.run is None — eval NOT logged to W&B")
+            except Exception as e:
+                if self.log:
+                    self.log.warning(f"[holdout] wandb eval log failed: {e}")
 
     def on_train_begin(self, args, state, control, model=None, **kw):
         if model is not None and not self._began:   # baseline: monitor + AMC "before"
