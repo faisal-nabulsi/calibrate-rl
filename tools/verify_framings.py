@@ -1,0 +1,176 @@
+#!/usr/bin/env python3
+"""
+Gold-invariance verifier for multi-framing depth-0 concepts.
+
+Each depth-0 generator picks one of N surface framings via random.choice([...]) but
+computes the gold from the PARAMS, so the gold is phrasing-invariant *by construction*.
+The real risk when we expand 5 -> 10 framings is authoring a framing whose ENGLISH asks
+a DIFFERENT quantity than `ans` computes -> we'd silently train on wrong golds (the #1
+project risk). This tool catches that: for each concept it samples many problems (hitting
+every framing), independently RE-SOLVES each one straight from the text, and asserts the
+recompute equals the stored gold. A framing that asks the wrong thing shows up as a
+mismatch concentrated on that one framing.
+
+It also reports how many distinct framings were seen (should equal the authored count) and
+flags any framing the recomputer could not parse (a robustness gap, not necessarily a gold
+bug). Add a concept by registering a recomputer in RECOMPUTERS; nothing else changes.
+
+  INJECTOR=generate/skeleton_injector_v12.py python3 tools/verify_framings.py [--n 4000] [--concept X]
+"""
+import os, re, sys, math, argparse, importlib.util
+from collections import defaultdict
+
+INJ = os.environ.get("INJECTOR", "generate/skeleton_injector_v13.py")
+
+def _ints(s):
+    return [int(x) for x in re.findall(r"-?\d+", s)]
+
+def _lcm(a, b): return a * b // math.gcd(a, b)
+
+# ---- per-concept recomputers: text -> recomputed answer (or None if unparseable) ----
+
+def rc_modular_exponent(t):
+    m_pow = (re.search(r"(\d+)\s*\^\s*(\d+)", t)
+             or re.search(r"(\d+)\s+raised to the\s+(\d+)", t)
+             or re.search(r"(\d+)\s+to the power\s+(\d+)", t))
+    if not m_pow: return None
+    a, e = int(m_pow.group(1)), int(m_pow.group(2))
+    # the modulus is the integer NOT inside the a^e span
+    s, en = m_pow.span()
+    outside = [int(x.group()) for x in re.finditer(r"\d+", t) if x.start() >= en or x.end() <= s]
+    if len(outside) != 1: return None
+    return pow(a, e, outside[0])
+
+def rc_inclusion_exclusion_3set(t):
+    nums = _ints(t)
+    if not nums: return None
+    U = max(nums)
+    divs = sorted(set(n for n in nums if n != U and n != 1))
+    if len(divs) != 3: return None
+    a, b, c = divs
+    return (U//a + U//b + U//c - U//_lcm(a,b) - U//_lcm(a,c) - U//_lcm(b,c)
+            + U//_lcm(a, _lcm(b, c)))
+
+def _two_ints_after(t, *keys):
+    lo = min((t.find(k) for k in keys if t.find(k) >= 0), default=-1)
+    if lo < 0: return None
+    got = re.findall(r"\d+", t[lo:])
+    return (int(got[0]), int(got[1])) if len(got) >= 2 else None
+
+def rc_lcm_gcd_system(t):
+    tl = t.lower()
+    pL = _two_ints_after(tl, "lcm", "least common multiple")
+    qG = _two_ints_after(tl, "gcd", "greatest common divisor")
+    if not pL or not qG: return None
+    p, L = pL; q, G = qG
+    for n in range(1, L + 1):
+        if _lcm(n, p) == L and math.gcd(n, q) == G:
+            return n
+    return None
+
+def rc_alternating_cubes(t):
+    nums = _ints(t)            # cube exponents are unicode superscripts, not ASCII digits
+    if not nums: return None
+    top = max(nums)
+    return sum((2*k)**3 - (2*k-1)**3 for k in range(1, top//2 + 1))
+
+def rc_complex_eq_solcount(t):
+    nums = _ints(t)            # the only integer is the exponent n
+    if len(nums) != 1: return None
+    return nums[0] + 2
+
+def rc_custom_binary_op(t):
+    nums = _ints(t)            # the operator def uses letters -> the only ints are a,b,c,d
+    if len(nums) != 4: return None
+    op = lambda x, y: x + y + x*y
+    a, b, c, d = nums
+    return op(op(op(a, b), c), d)
+
+def rc_perfect_square_divisible(t):
+    nums = _ints(t)
+    if len(nums) != 2: return None
+    limit, div = max(nums), min(nums)
+    rd = math.isqrt(div); cnt = 0; k = 1
+    while (rd*k)**2 < limit: cnt += 1; k += 1
+    return cnt
+
+def rc_triangular_filter_count(t):
+    # anchor on the phrases (example sequences like "1, 3, 6, 10" must not be parsed as params)
+    lim = re.search(r"(?:less than|below|under)\s+(\d+)", t)
+    k = re.search(r"(?:divisible by|multiples? of)\s+(\d+)", t)
+    if not lim or not k: return None
+    lim, k = int(lim.group(1)), int(k.group(1))
+    cnt = 0; n = 1
+    while n*(n+1)//2 < lim:
+        if (n*(n+1)//2) % k == 0: cnt += 1
+        n += 1
+    return cnt
+
+def rc_count_pythagorean(t):
+    nums = _ints(t)
+    if not nums: return None
+    H = max(nums); cnt = 0
+    for a in range(1, H+1):
+        for b in range(a, H+1):
+            c2 = a*a + b*b; c = math.isqrt(c2)
+            if c*c == c2 and c <= H: cnt += 1
+    return cnt
+
+RECOMPUTERS = {
+    "modular_exponent": rc_modular_exponent,
+    "inclusion_exclusion_3set": rc_inclusion_exclusion_3set,
+    "lcm_gcd_system": rc_lcm_gcd_system,
+    "alternating_cubes": rc_alternating_cubes,
+    "complex_eq_solcount": rc_complex_eq_solcount,
+    "custom_binary_op": rc_custom_binary_op,
+    "perfect_square_divisible": rc_perfect_square_divisible,
+    "triangular_filter_count": rc_triangular_filter_count,
+    "count_pythagorean": rc_count_pythagorean,
+}
+
+def _norm(s):  # framing fingerprint: digits -> #
+    return re.sub(r"\s+", " ", re.sub(r"-?\d+", "#", s)).strip()
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--n", type=int, default=4000)
+    ap.add_argument("--concept", default=None)
+    args = ap.parse_args()
+
+    spec = importlib.util.spec_from_file_location("inj", INJ)
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    import random; random.seed(12345)
+    gen = {nm: fn for nm, fn, _ in mod.REGISTRY}
+
+    targets = [args.concept] if args.concept else list(RECOMPUTERS)
+    overall_ok = True
+    for concept in targets:
+        if concept not in RECOMPUTERS:
+            print(f"  {concept}: no recomputer registered -> SKIP"); continue
+        rc = RECOMPUTERS[concept]; fn = gen[concept]
+        per = defaultdict(lambda: {"n": 0, "bad": 0, "unparsed": 0})
+        total = mism = unp = 0
+        for _ in range(args.n):
+            r = fn()
+            if r is None: continue
+            text, gold = r[0], int(r[1])
+            key = _norm(text); per[key]["n"] += 1; total += 1
+            got = rc(text)
+            if got is None:
+                per[key]["unparsed"] += 1; unp += 1
+            elif got != gold:
+                per[key]["bad"] += 1; mism += 1
+        n_fr = len(per)
+        status = "PASS" if (mism == 0 and unp == 0) else "FAIL"
+        if status != "PASS": overall_ok = False
+        print(f"\n{concept}: {status}  | framings seen {n_fr} | samples {total} | "
+              f"gold-mismatch {mism} | unparsed {unp}")
+        for key in sorted(per, key=lambda k: -per[k]["n"]):
+            d = per[key]
+            flag = "" if (d["bad"] == 0 and d["unparsed"] == 0) else "  <-- PROBLEM"
+            print(f"    n={d['n']:4} bad={d['bad']} unparsed={d['unparsed']}  {key[:88]}{flag}")
+    print("\n" + ("ALL PASS" if overall_ok else "FAILURES PRESENT"))
+    sys.exit(0 if overall_ok else 1)
+
+if __name__ == "__main__":
+    main()
