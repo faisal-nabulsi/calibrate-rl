@@ -104,36 +104,12 @@ class OpusJudge(Judge):
         return result.parsed_output
 
 
-class OpenAIJudge(Judge):
-    """Cross-family control judge. Needs OPENAI_API_KEY; model overridable
-    via OPENAI_JUDGE_MODEL."""
-
-    name = "gpt-5.5"
-
-    def __init__(self) -> None:
-        import openai  # optional dep — only needed when this judge is requested
-        self.model = os.environ.get("OPENAI_JUDGE_MODEL", "gpt-5.5")
-        self.name = self.model
-        self.client = openai.OpenAI()
-
-    def grade(self, system_text: str, user_text: str) -> PromptGrade:
-        completion = self.client.chat.completions.parse(
-            model=self.model,
-            messages=[
-                {"role": "system", "content": system_text},
-                {"role": "user", "content": user_text},
-            ],
-            response_format=PromptGrade,
-        )
-        return completion.choices[0].message.parsed
-
-
 class GPTProJudge(Judge):
-    """Higher-capability cross-check judge. Pro/reasoning models (gpt-5.5-pro) are
-    Responses-API only — they reject chat completions — so this uses
-    `responses.parse` for structured grading. Needs OPENAI_API_KEY; model
-    overridable via OPENAI_PRO_JUDGE_MODEL. Slower + pricier than gpt-5.5; intended
-    for a final cross-family check, not every run."""
+    """The cross-family judge (gpt-5.5-pro). Pro/reasoning models are Responses-API
+    only — they reject chat completions — so this uses `responses.parse` for
+    structured grading. Needs OPENAI_API_KEY; model overridable via
+    OPENAI_PRO_JUDGE_MODEL. Slower + pricier; run alongside Opus for the headline
+    cross-check. (Note: gpt-5.5 non-pro is a model UNDER TEST, not a judge.)"""
 
     name = "gpt-5.5-pro"
 
@@ -159,6 +135,5 @@ class GPTProJudge(Judge):
 
 JUDGES: dict[str, type[Judge]] = {
     "claude-opus-4-8": OpusJudge,
-    "gpt-5.5": OpenAIJudge,
     "gpt-5.5-pro": GPTProJudge,
 }
