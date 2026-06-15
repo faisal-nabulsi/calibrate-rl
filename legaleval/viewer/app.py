@@ -6,7 +6,8 @@ Run:
 
 - Overview tab: what LegalEval is + the overall results table.
 - Pick a prompt (sidebar, grouped by stage) -> see ALL five models' responses together,
-  each with its grade (dimension scores, gate status, judge notes).
+  each a collapsible card with its grade, gate status, judge summary, and the full
+  per-criterion grading rationale. A sticky model-nav jumps between them.
 - Edit the prompt text and rubric inline and Save (writes back to suite/prompts.json
   and suite/rubrics/<ID>.json). Responses/grades are run outputs and are view-only.
 
@@ -20,17 +21,18 @@ from collections import defaultdict
 from pathlib import Path
 
 import markdown as md
-from flask import Flask, abort, redirect, render_template_string, request, url_for
+from flask import Flask, abort, render_template_string, request
 
 ROOT = Path(__file__).resolve().parent.parent
 SUITE = ROOT / "suite" / "prompts.json"
-RUBRICS = ROOT / "suite" / "rubrics"
 JUDGE = "claude-opus-4-8"
 MODELS = ["claude-sonnet-4-6", "gpt-5.5", "gemini-3.5-flash", "qwen-3.7-plus", "llama-4-maverick"]
 LABEL = {"claude-sonnet-4-6": "Claude Sonnet 4.6", "gpt-5.5": "GPT-5.5",
          "gemini-3.5-flash": "Gemini 3.5 Flash", "qwen-3.7-plus": "Qwen 3.7 Plus",
          "llama-4-maverick": "Llama 4 Maverick"}
 DIMS = ["faithfulness", "directionality", "coverage", "soundness", "actionability"]
+DIM_ABBR = {"faithfulness": "Faith", "directionality": "Dir", "coverage": "Cov",
+            "soundness": "Sound", "actionability": "Action"}
 STAGES = {"A": "Issue-spotting", "B": "Summarization & Extraction", "C": "Redlining",
           "D": "Drafting", "E": "Negotiation"}
 
@@ -43,7 +45,7 @@ def pick_run() -> Path:
         return Path(env) if Path(env).is_absolute() else ROOT / env
     runs = ROOT / "runs"
     cand = [d for d in runs.glob("*") if (d / "responses").is_dir() and (d / "grades" / JUDGE).is_dir()]
-    return max(cand, key=lambda d: len(list((d / "responses").glob("*.json"))) ) if cand else None
+    return max(cand, key=lambda d: len(list((d / "responses").glob("*.json")))) if cand else None
 
 
 def load_suite():
@@ -66,21 +68,18 @@ def load_run(run: Path):
 
 
 def rubric_path(pid, pmeta):
-    rf = pmeta[pid].get("rubric_file", f"rubrics/{pid}.json")
-    return ROOT / "suite" / rf
+    return ROOT / "suite" / pmeta[pid].get("rubric_file", f"rubrics/{pid}.json")
 
 
 def rubric_text(pid, pmeta):
     p = rubric_path(pid, pmeta)
-    if p.exists():
-        return json.loads(p.read_text()).get("rubric_markdown", "")
-    return ""
+    return json.loads(p.read_text()).get("rubric_markdown", "") if p.exists() else ""
 
 
 BASE = """
 <!doctype html><html><head><meta charset="utf-8"><title>LegalEval Viewer</title>
 <style>
- :root{--bd:#e2e5ea;--mut:#6b7280;--ac:#2563eb;--ok:#16a34a;--bad:#dc2626;}
+ :root{--bd:#e2e5ea;--mut:#6b7280;--ac:#2563eb;}
  *{box-sizing:border-box} body{margin:0;font:15px/1.55 -apple-system,Segoe UI,Roboto,sans-serif;color:#111}
  .wrap{display:flex;min-height:100vh}
  .side{width:250px;flex:0 0 250px;border-right:1px solid var(--bd);padding:14px;position:sticky;top:0;height:100vh;overflow:auto;background:#fafbfc}
@@ -94,31 +93,46 @@ BASE = """
  th,td{border:1px solid var(--bd);padding:6px 9px;text-align:left} th{background:#f3f4f6}
  .badge{display:inline-block;padding:1px 8px;border-radius:20px;font-size:12px;font-weight:600}
  .b-ok{background:#dcfce7;color:#166534} .b-mid{background:#fef9c3;color:#854d0e} .b-bad{background:#fee2e2;color:#991b1b}
- .card{border:1px solid var(--bd);border-radius:10px;margin:14px 0;overflow:hidden}
- .card .hd{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8fafc;border-bottom:1px solid var(--bd);cursor:pointer}
- .card .hd b{font-size:15px} .card .bd{padding:14px 16px}
+ .modelnav{position:sticky;top:0;background:#fff;padding:10px 0;border-bottom:1px solid var(--bd);margin-bottom:6px;z-index:5;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+ .modelnav button{border:1px solid var(--bd);background:#f8fafc;border-radius:20px;padding:4px 11px;font-size:12.5px;cursor:pointer}
+ .modelnav button:hover{background:#eef2ff;border-color:#c7d2fe}
+ .card{border:1px solid var(--bd);border-radius:10px;margin:12px 0;overflow:hidden;scroll-margin-top:60px}
+ .card .hd{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8fafc;border-bottom:1px solid transparent;cursor:pointer}
+ .card.open .hd{border-bottom-color:var(--bd)}
+ .card .hd b{font-size:15px} .card .hd .caret{color:var(--mut);font-size:12px}
+ .card .bd{padding:14px 16px;display:none} .card.open .bd{display:block}
+ .dimchip{font-size:11.5px;color:#374151;background:#eef2f7;border-radius:6px;padding:1px 6px;margin-left:2px}
  .resp{font-size:14px} .resp h1,.resp h2,.resp h3{font-size:15px;margin:.7em 0 .3em} .resp table{font-size:12.5px}
  .resp pre{background:#f6f8fa;padding:8px;border-radius:6px;overflow:auto}
- .note{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin-top:10px;font-size:13px}
- .dims{font-size:12.5px;color:var(--mut)} textarea{width:100%;font:13px/1.5 ui-monospace,Menlo,monospace;padding:10px;border:1px solid var(--bd);border-radius:8px}
+ .rationale{background:#f5f8ff;border:1px solid #d7e3ff;border-radius:10px;padding:12px 14px;margin:6px 0 14px;font-size:13.5px}
+ .rationale h4{margin:.1em 0 .5em;font-size:13.5px} .gate{margin:3px 0}
+ .g-pass{color:#166534;font-weight:600} .g-trip{color:#991b1b;font-weight:600}
+ .sj{margin:3px 0 3px 4px;padding-left:10px;border-left:2px solid #e5e7eb}
+ .v-met{color:#166534} .v-partial{color:#854d0e} .v-not_met{color:#991b1b} .v-not_applicable{color:#9ca3af}
+ .quote{color:#475569;font-style:italic}
+ textarea{width:100%;font:13px/1.5 ui-monospace,Menlo,monospace;padding:10px;border:1px solid var(--bd);border-radius:8px}
  .btn{background:var(--ac);color:#fff;border:0;padding:8px 16px;border-radius:8px;font-size:14px;cursor:pointer}
- .btn.sec{background:#eef2ff;color:var(--ac)} .saved{color:var(--ok);font-weight:600;margin-left:10px}
- details>summary{cursor:pointer;font-weight:600;margin:8px 0}
+ .saved{color:#16a34a;font-weight:600;margin-left:10px}
+ details>summary{cursor:pointer;font-weight:600;margin:6px 0;font-size:13px}
  .pill{font-size:11px;color:var(--mut);border:1px solid var(--bd);border-radius:20px;padding:1px 8px}
 </style></head><body><div class="wrap">
 <nav class="side">
  <h1>⚖️ LegalEval</h1>
- <a href="{{ url_for('index') }}" class="{{ 'on' if page=='ov' }}">Overview & results</a>
+ <a href="/" class="{{ 'on' if page=='ov' }}">Overview & results</a>
  {% for st,sname in stages.items() %}<div class="stg">{{st}} · {{sname}}</div>
    {% for pid in order if pid.startswith(st) %}
-     <a href="{{ url_for('prompt_view', pid=pid) }}" class="{{ 'on' if pid==cur }}">{{pid}} · {{pmeta[pid].name}}</a>
+     <a href="/prompt/{{pid}}" class="{{ 'on' if pid==cur }}">{{pid}} · {{pmeta[pid].name}}</a>
    {% endfor %}{% endfor %}
  <div class="stg" style="margin-top:18px">Run</div><div class="pill">{{run_name}}</div>
 </nav>
 <main class="main">{{ body|safe }}</main>
 </div>
 <script>
- function tog(id){var e=document.getElementById(id);e.style.display=e.style.display==='none'?'block':'none';}
+ function setCard(i,open){var c=document.getElementById('c'+i); if(c) c.classList.toggle('open',open);}
+ function toggle(i){var c=document.getElementById('c'+i); if(c) c.classList.toggle('open');}
+ function jump(i){setCard(i,true); document.getElementById('c'+i).scrollIntoView({behavior:'smooth',block:'start'});}
+ function expandAll(){document.querySelectorAll('.card').forEach(c=>c.classList.add('open'));}
+ function collapseAll(){document.querySelectorAll('.card').forEach(c=>c.classList.remove('open'));}
  async function save(pid){
    const fd={prompt_text:document.getElementById('pt').value, rubric:document.getElementById('rb').value};
    const r=await fetch('/prompt/'+pid+'/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fd)});
@@ -130,8 +144,47 @@ BASE = """
 
 def badge(norm, tripped):
     cls = "b-ok" if norm >= 0.85 else ("b-mid" if norm >= 0.6 else "b-bad")
-    txt = f"{norm:.2f}" + (" ⚠gate" if tripped else "")
-    return f'<span class="badge {cls}">{txt}</span>'
+    return f'<span class="badge {cls}">{norm:.2f}{" ⚠gate" if tripped else ""}</span>'
+
+
+def render(body, **kw):
+    suite, pmeta, order = load_suite()
+    return render_template_string(BASE, body=body, stages=STAGES, order=order, pmeta=pmeta,
+                                  run_name=RUN.name if RUN else "—", **kw)
+
+
+def rationale_html(pid, pmeta, agg, sample):
+    """Show WHY: gate decisions + reasoning, judge summary, per-criterion sub-judgments."""
+    parts = ['<div class="rationale"><h4>Why this score</h4>']
+    for gate in pmeta[pid].get("gates", []):
+        g = agg.get(f"gate_{gate}", {})
+        tripped = g.get("tripped")
+        reason = (g.get("reasoning") or [""])[0]
+        cls = "g-trip" if tripped else "g-pass"
+        lab = "TRIPPED" if tripped else "pass"
+        hc = " · needs human confirm" if g.get("needs_human_confirm") else ""
+        parts.append(f'<div class="gate"><span class="{cls}">{gate.title()} gate: {lab}{hc}</span> — {reason}</div>')
+    note = (agg.get("notes") or [""])[0]
+    if note:
+        parts.append(f'<div style="margin-top:6px"><b>Judge summary.</b> {note}</div>')
+    # per-criterion sub-judgments from the (first) judge sample
+    if sample:
+        rows = []
+        for d in DIMS:
+            dg = sample.get(d) or {}
+            sjs = dg.get("sub_judgments") or []
+            if not sjs:
+                continue
+            rows.append(f'<div style="margin-top:6px"><b>{DIM_ABBR[d]} = {dg.get("score","–")}</b></div>')
+            for sj in sjs:
+                v = sj.get("verdict", "")
+                q = sj.get("evidence_quote")
+                qh = f' <span class="quote">“{q[:200]}”</span>' if q else ""
+                rows.append(f'<div class="sj"><span class="v-{v}">{v}</span> · {sj.get("criterion","")}{qh}</div>')
+        if rows:
+            parts.append("<details><summary>Per-criterion breakdown (evidence)</summary>" + "".join(rows) + "</details>")
+    parts.append("</div>")
+    return "".join(parts)
 
 
 @app.route("/")
@@ -152,14 +205,13 @@ def index():
     <p><b>How it works.</b> Each model gets the bare prompt <i>incognito</i> (no system prompt, tools, or memory).
     The Opus 4.8 judge scores 5 dimensions (Faithfulness, Directionality, Coverage, Soundness, Actionability)
     against a gold rubric; code normalizes to 0–1 and <b>caps any gate-tripping response at 0.40</b> (a gate trips on
-    fabrication or advocating the wrong party). Pick a prompt on the left to see all five responses + their grades.</p>
+    fabrication or advocating the wrong party). Pick a prompt on the left to see all five responses + their grades and rationale.</p>
     <h3>Overall ranking (mean normalized score, after gate cap)</h3>
     <table><tr><th>#</th><th>Model</th><th>Mean</th><th>Gate trips</th></tr>{rows}</table>
     <p class="meta">⚠ k=1 single judge sample; margins overlap within CIs. Opus grading Claude Sonnet is same-family
     (self-grading caveat). Edit prompts/rubrics from any prompt page.</p>
     """
-    return render_template_string(BASE, body=body, page="ov", cur=None, stages=STAGES,
-                                  order=order, pmeta=pmeta, run_name=RUN.name if RUN else "—")
+    return render(body, page="ov", cur=None)
 
 
 @app.route("/prompt/<pid>")
@@ -169,28 +221,31 @@ def prompt_view(pid):
         abort(404)
     resp, grades, cells = load_run(RUN)
     m = pmeta[pid]
-    # per-prompt score table
-    srows = ""
-    for prov in MODELS:
-        c = cells.get((pid, prov)); a = grades.get(pid, {}).get(prov, {}).get("aggregate", {})
-        ds = " · ".join(f"{d[:1].upper()}:{a.get(d,'–')}" for d in DIMS)
-        if c:
-            srows += (f"<tr><td>{LABEL[prov]}</td><td>{badge(float(c['norm']), bool(c['gates_tripped']))}</td>"
-                      f"<td>{c['raw']}/{c['max']}</td><td class='dims'>{ds}</td></tr>")
-    # response cards (all five together)
-    cards = ""
+    srows, nav, cards = "", "", ""
     for i, prov in enumerate(MODELS):
-        r = resp.get(pid, {}).get(prov); c = cells.get((pid, prov))
-        a = grades.get(pid, {}).get(prov, {}).get("aggregate", {})
+        c = cells.get((pid, prov))
+        grade = grades.get(pid, {}).get(prov, {})
+        agg = grade.get("aggregate", {})
+        samples = grade.get("samples") or []
+        sample = samples[0] if samples else None
+        ds = " · ".join(f"{DIM_ABBR[d][:1]}:{agg.get(d,'–')}" for d in DIMS)
         b = badge(float(c["norm"]), bool(c["gates_tripped"])) if c else ""
+        if c:
+            srows += (f"<tr><td><a href='#c{i}' onclick=\"jump({i})\">{LABEL[prov]}</a></td><td>{b}</td>"
+                      f"<td>{c['raw']}/{c['max']}</td><td class='meta'>{ds}</td></tr>")
+        nav += f'<button onclick="jump({i})">{LABEL[prov]} {b}</button>'
+        r = resp.get(pid, {}).get(prov)
         html = md.markdown(r["response_text"], extensions=["tables", "fenced_code"]) if r else "<i>[no response]</i>"
-        note = (a.get("notes") or [""])[0]
-        notehtml = f'<div class="note"><b>Judge:</b> {note}</div>' if note else ""
+        chips = "".join(f'<span class="dimchip">{DIM_ABBR[d]} {agg.get(d,"–")}</span>' for d in DIMS) if agg else ""
+        rat = rationale_html(pid, pmeta, agg, sample) if agg else ""
         cards += f"""
-        <div class="card">
-          <div class="hd" onclick="tog('r{i}')"><b>{LABEL[prov]}</b> {b}
-            <span class="pill" style="margin-left:auto">{(len(r['response_text']) if r else 0)} chars · click to toggle</span></div>
-          <div class="bd" id="r{i}"><div class="resp">{html}</div>{notehtml}</div>
+        <div class="card" id="c{i}">
+          <div class="hd" onclick="toggle({i})"><span class="caret">▸</span><b>{LABEL[prov]}</b> {b}
+            <span style="margin-left:6px">{chips}</span>
+            <span class="pill" style="margin-left:auto">{(len(r['response_text']) if r else 0)} chars</span></div>
+          <div class="bd">{rat}
+            <details><summary>Full response</summary><div class="resp">{html}</div></details>
+          </div>
         </div>"""
     body = f"""
     <div class="crumb">{m['stage']} · {STAGES.get(pid[0],'')}</div>
@@ -205,11 +260,13 @@ def prompt_view(pid):
       <p style="margin-top:10px"><button class="btn" onclick="save('{pid}')">Save</button>
       <span id="savemsg" class="saved"></span></p>
     </details>
-    <h3 style="margin-top:22px">All model responses</h3>
+    <h3 style="margin-top:22px">All model responses & grading rationale</h3>
+    <div class="modelnav"><button onclick="expandAll()">⊕ Expand all</button>
+      <button onclick="collapseAll()">⊖ Collapse all</button>
+      <span style="color:#9ca3af;font-size:12px;margin:0 4px">jump:</span>{nav}</div>
     {cards}
     """
-    return render_template_string(BASE, body=body, page="pr", cur=pid, stages=STAGES,
-                                  order=order, pmeta=pmeta, run_name=RUN.name if RUN else "—")
+    return render(body, page="pr", cur=pid)
 
 
 @app.route("/prompt/<pid>/save", methods=["POST"])
@@ -218,13 +275,11 @@ def save_prompt(pid):
     if pid not in pmeta:
         abort(404)
     data = request.get_json(force=True)
-    # prompt_text -> prompts.json
     full = json.loads(SUITE.read_text())
     for p in full["prompts"]:
         if p["id"] == pid:
             p["prompt_text"] = data.get("prompt_text", p.get("prompt_text"))
     SUITE.write_text(json.dumps(full, indent=2))
-    # rubric -> rubrics/<id>.json
     rp = rubric_path(pid, pmeta)
     if rp.exists() and "rubric" in data:
         rj = json.loads(rp.read_text()); rj["rubric_markdown"] = data["rubric"]
