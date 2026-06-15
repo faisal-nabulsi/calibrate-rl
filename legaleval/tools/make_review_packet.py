@@ -158,6 +158,35 @@ def main():
     ]:
         doc.add_paragraph(q, style="List Number")
 
+    # prompt-generation rules questions
+    doc.add_heading("Prompt-generation rules (do the authoring rules produce legally valid prompts?)", 1)
+    doc.add_paragraph("Context: LegalEval prompts are built to a rulebook. Each uses real, lightly-modified, or "
+                      "synthetic contract text, paired with a decomposed 'gold key' — a table of expected findings "
+                      "(a specific absence, edit, accept/reject call, etc.). Models are told their seat (which "
+                      "party they represent) but never how many issues exist. These questions probe whether those "
+                      "authoring rules are legally sound.")
+    for q in [
+        "PERTURBATION: we plant changes into real contracts to make test instances. Can a planted 'issue' ever "
+        "become legally incoherent in its new context, or accidentally CREATE or DESTROY a different issue the "
+        "gold key doesn't track? (Please check one modified instance end-to-end.)",
+        "ENUMERABILITY: our gold keys decompose each task into 4-10 discrete, individually-graded units. Can every "
+        "legal assessment really be decomposed that way, or do some (overall enforceability, deal viability) "
+        "require holistic judgment that forcing into rows distorts?",
+        "GRADE THE INSTANCE, NOT THE WORLD: we score against the (sometimes modified) text shown, giving no credit "
+        "for real-world legal knowledge of the underlying contract. Is that sound — or does it risk rewarding a "
+        "model for ignoring what it correctly knows about the law/filing?",
+        "DEFENSIBLE-UNGRADED: a legitimate concern outside the gold key earns no credit but no penalty. Is any gold "
+        "key here MISSING a major legitimate concern — such that good findings get mislabeled and strong models "
+        "lose coverage unfairly?",
+        "SEAT DIRECTIONALITY: we instruct 'represent party X, be maximally favorable to X.' Is that always a "
+        "coherent legal ask, or do some clauses have NO clear party-favorable direction (genuinely mutual), making "
+        "a directionality judgment unfair?",
+        "CLEAN INSTANCES: we plan 'clean' versions where the gold answer is 'no material issues.' Is 'no material "
+        "issues' ever truly true of a real commercial contract — or would a clean test unfairly penalize a model "
+        "for flagging a small but real risk?",
+    ]:
+        doc.add_paragraph(q, style="List Number")
+
     outdir = Path(os.path.expanduser(a.out)); outdir.mkdir(parents=True, exist_ok=True)
     out = outdir / "LegalEval_v7_Attorney_Review_Packet.docx"
     doc.save(out)
