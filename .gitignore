@@ -257,7 +257,10 @@ nohup.out
 
 # Claude Code / MCP config (may hold secrets like the Slack bot token)
 .claude.json
-.claude/
+.claude/*
+# ...except the shared, secret-free permission allowlist (so person-sessions self-serve).
+# settings.local.json and anything else under .claude/ stay ignored.
+!.claude/settings.json
 
 # personal agent persona (do not commit)
 CLAUDE.local.md
