@@ -8,7 +8,9 @@
 ## TL;DR
 1. **Raise the GPU quota so we can run 3 L4s at once** (today we cap at 2, which forces
    awkward L40S-offloading for any 3rd job). ← the high-value one.
-2. **(Recommended) Give the L4s direct SSM access** so they're debuggable. They're
+2. **Fix the bot agent permissions** (§3 below) — the agents (gilbert/sam/…) keep hitting
+   "no shell," "aws requires approval," "can't read thread replies." Mostly `claude-code-slack-bot`.
+3. **(Recommended) Give the L4s direct SSM access** so they're debuggable. They're
    currently queue-only, and an all-day failure cascade (numpy → venv-activation →
    bitsandbytes) was painful precisely because nobody could shell in.
 
@@ -40,7 +42,32 @@ Optional; the retry loop has been sufficient.
 **Payoff:** with 3 L4 slots, the campaign + composition-gap diagnostic + by-framing eval
 all run on L4s in parallel — no more offloading the 3rd job to the L40S.
 
-## 2. (Recommended) Direct SSM access to the L4s
+## 2. Fix the bot agent permissions (`claude-code-slack-bot` + deploy)
+All day, the agents (gilbert/sam/…) hit permission walls that stopped them diagnosing or
+executing: *"no standalone Bash tool, only Monitor," "aws requires approval," "journalctl/pm2
+blocked," "can't read thread replies," "agents-box mirror outside my sandbox," "compound
+commands need approval."* The in-repo allowlist (`tools/agent_claude_settings.json`) is being
+widened to grant everything (Bash + the full slack MCP) — Faisal's PR — but that only helps
+**main** agents, and only after the boxes reboot to pick up the new `~/.claude/settings.json`.
+The rest is in the bot repo / deploy and needs you:
+
+- **Spawned subagents have no Bash tool + restricted MCP.** When an agent spawns a subagent to
+  diagnose, that subagent runs with only `Monitor` (no `Bash`) and can't hit aws/S3/threads —
+  which is why gilbert "couldn't read the log this session" repeatedly. Give spawned subagents
+  the `Bash` tool + the slack MCP and have them **inherit the permission allowlist**.
+- **Agents can't read Slack thread replies** (`slack_get_thread_replies` → permission-denied)
+  even though it's in the allowlist — so they can't follow threads and resort to top-level
+  reposts (the gilbert/sam coordination thrash). Fix the bot's MCP permission for thread reads.
+- **Compound commands prompt** (`a && b`) even when each part is allowed — that's a Claude Code
+  default. Either instruct agents (bot system prompt) to run **single** commands, or set the
+  bot's permission mode to auto-approve its allowlisted tools.
+- **Reboot the L4s** so they pick up the current `agent_claude_settings.json` (persona_sync
+  drops it on boot; boxes that booted before it have a stale settings.json). Boxes that cycle
+  through jobs will refresh naturally, but a manual reboot guarantees it.
+- **Leave instance start/stop gated** — that's the intentional §2 guard (agents never auto
+  start/stop boxes). Not a bug; do not "fix" it.
+
+## 3. (Recommended) Direct SSM access to the L4s
 **Symptom:** `aws ssm start-session --target <L4>` → `TargetNotConnected`;
 `aws ssm describe-instance-information` lists only the t3. The L4s have **no registered
 SSM agent**, are in a different VPC (172.31) from the t3 (10.0.0), and are SG-locked
