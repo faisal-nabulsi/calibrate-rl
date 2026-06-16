@@ -147,6 +147,26 @@ def upload(local, s3uri):
     sh(f"aws s3 cp {local} {s3uri}")
 
 
+def ensure_running(instance, tries=20, wait=120):
+    """Start the box, tolerating AWS InsufficientInstanceCapacity (common for GPU types) —
+    retry with backoff instead of crashing. Already-running counts as success. Returns bool."""
+    for i in range(tries):
+        st = sh(f"aws ec2 describe-instances --instance-ids {instance} "
+                f"--query 'Reservations[].Instances[].State.Name' --output text",
+                check=False, capture=True).stdout.strip()
+        if st in ("running", "pending"):
+            return True
+        r = sh(f"aws ec2 start-instances --instance-ids {instance}", check=False, capture=True)
+        if r.returncode == 0:
+            return True
+        blob = (r.stdout + r.stderr)
+        if "InsufficientInstanceCapacity" in blob or "Unsupported" in blob:
+            log(f"AWS has no capacity for {instance} — retry {i+1}/{tries} in {wait}s")
+            time.sleep(wait); continue
+        log(f"start-instances failed (non-capacity): {blob[-200:]}"); return False
+    return False
+
+
 def dispatch_sample(it, pool_s3, out_s3):
     spec = {"type": "sample", "checkpoint": CKPT_S3, "dataset": pool_s3,
             "n": N, "rollouts": ROLLOUTS, "max_tokens": MAX_TOKENS, "output_uri": out_s3}
@@ -154,9 +174,9 @@ def dispatch_sample(it, pool_s3, out_s3):
     json.dump(spec, open(spec_local, "w"))
     spec_s3 = f"s3://{BUCKET}/pending/{SAMPLER}/depth1_calib_iter{it}.json"
     if DRY_RUN:
-        log(f"[dry-run] would upload spec {spec} -> {spec_s3} and start {SAM}"); return
+        log(f"[dry-run] would upload spec {spec} -> {spec_s3} and start {SAM}"); return True
     upload(spec_local, spec_s3)
-    sh(f"aws ec2 start-instances --instance-ids {SAM}")
+    return ensure_running(SAM)
 
 
 def wait_for_output(out_s3):
@@ -233,7 +253,9 @@ def main():
         sh(f"aws s3 rm {out_s3}", check=False); sh(f"aws s3 rm {out_s3}.log", check=False)
         upload(pool_local, pool_s3)
         slack(f":satellite: iter {it}: sampling {N} on {SAMPLER} (vs ckpt-40)…")
-        dispatch_sample(it, pool_s3, out_s3)
+        if not dispatch_sample(it, pool_s3, out_s3):
+            slack(f":warning: iter {it}: couldn't start {SAMPLER} — AWS out of GPU capacity after retries. "
+                  f"Campaign stopping; relaunch when capacity returns."); break
         status = wait_for_output(out_s3)
         if status != "ok":
             slack(f":x: iter {it}: sample did not complete on {SAMPLER} — {status[:300]} — stopping"); break
