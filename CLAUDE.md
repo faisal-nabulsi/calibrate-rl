@@ -496,9 +496,12 @@ the campaign-build shakeout → DAILY LOG 06-16.)
 > Completed items migrate to the DAILY LOG; this section is open/actionable work only. (This session's
 > done items — AMC-capped #89, sadie/sage provisioned, campaign launched — are in CURRENTLY DOING + the log.)
 
-- [ ] **[faisal] read the depth-0 TRIFECTA when the 3 L4 jobs land** — composition-gap diagnostic (sam: did depth-0
-      strengthen the atoms for chaining?) + concept-transfer by-framing (sage: is the held-out gain wording-robust or
-      template-bound?) + the AMC-capped finding (#89). Together = the complete depth-0 verdict.
+- [ ] **read the depth-0 TRIFECTA when the 3 L4 jobs land = the complete depth-0 verdict:** (a) composition-gap
+      diagnostic (sam: did depth-0 strengthen the atoms for chaining?); (b) concept-transfer by-framing (sage is
+      generating it on ckpt-40 now; **[michael] analyzes** — does the +0.22 held-out gain transfer across
+      wording=concept, or evaporate=template? older #31 was on the 3-concept ckpt-108); (c) the AMC-capped finding
+      (#89, done). The by-framing is the discriminator gating the **"final depth-0 run" decision**, which stays HELD
+      until it's in — likely moot anyway now that depth-0 is AMC-capped.
 - [ ] **[faisal/michael] restart the t3 agents** (gilbert/kathryne/charizard: `git pull` claude-code-slack-bot +
       restart per user) to apply **#8** (read-only-bash-on-bot-turns guard fix). Not urgent — doesn't affect running jobs.
 - [ ] **[michael/faisal] depth-1 chains (#78) — in-band-yield margin-check at CALIB (kathryne's catch, curriculum-gated, NOT a merge blocker).**
@@ -520,11 +523,6 @@ the campaign-build shakeout → DAILY LOG 06-16.)
       v13 chain-strip. The `feat/depth1-diverse-chains` branch is fully merged (squash-ancestry only made it LOOK
       unmerged — `git diff main branch -- <chain files>` is empty) → safe to delete. Remaining = the campaign
       calibrating + the #5 margin-check on iter-1's output. v12 is the CANONICAL depth-1 generator; not v13.
-- [ ] **concept-transfer by-framing — the discriminator gating the "final depth-0 run" decision.** sage is
-      GENERATING the by-framing data on ckpt-40 now (`concept_transfer_ckpt40`, v13's 10 framings); [michael]
-      does the analysis when it lands (the older #31 responses were on the 3-concept ckpt-108). Verdict = does
-      the +0.22 held-out gain transfer across wording (concept) or evaporate (template)? Until it's in, the
-      "final depth-0 run" stays HELD — likely moot anyway now that depth-0 is AMC-capped (#89).
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
