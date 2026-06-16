@@ -99,11 +99,19 @@ def build_pool(out_path):
 
 def gate(pool_path):
     """Static safety gate. Returns (ok, detail). Used both pre-sample and post-edit."""
-    # 1. depth-0 atoms must stay byte-identical (protects ckpt-40 calibration target)
+    # 1. depth-0 atoms must stay byte-identical (protects ckpt-40 calibration target).
+    # Distinguish a REAL failure (test ran, atom changed -> exit 1 with "failed") from the
+    # test being UNABLE to run (missing dep / collection error -> other codes or "no module"):
+    # the latter is an env problem, NOT an atom perturbation, so don't misreport it as one.
     eq = sh("python3 -m pytest -q automation/calibrator/tests/test_knob_equivalence.py",
             check=False, env=ENV_INJ, capture=True)
+    out = (eq.stdout + eq.stderr).lower()
+    if eq.returncode == 1 and "failed" in out:
+        return False, "atom-equivalence FAILED (an edit perturbed a depth-0 atom) — REVERTING"
     if eq.returncode != 0:
-        return False, "atom-equivalence FAILED (an edit perturbed a depth-0 atom)"
+        return False, (f"GATE-COULD-NOT-RUN: equivalence test errored (rc={eq.returncode}) — an "
+                       f"env/dep issue, NOT an atom change. Fix the box; don't trust this gate. "
+                       f"tail: {out[-160:]}")
     # 2. chain golds independently recomputed
     cd = sh(f"python3 prep/check_dataset.py {pool_path}", check=False, env=ENV_INJ, capture=True)
     if "mismatch" in cd.stdout and "0 mismatches" not in cd.stdout:
