@@ -19,6 +19,28 @@ You do **not** need to provision sage's bitsandbytes fix — that's a queue `set
 
 ---
 
+## Status — actioned by Michael (2026-06-16)
+
+These no longer need Michael; they're done or self-serviceable by Faisal going forward:
+
+- **§1 quota → 20:** request **open with AWS** (`L-DB2E81BA`, us-east-1, `CASE_OPENED`).
+  Awaiting AWS approval; nothing more to file (one open request allowed per quota).
+- **§2 allowlist:** **merged (#88)** — `tools/agent_claude_settings.json` grants bare `Bash`
+  (all commands incl. compound `a && b`) + the full Slack MCP incl. `slack_get_thread_replies`.
+  Boxes pick it up on their next boot/job cycle (`persona_sync`); no force-reboot of a busy box.
+  Person-sessions now also inherit it via a checked-in **`.claude/settings.json`** (this change).
+  *(Still bot-repo, not this repo: spawned-subagent `Bash`/MCP inheritance — `claude-code-slack-bot`.)*
+- **§3 SSM on the L4s:** **`AmazonSSMManagedInstanceCore` attached to the `calibrate-rl-gpu-box`
+  role.** All three L4s use that profile, so sam/sadie register within minutes (no reboot needed)
+  and sage registers on next start. Then `aws ssm start-session --target <L4>` works directly.
+
+**Faisal can do all of the above himself from now on:** the `faisal` IAM user has
+`AdministratorAccess` (EC2/IAM/SSM/service-quotas/S3 all covered), and his Claude Code
+person-session auto-approves Bash + the Slack MCP via the repo `.claude/settings.json`. So
+quota bumps, instance-profile attaches, reboots, and SSM are self-serve — no Michael bottleneck.
+
+---
+
 ## 1. Raise the G-family quota to fit 3 L4s + the L40S
 **Symptom:** starting a 3rd L4 fails the account limit (we observed "max 2 L4s"), and
 even within that we hit transient `InsufficientInstanceCapacity` on start.
