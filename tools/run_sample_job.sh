@@ -157,6 +157,13 @@ SYNC_CMD=""
 
 if [ "$JOB_TYPE" = "sample" ]; then
   POOL="${JOB_DATASET:-data/skeleton_dataset_v11_clean.json}"
+  case "$POOL" in
+    # An s3:// dataset lets an orchestrator hand a pool built off-box (e.g. the depth-1
+    # campaign builds the EDITED pool on the t3 and uploads it) without the box needing
+    # that branch — it stays on origin/main. Pull it down to a local file for sample.py.
+    s3://*) POOL_LOCAL="data/job_${JOB_ID}_pool.json"
+            PREP_CMDS+=("aws s3 cp $POOL $POOL_LOCAL"); POOL="$POOL_LOCAL" ;;
+  esac
   if [ -n "$JOB_CONCEPTS" ]; then
     # Build a fresh pool: one gen_clean per concept, merged. Per-concept size
     # defaults to gen_clean's own default (200) when 'n' is absent.
