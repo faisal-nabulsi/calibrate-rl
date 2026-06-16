@@ -1,6 +1,6 @@
 {
   "components": [
-    "vieta_sumcubes",
+    "divisor_sum_filter",
     "modular_exponent"
   ],
   "fed_param": "base",

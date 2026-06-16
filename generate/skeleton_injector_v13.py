@@ -172,6 +172,11 @@ def c_lcmgcd():
         f"Find the smallest positive integer n with lcm(n,{p})={L} and gcd(n,{q})={G}.",
         f"For some positive integer n, lcm(n,{p}) equals {L} and gcd(n,{q}) equals {G}. What is the least possible n?",
         f"What is the minimum positive integer n satisfying both lcm(n,{p})={L} and gcd(n,{q})={G}?",
+        f"Determine the smallest n>0 such that lcm(n,{p})={L} while gcd(n,{q})={G}.",
+        f"An integer n satisfies lcm(n,{p})={L} and gcd(n,{q})={G}. Give the smallest n.",
+        f"The LCM of n and {p} is {L}, and the GCD of n and {q} is {G}. Find the least n.",
+        f"Smallest positive n with lcm(n, {p}) = {L} and gcd(n, {q}) = {G}?",
+        f"If lcm(n,{p})={L} and gcd(n,{q})={G} for a positive integer n, what is its minimum value?",
     ]), min(cand), "lcm_gcd_system")
 
 @concept("alternating_cubes",[46])
@@ -184,6 +189,11 @@ def c_altcubes():
         f"Find the alternating sum of cubes 2³-1³+4³-3³+...+{top}³-{top-1}³.",
         f"Compute the sum where each pair is (even)³-(previous odd)³, up to {top}³-{top-1}³.",
         f"Add the differences of consecutive cubes 2³-1³, 4³-3³, ..., {top}³-{top-1}³.",
+        f"Sum the series 2³-1³+4³-3³+...+{top}³-{top-1}³.",
+        f"Compute 2³-1³+4³-3³+6³-5³+...+{top}³-{top-1}³ as a single number.",
+        f"What is the value of the alternating cube sum 2³-1³+4³-3³+...+{top}³-{top-1}³?",
+        f"Evaluate the alternating cube sum that starts at 2³-1³ and ends with +{top}³-{top-1}³.",
+        f"Starting from 2³-1³ and continuing 4³-3³, 6³-5³, up to {top}³-{top-1}³, find the total.",
     ]), val, "alternating_cubes")
 
 @concept("complex_eq_solcount",[48])
@@ -195,6 +205,11 @@ def c_complexsol():
         f"How many complex z solve the equation z^{n} = conjugate of z?",
         f"Count the complex numbers z with z^{n} equal to its own conjugate.",
         f"The equation z^{n}=z̄ has how many complex solutions?",
+        f"Determine how many complex numbers z satisfy z^{n} = conjugate(z).",
+        f"For how many complex z does z^{n} equal the conjugate of z?",
+        f"How many solutions z in the complex numbers does z^{n} = z̄ have?",
+        f"Count the complex roots of z^{n} = conjugate(z).",
+        f"The number of complex z with z^{n} equal to the conjugate of z is what?",
     ]), n+2, "complex_eq_solcount")
 
 @concept("custom_binary_op",[22,34,68])
@@ -210,6 +225,11 @@ def c_customop():
         f"Using x⊕y = x+y+xy, evaluate {a}⊕{b}, then ⊕ that result with {c}, then ⊕ with {d}.",
         f"If a⊕b is defined as a+b+ab, what is (({a}⊕{b})⊕{c})⊕{d}?",
         f"With the rule x⊕y=x+y+xy, find the value of (({a}⊕{b})⊕{c})⊕{d}.",
+        f"Let x⊕y = x+y+xy. Starting with {a}⊕{b}, combine the result with {c}, then with {d}. What do you get?",
+        f"Given x⊕y=x+y+xy, compute ((({a}⊕{b})⊕{c})⊕{d}).",
+        f"The operation ⊕ satisfies x⊕y=x+y+xy. Evaluate (({a}⊕{b})⊕{c})⊕{d}.",
+        f"Define a⊕b=a+b+ab. Fold ⊕ left-to-right over {a}, {b}, {c}, {d} and give the result.",
+        f"With x⊕y=x+y+xy, what is {a}⊕{b}⊕{c}⊕{d} evaluated left to right?",
     ]), ans, "custom_binary_op")
 
 @concept("modular_exponent",[55])
@@ -224,6 +244,11 @@ def c_modexp():
         f"Compute the remainder of {a} raised to the {e} upon division by {m}.",
         f"{a}^{e} is divided by {m}. What is the remainder?",
         f"Evaluate {a}^{e} modulo {m}.",
+        f"When {a}^{e} is divided by {m}, what remainder is left?",
+        f"Determine the value of {a}^{e} mod {m}.",
+        f"A number equals {a} to the power {e}. What is its remainder modulo {m}?",
+        f"Calculate the remainder after dividing {a}^{e} by {m}.",
+        f"What is {a}^{e} reduced modulo {m}?",
     ]), ans, "modular_exponent")
 
 @concept("telescoping_mn",[14])
@@ -238,6 +263,11 @@ def c_tele():
         f"Sum 1/(k(k+{gap})) from k=1 to {N}; write it as m/n irreducible and report m+n.",
         f"Compute 1/(1·{1+gap})+...+1/({N}·{N+gap}) as m/n in lowest terms; what is m+n?",
         f"The series sum of 1/(k(k+{gap})), k up to {N}, equals m/n reduced. Find m+n.",
+        f"Evaluate the sum of 1/(k(k+{gap})) for k from 1 to {N}, written as m/n in lowest terms; find m+n.",
+        f"The sum of 1/(k(k+{gap})) over k=1 to {N} is m/n reduced. What is m+n?",
+        f"Adding 1/(k(k+{gap})) for k=1,2,...,{N} gives m/n in lowest terms. Report m+n.",
+        f"What is m+n if the sum of 1/(k(k+{gap})) for k=1 up to {N} equals m/n irreducible?",
+        f"Compute the total of 1/(k(k+{gap})) from k=1 to {N} as a reduced fraction m/n and give m+n.",
     ]), ans, "telescoping_mn")
 
 @concept("perfect_square_divisible",[59])
@@ -252,6 +282,11 @@ def c_psqdiv():
         f"How many squares of integers, each under {limit}, are divisible by {div}?",
         f"Count the perfect squares less than {limit} divisible by {div}.",
         f"Of the perfect squares below {limit}, how many are multiples of {div}?",
+        f"How many perfect squares smaller than {limit} are evenly divisible by {div}?",
+        f"Determine how many perfect squares below {limit} are divisible by {div}.",
+        f"Among all perfect squares under {limit}, how many can be divided by {div}?",
+        f"How many perfect-square integers less than {limit} have {div} as a factor?",
+        f"Of all the perfect squares that are less than {limit}, how many are divisible by {div}?",
     ]), cnt, "perfect_square_divisible")
 
 # ===================================================================
@@ -281,6 +316,11 @@ def c_subsets():
         f"Count the 3-element subsets of the first {n} positive integers{consphrase} with sum ≡ {mv} (mod {mod}).",
         f"How many size-3 subsets of {{1..{n}}} have sum ≡ {mv} mod {mod}{consphrase}?",
         f"How many 3-element subsets of {{1..{n}}} sum to {mv} more than a multiple of {mod}{consphrase}?",
+        f"How many 3-element subsets of {{1,...,{n}}} have a sum congruent to {mv} modulo {mod}{consphrase}?",
+        f"From the set {{1,...,{n}}}, how many 3-element subsets have sum ≡ {mv} (mod {mod}){consphrase}?",
+        f"Count the 3-subsets of {{1,...,{n}}} whose elements sum to {mv} modulo {mod}{consphrase}.",
+        f"How many ways are there to pick a 3-element subset of {{1..{n}}} with sum leaving remainder {mv} on division by {mod}{consphrase}?",
+        f"Of all 3-element subsets of {{1,...,{n}}}, how many have sum ≡ {mv} mod {mod}{consphrase}?",
     ]), cnt, "constrained_subset_count")
 
 @concept("ordered_triple_constraint",[21,47])
@@ -298,6 +338,11 @@ def c_triples():
         f"In how many ways can {N} be written as a+b+c with 0≤a<b<c (integers)?",
         f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {N}?",
         f"Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c={N}.",
+        f"How many integer triples (a,b,c) with 0≤a<b<c have sum a+b+c equal to {N}?",
+        f"Find the number of triples (a,b,c) of integers satisfying 0≤a<b<c and a+b+c={N}.",
+        f"For how many integer triples (a,b,c) with 0≤a<b<c does a+b+c={N}?",
+        f"Determine how many triples (a,b,c) of integers with 0≤a<b<c add up to {N}.",
+        f"Count the ways to choose integers a, b, c with 0≤a<b<c and a+b+c={N}.",
     ]), cnt, "ordered_triple_constraint")
 
 
@@ -379,6 +424,11 @@ def c_trifilter():
         f"Count the triangular numbers under {lim} that are divisible by {k}.",
         f"The triangular numbers are 1, 3, 6, 10, .... How many below {lim} are multiples of {k}?",
         f"How many of the triangular numbers less than {lim} are divisible by {k}?",
+        f"How many triangular numbers below {lim} are divisible by {k}?",
+        f"Count how many triangular numbers under {lim} are multiples of {k}.",
+        f"Of the triangular numbers less than {lim}, how many are divisible by {k}?",
+        f"Determine how many triangular numbers below {lim} are divisible by {k}.",
+        f"Among the triangular numbers less than {lim}, how many are multiples of {k}?",
     ]), cnt, "triangular_filter_count")
 
 @concept("geo_first_exceed",[7])
@@ -409,6 +459,11 @@ def c_incexc3():
         f"Of the numbers 1 through {U}, how many are multiples of {a}, {b}, or {c}?",
         f"How many positive integers up to {U} are divisible by {a}, {b}, or {c}?",
         f"In the range 1 to {U}, how many integers are divisible by {a}, {b}, or {c}?",
+        f"Among the first {U} positive integers, how many are divisible by {a}, {b}, or {c}?",
+        f"A list contains every integer from 1 to {U}. How many entries are divisible by {a}, {b}, or {c}?",
+        f"How many numbers between 1 and {U} inclusive are a multiple of {a}, {b}, or {c}?",
+        f"Find the count of integers n with 1 <= n <= {U} that are divisible by {a}, {b}, or {c}.",
+        f"From 1 up to and including {U}, how many integers have {a}, {b}, or {c} as a divisor?",
     ]), v, "inclusion_exclusion_3set")
 
 @concept("multi_constraint_square",[59])
@@ -425,6 +480,11 @@ def c_msquare():
         f"Of perfect squares under {limit}, how many are divisible by {d} and end in {last}?",
         f"How many squares less than {limit} are both divisible by {d} and ending in {last}?",
         f"Find the count of perfect squares < {limit} that are divisible by {d} and have units digit {last}.",
+        f"How many perfect squares below {limit} are divisible by {d} and end with the digit {last}?",
+        f"Count perfect squares less than {limit} that are multiples of {d} and end in {last}.",
+        f"Of all perfect squares under {limit}, how many are divisible by {d} and have last digit {last}?",
+        f"How many squares smaller than {limit} are divisible by {d} and end in the digit {last}?",
+        f"Determine how many perfect squares below {limit} are both multiples of {d} and end in {last}.",
     ]), cnt, "multi_constraint_square")
 
 @concept("vieta_sumcubes",[6,31])
@@ -474,6 +534,11 @@ def c_loglaws():
         f"Evaluate log_{base}({base}^{e1} · {base}^{e2}) - log_{base}({base}^{e3}).",
         f"What is log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3})?",
         f"Simplify log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}) to an integer.",
+        f"Determine log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}).",
+        f"Combine using log laws: log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3}).",
+        f"Reduce log_{base}({base}^{e1} · {base}^{e2}) - log_{base}({base}^{e3}) to an integer.",
+        f"Using the product and quotient rules, evaluate log_{base}({base}^{e1} · {base}^{e2} / {base}^{e3}).",
+        f"What integer equals log_{base}({base}^{e1}) + log_{base}({base}^{e2}) - log_{base}({base}^{e3})?",
     ]), _loglaws_gold(e1,e2,e3), "log_laws")
 
 @concept("infinite_product_exp",[20])
@@ -509,6 +574,11 @@ def c_rou():
         f"Count the complex numbers z with z^{n}=1 and z^{m}=1.",
         f"How many values of z satisfy both z^{n}=1 and z^{m}=1?",
         f"The {n}th roots of unity and the {m}th roots of unity share how many common values?",
+        f"How many complex numbers are both {n}th roots of unity and {m}th roots of unity?",
+        f"Find the number of z with z^{n}=1 and z^{m}=1 simultaneously.",
+        f"How many complex z are common to the {n}th roots of unity and the {m}th roots of unity?",
+        f"Count the z satisfying both z^{n}=1 and z^{m}=1.",
+        f"How many complex numbers are simultaneously roots of z^{n}=1 and z^{m}=1?",
     ]), ans, "roots_of_unity_sum")
 
 @concept("complex_modulus_power",[68,13])
@@ -536,6 +606,11 @@ def c_cmod(_cands=[]):
         f"Over all representations of {N} as a²+b² with 0<a≤b, what is the total of (a+b)?",
         f"Sum a+b over all positive-integer pairs (a≤b) with a²+b²={N}.",
         f"How much is the combined total of a+b across all pairs of positive integers a≤b where a²+b²={N}?",
+        f"Add up a+b over every pair of positive integers a≤b satisfying a²+b²={N}.",
+        f"For each way to write {N} as a²+b² with positive integers a≤b, sum a+b; what is the total?",
+        f"What is the total of (a+b) taken over all positive-integer pairs a≤b with a²+b²={N}?",
+        f"Consider all positive integers a≤b with a²+b²={N}; report the sum of a+b across them.",
+        f"Summing a+b over each positive-integer solution (a≤b) of a²+b²={N} gives what value?",
     ]), ans, "complex_modulus_power")
 
 @concept("complement_prob_mn",[24,61])
@@ -554,6 +629,11 @@ def c_compprob():
         f"Rolling a {faces}-sided die, find the minimum number of rolls so P(a chosen face appears) > {thr.numerator}/{thr.denominator}.",
         f"For a {faces}-sided die, what is the least roll count making the probability of at least one specified face exceed {thr.numerator}/{thr.denominator}?",
         f"How many rolls of a {faces}-sided die are needed before the probability of a specific face first surpasses {thr.numerator}/{thr.denominator}?",
+        f"A fair {faces}-sided die is rolled repeatedly; how many rolls until the probability of a chosen face appearing at least once first exceeds {thr.numerator}/{thr.denominator}?",
+        f"What is the smallest number of rolls of a {faces}-sided die for which the chance a specific face has appeared first tops {thr.numerator}/{thr.denominator}?",
+        f"Roll a {faces}-sided die repeatedly. The fewest rolls making P(a particular face appears) exceed {thr.numerator}/{thr.denominator} is what?",
+        f"How many rolls of a {faces}-sided die are required for the probability of seeing one specified face to first go above {thr.numerator}/{thr.denominator}?",
+        f"Determine the minimum rolls of a {faces}-sided die so that the probability a given face shows up at least once exceeds {thr.numerator}/{thr.denominator}.",
     ]), r, "complement_prob_mn")
 
 
@@ -576,6 +656,11 @@ def c_boxdiag():
         f"Let the edges of a box be the three smallest numbers (by value) having exactly {k} positive divisors. Compute the square of the space diagonal.",
         f"A rectangular box has edges equal to the smallest three integers (smallest by value) each with exactly {k} divisors. What is the squared length of its diagonal?",
         f"Take the three smallest integers (by value) with exactly {k} divisors as a box's dimensions. What is the square of its space diagonal?",
+        f"A rectangular box's edges are the three smallest positive integers that each have exactly {k} divisors. Find the square of its space diagonal.",
+        f"The three smallest integers with exactly {k} divisors each are used as a box's edge lengths. What is d², where d is the space diagonal?",
+        f"Form a box whose dimensions are the smallest three positive integers having exactly {k} divisors. Compute the square of its space diagonal.",
+        f"If a box's edges are the three least integers (by value) each with exactly {k} divisors, what is the square of its space diagonal?",
+        f"A box has edge lengths equal to the three smallest numbers that each have exactly {k} divisors. Give the square of the space diagonal.",
     ]), a*a+b*b+c*c, "box_diagonal_sq")
 
 @concept("trapezoid_area",[67,30])
@@ -702,6 +787,11 @@ def c_ppdiv():
         f"The smallest number whose divisor count is exactly {D} — what is it?",
         f"Determine the minimum positive integer that has precisely {D} divisors.",
         f"What is the smallest integer n such that n has exactly {D} positive divisors?",
+        f"Which is the smallest positive integer having exactly {D} divisors?",
+        f"Find the smallest n>0 whose number of positive divisors is exactly {D}.",
+        f"What is the least positive integer that has exactly {D} divisors in total?",
+        f"Identify the smallest positive integer with a divisor count of exactly {D}.",
+        f"Give the smallest positive integer possessing exactly {D} positive divisors.",
     ]), n, "prime_power_divisors")
 
 @concept("arith_series_sum",[72])
@@ -796,15 +886,20 @@ def c_contfrac():
     for _ in range(depth-1):
         f=a+1/f
     ans=f.numerator+f.denominator
-    explicit=str(a)                          # depth-correct nested form (was: a ternary that
-    for _ in range(depth-1):                 # rendered a 3-level fraction for depth==5 while the
-        explicit=f"{a}+1/({explicit})"       # gold was the 5-level value -> wrong text vs gold)
+    explicit=str(a)                                  # depth-correct nested form (v11/12 framing-1
+    for _ in range(depth-1):                         # bug: ternary showed a 3-level fraction for
+        explicit=f"{a}+1/({explicit})"               # depth==5 while the gold was the 5-level value)
     return (random.choice([
         f"The value of {explicit} is m/n in lowest terms. What is m+n?",
         f"Write the continued fraction with {depth} levels of {a} (i.e. {a}+1/({a}+1/(...))) as a reduced fraction m/n; find m+n.",
         f"A continued fraction repeats {a} for {depth} levels. Expressed as m/n in lowest terms, what is m+n?",
         f"Evaluate the nested fraction {a}+1/({a}+1/(...)) with {depth} total {a}'s as m/n irreducible; report m+n.",
         f"The {depth}-level continued fraction built from {a} equals m/n reduced. What is m+n?",
+        f"The continued fraction with {depth} levels of {a} equals m/n in lowest terms. Find m+n.",
+        f"A nested fraction repeats {a} across {depth} levels; as m/n reduced, what is m+n?",
+        f"Express the {depth}-level continued fraction built from {a} as m/n irreducible and give m+n.",
+        f"Compute m+n where the continued fraction with {depth} total copies of {a} equals m/n in lowest terms.",
+        f"Built from {a} repeated over {depth} levels, the continued fraction equals m/n in lowest terms; report m+n.",
     ]), ans, "continued_fraction")
 
 # ===================================================================
@@ -879,6 +974,11 @@ def c_digitconstraint():
         f"Among the numbers {lo} through {hi-1}, how many have digits that add up to {target}?",
         f"How many integers between {lo} and {hi-1} (inclusive of {lo}) have a digit sum of {target}?",
         f"Find the count of integers in the range {lo} to {hi-1} with digit sum equal to {target}.",
+        f"How many integers from {lo} to {hi-1} have digit sum exactly {target}?",
+        f"Count integers x with {lo} ≤ x ≤ {hi-1} whose digits sum to {target}.",
+        f"Of the integers {lo} through {hi-1}, how many have digit sum {target}?",
+        f"How many whole numbers in [{lo}, {hi-1}] have digits adding to {target}?",
+        f"Find how many integers between {lo} and {hi-1} inclusive have a digit sum of {target}.",
     ]), cnt, "constrained_digit_count")
 
 @concept("equalization_fraction",[65])
@@ -894,6 +994,11 @@ def c_equalize():
         f"You have {g} equal glasses, {g-1} full and one {fn} full. The fraction poured from each full glass to equalize is m/n in lowest terms; report m+n.",
         f"To equalize {g} glasses ({g-1} full, one {fn} full), you pour m/n of a glass from each full one. Find m+n in lowest terms.",
         f"With {g} glasses, {g-1} full and one at {fn}, the equalizing pour from each full glass is m/n irreducible. What is m+n?",
+        f"There are {g} equal glasses: {g-1} are full and one is {fn} full. Pouring equally from each full glass to make all the same, the poured fraction is m/n in lowest terms. Find m+n.",
+        f"{g} identical glasses have {g-1} full and one {fn} full. The fraction poured from each full glass to equalize them, reduced to m/n, gives what m+n?",
+        f"To level {g} glasses where {g-1} are full and one is {fn} full, you pour the same fraction m/n from each full glass. In lowest terms, what is m+n?",
+        f"With {g} glasses ({g-1} full, one {fn} full), equalizing requires pouring m/n of a glass from each full one. Give m+n in lowest terms.",
+        f"Among {g} equal glasses, {g-1} are full and one is {fn} full; the equalizing pour per full glass is m/n irreducible. What is m+n?",
     ]), ans, "equalization_fraction")
 
 @concept("algebraic_system_2eq",[44])
@@ -915,6 +1020,11 @@ def c_system():
         f"Three equations: {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}. What is x+y+z?",
         f"Given the system {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}, compute x+y+z.",
         f"Find x+y+z if {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, and {a3}x+{b3}y+{c3}z={d3}.",
+        f"The positive integers x, y, z solve {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, and {a3}x+{b3}y+{c3}z={d3}. Determine x+y+z.",
+        f"What is x+y+z for the positive-integer solution of {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}?",
+        f"A system reads {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}. For positive integers x,y,z, find x+y+z.",
+        f"If {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, and {a3}x+{b3}y+{c3}z={d3} with x,y,z positive integers, what is x+y+z?",
+        f"For positive integers satisfying {a1}x+{b1}y+{c1}z={d1}, {a2}x+{b2}y+{c2}z={d2}, {a3}x+{b3}y+{c3}z={d3}, give the value of x+y+z.",
     ]), x+y+z, "algebraic_system_2eq")
 
 @concept("unit_conversion_area",[77])
@@ -967,6 +1077,11 @@ def c_lattice():
         f"How many points with integer coordinates lie within distance {R} of the origin?",
         f"Find the number of integer points (x,y) with x²+y² ≤ {R*R}.",
         f"How many lattice points are inside or on a circle of radius {R} about the origin?",
+        f"How many lattice points (x,y) lie inside or on the circle x²+y²={R}²?",
+        f"Count the integer-coordinate points within or on a circle of radius {R} centered at the origin.",
+        f"How many integer points lie within distance {R} of the origin (including the boundary)?",
+        f"Count the integer points (x,y) on or inside the circle of radius {R} around the origin.",
+        f"How many lattice points satisfy x² + y² ≤ {R}²?",
     ]), cnt, "lattice_points_circle")
 
 @concept("count_pythagorean",[66,76])
@@ -984,6 +1099,11 @@ def c_countpythag():
         f"How many Pythagorean triples (a,b,c) with a≤b have c ≤ {H}?",
         f"Find the number of integer-sided right triangles whose hypotenuse is at most {H}.",
         f"How many right triangles with whole-number sides have hypotenuse no more than {H}?",
+        f"How many integer right triangles have a hypotenuse that is at most {H}?",
+        f"Count the right triangles with whole-number sides whose longest side is at most {H}.",
+        f"How many Pythagorean triples have a hypotenuse no greater than {H}?",
+        f"Determine the number of integer-sided right triangles with hypotenuse ≤ {H}.",
+        f"How many right triangles with integer sides have hypotenuse at most {H}?",
     ]), cnt, "count_pythagorean")
 
 def build(per):
@@ -996,132 +1116,6 @@ def build(per):
             if r is None: continue
             add(r[0],r[1],name)
             made+=1
-
-
-# ===================================================================
-# DEPTH-1 CHAINING (diverse targets) — one factory, multi-input targets, 47 chains.
-# Each chain feeds a FEEDER concept's answer V into ONE input of a MULTI-INPUT target,
-# letting the target's OTHER inputs supply independent entropy so the composite answer stays
-# diverse (single-input targets collapse to ~one answer). Targets + the 47-feeder assignment
-# come from tools/scan_chain_targets.py (top3<=0.30; EVERY one of the 47 concepts appears as a
-# feeder; modexp used only where a feeder fits no other target's envelope). Surface is
-# embed-not-announce: "Let V be the answer to: <sub-question>. <target question using V>".
-# Gold = the feeder's own oracle (V) fed into the target oracle -> exact by construction.
-# AMC-targeting dropped by design (general composition, not #55/#75). check_dataset text
-# recomputers + knob-wiring deferred (construction-verified; calib is curriculum-gated).
-# ===================================================================
-def _feeder(name): return next(f for nm,f,_ in REGISTRY if nm==name)
-
-# adapter(V, kn) -> (answer|None, clause): draws the target's OTHER inputs from the chain's
-# knob file kn (int params; fraction/triple params stay inline). Clause embeds V SYMBOLICALLY
-# (the model must compute V first); answer uses the actual V. kn = K["chain_<feeder>__<target>"].
-def _a_modexp_base(V, kn):
-    k=kn.randint("k"); m=kn.randint("m")
-    return (pow(V,k,m), f"What is the remainder when V^{k} is divided by {m}?")
-def _a_modexp_exp(V, kn):
-    a=kn.choice("a"); m=kn.randint("m")
-    return (pow(a,V,m), f"What is the remainder when {a}^V is divided by {m}?")
-def _a_algebraic_x(V, kn):
-    y=kn.randint("y"); z=kn.randint("z")
-    a1=kn.randint("coef"); b1=kn.randint("coef"); c1=kn.randint("coef")
-    a2=kn.randint("coef"); b2=kn.randint("coef"); c2=kn.randint("coef")
-    if b1*c2-b2*c1==0: return (None,"")
-    d1=a1*V+b1*y+c1*z; d2=a2*V+b2*y+c2*z
-    return (V+y+z, f"Positive integers x, y, z satisfy x=V, {a1}x+{b1}y+{c1}z={d1}, and {a2}x+{b2}y+{c2}z={d2}. Find x+y+z.")
-def _a_telescoping_N(V, kn):
-    gap=kn.choice("gap"); s=sum(Fraction(1,k*(k+gap)) for k in range(1,V+1))
-    return (s.numerator+s.denominator, f"Compute the sum of 1/(k(k+{gap})) for k=1 to V as a reduced fraction m/n; find m+n.")
-def _a_digit_target(V, kn):
-    lo=kn.choice("lo"); hi=lo+kn.choice("span")
-    return (sum(1 for x in range(lo,hi) if sum(int(c) for c in str(x))==V),
-            f"How many integers from {lo} to {hi-1} have digits summing to exactly V?")
-def _a_ie3_U(V, kn):
-    a,b,c=sorted(random.sample([2,3,4,5,6,7],3))
-    return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
-            f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
-def _a_perfsq_limit(V, kn):
-    div=kn.choice("div"); rd=int(div**0.5); cnt=0; k=1
-    while (rd*k)**2<V: cnt+=1; k+=1
-    return (cnt, f"How many perfect squares less than V are divisible by {div}?")
-def _a_multisquare_limit(V, kn):
-    d=kn.choice("d"); last=kn.choice("last"); cnt=0; k=1
-    while k*k<V:
-        if (k*k)%d==0 and (k*k)%10==last: cnt+=1
-        k+=1
-    return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
-def _a_equalize_g(V, kn):
-    if V<3: return (None,"")
-    fn=random.choice([Fraction(1,3),Fraction(1,2),Fraction(1,4),Fraction(2,3),Fraction(3,4),
-                      Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),Fraction(5,6),
-                      Fraction(3,8),Fraction(5,8)])
-    pour=1-((V-1)+fn)/V
-    return (pour.numerator+pour.denominator,
-            f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")
-def _a_complement_faces(V, kn):
-    if V<3: return (None,"")
-    thr=random.choice([Fraction(2,3),Fraction(3,4),Fraction(4,5)]); r=1
-    while 1-Fraction((V-1)**r,V**r)<=thr:
-        r+=1
-        if r>60: return (None,"")
-    return (r, f"A V-sided die is rolled repeatedly. What is the fewest rolls so the probability a specific face appears at least once first exceeds {thr.numerator}/{thr.denominator}?")
-
-# tkey -> (adapter, target_concept, fed_input_label, fed_lo, fed_hi)
-_ADAPT={
- "modexp_base":(_a_modexp_base,"modular_exponent","base",2,10**12),
- "modexp_exp":(_a_modexp_exp,"modular_exponent","exponent",2,40),
- "algebraic_x":(_a_algebraic_x,"algebraic_system_2eq","x",1,60),
- "telescoping_N":(_a_telescoping_N,"telescoping_mn","N",3,30),
- "digit_target":(_a_digit_target,"constrained_digit_count","digit_sum_target",5,27),
- "ie3_U":(_a_ie3_U,"inclusion_exclusion_3set","U",60,9000),
- "perfsq_limit":(_a_perfsq_limit,"perfect_square_divisible","limit",300,200000),
- "multisquare_limit":(_a_multisquare_limit,"multi_constraint_square","limit",600,80000),
- "equalize_g":(_a_equalize_g,"equalization_fraction","g",3,14),
- "complement_faces":(_a_complement_faces,"complement_prob_mn","faces",3,30),
-}
-# feeder -> tkey  (tools/scan_chain_targets.py; covers all 47 concepts as feeders)
-_DIVERSE_CHAINS={
- "algebraic_system_2eq":"modexp_base","alternating_cubes":"multisquare_limit",
- "arith_series_sum":"digit_target","arith_term_filter":"digit_target",
- "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"telescoping_N",
- "complex_eq_solcount":"equalize_g","complex_modulus_power":"digit_target",
- "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
- "constrained_subset_count":"complement_faces","continued_fraction":"ie3_U",
- "count_obtuse_triangles":"equalize_g","count_pythagorean":"algebraic_x",
- "custom_binary_op":"perfsq_limit","digit_count_bigprod":"complement_faces",
- "distinct_product_count":"modexp_base","divisor_sum_filter":"modexp_base",
- "equalization_fraction":"digit_target","frobenius_stamps":"telescoping_N",
- "geo_first_exceed":"equalize_g","inclusion_exclusion_3set":"modexp_base",
- "infinite_product_exp":"modexp_base","lattice_points_circle":"ie3_U",
- "lcm_gcd_system":"ie3_U","log_laws":"complement_faces","mean_removal":"modexp_base",
- "modular_exponent":"ie3_U","multi_constraint_square":"algebraic_x",
- "ordered_triple_constraint":"digit_target","percent_compound":"algebraic_x",
- "perfect_square_divisible":"telescoping_N","point_rotation":"modexp_exp",
- "poly_remainder":"telescoping_N","polynomial_sign_intervals":"algebraic_x",
- "primality_in_sequence":"equalize_g","prime_power_divisors":"perfsq_limit",
- "rate_closing":"telescoping_N","roots_of_unity_sum":"equalize_g",
- "sum_of_squares":"complement_faces","telescoping_mn":"perfsq_limit",
- "three_number_system":"ie3_U","trapezoid_area":"algebraic_x",
- "triangular_filter_count":"algebraic_x","unit_conversion_area":"perfsq_limit",
- "vieta_pair_count":"algebraic_x","vieta_sumcubes":"ie3_U",
-}
-def _register_diverse_chain(feeder,tkey):
-    adapt,tconcept,flabel,flo,fhi=_ADAPT[tkey]
-    cname=f"chain_{feeder}__{tconcept}"
-    @concept(cname,[])
-    def _gen(_f=feeder,_ad=adapt,_lo=flo,_hi=fhi,_t=tconcept,_fl=flabel,_cn=cname):
-        sub=_feeder(_f)()
-        if sub is None or not isinstance(sub[1],int): return None
-        V=sub[1]
-        if not (_lo<=V<=_hi): return None
-        ans,clause=_ad(V, K[_cn])
-        if not isinstance(ans,int) or ans<2: return None
-        q=sub[0].strip().rstrip(".")
-        prob=f"Let V be the answer to this problem.\n“{q}”\n{clause}"
-        meta={"depth":1,"chain":{"components":[_f,_t],"fed_param":_fl,"intermediate_gold":V}}
-        return (prob,ans,_cn,meta)
-    return _gen
-for _f,_tk in _DIVERSE_CHAINS.items():
-    _register_diverse_chain(_f,_tk)
 
 
 def main():

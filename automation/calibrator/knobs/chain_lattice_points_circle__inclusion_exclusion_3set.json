@@ -1,0 +1,9 @@
+{
+  "components": [
+    "lattice_points_circle",
+    "inclusion_exclusion_3set"
+  ],
+  "fed_param": "U",
+  "params": {},
+  "locked": false
+}

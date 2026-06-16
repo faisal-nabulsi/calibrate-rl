@@ -1,0 +1,26 @@
+{
+  "components": [
+    "telescoping_mn",
+    "perfect_square_divisible"
+  ],
+  "fed_param": "limit",
+  "params": {
+    "div": {
+      "value": [
+        4,
+        9,
+        16,
+        25,
+        36,
+        49
+      ],
+      "type": "choice",
+      "envelope": [
+        4,
+        49
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

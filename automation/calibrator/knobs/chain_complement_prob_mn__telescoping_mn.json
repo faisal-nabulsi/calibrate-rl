@@ -1,0 +1,26 @@
+{
+  "components": [
+    "complement_prob_mn",
+    "telescoping_mn"
+  ],
+  "fed_param": "N",
+  "params": {
+    "gap": {
+      "value": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        8
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

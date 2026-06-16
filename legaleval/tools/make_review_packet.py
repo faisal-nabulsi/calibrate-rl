@@ -7,7 +7,7 @@ grade, and blank "Attorney verdict / reasoning" fields. Ends with design questio
 
 Usage:
     python -m tools.make_review_packet runs/<run_id> [--judge claude-opus-4-8]
-        [--cross gpt-5.5-pro] [--out ~/Desktop]
+        [--cross gpt-5.5] [--out ~/Desktop]
 """
 
 import argparse
@@ -61,7 +61,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("run_dir", type=Path)
     ap.add_argument("--judge", default="claude-opus-4-8")
-    ap.add_argument("--cross", default="gpt-5.5-pro")
+    ap.add_argument("--cross", default="gpt-5.5")
     ap.add_argument("--out", default="~/Desktop")
     a = ap.parse_args()
     run = a.run_dir
