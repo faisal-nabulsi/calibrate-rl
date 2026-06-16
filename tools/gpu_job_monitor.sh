@@ -99,8 +99,8 @@ done
 # Unclaimed-handoff check: a spec in pending/<agent>/ while that agent's box is
 # RUNNING (>10 min) means the boot poller never claimed it — the silent failure
 # mode of 2026-06-12. Page a human; do NOT suggest stopping (a job is queued!).
-declare -A AGENT_BOX=( [sam]=i-065bb6d4bcea507db [sadie]=i-05c7938e1c6711370 [awesome-ash]=i-07455ba55e473769d )
-for a in sam sadie awesome-ash; do
+declare -A AGENT_BOX=( [sam]=i-065bb6d4bcea507db [sadie]=i-05c7938e1c6711370 [sage]=i-0161b1d0bc48ede12 [awesome-ash]=i-07455ba55e473769d )
+for a in sam sadie sage awesome-ash; do
   spec=$(aws s3 ls "s3://calibrate-rl-agent/pending/$a/" 2>/dev/null | awk '$NF ~ /\.json$/ {print $NF}' | head -1)
   [ -z "$spec" ] && continue
   read -r bst blaunch <<< "$(aws ec2 describe-instances --instance-ids ${AGENT_BOX[$a]} --query 'Reservations[0].Instances[0].[State.Name,LaunchTime]' --output text 2>/dev/null)"
