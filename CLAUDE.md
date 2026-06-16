@@ -511,20 +511,22 @@ the campaign-build shakeout → DAILY LOG 06-16.)
       (v13 chain-strip + the divisor_sum→modexp top3 fix already done in #78.)
 - [ ] [depth-1 NEXT — curriculum-gated] depth-1 calibration needs the **depth-0-trained model**
       (sequential curriculum), which doesn't exist yet. Path: (1) settle the depth-0 "final run"
-      decision (gated on michael's concept-transfer by-framing analysis); (2) calibrate the 3
-      composites to goldilocks **against the depth-0 model**; (3) build the depth-1 train set + train
+      decision (gated on the by-framing analysis above); (2) calibrate the 47 chains to goldilocks
+      **against the depth-0 model** (the running campaign does this); (3) build the depth-1 train set + train
       ~300 steps; (4) **re-run this diagnostic post-training — did the gap close** (pass rises toward
       atom while atom stays high)? + AMC #21/#47/#55/#75 via `mean_pass_rate`, confirm partner-only
       set didn't regress.
-- [~] **47-chain depth-1 calibration — IN PROGRESS.** The autonomous campaign (sadie vs ckpt-40) is sampling
-      iter-1 of exactly this: (a) calibrate the 47 chains vs the depth-0 model + (b) build the combined pool.
-      Still open: (c) per-chain knob files (low value — num-class targets; chains calibrate by
-      sample+goldilocks-filter without knobs); (d) atomic recomputers for the ~18 partner feeders (UNCHECKED →
-      independently checked). v12 is the CANONICAL depth-1 generator (#78); do NOT sample chains from v13.
-- [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
-      does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
-      final depth-0 decision.
-- [ ] HOLD the big "final depth-0 run" until the concept-transfer eval result is in.
+- [~] **47-chain depth-1 calibration — IN PROGRESS** (campaign on sadie vs ckpt-40). All chain machinery is DONE
+      and on main: the 47-chain rebuild (#78), **(c) per-chain knob files** (47 at `automation/calibrator/knobs/
+      chain_*.json`), **(d) partner-feeder recomputers** (18 in `prep/check_dataset.py`), widen-to-41/47, and the
+      v13 chain-strip. The `feat/depth1-diverse-chains` branch is fully merged (squash-ancestry only made it LOOK
+      unmerged — `git diff main branch -- <chain files>` is empty) → safe to delete. Remaining = the campaign
+      calibrating + the #5 margin-check on iter-1's output. v12 is the CANONICAL depth-1 generator; not v13.
+- [ ] **concept-transfer by-framing — the discriminator gating the "final depth-0 run" decision.** sage is
+      GENERATING the by-framing data on ckpt-40 now (`concept_transfer_ckpt40`, v13's 10 framings); [michael]
+      does the analysis when it lands (the older #31 responses were on the 3-concept ckpt-108). Verdict = does
+      the +0.22 held-out gain transfer across wording (concept) or evaporate (template)? Until it's in, the
+      "final depth-0 run" stays HELD — likely moot anyway now that depth-0 is AMC-capped (#89).
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
