@@ -578,13 +578,9 @@ decision (Faisal wants it; Michael skeptical).
 
 ## TODO
 
-- [x] **[faisal] AMC-by-coverage on ckpt-40 → DONE (#89): depth-0 is CAPPED.** covered −0.057 (DOWN where trained),
-      partner_only/uncovered within the ±0.05 noise floor → no AMC transfer; held-out up + AMC flat = template
-      reliability, not concept skill. Commit to depth-1. BASE baseline #85, comparison `results/amc_coverage_base_vs_ckpt40.md`.
-- [x] **[faisal] provisioned sadie + sage** via the `setup` job (#83) + bnb-drop (#86) — both `PeftModel import clean`,
-      no SSH needed. ("max 2 L4s" was AZ capacity, not quota; quota 16 vCPU = 4 G-instances, 16→20 request open.)
-- [x] **[faisal] LAUNCHED the depth-1 calibration campaign** (sadie vs ckpt-40) after the env/infra shakeout
-      (#81/#82/#84/#86 + stale-output clear + capacity/transitional start retries). Sampling iter-1.
+> Completed items migrate to the DAILY LOG; this section is open/actionable work only. (This session's
+> done items — AMC-capped #89, sadie/sage provisioned, campaign launched — are in CURRENTLY DOING + the log.)
+
 - [ ] **[faisal] read the depth-0 TRIFECTA when the 3 L4 jobs land** — composition-gap diagnostic (sam: did depth-0
       strengthen the atoms for chaining?) + concept-transfer by-framing (sage: is the held-out gain wording-robust or
       template-bound?) + the AMC-capped finding (#89). Together = the complete depth-0 verdict.
@@ -598,18 +594,8 @@ decision (Faisal wants it; Michael skeptical).
       building the combined 47-chain pool, **margin-check the 6 thin chains' in-band yield**; if short, fix at calib
       via TARGET-side widening (NOT the depth-0 feeders — that desyncs v12 calib + run-2), quota-shrink, or reassign.
       (v13 chain-strip + the divisor_sum→modexp top3 fix already done in #78.)
-- [x] [gilbert] chaining pilot `chain_log_laws__ordered_triple_constraint` + `knobs/chain_*.json`
-      + pilot pool → **#41 merged** (#37/#38 also merged). Calibration deferred (curriculum-gated).
-- [x] [gilbert] knob-wire the 3 #55/#75 ingredients (`modular_exponent` / `divisor_sum_filter` /
-      `prime_power_divisors`) — knobs + equivalence test green → PR open.
-- [x] [gilbert] built the **#55/#75 composites** (feed-legal edges from `chain_compat_v2.json`):
-      `chain_constrained_divisor_count__modular_exponent` (#55) + `chain_prime_power_divisors__constrained_divisor_count`
-      (#75) → both PASS the static gate (golds 100%, dedupe ≥0.945, top3 ≤0.222) + recomputers +
-      120-row pools. On PR #42. Goldilocks calib still waits for the depth-0 model (curriculum).
-- [x] [gilbert] base composition-gap **DIAGNOSTIC analyzed + MERGED (#55)** (300×8@2048): feeder atom
-      79–98% but final much lower (gaps +0.33/+0.61/+0.19; overall pass 0.498); 24–61% compute step A
-      then fail the composite; P(pass|atom-miss)≈0 on two chains → composition is the ceiling, depth-1
-      justified. Findings `results/chain_depth1_base_diag_300_findings.md`, script `analysis/chain_composition_gap.py`.
+- [x] [gilbert] depth-1 plumbing — pilot #41, knob-wired #55/#75 ingredients, the two #55/#75 composites #42,
+      base composition-gap diagnostic #55 — ALL merged (full detail in DAILY LOG 06-11/06-12).
 - [ ] [depth-1 NEXT — curriculum-gated] depth-1 calibration needs the **depth-0-trained model**
       (sequential curriculum), which doesn't exist yet. Path: (1) settle the depth-0 "final run"
       decision (gated on michael's concept-transfer by-framing analysis); (2) calibrate the 3
@@ -617,43 +603,22 @@ decision (Faisal wants it; Michael skeptical).
       ~300 steps; (4) **re-run this diagnostic post-training — did the gap close** (pass rises toward
       atom while atom stays high)? + AMC #21/#47/#55/#75 via `mean_pass_rate`, confirm partner-only
       set didn't regress.
-- [x] orchestrator monitor extensions — **already in-repo** (`tools/gpu_job_monitor.sh`, the autocalib
-      cron): (a) faisal IS in the page recipients (line 37 = faisal+michael+gilbert); (b) the **continuous
-      idle/hang alarm** runs every 10 min over all RUNNING train/sample boxes (pages IDLE + log-stalled-hang
-      + unclaimed-handoff), catching boxes that go idle AFTER boot. Gap fixed this session: **sage added to the
-      unclaimed-handoff map** (was sam/sadie/ash only). REMAINING (michael/t3): confirm the DEPLOYED cron copy
-      matches the repo (the file notes it once lived only on the box, untracked) — deploy via `persona_sync`.
-- [ ] [boxes] optional: set `ESCALATE_SLACK_IDS` in `/etc/calibrate-rl-job.env` to add an on-call to pages.
-      **Low value as-is** — faisal/michael/gilbert ALREADY always page (NOTIFY + monitor MENTIONS + DEFAULT);
-      ESCALATE only adds someone BEYOND those three. Needs SSM-sudo per box + only affects the NEXT job. Skip
-      unless there's a specific extra on-call ID.
-- [x] [faisal] depth-1 **chain set rebuilt for diversity + full coverage (#78)**: 47 chains, 9 distinct
-      targets (modexp 20/22→5/47), every one of the 47 concepts is a feeder once. Replaces the old
-      wave-1/2/3 + value chains. Diversity rule = **multi-input target**. `verify_diverse_chains.py` 47/47,
-      0 gold-mismatch; `check_dataset.py` chain recomputers (independent via the feeder's atomic recomputer)
-      0 bad. **AMC-targeting dropped by design** (§6 superseded). **v12 is now the CANONICAL depth-1
-      generator; v13 is the parked depth-0 phrasing copy and still holds the OLD chains — do NOT sample
-      chains from v13.**
-      Status: (a) goldilocks-calibrate the 47 chains vs the depth-0 model + (b) build the combined 47-chain
-      pool are **IN PROGRESS NOW** — the autonomous campaign (sadie vs ckpt-40) is sampling iter-1 of exactly
-      this (pool built + gated → 250×8@2048 → analyze → edit → loop). Still open: (c) per-chain knob files +
-      adapter knob-wiring (target params are num-class so calibrator can't auto-widen them — low value; chains
-      calibrate by sample+goldilocks-filter without knobs); (d) atomic recomputers for the ~18 partner feeders
-      so their chains move from UNCHECKED → independently checked.
+- [~] **47-chain depth-1 calibration — IN PROGRESS.** The autonomous campaign (sadie vs ckpt-40) is sampling
+      iter-1 of exactly this: (a) calibrate the 47 chains vs the depth-0 model + (b) build the combined pool.
+      Still open: (c) per-chain knob files (low value — num-class targets; chains calibrate by
+      sample+goldilocks-filter without knobs); (d) atomic recomputers for the ~18 partner feeders (UNCHECKED →
+      independently checked). v12 is the CANONICAL depth-1 generator (#78); do NOT sample chains from v13.
 - [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
       does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
       final depth-0 decision.
-- [x] **v12 train-set build + depth-0 training kickoff → DONE.** `data/v12_train.json` (449 train / 79
-      holdout / 90 reserve, commit `3742c38`) was built from the v12 calib and TRAINED → `runs/v12_depth0_run2/`
-      (checkpoints 10–90). **ckpt-40 is the depth-1 base.** This is the depth-0 model the whole depth-1
-      curriculum was waiting on — it exists.
-- [~] **v12 full 775 calibration — effectively MOOT for the depth-0 we use.** The 500-pass (`calib_v12_2048_7B.json`,
-      #22) that seeded the 449 train set is done; the extra 275 was sampled (`runs/v12_remaining_275/`). But
-      depth-0 run-2 trained on the 449-set from the 500-calib, so the full 775 was a prerequisite for a *bigger*
-      run that got overtaken. Only relevant if the held "final depth-0 run" goes ahead; not a blocker now.
 - [ ] HOLD the big "final depth-0 run" until the concept-transfer eval result is in.
-- [ ] [michael] close the **legacy-role hole** from the 06-11 self-stop incident
-      (guardrail proposed; charizard confirmed still open).
+- [x] **depth-0 TRAINING done → ckpt-40** (anchor) — `runs/v12_depth0_run2/` (checkpoints 10–90), trained on
+      `data/v12_train.json` (449/79/90, commit `3742c38`). ckpt-40 = the depth-1 base. The v12 full-775 calib is
+      **moot** for this model (it trained on the 500-calib-derived 449-set); only matters if the held bigger
+      "final depth-0 run" happens.
+- [x] **legacy-role self-stop hole CLOSED** (06-11 incident) — `deny-self-stop` inline policy on
+      `parena-prod-ec2-role` explicitly Denies Stop/Terminate on the prod box's own ARN (Deny > Allow). The box
+      can still stop the GPU boxes (orchestration intact) but cannot kill itself.
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
