@@ -509,13 +509,11 @@ the campaign-build shakeout → DAILY LOG 06-16.)
       building the combined 47-chain pool, **margin-check the 6 thin chains' in-band yield**; if short, fix at calib
       via TARGET-side widening (NOT the depth-0 feeders — that desyncs v12 calib + run-2), quota-shrink, or reassign.
       (v13 chain-strip + the divisor_sum→modexp top3 fix already done in #78.)
-- [ ] [depth-1 NEXT — curriculum-gated] depth-1 calibration needs the **depth-0-trained model**
-      (sequential curriculum), which doesn't exist yet. Path: (1) settle the depth-0 "final run"
-      decision (gated on the by-framing analysis above); (2) calibrate the 47 chains to goldilocks
-      **against the depth-0 model** (the running campaign does this); (3) build the depth-1 train set + train
-      ~300 steps; (4) **re-run this diagnostic post-training — did the gap close** (pass rises toward
-      atom while atom stays high)? + AMC #21/#47/#55/#75 via `mean_pass_rate`, confirm partner-only
-      set didn't regress.
+- [ ] **[depth-1 NEXT — the payoff] train depth-1 + validate.** Gated on the 47-chain calibration converging
+      (the campaign above). ckpt-40 (depth-0) EXISTS — curriculum prereq met. (1) build the depth-1 train set
+      from the calibrated 47-chain pool → train ~300 steps off ckpt-40; (2) **re-run the composition-gap
+      diagnostic post-training — did the gap close** (composite pass rises toward the atom while atom stays
+      high)? + AMC #21/#47/#55/#75 via `mean_pass_rate`, confirm partner-only set didn't regress.
 - [~] **47-chain depth-1 calibration — IN PROGRESS** (campaign on sadie vs ckpt-40). All chain machinery is DONE
       and on main: the 47-chain rebuild (#78), **(c) per-chain knob files** (47 at `automation/calibrator/knobs/
       chain_*.json`), **(d) partner-feeder recomputers** (18 in `prep/check_dataset.py`), widen-to-41/47, and the
