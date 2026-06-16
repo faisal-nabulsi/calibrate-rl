@@ -10,7 +10,9 @@
 #                   no GPU work, no S3 upload, no Slack posts, no shutdown
 #
 # job.json spec fields:
-#   type        "sample" | "train" — routes to tools/sample.py or train/train_grpo.py
+#   type        "sample" | "train" | "setup" — sample/train route to tools/sample.py or
+#               train/train_grpo.py; setup runs tools/provision_box.sh to build the box's
+#               rl-venv (how the queue-only L4s sam/sadie/sage get provisioned — no SSH/SSM)
 #   concepts    optional list — sample only: build the pool first with
 #               prep/gen_clean.py (one call per concept, merged)
 #   n           sample: N_PROBLEMS (problems to calibrate)
@@ -146,7 +148,7 @@ PY
 eval "$PARSED"
 
 LOG_URI="${OUTPUT_URI%/}.log"
-case "$JOB_TYPE" in sample|train) ;; *) finish 1 "spec 'type' must be sample|train, got '$JOB_TYPE'";; esac
+case "$JOB_TYPE" in sample|train|setup) ;; *) finish 1 "spec 'type' must be sample|train|setup, got '$JOB_TYPE'";; esac
 case "$OUTPUT_URI" in s3://*) ;; *) finish 1 "spec 'output_uri' must be an s3:// uri";; esac
 
 # --- build the command -------------------------------------------------------
@@ -155,7 +157,14 @@ declare -a PREP_CMDS
 RUN_CMD=""
 SYNC_CMD=""
 
-if [ "$JOB_TYPE" = "sample" ]; then
+if [ "$JOB_TYPE" = "setup" ]; then
+  # Provision the box's rl-venv sampling stack (idempotent). The queue-only L4s
+  # (sam/sadie/sage) have no SSM/SSH path, so a fresh box is provisioned by dispatching a
+  # setup job that the poller runs on boot. output_uri is just the log destination; nothing
+  # to sync. Reuses the poller + self-stop machinery as-is.
+  RUN_CMD="bash tools/provision_box.sh"
+  SYNC_CMD=""
+elif [ "$JOB_TYPE" = "sample" ]; then
   POOL="${JOB_DATASET:-data/skeleton_dataset_v11_clean.json}"
   case "$POOL" in
     # An s3:// dataset lets an orchestrator hand a pool built off-box (e.g. the depth-1
