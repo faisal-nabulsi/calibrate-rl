@@ -600,8 +600,9 @@ decision (Faisal wants it; Michael skeptical).
   (single-input targets collapse). `tools/scan_chain_targets.py` scans all 47 feeders × a multi-input target menu, measures top-3 +
   feed-legality, and produces a coverage-complete diverse assignment. Rebuilt the chains in **v12** (NOT v13 — v13 is the parked
   framings copy) via one factory (`_register_diverse_chain` + `_ADAPT` adapters + `_DIVERSE_CHAINS` map), replacing the old wave-1/2/3
-  + value-chain code. **All 47 concepts appear as a feeder (full coverage); final step spread across 9 targets** (algebraic 8, ie3 7,
-  perfsq 6, equalize/complement/telescoping/digit/modexp 5 each, multisquare 1). `tools/verify_diverse_chains.py`: 47/47 pass — **0 gold
+  + value-chain code. **All 47 concepts appear as a feeder (full coverage); final step spread across 9 targets** (algebraic 7, ie3 7,
+  perfsq 6, modexp 6, telescoping 6, digit 5, equalize 5, complement 4, multisquare 1 — counts AFTER the self-chain reassignment, which
+  shifted 4 targets: algebraic 8→7, modexp 5→6, telescoping 5→6, complement 5→4). `tools/verify_diverse_chains.py`: 47/47 pass — **0 gold
   mismatches / 0 unparsed** (each composite text-recomputed from the clause + stored `intermediate_gold`), top-3 ≤ 0.30. AMC-targeting
   dropped by design (general composition; depth-0/AMC is capped). Knob-wiring + check_dataset recomputers deferred (build-time recompute
   is the current gate); calib still curriculum-gated. Doc updated (`docs/DEPTH1_CHAINING.md` §4 + §9). → PR.

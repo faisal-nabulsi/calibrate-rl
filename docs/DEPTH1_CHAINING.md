@@ -185,11 +185,17 @@ target adapters + the `_DIVERSE_CHAINS` feeder→target map). Final-step distrib
 
 | target concept | # chains |
 |---|---|
-| algebraic_system_2eq | 8 |
+| algebraic_system_2eq | 7 |
 | inclusion_exclusion_3set | 7 |
 | perfect_square_divisible | 6 |
-| equalization_fraction / complement_prob_mn / telescoping_mn / constrained_digit_count / modular_exponent | 5 each |
+| modular_exponent | 6 |
+| telescoping_mn | 6 |
+| constrained_digit_count | 5 |
+| equalization_fraction | 5 |
+| complement_prob_mn | 4 |
 | multi_constraint_square | 1 |
+
+*(Counts are AFTER the self-chain reassignment, which shifted 4 targets: algebraic 8→7, modexp 5→6, telescoping 5→6, complement 5→4. Sum = 47.)*
 
 **Verification** (`tools/verify_diverse_chains.py`): 47/47 chains pass — **0 gold mismatches, 0 unparsed**,
 top-3 ≤ 0.30, full feeder coverage. Golds are construction-correct (feeder's own oracle `V` → target
