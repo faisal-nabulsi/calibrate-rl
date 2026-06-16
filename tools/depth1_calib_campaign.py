@@ -147,23 +147,26 @@ def upload(local, s3uri):
     sh(f"aws s3 cp {local} {s3uri}")
 
 
-def ensure_running(instance, tries=20, wait=120):
-    """Start the box, tolerating AWS InsufficientInstanceCapacity (common for GPU types) —
-    retry with backoff instead of crashing. Already-running counts as success. Returns bool."""
+def ensure_running(instance, tries=30, wait=60):
+    """Get the box to running. Tolerates: already running/pending (ok); a TRANSITIONAL
+    state (stopping/shutting-down — e.g. mid self-stop from a prior job — wait for it to
+    settle); InsufficientInstanceCapacity (GPU AZ full — retry); IncorrectInstanceState
+    (can't start mid-transition — retry). Only a genuinely unexpected error fails. Bool."""
     for i in range(tries):
         st = sh(f"aws ec2 describe-instances --instance-ids {instance} "
                 f"--query 'Reservations[].Instances[].State.Name' --output text",
                 check=False, capture=True).stdout.strip()
         if st in ("running", "pending"):
             return True
+        if st in ("stopping", "shutting-down"):       # still self-stopping — let it settle first
+            log(f"{instance} is {st}; waiting {wait}s for it to reach stopped"); time.sleep(wait); continue
         r = sh(f"aws ec2 start-instances --instance-ids {instance}", check=False, capture=True)
         if r.returncode == 0:
             return True
         blob = (r.stdout + r.stderr)
-        if "InsufficientInstanceCapacity" in blob or "Unsupported" in blob:
-            log(f"AWS has no capacity for {instance} — retry {i+1}/{tries} in {wait}s")
-            time.sleep(wait); continue
-        log(f"start-instances failed (non-capacity): {blob[-200:]}"); return False
+        if any(x in blob for x in ("InsufficientInstanceCapacity", "IncorrectInstanceState", "Unsupported")):
+            log(f"start retry {i+1}/{tries} in {wait}s ({blob.strip()[-100:]})"); time.sleep(wait); continue
+        log(f"start-instances failed (unexpected): {blob[-200:]}"); return False
     return False
 
 
