@@ -26,6 +26,7 @@ from core.reward_func import extract_predicted_answer, extract_gold_answer, _num
 
 def _env(k, d): return os.environ.get(k, d)
 MODEL          = _env("MODEL", "Qwen/Qwen2.5-7B-Instruct")
+CKPT           = _env("CKPT", "")   # optional LoRA adapter dir; merged into MODEL at load (depth-1 calibrates vs the trained ckpt, not base)
 DATASET        = os.path.join(REPO, _env("DATASET", "data/skeleton_dataset_v11_clean.json"))
 OUT            = os.path.join(REPO, _env("OUT", "data/calib_v11_2048_7B.json"))
 N_PROBLEMS     = int(_env("N_PROBLEMS", "500"))
@@ -38,7 +39,7 @@ SAVE_EVERY     = int(_env("SAVE_EVERY", "25"))
 SYSTEM_PROMPT  = ("You are a math problem solver. Think step by step and put your "
                   "final answer in \\boxed{}.")
 
-print(f"model={MODEL}\ndataset={DATASET}\nN={N_PROBLEMS} rollouts={N_ROLLOUTS} "
+print(f"model={MODEL}{(' +ckpt='+CKPT) if CKPT else ''}\ndataset={DATASET}\nN={N_PROBLEMS} rollouts={N_ROLLOUTS} "
       f"max_new_tokens={MAX_NEW_TOKENS} temp={TEMP} bf16\nout={OUT} save_every={SAVE_EVERY}",
       flush=True)
 
@@ -70,6 +71,10 @@ if tok.pad_token is None:
 _t_load = time.time()
 model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.bfloat16,
                                              device_map="cuda")
+if CKPT:                                       # merge the LoRA adapter into base (same path as eval_checkpoint.py:37)
+    from peft import PeftModel
+    model = PeftModel.from_pretrained(model, CKPT).merge_and_unload()
+    print(f"merged LoRA adapter {CKPT} into base {MODEL}", flush=True)
 model.eval()
 print(f"model loaded in {time.time()-_t_load:.0f}s — sampling now", flush=True)
 
