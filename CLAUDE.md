@@ -240,6 +240,16 @@ representation bug ("free vs impossible" phrasing), not difficulty — standardi
 
 ## 6. Depth-1 partners & chaining plan
 
+> **⚠ SUPERSEDED (2026-06-15, PR #78).** The chain set was **rebuilt for target diversity + full
+> 47-concept coverage** (47 chains, 9 distinct targets, every concept a feeder once). The AMC-specific
+> **#55/#75 targeting described in §6/§6a was dropped** — depth-0/AMC is capped (§0), so the goal is now
+> *general composition*, not covering specific AMC problems. Chains carry **no AMC tag**. The diversity
+> rule (`multi-input target`) + the new set live in [`docs/DEPTH1_CHAINING.md`](docs/DEPTH1_CHAINING.md)
+> §4/§9. The §6/§6a text below is retained as **historical rationale** for the original (now-replaced)
+> #55/#75 first wave; the composition-gap diagnostic (`base_diag_300`) was run on those old composites,
+> so its post-training #21/#47/#55/#75 anchors no longer exist in the shipped set — re-run it on the new
+> chains if you still want that signal.
+
 > **Plain-language architecture guide: [`docs/DEPTH1_CHAINING.md`](docs/DEPTH1_CHAINING.md)** —
 > how chains work, how we pick which two concepts to combine, what knobs are, why the static
 > gate matters, the 3-concept idea, and the full coverage table. Read that first if new here.
@@ -518,6 +528,20 @@ decision (Faisal wants it; Michael skeptical).
 
 ## TODO
 
+- [ ] **[faisal] AMC-by-coverage eval on the depth-0 model (decisive: "depth-0 capped vs general reasoning").**
+      Run AMC `mean_pass_rate` on **v12 depth-0 run2 checkpoint-20** (the held-out peak, +0.066; on disk + S3
+      `runs/v12_depth0_run2/`), split by `@concept` coverage subset (covered / partner-only / uncovered), +
+      ckpt-30 as the fade control. Gains only on *covered* → depth-0 is capped, commit fully to depth-1;
+      gains spread to *uncovered* → general reasoning, depth-0 still has juice. Cheap (one eval, ckpt exists).
+      Hand to awesome-ash. Gates whether the depth-1 chains (#78) become the main lever.
+- [ ] **[michael/faisal] depth-1 chains (#78) — in-band-yield margin-check at CALIB (kathryne's catch, curriculum-gated, NOT a merge blocker).**
+      #78 widened to 41/47 static-pass; the **6 remaining fail dedupe ONLY** (golds+top3 PASS, ship-safe — verified
+      clean-worktree @ dfed0a5). Their raw unique-ceiling clears the 150 quota (210–600), BUT the real need is **150
+      in-band uniques after the goldilocks filter** — for the thinnest (`box_diagonal_sq` ~210 raw), if goldilocks
+      keeps ~50% you land ~105 < 150 → under-covered. Can't check until the depth-0 model exists (calib-gated). When
+      building the combined 47-chain pool, **margin-check the 6 thin chains' in-band yield**; if short, fix at calib
+      via TARGET-side widening (NOT the depth-0 feeders — that desyncs v12 calib + run-2), quota-shrink, or reassign.
+      (v13 chain-strip + the divisor_sum→modexp top3 fix already done in #78.)
 - [x] [gilbert] chaining pilot `chain_log_laws__ordered_triple_constraint` + `knobs/chain_*.json`
       + pilot pool → **#41 merged** (#37/#38 also merged). Calibration deferred (curriculum-gated).
 - [x] [gilbert] knob-wire the 3 #55/#75 ingredients (`modular_exponent` / `divisor_sum_filter` /
@@ -544,12 +568,18 @@ decision (Faisal wants it; Michael skeptical).
       `job_poller.sh` doesn't catch boxes that go idle later (e.g. after a manual kill).
 - [ ] [boxes] optional: set `ESCALATE_SLACK_IDS` (space-separated) in `/etc/calibrate-rl-job.env`
       on sam/sadie/ash to add the on-call to pages — the code already always includes the owner.
-- [~] [faisal] depth-1 **expansion underway** (hybrid plan, Faisal's call to cover all concepts now,
-      not gated on transfer): all 19 partners knob-wired (#65); **8 natural count→modexp chains built +
-      verified** (#66) → 11 depth-1 composites total; architecture guide `docs/DEPTH1_CHAINING.md`.
-      Still open: (a) goldilocks-calibrate the 11 chains **against the depth-0 model** (gated);
-      (b) build the combined 11-chain depth-1 pool for base/trained sampling; (c) 3-way #55
-      (chain in the wired `divisor_sum_filter`); (d) the 19 as depth-0 atomics in the next depth-0 set.
+- [x] [faisal] depth-1 **chain set rebuilt for diversity + full coverage (#78)**: 47 chains, 9 distinct
+      targets (modexp 20/22→5/47), every one of the 47 concepts is a feeder once. Replaces the old
+      wave-1/2/3 + value chains. Diversity rule = **multi-input target**. `verify_diverse_chains.py` 47/47,
+      0 gold-mismatch; `check_dataset.py` chain recomputers (independent via the feeder's atomic recomputer)
+      0 bad. **AMC-targeting dropped by design** (§6 superseded). **v12 is now the CANONICAL depth-1
+      generator; v13 is the parked depth-0 phrasing copy and still holds the OLD chains — do NOT sample
+      chains from v13.**
+      Still open: (a) goldilocks-calibrate the 47 chains **against the depth-0 model** (curriculum-gated —
+      depth-0 done ~3h); (b) build the combined 47-chain depth-1 pool for sampling; (c) per-chain knob
+      files + adapter knob-wiring (target params are num-class so calibrator can't auto-widen them — low
+      value; chains calibrate by sample+goldilocks-filter without knobs); (d) atomic recomputers for the
+      ~18 partner feeders so their chains move from UNCHECKED → independently checked.
 - [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
       does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
       final depth-0 decision.
@@ -568,6 +598,18 @@ decision (Faisal wants it; Michael skeptical).
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
 ### 2026-06-15
+- [faisal] **Depth-1 chaining redesigned for target diversity — 47 chains, 9 distinct targets, modexp 20/22 → 5/47.** The old set
+  funneled ~every chain into `modular_exponent` (the model would only ever learn "chain → exponentiate"). Found the real rule:
+  **a target stays answer-diverse iff it's MULTI-INPUT** — feed the intermediate into ONE input, let the others supply entropy
+  (single-input targets collapse). `tools/scan_chain_targets.py` scans all 47 feeders × a multi-input target menu, measures top-3 +
+  feed-legality, and produces a coverage-complete diverse assignment. Rebuilt the chains in **v12** (NOT v13 — v13 is the parked
+  framings copy) via one factory (`_register_diverse_chain` + `_ADAPT` adapters + `_DIVERSE_CHAINS` map), replacing the old wave-1/2/3
+  + value-chain code. **All 47 concepts appear as a feeder (full coverage); final step spread across 9 targets** (algebraic 7, ie3 7,
+  perfsq 6, modexp 6, telescoping 6, digit 5, equalize 5, complement 4, multisquare 1 — counts AFTER the self-chain reassignment, which
+  shifted 4 targets: algebraic 8→7, modexp 5→6, telescoping 5→6, complement 5→4). `tools/verify_diverse_chains.py`: 47/47 pass — **0 gold
+  mismatches / 0 unparsed** (each composite text-recomputed from the clause + stored `intermediate_gold`), top-3 ≤ 0.30. AMC-targeting
+  dropped by design (general composition; depth-0/AMC is capped). Knob-wiring + check_dataset recomputers deferred (build-time recompute
+  is the current gate); calib still curriculum-gated. Doc updated (`docs/DEPTH1_CHAINING.md` §4 + §9). → PR.
 - [faisal] **Depth-0 phrasing expansion -> new generator `skeleton_injector_v13.py` (10 framings on all 28 concepts).** Motivation:
   the v12 depth-0 run's held-out peaked at step ~14 then faded (template-memorization / early saturation), and AMC = novel phrasings,
   so surface diversity is the transfer lever. v13 = v12 + 5->10 framings on every depth-0 generator (24 expanded; 4 already had >=10:

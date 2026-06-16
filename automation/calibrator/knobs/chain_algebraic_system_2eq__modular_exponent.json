@@ -1,6 +1,6 @@
 {
   "components": [
-    "rate_closing",
+    "algebraic_system_2eq",
     "modular_exponent"
   ],
   "fed_param": "base",

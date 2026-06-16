@@ -1,43 +1,43 @@
 {
   "components": [
-    "count_obtuse_triangles",
-    "modular_exponent"
+    "multi_constraint_square",
+    "algebraic_system_2eq"
   ],
-  "fed_param": "e",
+  "fed_param": "x",
   "params": {
-    "P": {
+    "y": {
       "value": [
-        11,
-        16
-      ],
-      "type": "randint",
-      "envelope": [
-        8,
+        5,
         25
       ],
-      "knob_class": "C"
-    },
-    "a": {
-      "value": [
-        2,
-        9
-      ],
       "type": "randint",
       "envelope": [
-        2,
-        12
+        3,
+        40
       ],
       "knob_class": "num"
     },
-    "m": {
+    "z": {
       "value": [
-        50,
-        299
+        5,
+        25
       ],
       "type": "randint",
       "envelope": [
-        30,
-        500
+        3,
+        40
+      ],
+      "knob_class": "num"
+    },
+    "coef": {
+      "value": [
+        1,
+        7
+      ],
+      "type": "randint",
+      "envelope": [
+        1,
+        9
       ],
       "knob_class": "num"
     }

@@ -1,0 +1,9 @@
+{
+  "components": [
+    "roots_of_unity_sum",
+    "equalization_fraction"
+  ],
+  "fed_param": "g",
+  "params": {},
+  "locked": false
+}
