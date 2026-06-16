@@ -451,9 +451,12 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
 
 ## 11. Roadmap
 
-Now: single-concept ablation → 3-concept ablation (AMC effect via mean_pass_rate
-on tagged subsets). Then (Michael): sample ~600 v11 @2048 → ~300 train set +
-stratified holdout (3–5/concept). Phase 3: chaining (§6).
+Depth-0 is DONE and AMC-capped (#89) → composition is the lever. **Now:** depth-1 calibration —
+the autonomous campaign calibrates the 47 chains to goldilocks vs ckpt-40 (see CURRENTLY DOING).
+**Then — the payoff, gated on calibration converging:** build the depth-1 train set from the
+calibrated pool → train ~300 steps off ckpt-40 → **validate**: re-run the composition-gap diagnostic
+(did the gap close — composite pass rises toward the atom while the atom stays high?) + AMC
+#21/#47/#55/#75 via `mean_pass_rate`, confirm the partner-only set didn't regress.
 
 ---
 
@@ -484,7 +487,10 @@ SEQUENTIAL: depth-0 first (done) → then calibrate + train depth-1 against the 
 `docs/DEPTH1_CALIB_CAMPAIGN.md`; branch `agent/depth1-calib-campaign`, branch-only → human PRs). 5-iter loop:
 build the 47-chain pool → static gate (gold recompute + dedupe/top3 + atom-equivalence freeze) → sample
 250×8@2048 on sadie vs ckpt-40 → analyze per-chain → headless `claude` edits the CHAIN LAYER toward goldilocks
-(depth-0 atomics frozen) → re-gate/auto-revert → commit → Slack. **iter-1 sampling now.**
+(depth-0 atomics frozen) → re-gate/auto-revert → commit → Slack. **iter-1 sampling now.** All 47-chain machinery
+is on main (rebuild #78, 47 knob files, 18 partner recomputers, widen-to-41/47, v13-strip); the
+`feat/depth1-diverse-chains` branch is fully merged → safe to delete. Open: the #5 in-band-yield margin-check on
+the 6 thin chains, runnable off the campaign's per-chain calib once it converges.
 
 **Fleet:** 3× L4 samplers (sam/sadie/sage) + L40S trainer (awesome-ash). L4s are queue-driven (S3 poll); jobs stream a progress heartbeat to S3 so
 liveness is readable mid-run without SSM. Quota 20 open (CASE_OPENED). (Fleet/permission-overhaul detail and
@@ -509,17 +515,6 @@ the campaign-build shakeout → DAILY LOG 06-16.)
       building the combined 47-chain pool, **margin-check the 6 thin chains' in-band yield**; if short, fix at calib
       via TARGET-side widening (NOT the depth-0 feeders — that desyncs v12 calib + run-2), quota-shrink, or reassign.
       (v13 chain-strip + the divisor_sum→modexp top3 fix already done in #78.)
-- [ ] **[depth-1 NEXT — the payoff] train depth-1 + validate.** Gated on the 47-chain calibration converging
-      (the campaign above). ckpt-40 (depth-0) EXISTS — curriculum prereq met. (1) build the depth-1 train set
-      from the calibrated 47-chain pool → train ~300 steps off ckpt-40; (2) **re-run the composition-gap
-      diagnostic post-training — did the gap close** (composite pass rises toward the atom while atom stays
-      high)? + AMC #21/#47/#55/#75 via `mean_pass_rate`, confirm partner-only set didn't regress.
-- [~] **47-chain depth-1 calibration — IN PROGRESS** (campaign on sadie vs ckpt-40). All chain machinery is DONE
-      and on main: the 47-chain rebuild (#78), **(c) per-chain knob files** (47 at `automation/calibrator/knobs/
-      chain_*.json`), **(d) partner-feeder recomputers** (18 in `prep/check_dataset.py`), widen-to-41/47, and the
-      v13 chain-strip. The `feat/depth1-diverse-chains` branch is fully merged (squash-ancestry only made it LOOK
-      unmerged — `git diff main branch -- <chain files>` is empty) → safe to delete. Remaining = the campaign
-      calibrating + the #5 margin-check on iter-1's output. v12 is the CANONICAL depth-1 generator; not v13.
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
