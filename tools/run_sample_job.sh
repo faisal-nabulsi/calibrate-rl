@@ -93,6 +93,7 @@ slack_post() {
 # success AND failure — a failed job must not leave the box burning money.
 finish() {
   local code="$1" msg="$2"
+  [ -n "${HB_PID:-}" ] && kill "$HB_PID" 2>/dev/null || true   # stop the progress heartbeat (any exit path)
   if [ "$code" -eq 0 ]; then
     echo "job $JOB_ID done — $msg"
     slack_post ":white_check_mark: job \`$JOB_ID\` done — $msg"
@@ -221,6 +222,7 @@ if [ "$DRY_RUN" -eq 1 ]; then
   echo "  env ${RUN_ENV[*]} $RUN_CMD"
   echo "  $SYNC_CMD"
   echo "  aws s3 cp $LOG $LOG_URI"
+  echo "  (progress heartbeat → ${OUTPUT_URI%/}.heartbeat every ${HEARTBEAT_S:-120}s)"
   [ "$NO_SHUTDOWN" -eq 0 ] && echo "  sudo shutdown -h +1"
   exit 0
 fi
@@ -235,6 +237,28 @@ for p in "${PREP_CMDS[@]+"${PREP_CMDS[@]}"}"; do
     finish 1 "pool build failed: $p"
   fi
 done
+
+# --- progress heartbeat -------------------------------------------------------
+# Stream a small tail of the LIVE log to S3 every HEARTBEAT_S seconds so a reader
+# (a human, the autocalib campaign, or another agent) can see liveness + ETA
+# WITHOUT shell on the box — just `aws s3 cp ${OUTPUT_URI%/}.heartbeat -`. This is
+# what was missing when jobs only synced logs at the END: mid-run, S3 showed
+# nothing, so "is it alive / how far along" needed an SSM round-trip nobody could
+# always make. Pure observability: it writes a SEPARATE .heartbeat key and never
+# touches the authoritative .log/.json (those still sync only at the end), so the
+# campaign's fail-detector semantics on .log are unchanged. Killed in finish().
+HEARTBEAT_URI="${OUTPUT_URI%/}.heartbeat"
+HEARTBEAT_S="${HEARTBEAT_S:-120}"
+(
+  while true; do
+    sleep "$HEARTBEAT_S"
+    { echo "[$JOB_ID] heartbeat $(date -u +%Y-%m-%dT%H:%M:%SZ) on $AGENT"
+      nvidia-smi --query-gpu=utilization.gpu,memory.used --format=csv,noheader 2>/dev/null | head -1
+      echo "--- last log lines ---"
+      tail -n 15 "$LOG" 2>/dev/null
+    } | aws s3 cp - "$HEARTBEAT_URI" >/dev/null 2>&1 || true
+  done
+) & HB_PID=$!
 
 echo "+ env ${RUN_ENV[*]} $RUN_CMD" >> "$LOG"
 if ! env "${RUN_ENV[@]}" $RUN_CMD >> "$LOG" 2>&1; then
