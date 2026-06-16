@@ -459,6 +459,26 @@ stratified holdout (3–5/concept). Phase 3: chaining (§6).
 
 ## CURRENTLY DOING
 
+**Depth-1 calibration campaign LAUNCHED + running; depth-0 confirmed CAPPED (06-16, faisal).**
+- **Depth-0 is CAPPED — AMC does NOT transfer (#89).** BASE vs ckpt-40 AMC-by-coverage: `covered`
+  (the trained concepts) went DOWN −0.057 mean / −0.081 pass@8; partner_only/uncovered within the
+  ±0.05 noise floor. Held-out went UP (+0.08) but external AMC is flat-to-down ⇒ depth-0 learned the
+  synthetic templates, NOT transferable concept skill (Zaid's reframe, now measured on AMC). **Verdict:
+  commit to depth-1.** (`results/amc_coverage_base_vs_ckpt40.md`; BASE baseline #85.)
+- **3-L4 trifecta running (all vs ckpt-40):** sadie = depth-1 calibration campaign (the autonomous loop,
+  iter-1 sampling); sam = composition-gap diagnostic; sage = concept-transfer by-framing. Together they
+  answer the two open depth-0 questions: did training strengthen the ATOMS (diagnostic) and is the
+  held-out gain WORDING-robust or template-bound (by-framing). Read all three as a set when they land.
+- **Fleet + permission overhaul (06-16).** The L4 samplers were queue-only AND couldn't merge adapters
+  (bitsandbytes → triton → gcc fails). Fixed via the queue `setup` job (`provision_box.sh`, #83) + the
+  **bnb-drop** (#86) — sam/sadie/sage all provisioned (`PeftModel import clean`). Michael landed **SSM on
+  the L4s** (direct shell now) + **#90** (repo ships `.claude/settings.json`; person-sessions auto-approve).
+  Agent allowlist maxed (**#88**). **#8** (bot repo) lets agents run READ-ONLY bash + read threads on
+  monitor/bot turns so they can DIAGNOSE when paged (the gilbert/sam "no shell, can't read threads" thrash)
+  — needs a t3-agent restart to apply. Campaign hardened through the shakeout: CKPT-merge (#81), s3-dataset
+  (#82), venv-python (#84), stale-output clear, capacity + transitional-state start retries. **AWS reality:
+  "max 2 L4s" was AZ capacity, NOT quota — quota is 16 vCPU = 4 G-instances; 16→20 request open (CASE_OPENED).**
+
 **Depth-1 chaining (Workstream B) is underway; concept-vs-template eval awaiting analysis.**
 Verdict so far (unchanged): the loop teaches concepts in-distribution and improves execution
 reliability, but does NOT transfer to compositional AMC. Zaid's reframe (06-11 sync): held-out
@@ -558,20 +578,18 @@ decision (Faisal wants it; Michael skeptical).
 
 ## TODO
 
-- [~] **[faisal] AMC-by-coverage eval on the depth-0 model (decisive: "depth-0 capped vs general reasoning").**
-      Run AMC `mean_pass_rate` on **v12 depth-0 run2 checkpoint-40** (the depth-1 base — selection reasoning in
-      CURRENTLY DOING; on disk + S3 `runs/v12_depth0_run2/`), split by `@concept` coverage subset (covered /
-      partner-only / uncovered). Gains only on *covered* → depth-0 capped, commit fully to depth-1; gains spread
-      to *uncovered* → general reasoning, depth-0 still has juice. **RUNNING on sam (06-16); it loaded ckpt-40
-      fine.** Gates whether the depth-1 chains (#78) become the main lever; also the AMC baseline for depth-1's lift.
-- [ ] **[faisal] provision sadie + sage for sampling — via the `setup` job (this PR), NOT SSH.** The L4s are
-      queue-only (no SSM/SSH). Once this PR merges: drop a `setup` spec in `pending/sadie/` (+ `pending/sage/`),
-      reboot the box (AWS API) so its poller runs `provision_box.sh` (builds `rl-venv`: torch 2.6 cu124 +
-      transformers/peft/numpy/accelerate, persists on EBS), it self-stops. Then sadie is a real sampler for the
-      depth-1 campaign. Walkthrough posted to Michael in #calibrate-rl-agents. (sam already provisioned.)
-- [ ] **[faisal] LAUNCH the depth-1 calibration campaign** once (a) this PR + #82 are on main and (b) sadie is
-      provisioned. On the t3/autocalib: `SAMPLER=sadie nohup python3 tools/depth1_calib_campaign.py &`. Watch
-      iter-1's claude-edit commit + the first sample land. (Or `SAMPLER=sam` after the AMC eval frees sam.)
+- [x] **[faisal] AMC-by-coverage on ckpt-40 → DONE (#89): depth-0 is CAPPED.** covered −0.057 (DOWN where trained),
+      partner_only/uncovered within the ±0.05 noise floor → no AMC transfer; held-out up + AMC flat = template
+      reliability, not concept skill. Commit to depth-1. BASE baseline #85, comparison `results/amc_coverage_base_vs_ckpt40.md`.
+- [x] **[faisal] provisioned sadie + sage** via the `setup` job (#83) + bnb-drop (#86) — both `PeftModel import clean`,
+      no SSH needed. ("max 2 L4s" was AZ capacity, not quota; quota 16 vCPU = 4 G-instances, 16→20 request open.)
+- [x] **[faisal] LAUNCHED the depth-1 calibration campaign** (sadie vs ckpt-40) after the env/infra shakeout
+      (#81/#82/#84/#86 + stale-output clear + capacity/transitional start retries). Sampling iter-1.
+- [ ] **[faisal] read the depth-0 TRIFECTA when the 3 L4 jobs land** — composition-gap diagnostic (sam: did depth-0
+      strengthen the atoms for chaining?) + concept-transfer by-framing (sage: is the held-out gain wording-robust or
+      template-bound?) + the AMC-capped finding (#89). Together = the complete depth-0 verdict.
+- [ ] **[faisal/michael] restart the t3 agents** (gilbert/kathryne/charizard: `git pull` claude-code-slack-bot +
+      restart per user) to apply **#8** (read-only-bash-on-bot-turns guard fix). Not urgent — doesn't affect running jobs.
 - [ ] **[michael/faisal] depth-1 chains (#78) — in-band-yield margin-check at CALIB (kathryne's catch, curriculum-gated, NOT a merge blocker).**
       #78 widened to 41/47 static-pass; the **6 remaining fail dedupe ONLY** (golds+top3 PASS, ship-safe — verified
       clean-worktree @ dfed0a5). Their raw unique-ceiling clears the 150 quota (210–600), BUT the real need is **150
@@ -634,6 +652,27 @@ decision (Faisal wants it; Michael skeptical).
       plenty of Max usage headroom, would save API spend. **(faisal, bring up next meeting)**
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-16  *(continued — afternoon/evening)*
+- [faisal] **Depth-0 confirmed CAPPED — AMC does not transfer (#89).** AMC-by-coverage on ckpt-40 vs BASE:
+  covered −0.057 mean / −0.081 pass@8 (DOWN where depth-0 trained), partner_only/uncovered within noise. With
+  held-out UP (+0.08) but external AMC flat-to-down = template reliability, not concept skill. Verdict: commit
+  to depth-1. BASE baseline banked #85. (`results/amc_coverage_base_vs_ckpt40.md`.)
+- [faisal] **Depth-1 calibration campaign LAUNCHED on sadie vs ckpt-40** (the autonomous loop). Shook out a long
+  cascade — each fix a different layer: numpy/venv-activation (#84 venv-python), bitsandbytes→triton→gcc adapter-merge
+  death (#86 drop bnb), stale-output false-fail (clear S3 before dispatch), start-state race (retry capacity +
+  transitional), campaign double-run (laptop vs t3). Now cleanly sampling. + sam = composition-gap diagnostic, sage =
+  by-framing — full 3-L4 trifecta vs ckpt-40.
+- [faisal] **Fleet provisioned over the queue (no SSH): sam + sadie + sage all `PeftModel import clean`** via the
+  `setup` job (#83 `provision_box.sh`) + bnb-drop (#86). Confirmed "max 2 L4s" was AZ capacity, not quota (16 vCPU
+  = 4 G-instances); submitted 16→20 (CASE_OPENED).
+- [michael] **L4 fleet fixes actioned** (`docs/L4_FLEET_FIX_MICHAEL.md`): SSM live on the L4s (AmazonSSMManagedInstanceCore
+  on the gpu-box role — direct shell now), #90 ships repo `.claude/settings.json` (person-sessions auto-approve), quota
+  request open. Bot-repo subagent piece → covered by #8.
+- [faisal] **Agent permission overhaul.** #88 maxed the in-repo allowlist (main agents). **#8 (bot repo)** fixed the
+  real blocker: the read-only guard banned ALL bash on bot/monitor turns, so agents couldn't diagnose when paged
+  (the gilbert/sam "no shell, can't read threads" thrash) — now allows READ-ONLY bash + thread-reads, keeps all
+  mutation blocked (§2 intact). Needs a t3-agent restart (gilbert/kathryne/charizard) to apply.
 
 ### 2026-06-16
 - [faisal] **Depth-1 base checkpoint settled: ckpt-40.** Deep analysis of v12 depth-0 run-2 (90 steps = 30×3ep,
