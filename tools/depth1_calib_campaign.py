@@ -228,6 +228,9 @@ def main():
 
         pool_s3 = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/pool.json"
         out_s3  = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/calib.json"
+        # clear any stale output at this key from a PRIOR run — else wait_for_output reads the
+        # old calib.json.log (e.g. a previous iteration's traceback) and false-fails instantly.
+        sh(f"aws s3 rm {out_s3}", check=False); sh(f"aws s3 rm {out_s3}.log", check=False)
         upload(pool_local, pool_s3)
         slack(f":satellite: iter {it}: sampling {N} on {SAMPLER} (vs ckpt-40)…")
         dispatch_sample(it, pool_s3, out_s3)
