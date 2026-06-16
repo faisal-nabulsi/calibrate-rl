@@ -23,6 +23,9 @@
 #               data/skeleton_dataset_v11_clean.json, ignored when concepts set);
 #               train: TRAIN_DATA (REQUIRED for train jobs)
 #   holdout     optional (train) — HOLDOUT_DATA for the held-out monitor
+#   checkpoint  optional (sample) — LoRA adapter dir or s3:// uri; merged into the
+#               base model so calibration samples a TRAINED checkpoint, not base
+#               (e.g. depth-1 calibrates vs v12_depth0 checkpoint-40)
 #
 # Reporting: start/done/fail posted to $SLACK_WEBHOOK_URL if set (best-effort —
 # a dead webhook never fails the job). The job log is uploaded next to the output.
@@ -137,6 +140,7 @@ print(f"OUTPUT_URI={q(j.get('output_uri', ''))}")
 print(f"JOB_DATASET={q(j.get('dataset', ''))}")
 print(f"JOB_HOLDOUT={q(j.get('holdout', ''))}")
 print(f"JOB_CONCEPTS={q(','.join(j.get('concepts') or []))}")
+print(f"JOB_CKPT={q(j.get('checkpoint', ''))}")
 PY
 )" || { LOG_URI="(none)"; finish 1 "spec $SPEC_URI is not valid JSON"; }
 eval "$PARSED"
@@ -163,7 +167,18 @@ if [ "$JOB_TYPE" = "sample" ]; then
     PREP_CMDS+=("python3 -c \"import json,glob; rows=[r for f in sorted(glob.glob('data/job_${JOB_ID}_pool_*.json')) for r in json.load(open(f))]; json.dump(rows, open('$POOL','w'))\"")
   fi
   OUT="data/job_${JOB_ID}_calib.json"
-  RUN_ENV=(DATASET="$POOL" OUT="$OUT"
+  CKPT_ENV=""
+  if [ -n "$JOB_CKPT" ]; then
+    # Sample a TRAINED checkpoint (e.g. depth-1 vs ckpt-40), not base. Pull the LoRA
+    # adapter from S3 if needed; sample.py merges it into base at load.
+    case "$JOB_CKPT" in
+      s3://*) CKPT_DIR="checkpoint/job_${JOB_ID}_ckpt"
+              PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_CKPT%/} $CKPT_DIR") ;;
+      *)      CKPT_DIR="$JOB_CKPT" ;;
+    esac
+    CKPT_ENV="CKPT=$CKPT_DIR"
+  fi
+  RUN_ENV=(DATASET="$POOL" OUT="$OUT" ${CKPT_ENV:+$CKPT_ENV}
            ${JOB_N:+N_PROBLEMS="$JOB_N"}
            ${JOB_ROLLOUTS:+N_ROLLOUTS="$JOB_ROLLOUTS"}
            ${JOB_MAX_TOKENS:+MAX_NEW_TOKENS="$JOB_MAX_TOKENS"})
