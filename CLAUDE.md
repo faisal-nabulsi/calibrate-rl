@@ -534,10 +534,14 @@ decision (Faisal wants it; Michael skeptical).
       ckpt-30 as the fade control. Gains only on *covered* → depth-0 is capped, commit fully to depth-1;
       gains spread to *uncovered* → general reasoning, depth-0 still has juice. Cheap (one eval, ckpt exists).
       Hand to awesome-ash. Gates whether the depth-1 chains (#78) become the main lever.
-- [ ] **[faisal] depth-1 chains (#78) follow-ups before any calib run:** (a) the 10 dedupe-FAIL chains (thin
-      feeders → >10% duplicate texts; golds+top3 pass) — accept gen_clean dedup (precedented: continued_fraction
-      ships) or widen the few non-num feeder knobs; (b) strip the stale chain registration from v13 (loud
-      KnobError footgun once #78 prunes the old chain knob files — done in #78 if time, else fast-follow).
+- [ ] **[michael/faisal] depth-1 chains (#78) — in-band-yield margin-check at CALIB (kathryne's catch, curriculum-gated, NOT a merge blocker).**
+      #78 widened to 41/47 static-pass; the **6 remaining fail dedupe ONLY** (golds+top3 PASS, ship-safe — verified
+      clean-worktree @ dfed0a5). Their raw unique-ceiling clears the 150 quota (210–600), BUT the real need is **150
+      in-band uniques after the goldilocks filter** — for the thinnest (`box_diagonal_sq` ~210 raw), if goldilocks
+      keeps ~50% you land ~105 < 150 → under-covered. Can't check until the depth-0 model exists (calib-gated). When
+      building the combined 47-chain pool, **margin-check the 6 thin chains' in-band yield**; if short, fix at calib
+      via TARGET-side widening (NOT the depth-0 feeders — that desyncs v12 calib + run-2), quota-shrink, or reassign.
+      (v13 chain-strip + the divisor_sum→modexp top3 fix already done in #78.)
 - [x] [gilbert] chaining pilot `chain_log_laws__ordered_triple_constraint` + `knobs/chain_*.json`
       + pilot pool → **#41 merged** (#37/#38 also merged). Calibration deferred (curriculum-gated).
 - [x] [gilbert] knob-wire the 3 #55/#75 ingredients (`modular_exponent` / `divisor_sum_filter` /
