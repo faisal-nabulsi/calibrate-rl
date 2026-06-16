@@ -160,14 +160,24 @@ def dispatch_sample(it, pool_s3, out_s3):
 
 
 def wait_for_output(out_s3):
-    """Poll S3 until calib.json lands (box self-stops on completion)."""
+    """Poll until the EXACT calib.json object exists (head-object — NOT a prefix `ls`
+    that would also match calib.json.LOG), OR the job fast-fails (its .log gets a
+    traceback and the box self-stops). Returns 'ok' | 'fail:<tail>' | 'timeout'."""
+    bucket = out_s3.split("/")[2]
+    key = "/".join(out_s3.split("/")[3:])
+    logkey = key + ".log"
     t0 = time.time()
     while time.time() - t0 < TIMEOUT_S:
-        r = sh(f"aws s3 ls {out_s3}", check=False, capture=True)
-        if r.returncode == 0 and r.stdout.strip():
-            return True
+        if sh(f"aws s3api head-object --bucket {bucket} --key {key}",
+              check=False, capture=True).returncode == 0:
+            return "ok"
+        if sh(f"aws s3api head-object --bucket {bucket} --key {logkey}",
+              check=False, capture=True).returncode == 0:
+            body = sh(f"aws s3 cp s3://{bucket}/{logkey} -", check=False, capture=True).stdout
+            if "Traceback" in body or "FAILED" in body or "Error" in body:
+                return "fail:" + body[-400:]
         time.sleep(60)
-    return False
+    return "timeout"
 
 
 EDIT_PROMPT = """You are tuning DEPTH-1 chain generators toward the goldilocks band (pass rate ~0.45-0.55) for GRPO.
@@ -221,8 +231,9 @@ def main():
         upload(pool_local, pool_s3)
         slack(f":satellite: iter {it}: sampling {N} on {SAMPLER} (vs ckpt-40)…")
         dispatch_sample(it, pool_s3, out_s3)
-        if not (DRY_RUN or wait_for_output(out_s3)):
-            slack(f":x: iter {it}: sample timed out after {TIMEOUT_S//60}min — stopping"); break
+        status = wait_for_output(out_s3)
+        if status != "ok":
+            slack(f":x: iter {it}: sample did not complete on {SAMPLER} — {status[:300]} — stopping"); break
 
         calib_local = f"data/depth1_calib_iter{it}.json"
         if not DRY_RUN: sh(f"aws s3 cp {out_s3} {calib_local}")
