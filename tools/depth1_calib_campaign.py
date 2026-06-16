@@ -24,7 +24,7 @@ golds are independently recomputed. Difficulty moves via step/constraint count o
 Env (all have defaults):
   N_ITERS=5  N=250  ROLLOUTS=8  MAX_TOKENS=2048
   CKPT_S3=s3://calibrate-rl-agent/runs/v12_depth0_run2/checkpoint-40
-  SAM_INSTANCE=i-065bb6d4bcea507db   BUCKET=calibrate-rl-agent
+  SAMPLER=sadie   (or sam)   BUCKET=calibrate-rl-agent
   BRANCH=agent/depth1-calib-campaign   INJECTOR=generate/skeleton_injector_v12.py
   CLAUDE_CMD="claude -p"   POOL_N_PER_CHAIN=40   SAMPLE_TIMEOUT_MIN=300   DRY_RUN=0
 """
@@ -36,7 +36,10 @@ N         = int(E("N", "250"))
 ROLLOUTS  = int(E("ROLLOUTS", "8"))
 MAX_TOKENS= int(E("MAX_TOKENS", "2048"))
 CKPT_S3   = E("CKPT_S3", "s3://calibrate-rl-agent/runs/v12_depth0_run2/checkpoint-40")
-SAM       = E("SAM_INSTANCE", "i-065bb6d4bcea507db")
+# which L4 sampler to dispatch to (queue path = pending/<SAMPLER>/, woken by instance id)
+_L4 = {"sam": "i-065bb6d4bcea507db", "sadie": "i-05c7938e1c6711370"}
+SAMPLER   = E("SAMPLER", "sadie")
+SAM       = E("SAMPLER_INSTANCE", _L4.get(SAMPLER, _L4["sadie"]))
 BUCKET    = E("BUCKET", "calibrate-rl-agent")
 BRANCH    = E("BRANCH", "agent/depth1-calib-campaign")
 INJECTOR  = E("INJECTOR", "generate/skeleton_injector_v12.py")
@@ -149,7 +152,7 @@ def dispatch_sample(it, pool_s3, out_s3):
             "n": N, "rollouts": ROLLOUTS, "max_tokens": MAX_TOKENS, "output_uri": out_s3}
     spec_local = f"/tmp/depth1_calib_iter{it}_spec.json"
     json.dump(spec, open(spec_local, "w"))
-    spec_s3 = f"s3://{BUCKET}/pending/sam/depth1_calib_iter{it}.json"
+    spec_s3 = f"s3://{BUCKET}/pending/{SAMPLER}/depth1_calib_iter{it}.json"
     if DRY_RUN:
         log(f"[dry-run] would upload spec {spec} -> {spec_s3} and start {SAM}"); return
     upload(spec_local, spec_s3)
@@ -200,7 +203,7 @@ def revert_unstaged():
 def main():
     sh(f"git checkout {BRANCH}", check=False)
     slack(f":arrows_counterclockwise: depth-1 calibration campaign starting — {N_ITERS} iters, "
-          f"{N}x{ROLLOUTS}@{MAX_TOKENS} on sam vs ckpt-40")
+          f"{N}x{ROLLOUTS}@{MAX_TOKENS} on {SAMPLER} vs ckpt-40")
     for it in range(1, N_ITERS + 1):
         log(f"================= ITERATION {it}/{N_ITERS} =================")
         pool_local = f"data/chain_depth1_47_pool_iter{it}.json"
@@ -216,7 +219,7 @@ def main():
         pool_s3 = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/pool.json"
         out_s3  = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/calib.json"
         upload(pool_local, pool_s3)
-        slack(f":satellite: iter {it}: sampling {N} on sam (vs ckpt-40)…")
+        slack(f":satellite: iter {it}: sampling {N} on {SAMPLER} (vs ckpt-40)…")
         dispatch_sample(it, pool_s3, out_s3)
         if not (DRY_RUN or wait_for_output(out_s3)):
             slack(f":x: iter {it}: sample timed out after {TIMEOUT_S//60}min — stopping"); break

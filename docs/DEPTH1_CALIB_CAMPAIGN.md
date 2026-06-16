@@ -47,7 +47,7 @@ tail -f ~/depth1_campaign.log
 
 ## Tunables (env)
 `N_ITERS=5 N=250 ROLLOUTS=8 MAX_TOKENS=2048 POOL_N_PER_CHAIN=40 SAMPLE_TIMEOUT_MIN=300`
-`CKPT_S3=… SAM_INSTANCE=i-065bb6d4bcea507db BUCKET=calibrate-rl-agent CLAUDE_CMD="claude -p"`
+`CKPT_S3=… SAMPLER=sadie BUCKET=calibrate-rl-agent CLAUDE_CMD="claude -p"`
 
 ## Needs first-run validation (can't be tested off-box)
 - The headless `claude` edit invocation (CLI flags/version on the box). The gate +
