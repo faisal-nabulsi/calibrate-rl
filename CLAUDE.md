@@ -507,14 +507,14 @@ the campaign-build shakeout → DAILY LOG 06-16.)
       wording=concept, or evaporate=template? older #31 was on the 3-concept ckpt-108); (c) the AMC-capped finding
       (#89, done). The by-framing is the discriminator gating the **"final depth-0 run" decision**, which stays HELD
       until it's in — likely moot anyway now that depth-0 is AMC-capped.
-- [ ] **[michael/faisal] depth-1 chains (#78) — in-band-yield margin-check at CALIB (kathryne's catch, curriculum-gated, NOT a merge blocker).**
-      #78 widened to 41/47 static-pass; the **6 remaining fail dedupe ONLY** (golds+top3 PASS, ship-safe — verified
-      clean-worktree @ dfed0a5). Their raw unique-ceiling clears the 150 quota (210–600), BUT the real need is **150
-      in-band uniques after the goldilocks filter** — for the thinnest (`box_diagonal_sq` ~210 raw), if goldilocks
-      keeps ~50% you land ~105 < 150 → under-covered. Can't check until the depth-0 model exists (calib-gated). When
-      building the combined 47-chain pool, **margin-check the 6 thin chains' in-band yield**; if short, fix at calib
-      via TARGET-side widening (NOT the depth-0 feeders — that desyncs v12 calib + run-2), quota-shrink, or reassign.
-      (v13 chain-strip + the divisor_sum→modexp top3 fix already done in #78.)
+- [ ] **depth-1 chains — in-band-yield margin-check (kathryne's catch). NOW A ONE-CHAIN WATCH.** Check =
+      `ceiling × goldilocks-fraction ≥ 150` per thin chain. **Raw ceilings computed locally (no GPU)** for the 8
+      dedupe-thin chains: **7 are safe by a wide margin** (need only 19–42% in-band — alternating_cubes 799,
+      complement_prob_mn→telescoping 715, ordered_triple 662, complex_eq_solcount 592, telescoping→perfsq 507,
+      prime_power→perfsq 360, constrained_subset 375). The **lone risk is `box_diagonal_sq__perfect_square_divisible`
+      (ceiling ≈210 → needs goldilocks ≥0.71)**. So: read box_diagonal_sq's goldilocks fraction off the campaign
+      when it converges; if <0.71 → fix TARGET-side (widen `perfect_square_divisible` / quota-shrink / reassign —
+      NOT the box_diagonal_sq feeder, which desyncs v12 calib + run-2). **No dedicated L4 job needed.**
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
