@@ -186,6 +186,9 @@ def main():
         ok, detail = gate(pool_local)
         if not ok:
             slack(f":x: iter {it} pre-sample gate failed: {detail} — reverting + stopping"); revert_unstaged(); break
+        if DRY_RUN:
+            log(f"[dry-run] pool built + gate PASSED ({nrows} rows / {nch} chains) — "
+                f"stopping before GPU / edits / commit. Real run does the rest."); continue
 
         pool_s3 = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/pool.json"
         out_s3  = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/calib.json"
