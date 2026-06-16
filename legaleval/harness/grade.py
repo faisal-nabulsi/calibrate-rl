@@ -2,7 +2,7 @@
 
 Usage:
     python -m harness.grade runs/<run_id>                       # default judge (Opus 4.8)
-    python -m harness.grade runs/<run_id> --judge gpt-5.5       # cross-family control
+    python -m harness.grade runs/<run_id> --judge gpt-5.5-pro   # cross-family control
     python -m harness.grade runs/<run_id> --k 3                 # judge samples (median)
 
 Design (matches LegalEval v6 grading methodology):

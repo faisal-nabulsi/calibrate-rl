@@ -9,3 +9,7 @@ venv/
 
 # os
 .DS_Store
+
+# local-only design docs (v8 plan etc.) — kept out of the repo; live locally + on Drive
+*.local.html
+*.local.md
