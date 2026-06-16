@@ -617,13 +617,16 @@ decision (Faisal wants it; Michael skeptical).
       ~300 steps; (4) **re-run this diagnostic post-training — did the gap close** (pass rises toward
       atom while atom stays high)? + AMC #21/#47/#55/#75 via `mean_pass_rate`, confirm partner-only
       set didn't regress.
-- [ ] [michael] extend the orchestrator monitor (gilbert shipped the in-repo halves in #48 —
-      failure-page recipient list + boot-time idle page): (a) add faisal (`U0B9661M6J2`) to the
-      monitor's page recipients; (b) add a **continuous idle-box alarm** (any box running >N min
-      with nothing pending AND nothing running → page faisal+michael) — the boot-time check in
-      `job_poller.sh` doesn't catch boxes that go idle later (e.g. after a manual kill).
-- [ ] [boxes] optional: set `ESCALATE_SLACK_IDS` (space-separated) in `/etc/calibrate-rl-job.env`
-      on sam/sadie/ash to add the on-call to pages — the code already always includes the owner.
+- [x] orchestrator monitor extensions — **already in-repo** (`tools/gpu_job_monitor.sh`, the autocalib
+      cron): (a) faisal IS in the page recipients (line 37 = faisal+michael+gilbert); (b) the **continuous
+      idle/hang alarm** runs every 10 min over all RUNNING train/sample boxes (pages IDLE + log-stalled-hang
+      + unclaimed-handoff), catching boxes that go idle AFTER boot. Gap fixed this session: **sage added to the
+      unclaimed-handoff map** (was sam/sadie/ash only). REMAINING (michael/t3): confirm the DEPLOYED cron copy
+      matches the repo (the file notes it once lived only on the box, untracked) — deploy via `persona_sync`.
+- [ ] [boxes] optional: set `ESCALATE_SLACK_IDS` in `/etc/calibrate-rl-job.env` to add an on-call to pages.
+      **Low value as-is** — faisal/michael/gilbert ALREADY always page (NOTIFY + monitor MENTIONS + DEFAULT);
+      ESCALATE only adds someone BEYOND those three. Needs SSM-sudo per box + only affects the NEXT job. Skip
+      unless there's a specific extra on-call ID.
 - [x] [faisal] depth-1 **chain set rebuilt for diversity + full coverage (#78)**: 47 chains, 9 distinct
       targets (modexp 20/22→5/47), every one of the 47 concepts is a feeder once. Replaces the old
       wave-1/2/3 + value chains. Diversity rule = **multi-input target**. `verify_diverse_chains.py` 47/47,
@@ -631,25 +634,28 @@ decision (Faisal wants it; Michael skeptical).
       0 bad. **AMC-targeting dropped by design** (§6 superseded). **v12 is now the CANONICAL depth-1
       generator; v13 is the parked depth-0 phrasing copy and still holds the OLD chains — do NOT sample
       chains from v13.**
-      Still open: (a) goldilocks-calibrate the 47 chains **against the depth-0 model** (curriculum-gated —
-      depth-0 done ~3h); (b) build the combined 47-chain depth-1 pool for sampling; (c) per-chain knob
-      files + adapter knob-wiring (target params are num-class so calibrator can't auto-widen them — low
-      value; chains calibrate by sample+goldilocks-filter without knobs); (d) atomic recomputers for the
-      ~18 partner feeders so their chains move from UNCHECKED → independently checked.
+      Status: (a) goldilocks-calibrate the 47 chains vs the depth-0 model + (b) build the combined 47-chain
+      pool are **IN PROGRESS NOW** — the autonomous campaign (sadie vs ckpt-40) is sampling iter-1 of exactly
+      this (pool built + gated → 250×8@2048 → analyze → edit → loop). Still open: (c) per-chain knob files +
+      adapter knob-wiring (target params are num-class so calibrator can't auto-widen them — low value; chains
+      calibrate by sample+goldilocks-filter without knobs); (d) atomic recomputers for the ~18 partner feeders
+      so their chains move from UNCHECKED → independently checked.
 - [ ] [michael] concept-transfer **by-framing analysis** (responses landed, #31). Verdict =
       does the +0.22 transfer across wording (concept) or evaporate (template)? Gates the
       final depth-0 decision.
-- [ ] **v12 full calibration** — `calib_v12_2048_7B.json` (500 @2048, #22) exists and drives
-      the compat map, but the full 775×8 pass over `v12_pool_full.json` is still pending for
-      v12 training: `N_PROBLEMS=775 DATASET=data/v12_pool_full.json OUT=data/calib_v12_full_2048_7B.json
-      bash tools/sample.sh` (~4–5h, L40S via `@awesome-ash`).
-- [ ] [gilbert] v12 train-set build + training kickoff once the full calib lands
-      (~100 steps / 3 concepts).
+- [x] **v12 train-set build + depth-0 training kickoff → DONE.** `data/v12_train.json` (449 train / 79
+      holdout / 90 reserve, commit `3742c38`) was built from the v12 calib and TRAINED → `runs/v12_depth0_run2/`
+      (checkpoints 10–90). **ckpt-40 is the depth-1 base.** This is the depth-0 model the whole depth-1
+      curriculum was waiting on — it exists.
+- [~] **v12 full 775 calibration — effectively MOOT for the depth-0 we use.** The 500-pass (`calib_v12_2048_7B.json`,
+      #22) that seeded the 449 train set is done; the extra 275 was sampled (`runs/v12_remaining_275/`). But
+      depth-0 run-2 trained on the 449-set from the 500-calib, so the full 775 was a prerequisite for a *bigger*
+      run that got overtaken. Only relevant if the held "final depth-0 run" goes ahead; not a blocker now.
 - [ ] HOLD the big "final depth-0 run" until the concept-transfer eval result is in.
 - [ ] [michael] close the **legacy-role hole** from the 06-11 self-stop incident
       (guardrail proposed; charizard confirmed still open).
-- [ ] Switch the agents to the Claude Max subscription instead of API credits — we have
-      plenty of Max usage headroom, would save API spend. **(faisal, bring up next meeting)**
+- [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
+      usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
