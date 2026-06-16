@@ -516,13 +516,12 @@ the campaign-build shakeout → DAILY LOG 06-16.)
       ~300 steps; (4) **re-run this diagnostic post-training — did the gap close** (pass rises toward
       atom while atom stays high)? + AMC #21/#47/#55/#75 via `mean_pass_rate`, confirm partner-only
       set didn't regress.
-- [~] **47-chain depth-1 calibration — IN PROGRESS.** The autonomous campaign (sadie vs ckpt-40) is sampling
-      iter-1 of (a) calibrate the 47 chains vs the depth-0 model + (b) build the combined pool.
-      ⚠ **(c)/(d) appear STRANDED on the unmerged `feat/depth1-diverse-chains` branch:** a41cbbe (knob-wire 47
-      chains), 5f3dc16/8e1921a (partner-feeder recomputers), dfed0a5 (widen-to-41/47), 28fb326 (v13-strip) — #78
-      squash-merged only an EARLY slice (CONFIRMED: 0 chain knob files on main). NEXT (faisal): clean-verify what's
-      missing, then re-land the valuable follow-ups (recomputers + widen-to-41/47; knobs are low-value) as a PR.
-      v12 is the CANONICAL depth-1 generator (#78); do NOT sample chains from v13.
+- [~] **47-chain depth-1 calibration — IN PROGRESS** (campaign on sadie vs ckpt-40). All chain machinery is DONE
+      and on main: the 47-chain rebuild (#78), **(c) per-chain knob files** (47 at `automation/calibrator/knobs/
+      chain_*.json`), **(d) partner-feeder recomputers** (18 in `prep/check_dataset.py`), widen-to-41/47, and the
+      v13 chain-strip. The `feat/depth1-diverse-chains` branch is fully merged (squash-ancestry only made it LOOK
+      unmerged — `git diff main branch -- <chain files>` is empty) → safe to delete. Remaining = the campaign
+      calibrating + the #5 margin-check on iter-1's output. v12 is the CANONICAL depth-1 generator; not v13.
 - [ ] **concept-transfer by-framing — the discriminator gating the "final depth-0 run" decision.** sage is
       GENERATING the by-framing data on ckpt-40 now (`concept_transfer_ckpt40`, v13's 10 framings); [michael]
       does the analysis when it lands (the older #31 responses were on the 3-concept ckpt-108). Verdict = does
