@@ -116,12 +116,27 @@ def gate(pool_path):
     cd = sh(f"python3 prep/check_dataset.py {pool_path}", check=False, env=ENV_INJ, capture=True)
     if "mismatch" in cd.stdout and "0 mismatches" not in cd.stdout:
         return False, "gold recomputer found mismatches"
-    # 3. static checks (dedupe/top3) if available
-    sc = sh(f"python3 -m automation.calibrator.static_checks {pool_path}",
-            check=False, env=ENV_INJ, capture=True)
-    # static_checks may exit nonzero on dedupe-only flags; treat gold/top3 hard-fails only
-    if sc.returncode not in (0,) and "top3" in (sc.stdout + sc.stderr).lower():
-        return False, f"static_checks hard fail: {sc.stdout[-200:]}"
+    # 3. diversity/dedupe — computed INLINE on the actual built pool (no brittle subprocess).
+    # The gate HARD-fails only on SEVERE collapse (a degenerate, answer-hacked chain); mild
+    # top3 (0.30-0.50) is what the loop is meant to FIX, so the analyzer flags those for the
+    # edit step rather than the gate reverting them.
+    import collections
+    rows = json.load(open(pool_path))
+    bychain = collections.defaultdict(list)
+    for r in rows:
+        c = r.get("chain") or {}
+        bychain["__".join(c.get("components", [])) or r.get("skeleton_type", "?")].append(
+            str(r.get("answer", r.get("gold"))))
+    severe = []
+    for ch, ans in bychain.items():
+        if len(ans) < 8:
+            continue
+        top3 = sum(v for _, v in collections.Counter(ans).most_common(3)) / len(ans)
+        dd = len(set(ans)) / len(ans)
+        if top3 > 0.50 or dd < 0.40:
+            severe.append(f"{ch}(top3={top3:.2f},dd={dd:.2f})")
+    if severe:
+        return False, "SEVERE diversity collapse: " + ", ".join(severe[:6])
     return True, "gate OK"
 
 
