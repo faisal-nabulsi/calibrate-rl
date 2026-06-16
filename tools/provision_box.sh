@@ -21,9 +21,18 @@ pip install --upgrade pip
 pip install "torch==2.6.0" --index-url https://download.pytorch.org/whl/cu124
 pip install transformers peft numpy accelerate sympy
 
+# Drop bitsandbytes: we never quantize (we merge LoRA in bf16), but `from peft import
+# PeftModel` eagerly imports peft's bnb tuner -> bitsandbytes -> triton, which JIT-compiles
+# a CUDA module with gcc and FAILS on these boxes (sage's chain_depth1_ckpt40_diag death).
+# With bnb absent, peft skips that tuner gracefully and the bf16 merge works.
+pip uninstall -y bitsandbytes 2>/dev/null || true
+
+# Verify the EXACT import path sample.py uses (`from peft import PeftModel`), not just
+# `import peft` — that's what triggers the bnb/triton chain, so it must be in the gate.
 python3 - <<'PY'
-import torch, transformers, peft, numpy
+import torch, transformers, numpy
+from peft import PeftModel
 print("PROVISION OK | torch", torch.__version__, "| transformers", transformers.__version__,
-      "| cuda", torch.cuda.is_available())
+      "| cuda", torch.cuda.is_available(), "| PeftModel import clean")
 PY
 echo "== provision_box done =="
