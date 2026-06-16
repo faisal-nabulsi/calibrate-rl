@@ -113,107 +113,17 @@ def dimensions_html():
             f'<ul style="list-style:none;padding-left:0">{items}</ul>')
 
 
+V8_PLAN_LOCAL = ROOT / "viewer" / "v8_plan.local.html"  # gitignored: v8 DESIGN rationale stays OUT of the repo (local + Drive only)
+
+
+def v8_plan_available() -> bool:
+    return V8_PLAN_LOCAL.exists()
+
+
 def next_version_html():
-    """Standalone page: the changes planned for the next version (v8)."""
-    def sec(title, lead, items, ordered=False):
-        tag = "ol" if ordered else "ul"
-        lis = "".join(f"<li style='margin:7px 0'>{x}</li>" for x in items)
-        return (f'<h3 style="margin-top:24px">{title}</h3>'
-                f'<p class="meta">{lead}</p><{tag}>{lis}</{tag}>')
-    return f"""
-    <div class="crumb">Next version</div><h2>What to change for v8</h2>
-    <p>A working plan for the next benchmark version, grounded in the v7 run. The headline finding:
-    the weak point is not the dimension scoring (already tight via forced per-criterion sub-judgments)
-    but the <b>gates</b> — the binary, score-capping calls. Two independent judges agreed on gate
-    decisions only <b>~77%</b> of the time, and the disagreement is overwhelmingly on
-    <b>Faithfulness</b>, one-directional (gpt-5.5 over-trips a fuzzy bar). By the κ≥0.80 trust rule
-    (“ambiguity is a rubric bug, not a grader bug”), the gate rubric needs tightening before publishing.
-    The dimension scores are tighter, but they still hide one holistic judge call (§2) that v8 also removes.
-    The unifying move across all of v8: <b>push holistic judge discretion down to atomic, evidence-backed,
-    checkable units and let fixed rules/arithmetic do the aggregation.</b></p>
-
-    {sec("1 · Grading &amp; gates (highest leverage)",
-         "Make gate decisions reproducible by removing interpretation room — not by adding judge discretion.", [
-        "<b>Add a per-prompt <code>gate_conditions</code> field.</b> Today prompts only carry "
-        "<code>gates:[faithfulness, directionality]</code> with no spelled-out triggers, so judges "
-        "improvise. v8 gives each gate a <b>closed allow/deny list</b> (the v6-A1 style: “trips ONLY on …”).",
-        "<b>Split the overloaded Faithfulness gate by task type.</b> On analysis/extraction it means "
-        "“don’t assert facts not in the instance”; on drafting (D-stage) it means “no scope creep.” "
-        "Same name, different failure mode — give drafting its own <b>scope-fidelity</b> gate.",
-        "<b>Ship a drafting allow/deny whitelist.</b> D1 split 5/5 (all models pass on Opus, trip on "
-        "gpt-5.5) over whether a standard “No License; Ownership” NDA clause is fabrication. Whitelist "
-        "standard boilerplate (no-license, no-reverse-engineering, no-warranty, counterparts) as "
-        "non-tripping; list what DOES trip (IP assignment, indemnity, arbitration, governing-law change)."],
-        ordered=False)}
-
-    {sec("2 · Grading — dimension scoring (weighted ratio)",
-         "The same fix as the gates, applied to the 0–4 dimension numbers — because they hide a holistic judge call too.", [
-        "<b>The hidden step:</b> today the judge emits each dimension <code>score</code> itself — it makes the "
-        "per-criterion verdicts (met/partial/not_met) and then <i>holistically “bands” them into a float</i> "
-        "(the schema literally says “banded from sub-judgments per the rubric’s rules”). The scorer just sums "
-        "those judge-assigned numbers. So a subjective judge call sits between the evidenced verdicts and the score.",
-        "<b>The change:</b> replace the per-dimension integer max with a <b>weighted ratio</b> — "
-        "score = Σ(weight × verdict) / Σ(weight), computed by <i>code</i> from the verdicts. The judge only does "
-        "the atomic met/partial/not_met calls; arithmetic produces the number. This is <b>less</b> subjective, not "
-        "more — it deletes the banding step, and the weights are authored once, offline, model-blind.",
-        "<b>Bonus:</b> it decouples checklist length from the scale — write as many independently-gradable "
-        "criteria as the task genuinely needs (validity) while the ratio stays 0–1 (comparability). It also "
-        "formalizes the PRIMARY/SECONDARY tiers the rubric already uses into the weights.",
-        "<b>Guardrails</b> (so subjectivity doesn’t relocate into the weights): a closed weight vocabulary "
-        "(critical/major/minor), a core-weight floor so trivia can’t dilute the big issues, MECE criteria "
-        "(no double-counting → honest denominator), fixed partial semantics (met=1 / partial=0.5 / not_met=0, "
-        "N/A excluded from the denominator), and a fixed (or task-type-keyed) dimension→overall combination.",
-        "<b>Gates stay binary and separate</b> (trip → 0.40 cap) — don’t fold them into the ratio, or a "
-        "hallucinated clause gets averaged away."])}
-
-    {sec("3 · Judge discretion (the flexibility question)",
-         "Gates get near-zero live discretion; the judge’s judgment feeds the rubric OFFLINE, never the score online.", [
-        "Let the judge emit an explicit <b>“not covered by the enumerated conditions”</b> verdict on a "
-        "novel case instead of guessing trip/pass — it routes to the existing human-confirm queue.",
-        "Require a <b>proposed_condition</b> field: what rule would resolve it. A human ratifies it into "
-        "the <i>next</i> rubric version. Discretion becomes input to the rubric, not a freelance score.",
-        "Invariants: reproducibility (same rubric_version → same scores; any behavior change bumps the "
-        "version), the κ trust model, and auditability (novel calls visible in the queue, not hidden)."])}
-
-    {sec("4 · Prompt edits (these few need a re-run)",
-         "Most v8 work is re-grading; only prompts whose TEXT changes need their model responses regenerated.", [
-        "<b>C2</b> — make the directionality trip condition single + explicit (it’s genuinely "
-        "mixed-direction today, which is why it lands in human-confirm).",
-        "<b>E2</b> — its seat is “neutral deal counsel,” so a <i>partisan</i> directionality gate is "
-        "incoherent. Replace with a <b>neutrality</b> gate (trips on taking either side) or drop it.",
-        "<b>D1 + drafting prompts</b> — state the assumption license explicitly: “you may supply standard "
-        "reasonable terms; do NOT add [closed list],” aligning the prompt with the gate."])}
-
-    {sec("5 · Prompt-generation rules",
-         "Bake the fixes into how prompts are authored so the problems can’t recur.", [
-        "Enumerable per-gate trip conditions are a <b>hard authoring requirement</b>, co-drafted with the "
-        "gold key — a prompt can’t reach “ready” without them.",
-        "Tag every prompt with a <b>task-type</b> and bind the gate definition to it, so the "
-        "Faithfulness name-overload never returns.",
-        "A <b>directionality gate may only attach to a named partisan seat</b>; neutral-counsel prompts "
-        "get a neutrality gate instead.",
-        "<b>Self-containment:</b> any clause/section the gold or a gate depends on must be present in the "
-        "shown text (handles the “did the model pull from the original contract?” risk)."])}
-
-    {sec("6 · New task types to add",
-         "Oriented to raise discrimination AND reduce judge ambiguity. (Quantitative/computational tasks were considered and dropped — models are already strong there.)", [
-        "<b>Clean / no-issue instances</b> — gold = “no material issue.” Measures over-flagging (the A1 "
-        "bucket-split blind spot) and is a benchmark-wide control: does a model invent risk under pressure?",
-        "<b>Authority-bounded Q&amp;A with a world-vs-instance trap</b> — a modified statute/case excerpt, "
-        "answerable only from the excerpt where the real law differs. The cleanest Faithfulness discriminator.",
-        "<b>Cross-document consistency</b> — two related docs (MSA + SOW) → “do these conflict?” Stresses "
-        "Soundness and long-context frame-holding.",
-        "<b>Multi-turn frame-holding negotiation</b> — respond to a counterparty’s counter across turns; "
-        "targets the #1 directional-drift failure. Grading-heavy, so stage it after the discretion valve exists."])}
-
-    {sec("Settled boundary decisions",
-         "So they don’t get re-litigated.", [
-        "<b>Keep the baseline incognito</b> — the party is already named in sentence 1 of every prompt, so "
-        "no role/system-prompt priming; the directionality trips are genuine role-adherence failures.",
-        "The <b>“role-primed variant” is parked</b> (revisit only on request).",
-        "<b>Report cross-family</b> (Opus + gpt-5.5-pro), not single-judge — each judge is lenient in-family."])}
-    <p class="meta" style="margin-top:22px">Derived from run 2026-06-14T16-40-43 (Opus 4.8 vs gpt-5.5 cross-judge analysis). This is a plan, not yet applied.</p>
-    """
+    """Load the v8-plan page body from the local-only file. The design rationale is
+    deliberately not committed (kept local + on Google Drive); returns None if absent."""
+    return V8_PLAN_LOCAL.read_text() if V8_PLAN_LOCAL.exists() else None
 
 app = Flask(__name__)
 
@@ -298,7 +208,7 @@ BASE = """
 <nav class="side">
  <h1>⚖️ LegalEval</h1>
  <a href="/" class="{{ 'on' if page=='ov' }}">Overview & results</a>
- <a href="/next" class="{{ 'on' if page=='next' }}">Next version (v8) plan</a>
+ {% if has_next_page %}<a href="/next" class="{{ 'on' if page=='next' }}">Next version (v8) plan</a>{% endif %}
  {% for st,sname in stages.items() %}<div class="stg">{{st}} · {{sname}}</div>
    {% for pid in order if pid.startswith(st) %}
      <a href="/prompt/{{pid}}" class="{{ 'on' if pid==cur }}">{{pid}} · {{pmeta[pid].name}}</a>
@@ -447,7 +357,8 @@ def struggle_html(grades, cells, pmeta):
 def render(body, **kw):
     suite, pmeta, order = load_suite()
     return render_template_string(BASE, body=body, stages=STAGES, order=order, pmeta=pmeta,
-                                  run_name=RUN.name if RUN else "—", **kw)
+                                  run_name=RUN.name if RUN else "—",
+                                  has_next_page=v8_plan_available(), **kw)
 
 
 def rationale_html(pid, pmeta, agg, sample):
@@ -516,7 +427,10 @@ def index():
 
 @app.route("/next")
 def next_version():
-    return render(next_version_html(), page="next", cur=None)
+    body = next_version_html()
+    if body is None:
+        abort(404)
+    return render(body, page="next", cur=None)
 
 
 @app.route("/prompt/<pid>")
