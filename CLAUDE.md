@@ -468,6 +468,36 @@ generalizable concept skill. The **concept-transfer eval** is the discriminator:
 landed (#31); Michael's by-framing analysis is the remaining gate for the "final depth-0 run"
 decision (Faisal wants it; Michael skeptical).
 
+**Depth-1 calibration is the active workstream — autonomous campaign BUILT (06-16, faisal).**
+- **Depth-0 base checkpoint for depth-1 = `ckpt-40`** (`runs/v12_depth0_run2/checkpoint-40`).
+  Analysis: held-out mean-pass, train-side diversity (entropy/reward_std/ghost) AND KL are all
+  **flat within noise across steps 40–90** (pass@4 has a ±0.08 same-ckpt floor — proven by the
+  step-90 banner 0.911 vs recompute 0.835 — so it can't pick either; mind that trap). With the
+  curves unable to choose, structure breaks the tie: earliest firmly-on-plateau = most general for
+  the composition-TRANSFER task, least KL drift, and least exposure to the end-loaded feeder
+  regression — esp. **`modular_exponent`, which is BOTH a flagged flat-to-down feeder AND the #1
+  chain target (7/47)**. Plus v10's "peaked-then-faded, don't take the end." So 40 (50 is a
+  within-noise fallback; 70 is the seductive-wrong pick — its 0.589 is a 1σ spike that reverted at 80).
+- **Autonomous 5-iteration loop built** (`tools/depth1_calib_campaign.py`, runs on the t3/autocalib):
+  per iter → build 47-chain pool → STATIC GATE (gold recompute + dedupe/top3 + **atom-equivalence
+  freeze** + smoke) → dispatch **250×8@2048 to an L4 vs ckpt-40** → analyze per-chain
+  (`analysis/depth1_calib_analyze.py`: difficulty + diversity + verdict) → headless `claude` edits
+  the **CHAIN LAYER ONLY toward goldilocks** (depth-0 atomics frozen by the equivalence test, full
+  latitude otherwise) → **re-gate + auto-revert** broken edits → commit to `agent/depth1-calib-campaign`
+  (**branch-only, human PRs after review**) → Slack. Plumbing merged: **#81** (sample a TRAINED ckpt
+  via on-load CKPT/LoRA-merge), **#82** (s3:// dataset so the t3 hands the edited pool to a box that
+  stays on main). Deploy runbook: `docs/DEPTH1_CALIB_CAMPAIGN.md`. First real run shook out 3 bugs
+  (wait used a prefix `ls` that matched `.log` → now exact `head-object` + fail-detect; s3-dataset
+  lost from #81's merge → re-landed #82; sampler env) — all fixed.
+- **FLEET REALITY (06-16): the L4 samplers (sam/sadie/sage) are QUEUE-ONLY.** No SSM agent registered
+  (only the t3 is SSM-Online), different VPC (172.31) from the t3 (10.0.0), SG-locked — **no inbound
+  SSH even on the public IP** (block is deeper than the SG; t3 egress IP `3.212.201.9` authorized and
+  it STILL times out). The ONLY path in is the **S3 job queue (outbound poll)**. So a bare box (sadie
+  died on `ModuleNotFoundError: numpy` — its `rl-venv` was never built) is provisioned by a **`setup`
+  job** (`tools/provision_box.sh` + `run_sample_job.sh` type=setup, this PR) the poller runs on boot —
+  no SSH/SSM needed. sam is already provisioned (ran the AMC eval, loaded ckpt-40 fine); **sadie + sage
+  still need the setup job.**
+
 **In flight now:**
 - **Workstream B — depth-1 chaining** (gilbert, Faisal's lane). Done so far: keep/discard
   review of the old `chain_skeletons_v2–v4` posted to Slack; **chain compatibility map**
@@ -528,12 +558,20 @@ decision (Faisal wants it; Michael skeptical).
 
 ## TODO
 
-- [ ] **[faisal] AMC-by-coverage eval on the depth-0 model (decisive: "depth-0 capped vs general reasoning").**
-      Run AMC `mean_pass_rate` on **v12 depth-0 run2 checkpoint-20** (the held-out peak, +0.066; on disk + S3
-      `runs/v12_depth0_run2/`), split by `@concept` coverage subset (covered / partner-only / uncovered), +
-      ckpt-30 as the fade control. Gains only on *covered* → depth-0 is capped, commit fully to depth-1;
-      gains spread to *uncovered* → general reasoning, depth-0 still has juice. Cheap (one eval, ckpt exists).
-      Hand to awesome-ash. Gates whether the depth-1 chains (#78) become the main lever.
+- [~] **[faisal] AMC-by-coverage eval on the depth-0 model (decisive: "depth-0 capped vs general reasoning").**
+      Run AMC `mean_pass_rate` on **v12 depth-0 run2 checkpoint-40** (the depth-1 base — selection reasoning in
+      CURRENTLY DOING; on disk + S3 `runs/v12_depth0_run2/`), split by `@concept` coverage subset (covered /
+      partner-only / uncovered). Gains only on *covered* → depth-0 capped, commit fully to depth-1; gains spread
+      to *uncovered* → general reasoning, depth-0 still has juice. **RUNNING on sam (06-16); it loaded ckpt-40
+      fine.** Gates whether the depth-1 chains (#78) become the main lever; also the AMC baseline for depth-1's lift.
+- [ ] **[faisal] provision sadie + sage for sampling — via the `setup` job (this PR), NOT SSH.** The L4s are
+      queue-only (no SSM/SSH). Once this PR merges: drop a `setup` spec in `pending/sadie/` (+ `pending/sage/`),
+      reboot the box (AWS API) so its poller runs `provision_box.sh` (builds `rl-venv`: torch 2.6 cu124 +
+      transformers/peft/numpy/accelerate, persists on EBS), it self-stops. Then sadie is a real sampler for the
+      depth-1 campaign. Walkthrough posted to Michael in #calibrate-rl-agents. (sam already provisioned.)
+- [ ] **[faisal] LAUNCH the depth-1 calibration campaign** once (a) this PR + #82 are on main and (b) sadie is
+      provisioned. On the t3/autocalib: `SAMPLER=sadie nohup python3 tools/depth1_calib_campaign.py &`. Watch
+      iter-1's claude-edit commit + the first sample land. (Or `SAMPLER=sam` after the AMC eval frees sam.)
 - [ ] **[michael/faisal] depth-1 chains (#78) — in-band-yield margin-check at CALIB (kathryne's catch, curriculum-gated, NOT a merge blocker).**
       #78 widened to 41/47 static-pass; the **6 remaining fail dedupe ONLY** (golds+top3 PASS, ship-safe — verified
       clean-worktree @ dfed0a5). Their raw unique-ceiling clears the 150 quota (210–600), BUT the real need is **150
@@ -596,6 +634,37 @@ decision (Faisal wants it; Michael skeptical).
       plenty of Max usage headroom, would save API spend. **(faisal, bring up next meeting)**
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-16
+- [faisal] **Depth-1 base checkpoint settled: ckpt-40.** Deep analysis of v12 depth-0 run-2 (90 steps = 30×3ep,
+  sub-1-epoch so no memorization): held-out mean-pass, train-side diversity (entropy/reward_std/ghost) AND KL are
+  ALL flat within noise across 40–90; pass@4 has a ±0.08 same-ckpt floor (step-90 banner 0.911 vs kathryne's
+  recompute 0.835 — same weights). Curves can't pick → structure does: earliest firmly-on-plateau = most general
+  for the composition-transfer task, least drift, least exposure to end-loaded feeder regression (esp. `modexp`,
+  both a flat-to-down feeder AND the #1 chain target). 50 = within-noise fallback; 70 = the trap (0.589 = 1σ spike,
+  reverted at 80). v10 "don't take the end" agrees.
+- [faisal] **Built the autonomous depth-1 calibration campaign** (`tools/depth1_calib_campaign.py` + `analysis/
+  depth1_calib_analyze.py` + `docs/DEPTH1_CALIB_CAMPAIGN.md`): 5-iter loop on the t3 → build 47-chain pool → static
+  gate (golds + dedupe/top3 + atom-equivalence freeze + smoke) → dispatch 250×8@2048 to an L4 vs ckpt-40 → analyze
+  per-chain → headless `claude` edits the CHAIN LAYER toward goldilocks (depth-0 frozen) → re-gate+auto-revert →
+  commit to `agent/depth1-calib-campaign` (branch-only) → Slack. Plumbing: **#81** (sample a TRAINED ckpt via
+  CKPT/LoRA-merge at load + the gated 47-chain pool) + **#82** (s3:// dataset). First real run shook out + fixed 3
+  bugs (prefix-`ls` wait matched `.log` → exact head-object + fail-detect; s3-dataset lost from #81 merge → #82;
+  sampler env). Settings (faisal): full-latitude LLM edits, branch-only.
+- [faisal] **Fleet reality: the L4 samplers are QUEUE-ONLY** — no SSM agent (only the t3 is SSM-Online), different
+  VPC, SG-locked (no inbound SSH even on the public IP, t3 egress authorized + still times out). Provisioning is via
+  a **`setup` job** (this PR: `tools/provision_box.sh` + `run_sample_job.sh` type=setup) the poller runs on boot —
+  the queue is the only path in. sadie died on `ModuleNotFoundError: numpy` (bare `rl-venv`); sam is provisioned
+  (ran the AMC eval). sadie + sage next via the setup job. Walkthrough → Michael.
+- [faisal] **thinkrock liveness fixed.** Root cause: the t3 monitor (`gpu_job_monitor.sh`, autocalib cron) is
+  box_health-based + pages-only (already correct), but autocalib couldn't SSH the boxes (rc=255 — its `id_ed25519`
+  key wasn't in their `authorized_keys`). Added autocalib's pubkey on the L40S; verified `box_health` reports BUSY
+  for `train_grpo` (proc + GPU + systemd) so the reaper never kills a live run; the watchdog's `tmux ls` is just one
+  OR'd guard (proc check covers systemd jobs), so safe. Durable fix = **#80** (monitor key in the boot allowlist via
+  `persona_sync.sh` so every box trusts it). Reaper re-enabled. (Also: rotated the Anthropic key + Slack webhook that
+  leaked via a `bash -x` of `.profile`.)
+- [faisal] **AMC-by-coverage on ckpt-40 RUNNING on sam** (covered/partner-only/uncovered; loaded ckpt-40 fine) —
+  the depth-0-capped-vs-general gate + the depth-1 AMC baseline.
 
 ### 2026-06-15
 - [faisal] **Depth-1 chaining redesigned for target diversity — 47 chains, 9 distinct targets, modexp 20/22 → 5/47.** The old set
