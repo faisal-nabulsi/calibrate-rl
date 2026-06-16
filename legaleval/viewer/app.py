@@ -127,7 +127,10 @@ def next_version_html():
     but the <b>gates</b> — the binary, score-capping calls. Two independent judges agreed on gate
     decisions only <b>~77%</b> of the time, and the disagreement is overwhelmingly on
     <b>Faithfulness</b>, one-directional (gpt-5.5 over-trips a fuzzy bar). By the κ≥0.80 trust rule
-    (“ambiguity is a rubric bug, not a grader bug”), the gate rubric needs tightening before publishing.</p>
+    (“ambiguity is a rubric bug, not a grader bug”), the gate rubric needs tightening before publishing.
+    The dimension scores are tighter, but they still hide one holistic judge call (§2) that v8 also removes.
+    The unifying move across all of v8: <b>push holistic judge discretion down to atomic, evidence-backed,
+    checkable units and let fixed rules/arithmetic do the aggregation.</b></p>
 
     {sec("1 · Grading &amp; gates (highest leverage)",
          "Make gate decisions reproducible by removing interpretation room — not by adding judge discretion.", [
@@ -143,7 +146,27 @@ def next_version_html():
         "non-tripping; list what DOES trip (IP assignment, indemnity, arbitration, governing-law change)."],
         ordered=False)}
 
-    {sec("2 · Judge discretion (the flexibility question)",
+    {sec("2 · Grading — dimension scoring (weighted ratio)",
+         "The same fix as the gates, applied to the 0–4 dimension numbers — because they hide a holistic judge call too.", [
+        "<b>The hidden step:</b> today the judge emits each dimension <code>score</code> itself — it makes the "
+        "per-criterion verdicts (met/partial/not_met) and then <i>holistically “bands” them into a float</i> "
+        "(the schema literally says “banded from sub-judgments per the rubric’s rules”). The scorer just sums "
+        "those judge-assigned numbers. So a subjective judge call sits between the evidenced verdicts and the score.",
+        "<b>The change:</b> replace the per-dimension integer max with a <b>weighted ratio</b> — "
+        "score = Σ(weight × verdict) / Σ(weight), computed by <i>code</i> from the verdicts. The judge only does "
+        "the atomic met/partial/not_met calls; arithmetic produces the number. This is <b>less</b> subjective, not "
+        "more — it deletes the banding step, and the weights are authored once, offline, model-blind.",
+        "<b>Bonus:</b> it decouples checklist length from the scale — write as many independently-gradable "
+        "criteria as the task genuinely needs (validity) while the ratio stays 0–1 (comparability). It also "
+        "formalizes the PRIMARY/SECONDARY tiers the rubric already uses into the weights.",
+        "<b>Guardrails</b> (so subjectivity doesn’t relocate into the weights): a closed weight vocabulary "
+        "(critical/major/minor), a core-weight floor so trivia can’t dilute the big issues, MECE criteria "
+        "(no double-counting → honest denominator), fixed partial semantics (met=1 / partial=0.5 / not_met=0, "
+        "N/A excluded from the denominator), and a fixed (or task-type-keyed) dimension→overall combination.",
+        "<b>Gates stay binary and separate</b> (trip → 0.40 cap) — don’t fold them into the ratio, or a "
+        "hallucinated clause gets averaged away."])}
+
+    {sec("3 · Judge discretion (the flexibility question)",
          "Gates get near-zero live discretion; the judge’s judgment feeds the rubric OFFLINE, never the score online.", [
         "Let the judge emit an explicit <b>“not covered by the enumerated conditions”</b> verdict on a "
         "novel case instead of guessing trip/pass — it routes to the existing human-confirm queue.",
@@ -152,7 +175,7 @@ def next_version_html():
         "Invariants: reproducibility (same rubric_version → same scores; any behavior change bumps the "
         "version), the κ trust model, and auditability (novel calls visible in the queue, not hidden)."])}
 
-    {sec("3 · Prompt edits (these few need a re-run)",
+    {sec("4 · Prompt edits (these few need a re-run)",
          "Most v8 work is re-grading; only prompts whose TEXT changes need their model responses regenerated.", [
         "<b>C2</b> — make the directionality trip condition single + explicit (it’s genuinely "
         "mixed-direction today, which is why it lands in human-confirm).",
@@ -161,7 +184,7 @@ def next_version_html():
         "<b>D1 + drafting prompts</b> — state the assumption license explicitly: “you may supply standard "
         "reasonable terms; do NOT add [closed list],” aligning the prompt with the gate."])}
 
-    {sec("4 · Prompt-generation rules",
+    {sec("5 · Prompt-generation rules",
          "Bake the fixes into how prompts are authored so the problems can’t recur.", [
         "Enumerable per-gate trip conditions are a <b>hard authoring requirement</b>, co-drafted with the "
         "gold key — a prompt can’t reach “ready” without them.",
@@ -172,7 +195,7 @@ def next_version_html():
         "<b>Self-containment:</b> any clause/section the gold or a gate depends on must be present in the "
         "shown text (handles the “did the model pull from the original contract?” risk)."])}
 
-    {sec("5 · New task types to add",
+    {sec("6 · New task types to add",
          "Oriented to raise discrimination AND reduce judge ambiguity. (Quantitative/computational tasks were considered and dropped — models are already strong there.)", [
         "<b>Clean / no-issue instances</b> — gold = “no material issue.” Measures over-flagging (the A1 "
         "bucket-split blind spot) and is a benchmark-wide control: does a model invent risk under pressure?",
