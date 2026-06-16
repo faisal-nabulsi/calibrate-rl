@@ -738,7 +738,7 @@ _CHAIN_TARGET = {
  "constrained_subset_count":"complement_prob_mn","continued_fraction":"inclusion_exclusion_3set",
  "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"algebraic_system_2eq",
  "custom_binary_op":"perfect_square_divisible","digit_count_bigprod":"complement_prob_mn",
- "distinct_product_count":"modular_exponent","divisor_sum_filter":"perfect_square_divisible",
+ "distinct_product_count":"modular_exponent","divisor_sum_filter":"modular_exponent",
  "equalization_fraction":"constrained_digit_count","frobenius_stamps":"telescoping_mn",
  "geo_first_exceed":"equalization_fraction","inclusion_exclusion_3set":"modular_exponent",
  "infinite_product_exp":"modular_exponent","lattice_points_circle":"inclusion_exclusion_3set",

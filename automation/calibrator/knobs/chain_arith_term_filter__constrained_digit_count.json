@@ -9,24 +9,27 @@
       "value": [
         1000,
         2000,
-        3000
+        3000,
+        4000,
+        5000
       ],
       "type": "choice",
       "envelope": [
         500,
-        5000
+        6000
       ],
       "knob_class": "num"
     },
     "span": {
       "value": [
         1000,
-        2000
+        2000,
+        3000
       ],
       "type": "choice",
       "envelope": [
         500,
-        3000
+        4000
       ],
       "knob_class": "num"
     }

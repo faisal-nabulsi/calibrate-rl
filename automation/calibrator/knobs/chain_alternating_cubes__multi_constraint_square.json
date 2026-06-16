@@ -8,12 +8,14 @@
     "d": {
       "value": [
         4,
-        9
+        9,
+        16,
+        25
       ],
       "type": "choice",
       "envelope": [
         4,
-        9
+        25
       ],
       "knob_class": "num"
     },

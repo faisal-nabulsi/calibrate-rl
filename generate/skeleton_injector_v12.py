@@ -1088,7 +1088,7 @@ _DIVERSE_CHAINS={
  "constrained_subset_count":"complement_faces","continued_fraction":"ie3_U",
  "count_obtuse_triangles":"equalize_g","count_pythagorean":"algebraic_x",
  "custom_binary_op":"perfsq_limit","digit_count_bigprod":"complement_faces",
- "distinct_product_count":"modexp_base","divisor_sum_filter":"perfsq_limit",
+ "distinct_product_count":"modexp_base","divisor_sum_filter":"modexp_base",
  "equalization_fraction":"digit_target","frobenius_stamps":"telescoping_N",
  "geo_first_exceed":"equalize_g","inclusion_exclusion_3set":"modexp_base",
  "infinite_product_exp":"modexp_base","lattice_points_circle":"ie3_U",
