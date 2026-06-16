@@ -486,24 +486,21 @@ build the 47-chain pool → static gate (gold recompute + dedupe/top3 + atom-equ
 250×8@2048 on sadie vs ckpt-40 → analyze per-chain → headless `claude` edits the CHAIN LAYER toward goldilocks
 (depth-0 atomics frozen) → re-gate/auto-revert → commit → Slack. **iter-1 sampling now.**
 
-**Fleet:** 3× L4 samplers (sam/sadie/sage, all provisioned `PeftModel import clean` after bnb-drop #86,
-SSM-reachable) + L40S trainer. L4s are queue-driven (S3 poll); jobs stream a progress heartbeat to S3 (#92) so
-liveness is readable mid-run without SSM. Quota 16→20 open (CASE_OPENED). (Fleet/permission-overhaul detail and
+**Fleet:** 3× L4 samplers (sam/sadie/sage) + L40S trainer (awesome-ash). L4s are queue-driven (S3 poll); jobs stream a progress heartbeat to S3 so
+liveness is readable mid-run without SSM. Quota 20 open (CASE_OPENED). (Fleet/permission-overhaul detail and
 the campaign-build shakeout → DAILY LOG 06-16.)
 
 ## TODO
 
 > Completed items migrate to the DAILY LOG; this section is open/actionable work only. (This session's
-> done items — AMC-capped #89, sadie/sage provisioned, campaign launched — are in CURRENTLY DOING + the log.)
+> done items are in CURRENTLY DOING + the log.)
 
 - [ ] **read the depth-0 TRIFECTA when the 3 L4 jobs land = the complete depth-0 verdict:** (a) composition-gap
       diagnostic (sam: did depth-0 strengthen the atoms for chaining?); (b) concept-transfer by-framing (sage is
-      generating it on ckpt-40 now; **[michael] analyzes** — does the +0.22 held-out gain transfer across
+      generating it on ckpt-40 now; **[faisal] analyzes** — does the +0.22 held-out gain transfer across
       wording=concept, or evaporate=template? older #31 was on the 3-concept ckpt-108); (c) the AMC-capped finding
       (#89, done). The by-framing is the discriminator gating the **"final depth-0 run" decision**, which stays HELD
       until it's in — likely moot anyway now that depth-0 is AMC-capped.
-- [ ] **[faisal/michael] restart the t3 agents** (gilbert/kathryne/charizard: `git pull` claude-code-slack-bot +
-      restart per user) to apply **#8** (read-only-bash-on-bot-turns guard fix). Not urgent — doesn't affect running jobs.
 - [ ] **[michael/faisal] depth-1 chains (#78) — in-band-yield margin-check at CALIB (kathryne's catch, curriculum-gated, NOT a merge blocker).**
       #78 widened to 41/47 static-pass; the **6 remaining fail dedupe ONLY** (golds+top3 PASS, ship-safe — verified
       clean-worktree @ dfed0a5). Their raw unique-ceiling clears the 150 quota (210–600), BUT the real need is **150
