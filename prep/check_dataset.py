@@ -429,28 +429,34 @@ def _isprime_td(x):
         i += 1
     return True
 
-# ── atomic recomputers for partner feeders (salvaged from the removed wave-2 chain
-#    recomputers); these let the diverse-chain recomputer recompute V for partner-fed chains.
+# ── atomic recomputers for the partner feeders (parse the v12 standalone question text) ──
 def rc_count_obtuse_triangles(p):
-    g = re.search(r"perimeter at most (\d+)", p)
+    g = (re.search(r"between (\d+) and (\d+)", p) or re.search(r"from (\d+) to (\d+)", p)
+         or re.search(r"at least (\d+) and at most (\d+)", p) or re.search(r"\[(\d+), (\d+)\]", p))
     if not g: return None
-    P = int(g.group(1)); cnt = 0
-    for a in range(1, P):
-        for b in range(a, P):
-            for c in range(b, P):
-                if a+b+c > P: break
-                if a+b <= c: continue
+    plo, phi = int(g.group(1)), int(g.group(2)); cnt = 0
+    for a in range(1, phi):
+        for b in range(a, phi):
+            for c in range(b, phi):
+                s = a+b+c
+                if s > phi: break
+                if s < plo or a+b <= c: continue
                 if c*c > a*a+b*b: cnt += 1
     return cnt
 
-def rc_primality_in_sequence(p):
-    pt = re.search(r"first (\d+) terms", p); ps = re.search(r"first term (\d+)", p)
-    pd = re.search(r"common difference (\d+)", p)
-    if not (pt and ps and pd): return None
-    return sum(1 for k in range(int(pt.group(1))) if _isprime_td(int(ps.group(1))+k*int(pd.group(1))))
+def rc_geo_first_exceed(p):
+    a = re.search(r"(?:starts at|Starting at|begins at|first term)\s+(\d+)", p)
+    r = (re.search(r"(?:multiplies by|ratio)\s*\(?(\d+)", p) or re.search(r"×(\d+)", p)
+         or re.search(r"is (\d+) times the previous", p))
+    bd = re.search(r"(?:exceeds?|exceeding|greater than|above)\s+(\d+)", p)
+    if not (a and r and bd): return None
+    a, rr, bound = int(a.group(1)), int(r.group(1)), int(bd.group(1))
+    k, term = 1, a
+    while term <= bound: k += 1; term = a*rr**(k-1)
+    return k
 
 def rc_vieta_pair_count(p):
-    g = re.search(r"qx\s*\+\s*(\d+)", p)
+    g = re.search(r"bx\s*\+\s*(\d+)", p)
     if not g: return None
     c = int(g.group(1)); trip = set(); R = 15
     for r1 in range(-R, R+1):
@@ -464,21 +470,21 @@ def rc_vieta_pair_count(p):
             trip.add(tuple(sorted((r1, r2, r3))))
     return len(trip)
 
+def rc_primality_in_sequence(p):
+    a = re.search(r"(?:starting at|beginning|first term|sequence)\s+(\d+)", p)
+    d = re.search(r"(?:step|common difference|increasing by)\s+(\d+)", p)
+    n = re.search(r"first (\d+) terms", p)
+    if not (a and d and n): return None
+    a, d, n = int(a.group(1)), int(d.group(1)), int(n.group(1))
+    return sum(1 for k in range(n) if _isprime_td(a + k*d))
+
 def rc_frobenius_stamps(p):
-    g = re.search(r"(\d+)x\s*\+\s*(\d+)y", p)
+    g = (re.search(r"(\d+)-cent and (\d+)-cent", p) or re.search(r"(\d+) and (\d+) cents", p)
+         or re.search(r"(\d+)x\+(\d+)y", p) or re.search(r"of (\d+) and (\d+)", p)
+         or re.search(r"worth (\d+) and (\d+)", p))
     if not g: return None
     fa, fb = int(g.group(1)), int(g.group(2))
     return (fa-1)*(fb-1)//2
-
-def rc_geo_first_exceed(p):
-    bd = re.search(r"exceeds (\d+)", p); st = re.search(r"first term (\d+)", p)
-    rt = re.search(r"common ratio (\d+)", p)
-    if not (bd and st and rt): return None
-    a, r, bound = int(st.group(1)), int(rt.group(1)), int(bd.group(1))
-    k, term = 1, a
-    while term <= bound:
-        k += 1; term = a*r**(k-1)
-    return k
 
 def rc_digit_count_bigprod(p):
     pairs = re.findall(r"(\d+)\s*\^\s*(\d+)", p)
@@ -487,14 +493,124 @@ def rc_digit_count_bigprod(p):
     return len(str((int(a)**int(b)) * (int(c)**int(d))))
 
 def rc_sum_of_squares(p):
-    nn = re.search(r"k\s*\u2264\s*(\d+)", p); mm = re.search(r"divisible by (\d+)", p)
-    if not (nn and mm): return None
-    n, m = int(nn.group(1)), int(mm.group(1))
-    cnt = run = 0
+    n = (re.search(r"1 to (\d+)", p) or re.search(r"up to (\d+) terms", p)
+         or re.search(r"k\s*≤\s*(\d+)", p) or re.search(r"\[1,\s*(\d+)\]", p))
+    m = re.search(r"(?:divisible by|multiple of|multiples of)\s+(\d+)", p)
+    if not (n and m): return None
+    n, m = int(n.group(1)), int(m.group(1)); cnt = run = 0
     for k in range(1, n+1):
         run += k*k
         if run % m == 0: cnt += 1
     return cnt
+
+def rc_arith_series_sum(p):
+    a = re.search(r"(?:starts at|Starting at|first term|first)\s+(\d+)", p)
+    d = re.search(r"(?:common difference|difference|increasing by|step)\s+(\d+)", p)
+    T = re.search(r"(?:exceed|greater than|passes|past|exceeds)\s+(\d+)", p)
+    if not (a and d and T): return None
+    a, d, T = int(a.group(1)), int(d.group(1)), int(T.group(1))
+    n = tot = 0
+    while tot <= T:
+        n += 1; tot += a + (n-1)*d
+    return n
+
+def rc_distinct_product_count(p):
+    from itertools import product as _prod
+    n = re.search(r"(\d+)\s+(?:standard\s+)?\d+-sided", p) or re.search(r"Rolling (\d+)", p)
+    faces = re.search(r"(\d+)-sided", p)
+    if not (n and faces): return None
+    n, faces = int(n.group(1)), int(faces.group(1))
+    prods = set()
+    for combo in _prod(range(1, faces+1), repeat=n):
+        pr = 1
+        for x in combo: pr *= x
+        prods.add(pr)
+    return len(prods)
+
+def rc_infinite_product_exp(p):
+    g = re.search(r"(\d+)\s*\^\s*\(?1/(\d+)", p)
+    if not g: return None
+    base, r = int(g.group(1)), int(g.group(2))
+    return base*base if r == 2 else base
+
+def rc_mean_removal(p):
+    n = re.search(r"(?:mean of|average of|list of)\s+(\d+)\s+numbers", p) or re.search(r"(\d+) numbers", p)
+    m = re.search(r"(?:mean of \d+ numbers is|averages|average of \d+ numbers is|have mean|Mean of \d+ numbers is)\s+(\d+)", p)
+    m2 = re.search(r"(?:becomes|average is|mean to|leaving an average of|the mean is)\s+(\d+)", p)
+    x1 = re.search(r"(?:one removed number is|one deleted value is|one removed is|One was|removed is)\s+(\d+)", p)
+    if not (n and m and m2 and x1): return None
+    n, m, m2, x1 = int(n.group(1)), int(m.group(1)), int(m2.group(1)), int(x1.group(1))
+    return n*m - x1 - (n-2)*m2
+
+def rc_point_rotation(p):
+    pts = re.findall(r"\((-?\d+),\s*(-?\d+)\)", p)
+    deg = re.search(r"(\d+)\s*(?:°|degrees|deg)", p)
+    if len(pts) < 2 or not deg: return None
+    (x, y), (cx, cy) = (int(pts[0][0]), int(pts[0][1])), (int(pts[1][0]), int(pts[1][1]))
+    deg = int(deg.group(1)); dx, dy = x-cx, y-cy
+    if deg == 90: nx, ny = -dy, dx
+    elif deg == 180: nx, ny = -dx, -dy
+    else: nx, ny = dy, -dx
+    return (nx+cx) + (ny+cy)
+
+def rc_percent_compound(p):
+    base = re.search(r"(?:quantity of|Starting at|value|A value)\s+(\d+)", p) or re.search(r"^(\d+) grows", p) or re.search(r"the value (\d+)", p)
+    up = re.search(r"(?:increased by|grows by|raised|raise of|a)\s+(\d+)\s*%", p) or re.search(r"(\d+)%\s*(?:increase|raise)", p)
+    final = re.search(r"(?:ending at|giving|landing at|becomes|reach)\s+(\d+)", p)
+    if not (base and up and final): return None
+    base, up, final = int(base.group(1)), int(up.group(1)), int(final.group(1))
+    after_up = base*(100+up)//100
+    if after_up == 0: return None
+    down = 100 - (final*100)//after_up
+    return down
+
+def rc_rate_closing(p):
+    d = re.search(r"(\d+)[\s-]+miles? apart", p) or re.search(r"(\d+)-mile", p)
+    v1 = re.search(r"(\d+)[\s-]*mph", p) or re.search(r"first (?:goes|\()\s*(\d+)", p)
+    met = re.search(r"(?:covered|gone|after|rides|covers)\s+(\d+)\s+miles", p)
+    if not (d and v1 and met): return None
+    d, v1, met = int(d.group(1)), int(v1.group(1)), int(met.group(1))
+    if met == 0: return None
+    s = d*v1
+    if s % met: return None
+    return s//met - v1
+
+def rc_three_number_system(p):
+    total = re.search(r"(?:sum to|sum of three numbers is|a\+b\+c=|numbers total|total)\s*(\d+)", p)
+    mult = re.search(r"(?:first is|a=|first=|first equals)\s*(\d+)\s*(?:times|c|×)", p)
+    off = re.search(r"(?:less than the second|below the second|b−|b-|second−|second-)\s*(\d+)", p) or re.search(r"(\d+)\s*(?:less than|below)", p) or re.search(r"[b](?:−|-)(\d+)", p)
+    if not (total and mult and off): return None
+    total, mult, off = int(total.group(1)), int(mult.group(1)), int(off.group(1))
+    if (mult+2) == 0 or (total-off) % (mult+2): return None
+    third = (total-off)//(mult+2)
+    return mult*third*third - (third+off)
+
+def rc_trapezoid_area(p):
+    A = re.search(r"area (?:is |of )?(\d+)", p)
+    h = re.search(r"height (?:is )?(\d+)", p)
+    if not (A and h): return None
+    A, h = int(A.group(1)), int(h.group(1))
+    if h == 0 or (2*A) % h: return None
+    val = 2*A//h - 1
+    if val % 2: return None
+    return val//2
+
+def rc_unit_conversion_area(p):
+    w = re.search(r"(\d+)[\s-]*(?:millimeters?|mm)", p)
+    L = re.search(r"(\d+)\s*(?:meters?|m)\b", p)
+    if not (w and L): return None
+    return int(w.group(1)) * int(L.group(1)) * 10
+
+def rc_vieta_sumcubes(p):
+    s = (re.search(r"x²\s*-\s*(\d+)x", p) or re.search(r"summing to (\d+)", p)
+         or re.search(r"r\+s=(\d+)", p) or re.search(r"add to (\d+)", p)
+         or re.search(r"roots summing to (\d+)", p))
+    pp = (re.search(r"x²-\d+x\+(\d+)", p) or re.search(r"x²\s*-\s*\d+x\s*\+\s*(\d+)", p)
+          or re.search(r"product (\d+)", p) or re.search(r"rs=(\d+)", p)
+          or re.search(r"multiply to (\d+)", p) or re.search(r"x²-\{?\d+\}?x\+(\d+)", p))
+    if not (s and pp): return None
+    s, pp = int(s.group(1)), int(pp.group(1))
+    return s**3 - 3*s*pp
 
 
 RECOMPUTERS = {
@@ -534,6 +650,17 @@ RECOMPUTERS = {
     "geo_first_exceed": rc_geo_first_exceed,
     "digit_count_bigprod": rc_digit_count_bigprod,
     "sum_of_squares": rc_sum_of_squares,
+    "arith_series_sum": rc_arith_series_sum,
+    "distinct_product_count": rc_distinct_product_count,
+    "infinite_product_exp": rc_infinite_product_exp,
+    "mean_removal": rc_mean_removal,
+    "percent_compound": rc_percent_compound,
+    "point_rotation": rc_point_rotation,
+    "rate_closing": rc_rate_closing,
+    "three_number_system": rc_three_number_system,
+    "trapezoid_area": rc_trapezoid_area,
+    "unit_conversion_area": rc_unit_conversion_area,
+    "vieta_sumcubes": rc_vieta_sumcubes,
 }
 
 
