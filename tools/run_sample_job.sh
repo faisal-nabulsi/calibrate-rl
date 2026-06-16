@@ -38,6 +38,10 @@ cd "$(dirname "$0")/.."
 
 # GPU deps live in the box's rl-venv (torch/transformers); systemd gives us bare PATH.
 [ -f "$HOME/rl-venv/bin/activate" ] && source "$HOME/rl-venv/bin/activate"
+# ...but `source activate` has fallen through to system python3 under systemd before (PATH/HOME),
+# silently running sample.py/train on a venv-less python (the depth1_calib_iter1 numpy death).
+# Belt-and-suspenders: invoke the venv's python EXPLICITLY when it exists — no PATH dependency.
+PY="python3"; [ -x "$HOME/rl-venv/bin/python3" ] && PY="$HOME/rl-venv/bin/python3"
 # AGENT_NAME / SLACK_WEBHOOK_URL / ESCALATE_SLACK_ID come from systemd's EnvironmentFile;
 # source it for hand-runs too, so a direct invocation reports under the right identity and
 # can still page on failure (instead of falling back to the hostname / silent webhooks).
@@ -198,7 +202,7 @@ elif [ "$JOB_TYPE" = "sample" ]; then
            ${JOB_N:+N_PROBLEMS="$JOB_N"}
            ${JOB_ROLLOUTS:+N_ROLLOUTS="$JOB_ROLLOUTS"}
            ${JOB_MAX_TOKENS:+MAX_NEW_TOKENS="$JOB_MAX_TOKENS"})
-  RUN_CMD="python3 tools/sample.py"
+  RUN_CMD="$PY tools/sample.py"
   SYNC_CMD="aws s3 cp $OUT $OUTPUT_URI"
 else
   [ -n "$JOB_DATASET" ] || finish 1 "train job needs a 'dataset' field (TRAIN_DATA)"
@@ -207,7 +211,7 @@ else
            ${JOB_HOLDOUT:+HOLDOUT_DATA="$JOB_HOLDOUT"}
            ${JOB_N:+MAX_STEPS="$JOB_N"}
            ${JOB_MAX_TOKENS:+MAX_COMPLETION_LENGTH="$JOB_MAX_TOKENS"})
-  RUN_CMD="python3 train/train_grpo.py"
+  RUN_CMD="$PY train/train_grpo.py"
   SYNC_CMD="aws s3 sync $RUN_DIR ${OUTPUT_URI%/}/"
 fi
 
