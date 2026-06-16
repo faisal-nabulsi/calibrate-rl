@@ -1,0 +1,36 @@
+{
+  "checkpoint": "BASE",
+  "k": 8,
+  "temperature": 1.0,
+  "max_new_tokens": 2048,
+  "subsets": {
+    "overall": {
+      "pass@8": 0.7108,
+      "n": 83,
+      "mean_pass_rate": 0.4247,
+      "boxed_rate": 0.9895,
+      "mean_completion_tokens": 797.1
+    },
+    "covered": {
+      "pass@8": 0.7838,
+      "n": 37,
+      "mean_pass_rate": 0.4291,
+      "boxed_rate": 0.9932,
+      "mean_completion_tokens": 824.4
+    },
+    "partner_only": {
+      "pass@8": 0.8696,
+      "n": 23,
+      "mean_pass_rate": 0.6467,
+      "boxed_rate": 0.9946,
+      "mean_completion_tokens": 739.5
+    },
+    "uncovered": {
+      "pass@8": 0.4348,
+      "n": 23,
+      "mean_pass_rate": 0.2337,
+      "boxed_rate": 1.0,
+      "mean_completion_tokens": 837.7
+    }
+  }
+}
