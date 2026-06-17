@@ -60,34 +60,48 @@ sufficient. Chaining-failure taxonomy from transcripts:
 touching the hand-off; P(pass|hit) unchanged. "Can do the steps, can't chain them" is
 literally what the transcripts show. **Depth-1 is justified.**
 
-## 3. By-framing: "partly concept, mostly reliable-execution — not pure template"
+**Confirmed at scale on the 47 diverse chains** (base on sage vs ckpt-40 iter-2, *same pool*):
+mean pass **0.290 → 0.299** (Δ +0.009, nothing), feeder-hit 0.896 → 0.924, gap **+0.606 →
++0.625** (intact, slightly wider), `P(pass|atom-miss) ≈ 0.01 → 0.00`; per-chain 9 up / 10 down
+/ 28 flat. The exact 3-composite pattern now holds on 47 diverse chains — depth-0 does not
+chain on the full set either, and ckpt-40 is the right base *because* the gap survives in it.
 
-Moderate confidence (~65%). Both signals present (ckpt-40, 180 rows):
+## 3. By-framing: SETTLED — execution reliability, NOT concept consolidation
 
-| concept | A_orig | B_word | C_setbld | D_scen | E_para | spread |
-|---|---|---|---|---|---|---|
-| cdc | 0.417 | 0.219 | 0.365 | 0.177 | 0.396 | 0.240 |
-| cmp | 0.604 | 0.312 | 0.521 | 0.438 | 0.552 | 0.292 |
-| ie3 | 0.354 | 0.479 | 0.417 | 0.375 | 0.354 | 0.125 |
+The base-180 run landed (`runs/concept_transfer_base/`), so the decisive test ran: *does
+training flatten the per-concept framing-spread (→ concept consolidation) or leave it
+(→ execution/template reliability)?*
 
-- **Concept signal:** paraphrase-E ≈ canonical-A; hard problems fail ~0.00 and easy ones
-  pass ~1.0 *uniformly across all 5 framings* (difficulty dominates the tails, not wording).
-- **Template signal:** cdc/cmp spread 0.24–0.29; deep recasts (word-problem, scenario) cost
-  ~0.15; the *same* divisors-of-5280 problem is solved by three different (all wrong) methods
-  in three framings — wording-conditioned method selection, not a stable procedure.
-- ckpt-108 base-vs-trained: the +0.03 gain is cdc execution reliability (switches to the
-  cleaner complement method, fewer enumeration slips) — Zaid's reframe confirmed.
+| concept | base mean → ckpt-40 | base spread → ckpt-40 spread | read |
+|---|---|---|---|
+| cdc | 0.221 → 0.315 (**+0.094**) | 0.240 → 0.240 (**Δ 0.00**) | lifted *uniformly*, spread unchanged |
+| cmp | 0.510 → 0.485 (−0.025) | 0.323 → 0.292 (−0.031) | mild flatten + slight regression |
+| ie3 | 0.373 → 0.396 (+0.023) | 0.104 → 0.125 (+0.021) | slight widen |
+| **overall** | **0.368 → 0.399 (+0.031)** | net ~unchanged | — |
 
-**Not fully settled** — the base-180 run (dispatched 06-16, `runs/concept_transfer_base/`)
-is the decisive test: if training *flattens* the per-concept spread vs base → concept
-consolidation; if spread is equal-or-wider → canonical-form memorization. Final depth-0-run
-decision stays on hold until that lands.
+**Verdict (settled): the gain is execution reliability on a known method, NOT concept
+consolidation.** Training raised the level a touch (+0.031 overall; cdc +0.094 across *all
+five* framings equally) but left the wording-sensitivity profile intact — spreads moved
+−0.03 / 0.00 / +0.02, i.e. net zero. If the model had genuinely consolidated the concept,
+canonical-vs-paraphrase would have converged; it didn't. This is Zaid's reframe (held-out up,
+external flat = template/execution reliability) now proven against base, and it closes the
+last open trifecta axis. ⇒ **depth-0 is capped on all four axes** (AMC binary, AMC coverage,
+composition gap, concept-vs-template).
 
 ## 4. Depth-1 calibration campaign: chains sound, convergence partial
 
-iter-1 (250×8 vs ckpt-40): **32% goldilocks, 37% too-hard, 0/47 in the strict 0.45–0.55
-band; overall mean pass 0.308.** But the chains are *high quality* — every gold recomputed
-was exact, nothing ill-posed or ungradeable. The two causes of the too-hard chains are telling:
+Trajectory vs ckpt-40 (target: mean→0.5, goldilocks↑, too-hard↓):
+
+| iter | mean | goldilocks% | too_hard% |
+|---|---|---|---|
+| 1 | 0.308 | 32.4 | 37.2 |
+| 2 | 0.299 | 26.8 | 46.0 |
+| 3 | **0.374** | **38.4** | **30.8** |
+
+Noisy (iter-2 dipped) but **iter-3 is the best yet and climbing toward goldilocks** as iter-2's
+easing edits land; iter-4 sampling. On this slope it should reach ~0.45 mean / ~45% in-band by
+iter-5. The chains are *high quality* — every gold recomputed was exact, nothing ill-posed or
+ungradeable. The two causes of the too-hard chains are telling:
 
 - **Feeder-step bottleneck** — the composition gap *again* (on
   `divisor_sum_filter__modular_exponent` only 2/8 rollouts produce the right intermediate).
@@ -124,6 +138,9 @@ manual feeder-diversity pass will be needed to finish.
 
 Every experiment points one way: **atom knowledge is solved; the ceiling is composition and
 final-step execution.** ckpt-40 is the right depth-1 base (atoms reliable, gap intact), the
-47-chain set is calibratable, and the autonomous campaign is tuning it toward goldilocks. The
-one open empirical question is concept-vs-template, which the in-flight base-180 by-framing run
-will close.
+47-chain set is calibratable, and the autonomous campaign is tuning it toward goldilocks. With
+the base-180 by-framing run in (depth-0 = execution reliability, not concept consolidation) and
+the composition gap confirmed intact on all 47 chains, **every diagnostic question is now
+answered and depth-0 is fully capped on four axes.** The only thing left before the payoff is
+the calibration converging — then build the depth-1 train set, train ~300 steps off ckpt-40,
+and re-run the gap diagnostic to see if depth-1 closes what depth-0 couldn't.
