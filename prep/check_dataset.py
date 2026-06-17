@@ -703,14 +703,19 @@ def _recompute_target(target, c, V):
         return sum(1 for x in range(lo, hi+1) if sum(int(d) for d in str(x)) == V)
     if target == "inclusion_exclusion_3set":
         # iter1: reduced 3 sets -> 2 sets. iter2: per-chain "nsets" knob may restore
-        # the 3-set form; detect which form from the clause text.
+        # the 3-set form. iter4: nsets=1 (single divisor) form added. Detect which form
+        # from the clause text: 3-set ("a, b, or c") -> 2-set ("a or b") -> 1-set ("a?").
         m3 = re.search(r"divisible by (\d+), (\d+), or (\d+)", c)
         if m3:
             a, b, d = (int(x) for x in m3.groups())
             return (V//a+V//b+V//d-V//_lcm2(a,b)-V//_lcm2(a,d)-V//_lcm2(b,d)
                     + V//_lcm2(a, _lcm2(b, d)))
-        a, b = (int(x) for x in re.search(r"divisible by (\d+) or (\d+)", c).groups())
-        return V//a + V//b - V//_lcm2(a, b)
+        m2 = re.search(r"divisible by (\d+) or (\d+)", c)
+        if m2:
+            a, b = (int(x) for x in m2.groups())
+            return V//a + V//b - V//_lcm2(a, b)
+        a = int(re.search(r"divisible by (\d+)\?", c).group(1))
+        return V//a
     if target == "perfect_square_divisible":
         # iter2: optional "...and end in the digit L" second constraint (harden).
         div = int(re.search(r"divisible by (\d+)", c).group(1)); rd = isqrt(div)
@@ -722,10 +727,13 @@ def _recompute_target(target, c, V):
             k += 1
         return cnt
     if target == "multi_constraint_square":
+        # iter4: "end in the digit L" is now optional (one fewer constraint when omitted).
         d = int(re.search(r"divisible by (\d+)", c).group(1))
-        last = int(re.search(r"end in the digit (\d+)", c).group(1)); cnt = 0; k = 1
+        ml = re.search(r"end in the digit (\d+)", c)
+        last = int(ml.group(1)) if ml else -1
+        cnt = 0; k = 1
         while k*k < V:
-            if (k*k) % d == 0 and (k*k) % 10 == last: cnt += 1
+            if (k*k) % d == 0 and (last < 0 or (k*k) % 10 == last): cnt += 1
             k += 1
         return cnt
     if target == "equalization_fraction":

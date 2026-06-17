@@ -7,7 +7,7 @@
   "params": {
     "nsets": {
       "value": [
-        2
+        3
       ],
       "type": "choice",
       "envelope": [

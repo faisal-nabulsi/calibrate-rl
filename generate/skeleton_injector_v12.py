@@ -1042,12 +1042,20 @@ def _a_ie3_U(V, kn):
     # (three_number_system, 0.92) can re-add the third set without re-hardening the
     # TOO_HARD ie3 chains (which keep the default 2-set form). Recomputer detects the
     # form from the clause ("a, b, or c" vs "a or b").
+    # iter4: optional nsets=1 (single divisor -> one floor-division, no inclusion-exclusion)
+    # to MAX-EASE the feeder-limited TOO_HARD ie3 targets (continued_fraction, lattice_points,
+    # vieta_sumcubes ~0): the chain pass then floors at the feeder's own rate instead of being
+    # killed by a 2/3-set IE step on top of a hard feeder. Recomputer detects the 1-set form
+    # (single divisor, no "or"/comma) from the clause.
     n = kn.choice("nsets") if "nsets" in kn.params else 2
     pool=[2,3,4,5,6,7,8,9]
     if n>=3:
         a,b,c=sorted(random.sample(pool,3))
         return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
                 f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
+    if n<=1:
+        a=random.choice(pool)
+        return (V//a, f"How many integers from 1 to V are divisible by {a}?")
     a,b=sorted(random.sample(pool,2))
     return (V//a+V//b-V//lcm(a,b),
             f"How many integers from 1 to V are divisible by {a} or {b}?")
@@ -1067,28 +1075,47 @@ def _a_perfsq_limit(V, kn):
     while (rd*k)**2<V: cnt+=1; k+=1
     return (cnt, f"How many perfect squares less than V are divisible by {div}?")
 def _a_multisquare_limit(V, kn):
-    d=kn.choice("d"); last=kn.choice("last"); cnt=0; k=1
+    # iter4: "last" digit is now OPTIONAL (a SECOND constraint). alternating_cubes (the only
+    # multisquare chain) was 0.05 TOO_HARD with BOTH "divisible by d" AND "ends in last" on a
+    # huge fed V; dropping "last" (knob omits it) leaves a single divisibility constraint ->
+    # one count step. Recomputer detects the missing clause.
+    d=kn.choice("d"); cnt=0; k=1
+    last=kn.choice("last") if "last" in kn.params else -1
+    if last>=0:
+        while k*k<V:
+            if (k*k)%d==0 and (k*k)%10==last: cnt+=1
+            k+=1
+        return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
     while k*k<V:
-        if (k*k)%d==0 and (k*k)%10==last: cnt+=1
+        if (k*k)%d==0: cnt+=1
         k+=1
-    return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
+    return (cnt, f"How many perfect squares less than V are divisible by {d}?")
 def _a_equalize_g(V, kn):
     if V<3: return (None,"")
-    # iter3: dropped the large-denominator fractions (denom 9,10,12) shared by ALL equalize
-    # chains. Every equalize-target chain is ≤0.41 (all need easing); cleaner small-denominator
-    # fractions cut the m/n reduction work without touching number size. Recomputer reads the
-    # actual fn from the clause text, so this stays gold-exact; still 18 options -> answers spread.
-    fn=random.choice([Fraction(1,3),Fraction(1,2),Fraction(1,4),Fraction(2,3),Fraction(3,4),
-                      Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),Fraction(5,6),
-                      Fraction(3,8),Fraction(5,8),Fraction(1,6),Fraction(1,7),Fraction(2,7),
-                      Fraction(3,7),Fraction(1,8),Fraction(7,8)])
+    # iter4: cut the denominator-7/8 fractions entirely. The equalize-target chains are .1-.36
+    # even when the FEEDER is easy (complex_eq atom 92%, roots_of_unity 64%), so the m/n
+    # reduction of (1-fn)/V is the real bottleneck, not the feeder. Restricting fn to
+    # denominators <=6 (simple, single-step reductions) eases the arithmetic for every equalize
+    # chain. Still 12 options x V(3..14) -> answers spread. Recomputer reads fn from the clause.
+    fn=random.choice([Fraction(1,2),Fraction(1,3),Fraction(2,3),Fraction(1,4),Fraction(3,4),
+                      Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),
+                      Fraction(1,6),Fraction(5,6)])
     pour=1-((V-1)+fn)/V
     return (pour.numerator+pour.denominator,
             f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")
 def _a_complement_faces(V, kn):
     if V<3: return (None,"")
-    thr=random.choice([Fraction(1,2),Fraction(3,5),Fraction(2,3),Fraction(5,8),Fraction(7,10),
-                       Fraction(3,4),Fraction(4,5),Fraction(5,6)]); r=1
+    # iter4: threshold is now a per-chain knob "thr" (list of [num,den] pairs). The answer r =
+    # fewest rolls until the complement exceeds thr; a SMALLER thr needs FEWER rolls (fewer
+    # iterations = fewer steps), a LARGER thr needs more. So the 2 TOO_HARD chains
+    # (constrained_subset .125, sum_of_squares .188) get a low-thr set (ease) while
+    # digit_count_bigprod (.604) gets a high-thr set (harden); log_laws keeps the full range.
+    if "thr" in kn.params:
+        nd=kn.choice("thr"); thr=Fraction(nd[0],nd[1])
+    else:
+        thr=random.choice([Fraction(1,2),Fraction(3,5),Fraction(2,3),Fraction(5,8),Fraction(7,10),
+                           Fraction(3,4),Fraction(4,5),Fraction(5,6)])
+    r=1
     while 1-Fraction((V-1)**r,V**r)<=thr:
         r+=1
         if r>60: return (None,"")

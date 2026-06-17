@@ -32,7 +32,7 @@
     "coef": {
       "value": [
         1,
-        4
+        3
       ],
       "type": "randint",
       "envelope": [

@@ -8,7 +8,7 @@
     "y": {
       "value": [
         3,
-        12
+        18
       ],
       "type": "randint",
       "envelope": [
@@ -20,7 +20,7 @@
     "z": {
       "value": [
         3,
-        12
+        18
       ],
       "type": "randint",
       "envelope": [
@@ -32,7 +32,7 @@
     "coef": {
       "value": [
         1,
-        4
+        3
       ],
       "type": "randint",
       "envelope": [

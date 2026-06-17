@@ -7,11 +7,11 @@
   "params": {
     "nsets": {
       "value": [
-        3
+        1
       ],
       "type": "choice",
       "envelope": [
-        2,
+        1,
         3
       ],
       "knob_class": "C"

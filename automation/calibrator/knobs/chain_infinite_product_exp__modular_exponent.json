@@ -19,8 +19,8 @@
     },
     "m": {
       "value": [
-        50,
-        2000
+        30,
+        200
       ],
       "type": "randint",
       "envelope": [
