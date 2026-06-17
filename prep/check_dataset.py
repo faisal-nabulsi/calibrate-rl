@@ -702,8 +702,9 @@ def _recompute_target(target, c, V):
         lo, hi = (int(x) for x in re.search(r"from (\d+) to (\d+)", c).groups())
         return sum(1 for x in range(lo, hi+1) if sum(int(d) for d in str(x)) == V)
     if target == "inclusion_exclusion_3set":
-        a, b, d = (int(x) for x in re.search(r"divisible by (\d+), (\d+), or (\d+)", c).groups())
-        return (V//a+V//b+V//d-V//_lcm2(a,b)-V//_lcm2(a,d)-V//_lcm2(b,d)+V//_lcm2(a,_lcm2(b,d)))
+        # iter1: chain target reduced 3 sets -> 2 sets (fewer constraints).
+        a, b = (int(x) for x in re.search(r"divisible by (\d+) or (\d+)", c).groups())
+        return V//a + V//b - V//_lcm2(a, b)
     if target == "perfect_square_divisible":
         div = int(re.search(r"divisible by (\d+)", c).group(1)); rd = isqrt(div); cnt = 0; k = 1
         while (rd*k)**2 < V: cnt += 1; k += 1

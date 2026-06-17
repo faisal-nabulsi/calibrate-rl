@@ -1036,9 +1036,11 @@ def _a_digit_target(V, kn):
     return (sum(1 for x in range(lo,hi) if sum(int(c) for c in str(x))==V),
             f"How many integers from {lo} to {hi-1} have digits summing to exactly V?")
 def _a_ie3_U(V, kn):
-    a,b,c=sorted(random.sample([2,3,4,5,6,7],3))
-    return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
-            f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
+    # iter1: 3 sets -> 2 sets (fewer constraints) to ease the TOO_HARD ie3-target chains;
+    # divisor pool widened [2..9] to keep answers diverse after dropping a term.
+    a,b=sorted(random.sample([2,3,4,5,6,7,8,9],2))
+    return (V//a+V//b-V//lcm(a,b),
+            f"How many integers from 1 to V are divisible by {a} or {b}?")
 def _a_perfsq_limit(V, kn):
     div=kn.choice("div"); rd=int(div**0.5); cnt=0; k=1
     while (rd*k)**2<V: cnt+=1; k+=1
@@ -1053,13 +1055,16 @@ def _a_equalize_g(V, kn):
     if V<3: return (None,"")
     fn=random.choice([Fraction(1,3),Fraction(1,2),Fraction(1,4),Fraction(2,3),Fraction(3,4),
                       Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),Fraction(5,6),
-                      Fraction(3,8),Fraction(5,8)])
+                      Fraction(3,8),Fraction(5,8),Fraction(1,6),Fraction(1,7),Fraction(2,7),
+                      Fraction(3,7),Fraction(1,8),Fraction(7,8),Fraction(1,9),Fraction(4,9),
+                      Fraction(5,9),Fraction(3,10),Fraction(7,10),Fraction(5,12),Fraction(7,12)])
     pour=1-((V-1)+fn)/V
     return (pour.numerator+pour.denominator,
             f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")
 def _a_complement_faces(V, kn):
     if V<3: return (None,"")
-    thr=random.choice([Fraction(2,3),Fraction(3,4),Fraction(4,5)]); r=1
+    thr=random.choice([Fraction(1,2),Fraction(3,5),Fraction(2,3),Fraction(5,8),Fraction(7,10),
+                       Fraction(3,4),Fraction(4,5),Fraction(5,6)]); r=1
     while 1-Fraction((V-1)**r,V**r)<=thr:
         r+=1
         if r>60: return (None,"")
