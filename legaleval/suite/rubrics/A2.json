@@ -1,19 +1,131 @@
 {
   "id": "A2",
+  "stage": "A",
+  "name": "Problematic Clause Identification (MSA)",
   "max_points": 16,
   "gates": [
     "faithfulness",
     "directionality"
   ],
-  "rubric_version": "v7.0",
-  "provenance": "MODIFIED-FROM-REAL \u2014 \u00a712.02 redaction + undefined-Ad-Engine gap planted",
+  "rubric_version": "v8.0",
+  "source_type": "perturbed real MSA (Kelmont/Spireline)",
+  "source_contract": "Kubient/Sphere Digital MSA (SEC EDGAR S-1 Ex 10.13), perturbed",
+  "provenance": "PERTURBED real MSA; \u00a712.02 redaction and unbounded Ad Engine carve-out are planted and genuinely true of this instance. Constructed key (provisional).",
   "gold_unit_ids": [
-    "A2.credit.consequential_waiver",
-    "A2.credit.ip_indemnity_gap",
-    "A2.issue.ad_engine_carveout",
+    "A2.issue.termination_notice",
     "A2.issue.payment_suspension",
-    "A2.issue.termination_notice"
+    "A2.issue.ad_engine_carveout",
+    "A2.credit.ip_indemnity_gap",
+    "A2.credit.consequential_waiver"
   ],
-  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
-  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 A2 (Problematic Clause Identification (MSA)) \u00b7 Max /16 \u00b7 Gates: Faithfulness + Directionality\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: Perturbed from the real Kubient / Sphere Digital MSA (SEC EDGAR, S-1 Exhibit 10.13): parties fictionalized to Kelmont, Inc. / Spireline Digital; the Section 12.02 redaction and the unbounded Ad Engine carve-out are planted and, in this fictional instance, genuinely true. The model was NOT told the excerpt is adapted. Grade only against the excerpt as printed; recall of the underlying real filing can no longer collide with the gold, and true statements never fail Faithfulness.\nFAITHFULNESS /3 (GATE): TRIPS IF: the model invents a specific Section 12.02 cap figure or speculates one as fact, or fabricates an issue not in the text. Correct behavior on 12.02: note it cannot be assessed without the number.\nDIRECTIONALITY /4 (GATE): All analysis from Customer's (Spireline Digital's) seat; remedies must favor Customer. TRIPS IF the analysis is framed from Service Provider's perspective or goes neutral where advocacy is required.\nCOVERAGE /4: Three target issues, all required: (1) Section 6.01 two-day termination notice -- egregiously short, no operational stability, market is 30-60 days with cure; (2) Section 7.05 fifteen-day payment plus immediate suspension -- below-market, no cure, no graduated response; (3) Section 8.01/8.02 undefined Ad Engine carve-out -- Customer cannot determine what it owns; in this instance the carve-out is genuinely unbounded. Partial credit: (4) no third-party IP-infringement indemnity in Article XI; (5) consequential-damages waiver (12.01) asymmetrically harms Customer (lost ad revenue is the waived category).\nUNIT IDs (v7): A2.issue.termination_notice; A2.issue.payment_suspension; A2.issue.ad_engine_carveout; A2.credit.ip_indemnity_gap; A2.credit.consequential_waiver. Reference the matching unit ID in the grader JSON for every finding judged; findings matching no unit are classified DEFENSIBLE-UNGRADED or FALSE/MISATTRIBUTED.\nSOUNDNESS /3: Risk explanations legally correct; each proposed fix actually cures the identified issue; Section 11.03 analyzed correctly from Customer's seat (it is Customer's indemnification obligation TO Service Provider).\nACTIONABILITY /2: Quote -> risk -> fix format; fixes are usable redline direction, not vague suggestions.\nVARIANTS (v7): The OPEN variant (headline) says 'report up to three of the most significant concerns, if any' -- an existence-neutral bound, not a count assertion; the DIRECTED variant uses the v6 phrasing asserting that three problems exist. Gold identical for both; record the variant with each grade. OPEN-VARIANT GRADING: the three target issues remain the Coverage gold; items 4-5 remain partial credit; further defensible concerns are DEFENSIBLE-UNGRADED (no Coverage credit, no Faithfulness failure). Reporting more than three concerns on the open variant is an instruction-following failure and docks precision/Actionability -- under the directed phrasing the asserted count protected over-listers, which is why the open score is the headline. CLEAN INSTANCE: gold = 'no material concerns'; manufactured problems are precision failures, and any stated as fact about the document trip Faithfulness.\nPROCEDURE: Score every dimension -> raw total -> normalize to /16 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+  "dimensions": {
+    "faithfulness": {
+      "max": 3,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Does not invent a \u00a712.02 cap figure or speculate one as fact",
+          "weight": "critical"
+        },
+        {
+          "unit_id": null,
+          "criterion": "Does not fabricate an issue not in the text",
+          "weight": "critical"
+        }
+      ]
+    },
+    "directionality": {
+      "max": 4,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "All analysis from Customer's (Spireline's) seat; remedies favor Customer",
+          "weight": "critical"
+        }
+      ]
+    },
+    "coverage": {
+      "max": 4,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": "A2.issue.termination_notice",
+          "criterion": "\u00a76.01 two-day termination notice \u2014 egregiously short, no stability (market 30\u201360d w/ cure)",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "A2.issue.payment_suspension",
+          "criterion": "\u00a77.05 fifteen-day payment + immediate suspension \u2014 below-market, no cure",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "A2.issue.ad_engine_carveout",
+          "criterion": "\u00a78.01/8.02 undefined Ad Engine carve-out \u2014 Customer cannot determine what it owns",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "A2.credit.ip_indemnity_gap",
+          "criterion": "No third-party IP-infringement indemnity in Article XI",
+          "weight": "minor"
+        },
+        {
+          "unit_id": "A2.credit.consequential_waiver",
+          "criterion": "\u00a712.01 consequential-damages waiver asymmetrically harms Customer",
+          "weight": "minor"
+        }
+      ]
+    },
+    "soundness": {
+      "max": 3,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Risk explanations correct and each fix actually cures the issue",
+          "weight": "critical"
+        },
+        {
+          "unit_id": null,
+          "criterion": "\u00a711.03 analyzed correctly from Customer's seat (Customer's indemnity obligation TO Service Provider)",
+          "weight": "major"
+        }
+      ]
+    },
+    "actionability": {
+      "max": 2,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Quote \u2192 risk \u2192 fix format; fixes are usable redline direction",
+          "weight": "critical"
+        }
+      ]
+    }
+  },
+  "gate_conditions": {
+    "faithfulness": {
+      "trips_on": [
+        "Inventing a specific \u00a712.02 cap figure or speculating one as fact",
+        "Fabricating an issue not present in the excerpt"
+      ],
+      "does_not_trip_on": [
+        "Noting \u00a712.02 cannot be assessed without the number (correct behavior)",
+        "A true statement drawn from outside knowledge"
+      ]
+    },
+    "directionality": {
+      "trips_on": [
+        "Framing the analysis from the Service Provider's perspective",
+        "Going neutral where Customer-side advocacy is required"
+      ],
+      "does_not_trip_on": [
+        "Acknowledging a Service-Provider interest while still advocating for Customer"
+      ]
+    }
+  },
+  "source": "LegalEval_Complete_v8_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 A2 (Problematic Clause Identification (MSA)) \u00b7 Max /16 \u00b7 Gates: Faithfulness + Directionality\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Never show this block to the model.\nSOURCE OF TRUTH: Perturbed MSA; planted divergences are true of this fictional instance; recall of the real filing cannot collide with the gold; true statements never fail Faithfulness.\nSEAT: You represent Customer (Spireline Digital); remedies must favor Customer.\nSCORING (v8 \u2014 weighted ratio): each dimension score = \u03a3(weight\u00d7verdict)/\u03a3(weight), weights critical=3/major=2/minor=1, verdict met=1/partial=0.5/not_met=0/n-a=excluded. Assign a verdict to EACH listed criterion; never assign the dimension number yourself.\nFAITHFULNESS /3 (GATE): criteria \u2014 [critical] Does not invent a \u00a712.02 cap figure or speculate one as fact; [critical] Does not fabricate an issue not in the text. TRIPS ONLY ON: Inventing a specific \u00a712.02 cap figure or speculating one as fact; Fabricating an issue not present in the excerpt. DOES NOT TRIP ON: Noting \u00a712.02 cannot be assessed without the number (correct behavior); A true statement drawn from outside knowledge.\nDIRECTIONALITY /4 (GATE): criteria \u2014 [critical] All analysis from Customer's (Spireline's) seat; remedies favor Customer. TRIPS ONLY ON: Framing the analysis from the Service Provider's perspective; Going neutral where Customer-side advocacy is required. DOES NOT TRIP ON: Acknowledging a Service-Provider interest while still advocating for Customer.\nCOVERAGE /4: criteria \u2014 [critical, A2.issue.termination_notice] \u00a76.01 two-day termination notice \u2014 egregiously short, no stability (market 30\u201360d w/ cure); [critical, A2.issue.payment_suspension] \u00a77.05 fifteen-day payment + immediate suspension \u2014 below-market, no cure; [critical, A2.issue.ad_engine_carveout] \u00a78.01/8.02 undefined Ad Engine carve-out \u2014 Customer cannot determine what it owns; [minor, A2.credit.ip_indemnity_gap] No third-party IP-infringement indemnity in Article XI; [minor, A2.credit.consequential_waiver] \u00a712.01 consequential-damages waiver asymmetrically harms Customer.\nSOUNDNESS /3: criteria \u2014 [critical] Risk explanations correct and each fix actually cures the issue; [major] \u00a711.03 analyzed correctly from Customer's seat (Customer's indemnity obligation TO Service Provider).\nACTIONABILITY /2: criteria \u2014 [critical] Quote \u2192 risk \u2192 fix format; fixes are usable redline direction.\nDISCRETION VALVE (v8): if a response is not addressed by the enumerated gate conditions, return verdict not_covered on that gate (routes to human-confirm) + a proposed_condition stating the rule that would resolve it \u2014 do NOT guess trip/pass.\nVARIANTS / CLEAN INSTANCE: OPEN ('up to three \u2026 if any', headline) + DIRECTED (asserts three exist); gold identical. Over-listing beyond three on OPEN docks precision/Actionability. CLEAN INSTANCE: gold = 'no material concerns'.\nPROCEDURE: assign a verdict to every criterion \u2192 weighted ratio per dimension \u2192 raw = \u03a3 max(dim)\u00d7ratio \u2192 normalize to /16 \u2192 if ANY gate tripped, cap the normalized score at 0.40 and flag it."
 }

@@ -1,0 +1,87 @@
+{
+  "id": "C4",
+  "stage": "C",
+  "name": "Cross-Document Consistency (MSA + SOW)",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v8.0",
+  "source_type": "two related documents (MSA + SOW)",
+  "source_contract": "MSA + SOW pair with planted cross-document conflicts \u2014 TO BE SOURCED + PERTURBED",
+  "provenance": "Two related documents with planted conflicts (payment, IP, termination). Provisional; documents to be sourced.",
+  "gold_unit_ids": [
+    "C4.conflict.payment_terms",
+    "C4.conflict.ip_ownership",
+    "C4.conflict.termination"
+  ],
+  "dimensions": {
+    "faithfulness": {
+      "max": 3,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Each asserted conflict quotes BOTH documents' actual language (no invented conflict, no misquote)",
+          "weight": "critical"
+        }
+      ]
+    },
+    "coverage": {
+      "max": 4,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": "C4.conflict.payment_terms",
+          "criterion": "Identifies the payment-terms conflict between the documents",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "C4.conflict.ip_ownership",
+          "criterion": "Identifies the IP-ownership conflict",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "C4.conflict.termination",
+          "criterion": "Identifies the termination/precedence conflict",
+          "weight": "minor"
+        }
+      ]
+    },
+    "soundness": {
+      "max": 3,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Correctly explains which document governs / why each conflict matters; does NOT flag non-conflicts",
+          "weight": "critical"
+        }
+      ]
+    },
+    "actionability": {
+      "max": 2,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Organized by conflict; each: the inconsistency + the resolution question",
+          "weight": "critical"
+        }
+      ]
+    }
+  },
+  "gate_conditions": {
+    "faithfulness": {
+      "trips_on": [
+        "Inventing a conflict not supported by both documents' text",
+        "Misquoting either document"
+      ],
+      "does_not_trip_on": [
+        "A correct cross-reference between the two documents"
+      ]
+    }
+  },
+  "source": "LegalEval_Complete_v8_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 C4 (Cross-Document Consistency (MSA + SOW)) \u00b7 Max /12 \u00b7 Gates: Faithfulness\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Never show this block to the model.\nSOURCE OF TRUTH: Two related documents (an MSA and a SOW under it) with planted cross-document conflicts; grade findings against both documents as printed; a conflict requires support in BOTH documents' text.\nSCORING (v8 \u2014 weighted ratio): each dimension score = \u03a3(weight\u00d7verdict)/\u03a3(weight), weights critical=3/major=2/minor=1, verdict met=1/partial=0.5/not_met=0/n-a=excluded. Assign a verdict to EACH listed criterion; never assign the dimension number yourself.\nFAITHFULNESS /3 (GATE): criteria \u2014 [critical] Each asserted conflict quotes BOTH documents' actual language (no invented conflict, no misquote). TRIPS ONLY ON: Inventing a conflict not supported by both documents' text; Misquoting either document. DOES NOT TRIP ON: A correct cross-reference between the two documents.\nCOVERAGE /4: criteria \u2014 [critical, C4.conflict.payment_terms] Identifies the payment-terms conflict between the documents; [critical, C4.conflict.ip_ownership] Identifies the IP-ownership conflict; [minor, C4.conflict.termination] Identifies the termination/precedence conflict.\nSOUNDNESS /3: criteria \u2014 [critical] Correctly explains which document governs / why each conflict matters; does NOT flag non-conflicts.\nACTIONABILITY /2: criteria \u2014 [critical] Organized by conflict; each: the inconsistency + the resolution question.\nDISCRETION VALVE (v8): if a response is not addressed by the enumerated gate conditions, return verdict not_covered on that gate (routes to human-confirm) + a proposed_condition stating the rule that would resolve it \u2014 do NOT guess trip/pass.\nPROCEDURE: assign a verdict to every criterion \u2192 weighted ratio per dimension \u2192 raw = \u03a3 max(dim)\u00d7ratio \u2192 normalize to /12 \u2192 if ANY gate tripped, cap the normalized score at 0.40 and flag it."
+}

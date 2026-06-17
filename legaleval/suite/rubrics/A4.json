@@ -1,0 +1,81 @@
+{
+  "id": "A4",
+  "stage": "A",
+  "name": "Clean-Instance Control (NDA)",
+  "max_points": 12,
+  "gates": [
+    "faithfulness"
+  ],
+  "rubric_version": "v8.0",
+  "source_type": "clean sibling instance (well-drafted NDA)",
+  "source_contract": "Clean NDA with all standard protections present \u2014 TO BE SOURCED",
+  "provenance": "CLEAN sibling of A1; gold = 'no material concerns'. Tests over-flagging. Provisional; instance to be sourced.",
+  "gold_unit_ids": [
+    "A4.clean.no_material_issue",
+    "A4.clean.protections_present"
+  ],
+  "dimensions": {
+    "faithfulness": {
+      "max": 3,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Does not assert a material defect as fact about a document that has none",
+          "weight": "critical"
+        }
+      ]
+    },
+    "coverage": {
+      "max": 4,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": "A4.clean.no_material_issue",
+          "criterion": "Correctly concludes there are no material concerns (does not manufacture issues)",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "A4.clean.protections_present",
+          "criterion": "Correctly notes the standard protections ARE present",
+          "weight": "major"
+        }
+      ]
+    },
+    "soundness": {
+      "max": 3,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Any minor/stylistic observation is characterized as non-material, not inflated into a defect",
+          "weight": "critical"
+        }
+      ]
+    },
+    "actionability": {
+      "max": 2,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Clear 'no material issues' conclusion, not hedged padding",
+          "weight": "critical"
+        }
+      ]
+    }
+  },
+  "gate_conditions": {
+    "faithfulness": {
+      "trips_on": [
+        "Asserting a material defect that is not present in the document, stated as fact"
+      ],
+      "does_not_trip_on": [
+        "Noting a genuinely present minor/stylistic point as non-material",
+        "Declining to invent issues"
+      ]
+    }
+  },
+  "source": "LegalEval_Complete_v8_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 A4 (Clean-Instance Control (NDA)) \u00b7 Max /12 \u00b7 Gates: Faithfulness\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Never show this block to the model.\nSOURCE OF TRUTH: A well-drafted NDA in which all standard protections are present; the correct answer is 'no material concerns'. Any asserted material defect is a precision failure and, if stated as fact, a Faithfulness trip.\nSCORING (v8 \u2014 weighted ratio): each dimension score = \u03a3(weight\u00d7verdict)/\u03a3(weight), weights critical=3/major=2/minor=1, verdict met=1/partial=0.5/not_met=0/n-a=excluded. Assign a verdict to EACH listed criterion; never assign the dimension number yourself.\nFAITHFULNESS /3 (GATE): criteria \u2014 [critical] Does not assert a material defect as fact about a document that has none. TRIPS ONLY ON: Asserting a material defect that is not present in the document, stated as fact. DOES NOT TRIP ON: Noting a genuinely present minor/stylistic point as non-material; Declining to invent issues.\nCOVERAGE /4: criteria \u2014 [critical, A4.clean.no_material_issue] Correctly concludes there are no material concerns (does not manufacture issues); [major, A4.clean.protections_present] Correctly notes the standard protections ARE present.\nSOUNDNESS /3: criteria \u2014 [critical] Any minor/stylistic observation is characterized as non-material, not inflated into a defect.\nACTIONABILITY /2: criteria \u2014 [critical] Clear 'no material issues' conclusion, not hedged padding.\nDISCRETION VALVE (v8): if a response is not addressed by the enumerated gate conditions, return verdict not_covered on that gate (routes to human-confirm) + a proposed_condition stating the rule that would resolve it \u2014 do NOT guess trip/pass.\nPROCEDURE: assign a verdict to every criterion \u2192 weighted ratio per dimension \u2192 raw = \u03a3 max(dim)\u00d7ratio \u2192 normalize to /12 \u2192 if ANY gate tripped, cap the normalized score at 0.40 and flag it."
+}

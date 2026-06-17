@@ -1,18 +1,104 @@
 {
   "id": "C3",
+  "stage": "C",
+  "name": "Internal Consistency Check (Defined Terms)",
   "max_points": 12,
   "gates": [
     "faithfulness"
   ],
-  "rubric_version": "v7.0",
-  "provenance": "MODIFIED-FROM-REAL (planted defined-term inconsistencies)",
+  "rubric_version": "v8.0",
+  "source_type": "perturbed MSA (Kelmont/Spireline)",
+  "source_contract": "MSA excerpt, defined-term inconsistencies planted",
+  "provenance": "PERTURBED MSA; five inconsistencies planted and genuinely true of this instance (real filing uses terms correctly). Authored gold (provisional).",
   "gold_unit_ids": [
-    "C3.term.crossref",
-    "C3.term.customer_image",
-    "C3.term.damages",
     "C3.term.employees",
-    "C3.term.work_product"
+    "C3.term.work_product",
+    "C3.term.damages",
+    "C3.term.customer_image",
+    "C3.term.crossref"
   ],
-  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
-  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 C3 (Internal Consistency Check (Defined Terms)) \u00b7 Max /12 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: Perturbed from the same MSA (parties fictionalized to Kelmont / Spireline). The five inconsistencies were planted by editing the excerpt and are genuinely true of this fictional instance; the underlying real filing uses the defined terms correctly (real Section 11.03 uses 'Losses'). The model was NOT told the excerpt is adapted. Grade findings against the excerpt as printed; recall of the real filing cannot collide with the gold.\nFAITHFULNESS /3 (GATE): Each finding quotes the exact problematic language. TRIPS on invented inconsistencies or paraphrase-instead-of-quote presented as quotation.\nCOVERAGE /4: Five planted inconsistencies: (1) Section 3.01(e) 'employees' where defined term is 'Service Provider Personnel' -- narrows background checks, subcontractor gap [highest priority]; (2) Section 8.01 'work product' (twice) where 'Deliverables' applies -- assignment ambiguity [highest priority]; (3) Section 11.03 'damages' where 'Losses' applies -- materially narrows Customer's indemnification obligation; (4) Section 8.02 'Customer Image' undefined in Article I -- source-code access ambiguity; (5) Section 3.01(i) provisions referenced by description with no section cross-reference -- breaks on renumbering. Banding: 5 = 4; 4 = 3; 3 = 2; 2 = 1.\nUNIT IDs (v7): C3.term.employees; C3.term.work_product; C3.term.damages; C3.term.customer_image; C3.term.crossref.\nSOUNDNESS /3: For each finding, states the correct defined term AND why the substitution matters legally. Must NOT flag Section 12.01 or Section 11.01 -- both use terms correctly; flagging them = dock.\nACTIONABILITY /2: Organized by location; each finding complete: location + problem + correct usage + risk.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence.\n\nStage D \u2014 Drafting from Instructions\n\"Write this from scratch or from a brief\"\n\nApplicable dimensions: Faithfulness /3 (gate) \u00b7 Coverage /4 \u00b7 Soundness /3 \u00b7 Actionability /2 \u2014 drafting to spec, no advocacy"
+  "dimensions": {
+    "faithfulness": {
+      "max": 3,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Each finding quotes the exact problematic language (no paraphrase presented as quotation)",
+          "weight": "critical"
+        }
+      ]
+    },
+    "coverage": {
+      "max": 4,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": "C3.term.employees",
+          "criterion": "\u00a73.01(e) 'employees' where defined term is 'Service Provider Personnel' (narrows background checks) [highest priority]",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "C3.term.work_product",
+          "criterion": "\u00a78.01 'work product' where 'Deliverables' applies (assignment ambiguity) [highest priority]",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "C3.term.damages",
+          "criterion": "\u00a711.03 'damages' where 'Losses' applies (narrows Customer's indemnity obligation)",
+          "weight": "minor"
+        },
+        {
+          "unit_id": "C3.term.customer_image",
+          "criterion": "\u00a78.02 'Customer Image' undefined in Article I",
+          "weight": "minor"
+        },
+        {
+          "unit_id": "C3.term.crossref",
+          "criterion": "\u00a73.01(i) provisions referenced by description with no section cross-reference",
+          "weight": "minor"
+        }
+      ]
+    },
+    "soundness": {
+      "max": 3,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "States the correct defined term AND why the substitution matters legally for each finding",
+          "weight": "critical"
+        },
+        {
+          "unit_id": null,
+          "criterion": "Does NOT flag \u00a712.01 or \u00a711.01 \u2014 both use terms correctly",
+          "weight": "major"
+        }
+      ]
+    },
+    "actionability": {
+      "max": 2,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Organized by location; each finding: location + problem + correct usage + risk",
+          "weight": "critical"
+        }
+      ]
+    }
+  },
+  "gate_conditions": {
+    "faithfulness": {
+      "trips_on": [
+        "Inventing an inconsistency not in the excerpt",
+        "Presenting a paraphrase as a quotation"
+      ],
+      "does_not_trip_on": [
+        "Quoting the actual problematic language verbatim"
+      ]
+    }
+  },
+  "source": "LegalEval_Complete_v8_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 C3 (Internal Consistency Check (Defined Terms)) \u00b7 Max /12 \u00b7 Gates: Faithfulness\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Never show this block to the model.\nSOURCE OF TRUTH: Perturbed MSA; the five inconsistencies are true of this fictional instance; recall of the real filing cannot collide with the gold.\nSCORING (v8 \u2014 weighted ratio): each dimension score = \u03a3(weight\u00d7verdict)/\u03a3(weight), weights critical=3/major=2/minor=1, verdict met=1/partial=0.5/not_met=0/n-a=excluded. Assign a verdict to EACH listed criterion; never assign the dimension number yourself.\nFAITHFULNESS /3 (GATE): criteria \u2014 [critical] Each finding quotes the exact problematic language (no paraphrase presented as quotation). TRIPS ONLY ON: Inventing an inconsistency not in the excerpt; Presenting a paraphrase as a quotation. DOES NOT TRIP ON: Quoting the actual problematic language verbatim.\nCOVERAGE /4: criteria \u2014 [critical, C3.term.employees] \u00a73.01(e) 'employees' where defined term is 'Service Provider Personnel' (narrows background checks) [highest priority]; [critical, C3.term.work_product] \u00a78.01 'work product' where 'Deliverables' applies (assignment ambiguity) [highest priority]; [minor, C3.term.damages] \u00a711.03 'damages' where 'Losses' applies (narrows Customer's indemnity obligation); [minor, C3.term.customer_image] \u00a78.02 'Customer Image' undefined in Article I; [minor, C3.term.crossref] \u00a73.01(i) provisions referenced by description with no section cross-reference.\nSOUNDNESS /3: criteria \u2014 [critical] States the correct defined term AND why the substitution matters legally for each finding; [major] Does NOT flag \u00a712.01 or \u00a711.01 \u2014 both use terms correctly.\nACTIONABILITY /2: criteria \u2014 [critical] Organized by location; each finding: location + problem + correct usage + risk.\nDISCRETION VALVE (v8): if a response is not addressed by the enumerated gate conditions, return verdict not_covered on that gate (routes to human-confirm) + a proposed_condition stating the rule that would resolve it \u2014 do NOT guess trip/pass.\nPROCEDURE: assign a verdict to every criterion \u2192 weighted ratio per dimension \u2192 raw = \u03a3 max(dim)\u00d7ratio \u2192 normalize to /12 \u2192 if ANY gate tripped, cap the normalized score at 0.40 and flag it."
 }

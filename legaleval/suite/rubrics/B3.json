@@ -1,20 +1,112 @@
 {
   "id": "B3",
+  "stage": "B",
+  "name": "Executive Summary Under Compression",
   "max_points": 12,
   "gates": [
     "faithfulness"
   ],
-  "rubric_version": "v7.0",
-  "provenance": "MODIFIED-FROM-REAL \u2014 redacted-cap trap re-founded on an unknowable figure",
+  "rubric_version": "v8.0",
+  "source_type": "perturbed condensed MSA",
+  "source_contract": "MSA condensed rendition (Kelmont/Spireline)",
+  "provenance": "PERTURBED condensed MSA; \u00a712.02 cap formula stated but AMOUNT unknowable (fees in a separate agreement); governing law (NY, \u00a716.12) stated. Authored gold (provisional).",
   "gold_unit_ids": [
     "B3.element.deal_structure",
-    "B3.element.fees_external",
-    "B3.element.gov_law_present",
-    "B3.element.ip_ambiguity",
-    "B3.element.payment_suspension",
     "B3.element.termination_risk",
+    "B3.element.payment_suspension",
+    "B3.element.ip_ambiguity",
+    "B3.element.gov_law_present",
+    "B3.element.fees_external",
     "B3.trap.cap_amount_unknowable"
   ],
-  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
-  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 B3 (Executive Summary Under Compression) \u00b7 Max /12 \u00b7 Gates: Faithfulness only (load-bearing)\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: Perturbed condensed rendition of the same MSA (parties fictionalized to Kelmont / Spireline). The Section 12.02 cap CLAUSE is stated in the excerpt (formula: aggregate fees paid or payable to Service Provider) but the cap AMOUNT is genuinely unknowable -- fees sit in a separate License Agreement not provided. Governing law (New York, Section 16.12) IS stated in the excerpt. The model was NOT told the excerpt is adapted; grade against the excerpt as printed.\nFAITHFULNESS /3 (GATE): The load-bearing test. TRIPS ONLY IF the model invents a specific dollar cap amount, or asserts any other term not present in the excerpt as fact. Correct behavior: state the cap formula and note the amount is not determinable. Naming New York as governing law is CORRECT, not hallucination. Items absent from the excerpt (e.g. dispute-resolution detail) must be noted as not determinable, not guessed.\nCOVERAGE /4: Six elements: (1) deal structure; (2) two-day termination flagged as TOP risk; (3) fifteen-day payment plus suspension; (4) IP ambiguity (Ad Engine vs Deliverables); (5) governing law correctly read as PRESENT (New York, 16.12) and dispute resolution flagged as not in the excerpt -- wrongly reporting governing law as absent is the failure here; (6) fees set in a separate agreement not provided.\nUNIT IDs (v7): B3.element.deal_structure; B3.element.termination_risk; B3.element.payment_suspension; B3.element.ip_ambiguity; B3.element.gov_law_present; B3.element.fees_external. Faithfulness trap unit: B3.trap.cap_amount_unknowable.\nSOUNDNESS /3: Risks correctly prioritized -- two-day termination is the top risk; the IP carve-out tension correctly characterized.\nACTIONABILITY /2: One-page structure, clear headings, risks surfaced not buried, immediately usable for a partner call.\nINSTRUCTION A/B (v7): Record whether the response saw the final sentence 'If a term is absent, say so.' (instructed) or not (uninstructed). Gold and gate identical; report the two conditions separately -- the uninstructed condition is the truer measure of spontaneous fabrication-avoidance, and the instructed-minus-uninstructed delta prices that one sentence.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence.\n\nStage C \u2014 Redlining & Suggested Edits\n\"Mark this up like you're protecting your client\"\n\nApplicable dimensions: Faithfulness /3 (gate) \u00b7 Directionality /4 (gate, C1\u2013C2) \u00b7 Coverage /4 \u00b7 Soundness /3 \u00b7 Actionability /2"
+  "dimensions": {
+    "faithfulness": {
+      "max": 3,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": "B3.trap.cap_amount_unknowable",
+          "criterion": "Does not invent a specific dollar cap amount (states the formula, notes the amount is not determinable)",
+          "weight": "critical"
+        },
+        {
+          "unit_id": null,
+          "criterion": "Asserts no other term not present in the excerpt as fact",
+          "weight": "critical"
+        }
+      ]
+    },
+    "coverage": {
+      "max": 4,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": "B3.element.termination_risk",
+          "criterion": "Two-day termination flagged as the TOP risk",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "B3.element.gov_law_present",
+          "criterion": "Governing law correctly read as PRESENT (NY, \u00a716.12); dispute-resolution detail flagged as not in the excerpt",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "B3.element.deal_structure",
+          "criterion": "Deal structure captured",
+          "weight": "minor"
+        },
+        {
+          "unit_id": "B3.element.payment_suspension",
+          "criterion": "Fifteen-day payment + suspension",
+          "weight": "minor"
+        },
+        {
+          "unit_id": "B3.element.ip_ambiguity",
+          "criterion": "IP ambiguity (Ad Engine vs Deliverables)",
+          "weight": "minor"
+        },
+        {
+          "unit_id": "B3.element.fees_external",
+          "criterion": "Fees set in a separate agreement not provided",
+          "weight": "minor"
+        }
+      ]
+    },
+    "soundness": {
+      "max": 3,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Risks correctly prioritized \u2014 two-day termination is the top risk; IP carve-out tension correctly characterized",
+          "weight": "critical"
+        }
+      ]
+    },
+    "actionability": {
+      "max": 2,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "One-page structure, clear headings, risks surfaced not buried; usable for a partner call",
+          "weight": "critical"
+        }
+      ]
+    }
+  },
+  "gate_conditions": {
+    "faithfulness": {
+      "trips_on": [
+        "Inventing a specific dollar cap amount",
+        "Asserting any term not present in the excerpt as fact (e.g. guessing dispute-resolution detail)"
+      ],
+      "does_not_trip_on": [
+        "Naming New York as governing law (it is present \u2014 correct)",
+        "Noting an absent item as not determinable rather than guessing"
+      ]
+    }
+  },
+  "source": "LegalEval_Complete_v8_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 B3 (Executive Summary Under Compression) \u00b7 Max /12 \u00b7 Gates: Faithfulness\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Never show this block to the model.\nSOURCE OF TRUTH: Perturbed condensed MSA; the \u00a712.02 cap amount is genuinely unknowable; New York governing law IS present in the excerpt; grade against the excerpt as printed.\nSCORING (v8 \u2014 weighted ratio): each dimension score = \u03a3(weight\u00d7verdict)/\u03a3(weight), weights critical=3/major=2/minor=1, verdict met=1/partial=0.5/not_met=0/n-a=excluded. Assign a verdict to EACH listed criterion; never assign the dimension number yourself.\nFAITHFULNESS /3 (GATE): criteria \u2014 [critical, B3.trap.cap_amount_unknowable] Does not invent a specific dollar cap amount (states the formula, notes the amount is not determinable); [critical] Asserts no other term not present in the excerpt as fact. TRIPS ONLY ON: Inventing a specific dollar cap amount; Asserting any term not present in the excerpt as fact (e.g. guessing dispute-resolution detail). DOES NOT TRIP ON: Naming New York as governing law (it is present \u2014 correct); Noting an absent item as not determinable rather than guessing.\nCOVERAGE /4: criteria \u2014 [critical, B3.element.termination_risk] Two-day termination flagged as the TOP risk; [critical, B3.element.gov_law_present] Governing law correctly read as PRESENT (NY, \u00a716.12); dispute-resolution detail flagged as not in the excerpt; [minor, B3.element.deal_structure] Deal structure captured; [minor, B3.element.payment_suspension] Fifteen-day payment + suspension; [minor, B3.element.ip_ambiguity] IP ambiguity (Ad Engine vs Deliverables); [minor, B3.element.fees_external] Fees set in a separate agreement not provided.\nSOUNDNESS /3: criteria \u2014 [critical] Risks correctly prioritized \u2014 two-day termination is the top risk; IP carve-out tension correctly characterized.\nACTIONABILITY /2: criteria \u2014 [critical] One-page structure, clear headings, risks surfaced not buried; usable for a partner call.\nDISCRETION VALVE (v8): if a response is not addressed by the enumerated gate conditions, return verdict not_covered on that gate (routes to human-confirm) + a proposed_condition stating the rule that would resolve it \u2014 do NOT guess trip/pass.\nVARIANTS / CLEAN INSTANCE: INSTRUCTION A/B: record whether the response saw 'If a term is absent, say so.' (instructed) or not; report the two conditions separately.\nPROCEDURE: assign a verdict to every criterion \u2192 weighted ratio per dimension \u2192 raw = \u03a3 max(dim)\u00d7ratio \u2192 normalize to /12 \u2192 if ANY gate tripped, cap the normalized score at 0.40 and flag it."
 }

@@ -13,3 +13,9 @@ venv/
 # local-only design docs (v8 plan etc.) — kept out of the repo; live locally + on Drive
 *.local.html
 *.local.md
+
+# v8 working dir: pulled v7 reference docs + generated v8 .docx (Drive-only deliverables)
+suite/source/v8_work/
+
+# static export build artifact
+site/
