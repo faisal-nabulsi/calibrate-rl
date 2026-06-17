@@ -285,11 +285,19 @@ def _resume_calib(out_s3, calib_local):
 def main():
     # double-run guard: refuse to start if another campaign instance is already running.
     # Two instances race on the same git tree + dispatch duplicate samples (the 02:32 footgun
-    # that took two kills + a branch reset to clean up). pgrep -f matches the script name in
-    # argv; exclude our own pid.
+    # that took two kills + a branch reset to clean up). NB: `pgrep -f depth1_calib_campaign.py`
+    # also matches the su/bash LAUNCH WRAPPERS (their argv contains the script name), so filter to
+    # processes whose ACTUAL executable (/proc/<pid>/comm) is a python interpreter, and drop self.
     me = os.getpid()
-    others = [p for p in sh("pgrep -f depth1_calib_campaign.py", check=False, capture=True).stdout.split()
-              if p.strip().isdigit() and int(p) != me]
+    others = []
+    for p in sh("pgrep -f depth1_calib_campaign.py", check=False, capture=True).stdout.split():
+        if not p.strip().isdigit() or int(p) == me:
+            continue
+        try:
+            if open(f"/proc/{p}/comm").read().strip().startswith("python"):
+                others.append(p)
+        except Exception:
+            pass
     if others:
         slack(f":no_entry: campaign launch aborted — another instance is already running (pids {','.join(others)}). "
               f"Not double-running.")
