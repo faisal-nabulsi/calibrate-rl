@@ -45,7 +45,8 @@ BRANCH    = E("BRANCH", "agent/depth1-calib-campaign")
 INJECTOR  = E("INJECTOR", "generate/skeleton_injector_v12.py")
 CLAUDE    = E("CLAUDE_CMD", "claude -p")
 PER_CHAIN = int(E("POOL_N_PER_CHAIN", "40"))
-TIMEOUT_S = int(E("SAMPLE_TIMEOUT_MIN", "300")) * 60
+TIMEOUT_S = int(E("SAMPLE_TIMEOUT_MIN", "720")) * 60       # absolute backstop ONLY (default 12h)
+HB_STALE_S = int(E("HEARTBEAT_STALE_MIN", "30")) * 60      # heartbeat silent + no output this long => actually hung
 WEBHOOK   = E("SLACK_WEBHOOK_URL", "")
 DRY_RUN   = E("DRY_RUN", "0") == "1"
 REPO      = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -183,22 +184,40 @@ def dispatch_sample(it, pool_s3, out_s3):
 
 
 def wait_for_output(out_s3):
-    """Poll until the EXACT calib.json object exists (head-object — NOT a prefix `ls`
-    that would also match calib.json.LOG), OR the job fast-fails (its .log gets a
-    traceback and the box self-stops). Returns 'ok' | 'fail:<tail>' | 'timeout'."""
+    """HEARTBEAT-AWARE wait. The sampler streams a `<output>.heartbeat` to S3 every ~120s
+    (run_sample_job, #92); keep waiting as long as it ADVANCES (the job is making progress)
+    and only declare a real 'timeout' if the heartbeat goes stale for HB_STALE_S with no
+    output — i.e. genuinely hung. So a slow-but-fine 6h+ sample no longer false-aborts the
+    whole campaign (the iter-1 footgun: 250x8@2048 ran ~6h > the old 5h wall-clock cap, so
+    the wait gave up an hour before the box finished and `break` killed all 5 iters).
+    TIMEOUT_S is now just an absolute backstop. The stale-timeout only kicks in ONCE a
+    heartbeat has appeared — a heartbeat-LESS run (e.g. a box on pre-#92 code, as iter-1
+    itself was) falls back to the TIMEOUT_S wall-clock so we never penalize it as 'hung'.
+    Returns 'ok' | 'fail:<tail>' | 'timeout'."""
     bucket = out_s3.split("/")[2]
     key = "/".join(out_s3.split("/")[3:])
     logkey = key + ".log"
+    hbkey  = key + ".heartbeat"
+    def mtime(k):                       # LastModified of an S3 object, or None if absent
+        r = sh(f"aws s3api head-object --bucket {bucket} --key {k} --query LastModified --output text",
+               check=False, capture=True)
+        return r.stdout.strip() if r.returncode == 0 else None
     t0 = time.time()
+    last_hb = None
+    last_progress = None                # set on the FIRST heartbeat; until then, only TIMEOUT_S applies
     while time.time() - t0 < TIMEOUT_S:
         if sh(f"aws s3api head-object --bucket {bucket} --key {key}",
               check=False, capture=True).returncode == 0:
             return "ok"
-        if sh(f"aws s3api head-object --bucket {bucket} --key {logkey}",
-              check=False, capture=True).returncode == 0:
+        if mtime(logkey):
             body = sh(f"aws s3 cp s3://{bucket}/{logkey} -", check=False, capture=True).stdout
             if "Traceback" in body or "FAILED" in body or "Error" in body:
                 return "fail:" + body[-400:]
+        hb = mtime(hbkey)
+        if hb and hb != last_hb:        # heartbeat advanced => still working; reset the stale clock
+            last_hb, last_progress = hb, time.time()
+        if last_progress is not None and time.time() - last_progress > HB_STALE_S:
+            return "timeout"            # heartbeat WAS flowing, then went silent HB_STALE_S => hung
         time.sleep(60)
     return "timeout"
 
