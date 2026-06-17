@@ -32,6 +32,7 @@ import os, sys, json, time, subprocess, glob, datetime
 
 E = os.environ.get
 N_ITERS   = int(E("N_ITERS", "5"))
+RESUME    = E("RESUME", "1") == "1"   # reuse an already-landed iter calib instead of re-sampling (saves ~6h/iter)
 N         = int(E("N", "250"))
 ROLLOUTS  = int(E("ROLLOUTS", "8"))
 MAX_TOKENS= int(E("MAX_TOKENS", "2048"))
@@ -252,38 +253,68 @@ def revert_unstaged():
     sh("git checkout -- generate/ automation/ prep/ 2>/dev/null", check=False)
 
 
+def _no_edits_yet():
+    """No per-iter generator edits committed on this branch yet → the generators still match
+    whatever produced an existing calib, so a resume is correct. (Edit commits are titled
+    'depth1 calib iter N: ...'.) Once any iter has tuned + committed, we re-sample instead."""
+    r = sh("git log --oneline -100", check=False, capture=True)
+    return "depth1 calib iter" not in (r.stdout or "")
+
+
+def _resume_calib(out_s3, calib_local):
+    """If out_s3's calib already exists and is a valid, non-trivial JSON array, download it to
+    calib_local and return True (resume). Else False (must sample). Recovers a sample that
+    landed after the campaign had already given up (the iter-1 timeout footgun)."""
+    bucket = out_s3.split("/")[2]; key = "/".join(out_s3.split("/")[3:])
+    if sh(f"aws s3api head-object --bucket {bucket} --key {key}", check=False, capture=True).returncode != 0:
+        return False
+    sh(f"aws s3 cp {out_s3} {calib_local}", check=False)
+    try:
+        return len(json.load(open(calib_local))) >= 50
+    except Exception:
+        return False
+
+
 def main():
     sh(f"git checkout {BRANCH}", check=False)
     slack(f":arrows_counterclockwise: depth-1 calibration campaign starting — {N_ITERS} iters, "
           f"{N}x{ROLLOUTS}@{MAX_TOKENS} on {SAMPLER} vs ckpt-40")
     for it in range(1, N_ITERS + 1):
         log(f"================= ITERATION {it}/{N_ITERS} =================")
-        pool_local = f"data/chain_depth1_47_pool_iter{it}.json"
-        nrows, nch = build_pool(pool_local)
-        log(f"pool: {nrows} rows / {nch} chains")
-        ok, detail = gate(pool_local)
-        if not ok:
-            slack(f":x: iter {it} pre-sample gate failed: {detail} — reverting + stopping"); revert_unstaged(); break
-        if DRY_RUN:
-            log(f"[dry-run] pool built + gate PASSED ({nrows} rows / {nch} chains) — "
-                f"stopping before GPU / edits / commit. Real run does the rest."); continue
-
-        pool_s3 = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/pool.json"
-        out_s3  = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/calib.json"
-        # clear any stale output at this key from a PRIOR run — else wait_for_output reads the
-        # old calib.json.log (e.g. a previous iteration's traceback) and false-fails instantly.
-        sh(f"aws s3 rm {out_s3}", check=False); sh(f"aws s3 rm {out_s3}.log", check=False)
-        upload(pool_local, pool_s3)
-        slack(f":satellite: iter {it}: sampling {N} on {SAMPLER} (vs ckpt-40)…")
-        if not dispatch_sample(it, pool_s3, out_s3):
-            slack(f":warning: iter {it}: couldn't start {SAMPLER} — AWS out of GPU capacity after retries. "
-                  f"Campaign stopping; relaunch when capacity returns."); break
-        status = wait_for_output(out_s3)
-        if status != "ok":
-            slack(f":x: iter {it}: sample did not complete on {SAMPLER} — {status[:300]} — stopping"); break
-
+        out_s3      = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/calib.json"
         calib_local = f"data/depth1_calib_iter{it}.json"
-        if not DRY_RUN: sh(f"aws s3 cp {out_s3} {calib_local}")
+
+        # RESUME: if this iter's calib already landed AND we haven't tuned generators yet this
+        # campaign, reuse it instead of re-spending ~6h re-sampling — recovers the iter-1 timeout
+        # footgun (the sample completed, but the campaign had already given up before analyzing
+        # it). The no-edits guard keeps it correct: after any iter commits edits, a stale calib no
+        # longer matches the generators, so we fall through to a fresh sample.
+        if RESUME and not DRY_RUN and _no_edits_yet() and _resume_calib(out_s3, calib_local):
+            slack(f":recycle: iter {it}: resuming from already-sampled calib — skipped re-sampling (~6h saved)")
+            log(f"iter {it}: RESUMED from existing {out_s3}")
+        else:
+            pool_local = f"data/chain_depth1_47_pool_iter{it}.json"
+            nrows, nch = build_pool(pool_local)
+            log(f"pool: {nrows} rows / {nch} chains")
+            ok, detail = gate(pool_local)
+            if not ok:
+                slack(f":x: iter {it} pre-sample gate failed: {detail} — reverting + stopping"); revert_unstaged(); break
+            if DRY_RUN:
+                log(f"[dry-run] pool built + gate PASSED ({nrows} rows / {nch} chains) — "
+                    f"stopping before GPU / edits / commit. Real run does the rest."); continue
+            pool_s3 = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/pool.json"
+            # clear any stale output at this key from a PRIOR run — else wait_for_output reads the
+            # old calib.json.log (e.g. a previous iteration's traceback) and false-fails instantly.
+            sh(f"aws s3 rm {out_s3}", check=False); sh(f"aws s3 rm {out_s3}.log", check=False)
+            upload(pool_local, pool_s3)
+            slack(f":satellite: iter {it}: sampling {N} on {SAMPLER} (vs ckpt-40)…")
+            if not dispatch_sample(it, pool_s3, out_s3):
+                slack(f":warning: iter {it}: couldn't start {SAMPLER} — AWS out of GPU capacity after retries. "
+                      f"Campaign stopping; relaunch when capacity returns."); break
+            status = wait_for_output(out_s3)
+            if status != "ok":
+                slack(f":x: iter {it}: sample did not complete on {SAMPLER} — {status[:300]} — stopping"); break
+            if not DRY_RUN: sh(f"aws s3 cp {out_s3} {calib_local}")
         rep_md = f"results/depth1_calib_iter{it}.md"
         rat    = f"/tmp/rationale_iter{it}.md"
         if not DRY_RUN:
