@@ -190,7 +190,10 @@ def wait_for_output(out_s3):
     output — i.e. genuinely hung. So a slow-but-fine 6h+ sample no longer false-aborts the
     whole campaign (the iter-1 footgun: 250x8@2048 ran ~6h > the old 5h wall-clock cap, so
     the wait gave up an hour before the box finished and `break` killed all 5 iters).
-    TIMEOUT_S is now just an absolute backstop. Returns 'ok' | 'fail:<tail>' | 'timeout'."""
+    TIMEOUT_S is now just an absolute backstop. The stale-timeout only kicks in ONCE a
+    heartbeat has appeared — a heartbeat-LESS run (e.g. a box on pre-#92 code, as iter-1
+    itself was) falls back to the TIMEOUT_S wall-clock so we never penalize it as 'hung'.
+    Returns 'ok' | 'fail:<tail>' | 'timeout'."""
     bucket = out_s3.split("/")[2]
     key = "/".join(out_s3.split("/")[3:])
     logkey = key + ".log"
@@ -199,8 +202,9 @@ def wait_for_output(out_s3):
         r = sh(f"aws s3api head-object --bucket {bucket} --key {k} --query LastModified --output text",
                check=False, capture=True)
         return r.stdout.strip() if r.returncode == 0 else None
-    t0 = last_progress = time.time()    # boot grace: HB_STALE_S to produce the first heartbeat
+    t0 = time.time()
     last_hb = None
+    last_progress = None                # set on the FIRST heartbeat; until then, only TIMEOUT_S applies
     while time.time() - t0 < TIMEOUT_S:
         if sh(f"aws s3api head-object --bucket {bucket} --key {key}",
               check=False, capture=True).returncode == 0:
@@ -212,8 +216,8 @@ def wait_for_output(out_s3):
         hb = mtime(hbkey)
         if hb and hb != last_hb:        # heartbeat advanced => still working; reset the stale clock
             last_hb, last_progress = hb, time.time()
-        if time.time() - last_progress > HB_STALE_S:
-            return "timeout"            # no heartbeat advance + no output for HB_STALE_S => hung
+        if last_progress is not None and time.time() - last_progress > HB_STALE_S:
+            return "timeout"            # heartbeat WAS flowing, then went silent HB_STALE_S => hung
         time.sleep(60)
     return "timeout"
 
