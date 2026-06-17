@@ -702,12 +702,24 @@ def _recompute_target(target, c, V):
         lo, hi = (int(x) for x in re.search(r"from (\d+) to (\d+)", c).groups())
         return sum(1 for x in range(lo, hi+1) if sum(int(d) for d in str(x)) == V)
     if target == "inclusion_exclusion_3set":
-        # iter1: chain target reduced 3 sets -> 2 sets (fewer constraints).
+        # iter1: reduced 3 sets -> 2 sets. iter2: per-chain "nsets" knob may restore
+        # the 3-set form; detect which form from the clause text.
+        m3 = re.search(r"divisible by (\d+), (\d+), or (\d+)", c)
+        if m3:
+            a, b, d = (int(x) for x in m3.groups())
+            return (V//a+V//b+V//d-V//_lcm2(a,b)-V//_lcm2(a,d)-V//_lcm2(b,d)
+                    + V//_lcm2(a, _lcm2(b, d)))
         a, b = (int(x) for x in re.search(r"divisible by (\d+) or (\d+)", c).groups())
         return V//a + V//b - V//_lcm2(a, b)
     if target == "perfect_square_divisible":
-        div = int(re.search(r"divisible by (\d+)", c).group(1)); rd = isqrt(div); cnt = 0; k = 1
-        while (rd*k)**2 < V: cnt += 1; k += 1
+        # iter2: optional "...and end in the digit L" second constraint (harden).
+        div = int(re.search(r"divisible by (\d+)", c).group(1)); rd = isqrt(div)
+        ml = re.search(r"end in the digit (\d+)", c)
+        last = int(ml.group(1)) if ml else -1
+        cnt = 0; k = 1
+        while (rd*k)**2 < V:
+            if last < 0 or ((rd*k)**2) % 10 == last: cnt += 1
+            k += 1
         return cnt
     if target == "multi_constraint_square":
         d = int(re.search(r"divisible by (\d+)", c).group(1))

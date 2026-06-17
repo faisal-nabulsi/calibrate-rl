@@ -1038,11 +1038,32 @@ def _a_digit_target(V, kn):
 def _a_ie3_U(V, kn):
     # iter1: 3 sets -> 2 sets (fewer constraints) to ease the TOO_HARD ie3-target chains;
     # divisor pool widened [2..9] to keep answers diverse after dropping a term.
-    a,b=sorted(random.sample([2,3,4,5,6,7,8,9],2))
+    # iter2: optional per-chain "nsets" knob (2 or 3) so a TOO_EASY chain
+    # (three_number_system, 0.92) can re-add the third set without re-hardening the
+    # TOO_HARD ie3 chains (which keep the default 2-set form). Recomputer detects the
+    # form from the clause ("a, b, or c" vs "a or b").
+    n = kn.choice("nsets") if "nsets" in kn.params else 2
+    pool=[2,3,4,5,6,7,8,9]
+    if n>=3:
+        a,b,c=sorted(random.sample(pool,3))
+        return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
+                f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
+    a,b=sorted(random.sample(pool,2))
     return (V//a+V//b-V//lcm(a,b),
             f"How many integers from 1 to V are divisible by {a} or {b}?")
 def _a_perfsq_limit(V, kn):
+    # iter2: optional per-chain "last" knob (a digit 0-9) adds a SECOND constraint
+    # ("...and end in the digit L") to HARDEN the two TOO_EASY perfsq chains
+    # (custom_binary_op 0.96, unit_conversion_area 0.95) without touching the
+    # TOO_HARD perfsq chains (which omit "last" -> the original single-constraint
+    # form). Recomputer detects the extra clause from the text.
     div=kn.choice("div"); rd=int(div**0.5); cnt=0; k=1
+    last=kn.choice("last") if "last" in kn.params else -1
+    if last>=0:
+        while (rd*k)**2<V:
+            if ((rd*k)**2)%10==last: cnt+=1
+            k+=1
+        return (cnt, f"How many perfect squares less than V are divisible by {div} and end in the digit {last}?")
     while (rd*k)**2<V: cnt+=1; k+=1
     return (cnt, f"How many perfect squares less than V are divisible by {div}?")
 def _a_multisquare_limit(V, kn):
@@ -1072,7 +1093,13 @@ def _a_complement_faces(V, kn):
 
 # tkey -> (adapter, target_concept, fed_input_label, fed_lo, fed_hi)
 _ADAPT={
- "modexp_base":(_a_modexp_base,"modular_exponent","base",2,10**12),
+ # iter2: modexp_base V-ceiling lowered 10^12 -> 5000. V^k mod m on a ~10^12 base is an
+ # intractable too-hard ghost (CLAUDE.md §5: big numbers teach tedium, not method); capping
+ # V keeps the modular-reduction step learnable. This is a FILTER bound (which feeder outputs
+ # feed the target), not the difficulty knob. The perfsq/multisquare/complement ceilings were
+ # left at their originals — lowering them collapsed answer diversity (dedupe/top3 gate fails),
+ # so those chains are eased via the per-chain knobs instead, not the fed range.
+ "modexp_base":(_a_modexp_base,"modular_exponent","base",2,5000),
  "modexp_exp":(_a_modexp_exp,"modular_exponent","exponent",2,40),
  "algebraic_x":(_a_algebraic_x,"algebraic_system_2eq","x",1,60),
  "telescoping_N":(_a_telescoping_N,"telescoping_mn","N",3,30),
