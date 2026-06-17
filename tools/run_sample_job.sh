@@ -10,9 +10,14 @@
 #                   no GPU work, no S3 upload, no Slack posts, no shutdown
 #
 # job.json spec fields:
-#   type        "sample" | "train" | "setup" — sample/train route to tools/sample.py or
-#               train/train_grpo.py; setup runs tools/provision_box.sh to build the box's
-#               rl-venv (how the queue-only L4s sam/sadie/sage get provisioned — no SSH/SSM)
+#   type        "sample" | "train" | "setup" | "eval" — sample/train route to tools/sample.py
+#               or train/train_grpo.py; setup runs tools/provision_box.sh to build the box's
+#               rl-venv (how the queue-only L4s sam/sadie/sage get provisioned — no SSH/SSM);
+#               eval runs an arbitrary `cmd` (any one-off eval) then self-stops — so an eval is
+#               a queue dispatch, not a manual SSM session (see the eval branch below)
+#   cmd         (eval) the command to run, under bash + repo-root PYTHONPATH; `{ckpt}` → the
+#               downloaded checkpoint dir
+#   output_file (eval) local path/glob produced by cmd; synced (newest match) to output_uri
 #   concepts    optional list — sample only: build the pool first with
 #               prep/gen_clean.py (one call per concept, merged)
 #   n           sample: N_PROBLEMS (problems to calibrate)
@@ -148,12 +153,14 @@ print(f"JOB_DATASET={q(j.get('dataset', ''))}")
 print(f"JOB_HOLDOUT={q(j.get('holdout', ''))}")
 print(f"JOB_CONCEPTS={q(','.join(j.get('concepts') or []))}")
 print(f"JOB_CKPT={q(j.get('checkpoint', ''))}")
+print(f"JOB_CMD={q(j.get('cmd', ''))}")
+print(f"JOB_OUTPUT_FILE={q(j.get('output_file', ''))}")
 PY
 )" || { LOG_URI="(none)"; finish 1 "spec $SPEC_URI is not valid JSON"; }
 eval "$PARSED"
 
 LOG_URI="${OUTPUT_URI%/}.log"
-case "$JOB_TYPE" in sample|train|setup) ;; *) finish 1 "spec 'type' must be sample|train|setup, got '$JOB_TYPE'";; esac
+case "$JOB_TYPE" in sample|train|setup|eval) ;; *) finish 1 "spec 'type' must be sample|train|setup|eval, got '$JOB_TYPE'";; esac
 case "$OUTPUT_URI" in s3://*) ;; *) finish 1 "spec 'output_uri' must be an s3:// uri";; esac
 
 # --- build the command -------------------------------------------------------
@@ -205,6 +212,33 @@ elif [ "$JOB_TYPE" = "sample" ]; then
            ${JOB_MAX_TOKENS:+MAX_NEW_TOKENS="$JOB_MAX_TOKENS"})
   RUN_CMD="$PY tools/sample.py"
   SYNC_CMD="aws s3 cp $OUT $OUTPUT_URI"
+elif [ "$JOB_TYPE" = "eval" ]; then
+  # Run an ARBITRARY eval/command, then self-stop — so a one-off eval is a queue dispatch
+  # (drop a spec → the box runs it) instead of a manual SSM session. `cmd` runs under bash
+  # (pipes/&& OK) with the repo root on PYTHONPATH, so evals importing top-level pkgs like
+  # core/ just work (the footgun that needed a manual PYTHONPATH=.). A `{ckpt}` token in cmd
+  # is replaced with the downloaded LoRA-adapter dir; `output_file` (path or glob) is synced
+  # to output_uri (newest match). Example spec:
+  #   {"type":"eval","checkpoint":"s3://…/checkpoint-40",
+  #    "cmd":"python eval/eval_amc_baseline.py {ckpt}",
+  #    "output_file":"results_qwen7b__*.json","output_uri":"s3://…/amc_baseline_ckpt40.json"}
+  [ -n "$JOB_CMD" ] || finish 1 "eval job needs a 'cmd' field"
+  if [ -n "$JOB_CKPT" ]; then
+    case "$JOB_CKPT" in
+      s3://*) CKPT_DIR="checkpoint/job_${JOB_ID}_ckpt"
+              PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_CKPT%/} $CKPT_DIR") ;;
+      *)      CKPT_DIR="$JOB_CKPT" ;;
+    esac
+    JOB_CMD="${JOB_CMD//\{ckpt\}/$CKPT_DIR}"
+  fi
+  EVAL_SH="/tmp/eval_cmd_${JOB_ID}.sh"
+  { echo 'set -e'
+    echo 'export PYTHONPATH="${PYTHONPATH:-.}"'
+    echo "$JOB_CMD"
+    [ -n "$JOB_OUTPUT_FILE" ] && echo "aws s3 cp \"\$(ls -t $JOB_OUTPUT_FILE | head -1)\" $OUTPUT_URI"
+  } > "$EVAL_SH"
+  RUN_CMD="bash $EVAL_SH"
+  SYNC_CMD=""   # the eval script does its own output sync
 else
   [ -n "$JOB_DATASET" ] || finish 1 "train job needs a 'dataset' field (TRAIN_DATA)"
   RUN_DIR="checkpoint/job_${JOB_ID}"
