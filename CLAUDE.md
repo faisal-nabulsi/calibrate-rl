@@ -1,19 +1,20 @@
 # CalibrateRL — Project Context & Operating Guide
 
-> Auto-read by Claude Code on startup. Shared source of truth for three agent
+> Auto-read by Claude Code on startup. Shared source of truth for the team's agent
 > sessions (see §2). Durable context above; the **DAILY LOG / TODO** at the
 > bottom is updated every day per the protocol in §3.
 
 ## ▶ NEW SESSION — DO THIS FIRST
 
-1. **Read this entire file before acting.** It is the shared memory for three
+1. **Read this entire file before acting.** It is the shared memory for the team's
    agent sessions; you are one of them.
 2. **Identify yourself.** Read `.agent_identity` at the repo root — it holds your
    tag. Use that `[tag]` on every Slack post. Two session types:
    - **Person session** — a teammate's machine; tag = their name (`[faisal]`,
      `[michael]`, `[cara]`, `[zaid]`). Does reasoning / planning / coding / analysis.
-   - **`train@lightning`** — the shared A100 (auto-detect: `/teamspace` path +
-     `nvidia-smi`). Runs calibration / training / eval ONLY.
+   - **GPU-box executor** — an AWS box agent: `awesome-ash` (L40S trainer),
+     `sam`/`sadie`/`sage` (L4 samplers), `thinkrock` (t3 orchestrator). Runs
+     calibration / training / eval / sampling ONLY, from queued job specs — see §2.
    If `.agent_identity` is missing, **ask the user who they are, then offer to
    create it** (`echo <tag> > .agent_identity`) so you never have to ask again.
 3. **Know your lane and the others' — §2.** Never do another session's job; hand off.
@@ -24,12 +25,15 @@
 ## 0. TL;DR
 
 We do RL (GRPO + LoRA) on Qwen2.5-7B-Instruct using synthetic math problems
-calibrated to a "goldilocks" ~50%-pass band for that exact model. v10 (120-step,
-depth-0) is done: +3 on the AMC problems it covered, but net AMC only 32→34 / 83
-— depth-0 atomic concepts are largely solved; remaining AMC failures are
-**compositional**. Now running single-concept ablations before the chaining
-(depth-1) work that is the real AMC lever. **Before GPU work: verify against repo
-data, plan, get the task owner's sign-off.**
+calibrated to a "goldilocks" ~50%-pass band for that exact model. **Depth-0
+(atomic single-concept) is DONE and CAPPED** — v12 depth-0 trained → **`ckpt-40`**
+(`runs/v12_depth0_run2/checkpoint-40`, the depth-1 base), but it does NOT transfer
+to external AMC (#89: `covered` −0.057) NOR to composition (the ckpt-40 diagnostic:
+gap intact, mean pass 0.498→0.475). So the lever is **depth-1: composition /
+chaining.** We rebuilt **47 diverse chains** (#78, 9 targets, full concept coverage)
+and an **autonomous calibration campaign** (`tools/depth1_calib_campaign.py`, on the
+t3) is now tuning them to goldilocks vs ckpt-40 — sequential curriculum, then train
+depth-1. **Before GPU work: verify against repo data, plan, get the owner's sign-off.**
 
 - Target: Qwen2.5-7B-Instruct + LoRA (rank 32; 64 for full runs).
 - GRPO, ctx 1024→2048 (validated), EVAL_K=16, temp 1.0.
@@ -46,10 +50,11 @@ in-band problems. **The deliverable is the METHOD, not any single checkpoint.**
 **Two session types** (not per-person tags):
 - **Person session** — any teammate's machine, tag = their name. Job: reasoning,
   planning, code authoring/review, analysis — within that person's lane (below).
-  **Never launches GPU runs**; hands configs/datasets to `train@lightning`.
-- **`train@lightning`** — the shared A100. Job: run calibration/training/eval from
-  handed-off configs. Executes and monitors; **never redesigns experiments** —
-  flags issues in Slack.
+  **Never launches GPU runs**; hands work to the AWS executors via the **S3 job queue**.
+- **GPU-box executor** — an AWS box agent (`awesome-ash` L40S trainer; `sam`/`sadie`/
+  `sage` L4 samplers; `thinkrock` t3 orchestrator). Job: run calibration/training/eval/
+  sampling from queued job specs (`tools/run_sample_job.sh`, types `sample|train|setup|
+  eval`). Executes and monitors; **never redesigns experiments** — flags issues in Slack.
 
 **Ownership by person** (extensible — add a row when a new teammate's lane firms up):
 
@@ -109,7 +114,7 @@ this on a human-initiated turn (someone asked for a PR); never self-initiate a p
 
 **Setup is one-time:** the repo ships `.mcp.json` (Slack MCP). On first `claude`
 in the repo, approve it and complete Slack OAuth. Shared channel: **#calibrate-rl-agents**.
-Prefix every Slack post with your session tag, e.g. `[train@lightning]`, so
+Prefix every Slack post with your session tag, e.g. `[faisal]` or `[sam]`, so
 messages are attributable even on a shared Slack identity.
 
 **Start of day:**
@@ -134,8 +139,8 @@ messages are attributable even on a shared Slack identity.
    silently skipping it. If `.last_seen` is missing, fall back to the user's last
    commit/post (else last 24h) and create the file.
    **Then stamp `date -u +%Y-%m-%dT%H:%M:%SZ > .last_seen`** so the next catch-up
-   starts exactly where this one ended. (`train@lightning` has no user to brief —
-   it reads updates and posts status.)
+   starts exactly where this one ended. (GPU-box executors have no user to brief —
+   they read updates and post status.)
 4. Reconcile into this file: the **doc maintainer** (default Faisal) updates
    **CURRENTLY DOING** and **TODO** to match the meeting + Updates doc. Other
    sessions do NOT edit those sections — they append to the DAILY LOG and raise
@@ -146,8 +151,8 @@ messages are attributable even on a shared Slack identity.
 - `git pull` before editing any shared file. To land a meaningful change, open a PR
   (`tools/propose-pr.sh "summary"`) — `main` is protected, so no direct pushes. Post a
   one-line `[tag] PR: <summary> <link>` to Slack so a human can review + merge.
-- `train@lightning` posts run lifecycle events: `launched`, `step N / status`,
-  `done — <metric>`, `failed — <reason>`.
+- GPU-box executors (via `run_sample_job.sh`) post run lifecycle events to Slack:
+  `started`, `done — <metric>`, `failed — <reason>` (+ a mid-run S3 `.heartbeat`).
 
 **End of day:**
 1. Move finished items from TODO → **DAILY LOG** under today's date with your tag.
@@ -178,9 +183,10 @@ not just "updated code." Tailor depth to who's asking.
 ## 4. Method pipeline
 
 ```
-skeleton_injector → gen_clean (dedupe + gold-fix) → calibrate vs BASE Qwen-7B
-   → keep goldilocks problems → train + stratified holdout
-   → GRPO+LoRA (log_completions on) → held-out monitor + AMC eval
+skeleton_injector → gen_clean (dedupe + gold-fix) → calibrate vs the TARGET model
+   (BASE Qwen-7B for depth-0; the depth-0 ckpt-40 for depth-1) → keep goldilocks
+   problems → train + stratified holdout → GRPO+LoRA (log_completions on)
+   → held-out monitor + AMC eval
 ```
 
 **Goldilocks principle.** GRPO advantage = within-group deviation from the rollout
@@ -188,8 +194,8 @@ mean; if all rollouts agree, advantage = 0 → zero gradient = "ghost batch."
 Bernoulli variance peaks at p=0.5, so target **45–55% pass rate**. Out-of-band
 problems teach nothing.
 
-**Depth ladder.** Depth-0 = atomic single-concept (28 concepts; v10 trained these).
-Depth-1 = compositions (Phase-3 chaining; not yet trained — see §6).
+**Depth ladder.** Depth-0 = atomic single-concept (28 concepts; trained → ckpt-40, now
+CAPPED). Depth-1 = compositions (47 diverse chains, #78; calibrating now — see §6).
 
 **Difficulty knob = constraint/step count, NEVER number size.** Big numbers make
 too-hard ghosts that teach tedium, not method (see count_pythagorean in §5).
@@ -238,122 +244,40 @@ in-band answer (count_pythagorean: H16→4, H17–19→5 → model answer-hacks 
 do NOT widen their number range. log_laws/custom_binary_op 0% is a v11
 representation bug ("free vs impossible" phrasing), not difficulty — standardize.
 
-## 6. Depth-1 partners & chaining plan
+## 6. Depth-1 chaining (the current lever)
 
-> **⚠ SUPERSEDED (2026-06-15, PR #78).** The chain set was **rebuilt for target diversity + full
-> 47-concept coverage** (47 chains, 9 distinct targets, every concept a feeder once). The AMC-specific
-> **#55/#75 targeting described in §6/§6a was dropped** — depth-0/AMC is capped (§0), so the goal is now
-> *general composition*, not covering specific AMC problems. Chains carry **no AMC tag**. The diversity
-> rule (`multi-input target`) + the new set live in [`docs/DEPTH1_CHAINING.md`](docs/DEPTH1_CHAINING.md)
-> §4/§9. The §6/§6a text below is retained as **historical rationale** for the original (now-replaced)
-> #55/#75 first wave; the composition-gap diagnostic (`base_diag_300`) was run on those old composites,
-> so its post-training #21/#47/#55/#75 anchors no longer exist in the shipped set — re-run it on the new
-> chains if you still want that signal.
+> Plain-language architecture guide: [`docs/DEPTH1_CHAINING.md`](docs/DEPTH1_CHAINING.md) —
+> how chains work, how targets are picked, knobs, the static gate, coverage. Read that first if new.
 
-> **Plain-language architecture guide: [`docs/DEPTH1_CHAINING.md`](docs/DEPTH1_CHAINING.md)** —
-> how chains work, how we pick which two concepts to combine, what knobs are, why the static
-> gate matters, the 3-concept idea, and the full coverage table. Read that first if new here.
+**What a chain is.** A depth-1 problem is a composition of 2+ atomic depth-0 concepts: a
+*feeder* atom's answer feeds a *target* atom's parameter ("embed-not-announce" surface; the
+gold stays exact by composing the two oracles). Difficulty is tuned by # steps/constraints,
+never number size (§4) — compositions skew hard, so we ease them, not shrink numbers.
 
-A **depth-1 partner** is an *atomic* building block held in reserve for
-composition — NOT itself a composition (many are individually easy). A **depth-1
-problem** is a composition of 2+ atomic concepts; that's what chaining produces.
+**The current set — 47 diverse chains (#78, replaced the old #55/#75 first wave).** Every one
+of the 47 concepts appears as a feeder once; the final step is spread across **9 distinct
+targets** (algebraic_system_2eq, inclusion_exclusion_3set, perfect_square_divisible,
+modular_exponent, telescoping_mn, etc.). The diversity rule that makes this work: a target
+stays answer-diverse **iff it's MULTI-INPUT** — feed the intermediate into one input, let the
+others supply entropy (single-input targets collapse to a near-constant answer → answer-hackable).
+**AMC-specific targeting was DROPPED** — depth-0/AMC is capped (§0), so the goal is *general
+composition*, not covering specific AMC problems. **v12 is the CANONICAL depth-1 generator**
+(`skeleton_injector_v12.py`); v13 is a parked depth-0-phrasing copy — do NOT sample chains from v13.
 
-The 19 partners → AMC:
+**Why chaining is the lever (confirmed twice).** The composition gap is real and depth-0
+doesn't close it: the model computes the feeder atom 79–98% but the composite far less, with
+P(pass | atom-missed) ≈ 0 — "can do the steps, can't chain them." The ckpt-40 diagnostic shows
+depth-0 training leaves the gap intact (mean pass 0.498→0.475). So composition is the headroom,
+and **ckpt-40 is the right base precisely because the gap survives in it.**
 
-| partner | computes | AMC |
-|---|---|---|
-| arith_series_sum | sum of arithmetic series | 72 |
-| arith_term_filter | # of first-n AP terms div by d | 72 |
-| count_obtuse_triangles | count obtuse integer triangles | 18 |
-| digit_count_bigprod | # digits of large product | 60 |
-| distinct_product_count | # distinct dice-product values | 74 |
-| frobenius_stamps | largest non-representable (Frobenius) | 71 |
-| geo_first_exceed | first geo-seq term to exceed bound | 7 |
-| infinite_product_exp | infinite nested exponent product | 20 |
-| mean_removal | mean after add/remove elements | 19,41,64 |
-| percent_compound | compound percent change | 52,73 |
-| point_rotation | rotate point about center | 9,39 |
-| primality_in_sequence | primality within a sequence | 37 |
-| rate_closing | closing-rate / meeting | 43 |
-| sum_of_squares | sum-of-squares formula | 7,53 |
-| three_number_system | solve 3-number linear system | 11 |
-| trapezoid_area | trapezoid area / optimization | 67,30 |
-| unit_conversion_area | area with unit conversion | 77 |
-| vieta_pair_count | count integer-root params via Vieta | 70,38 |
-| vieta_sumcubes | sum of cubes of roots via Vieta | 6,31 |
-
-**Why chaining is the lever:** depth-0 plateaus (atoms get mastered → drift
-out-of-band). Real headroom = the **22 covered-but-unsolved** AMC problems (a
-depth-0 concept is relevant but the problem needs composition).
-**It already works:** #68 (custom_binary_op × complex_modulus_power) and #80
-(log_laws × polynomial_sign_intervals) flipped from depth-0 component training
-alone. **Don't chase the wrong set:** the 23 "partner-only" AMC problems are NOT
-the prize — base already solves 16/23 (easy ingredients) and v10 regressed 2.
-
-**Plan (Phase 3):** (1) build a chaining script that composes two generators into
-one multi-step problem; calibrate the composite to goldilocks (compositions skew
-hard → control difficulty by # steps, not bigger numbers). (2) Pilot on
-constrained_subset_count (already a composition). (3) Target #55 (modular_exponent
-× constrained_divisor_count × divisor_sum_filter) and #75 (constrained_divisor_count
-× prime_power_divisors). (4) Sample → goldilocks → train ~300 steps → AMC eval via
-`mean_pass_rate`; confirm partner-only set didn't regress.
-
-### 6a. Why we built exactly these 3 chains (first wave) — selection rationale
-
-We deliberately built **3 chains, not 19+**. The reasoning, in order:
-
-**1. WHAT a chain is (so the "19 partners" confusion doesn't recur).** The 19
-partners in the table above are *atomic ingredients held in reserve* — they are
-NOT chains. A chain is a *composition of two atomic concepts* (A's answer feeds
-B's parameter). You do not get "one chain per partner"; a chain is a *pair*, and
-most pairs aren't even usable (see #3). Our 3 chains compose **§5 depth-0
-concepts**, not the 19 partners.
-
-**2. WHICH targets, and why (#55, #75, + a pilot).**
-   - Depth-0 has **plateaued** — the model masters atoms, they drift out of the
-     goldilocks band, and further depth-0 training teaches nothing. The remaining
-     AMC failures are **compositional**.
-   - The real headroom is the **~22 covered-but-unsolved** AMC problems (a depth-0
-     concept is relevant, but the problem needs composition). **#55 and #75 are
-     exactly these** — high-value, currently-failed, composition-shaped.
-   - We did NOT target the 19 partners' AMC problems: **base already solves 16/23**
-     of the "partner-only" set, so chaining to cover them wins ~nothing.
-   - The **pilot** (`chain_log_laws__ordered_triple_constraint`) is a machinery
-     proof-of-concept (first chain, #41): it validates the whole pipeline —
-     oracle-composition (gold exact by construction), embed-not-announce surface,
-     recomputer verification, static-gate — before we spend effort on the real
-     targets.
-
-**3. WHY those specific compositions + directions (engineering constraints).**
-   - Chains must be **feed-legal**: A's answer distribution must legally fit B's
-     parameter envelope. The compat map (`chain_compat_v2.json`) checked **337**
-     (A,B,param) edges; only **76 are valid**. We could not pick arbitrarily.
-   - **Pairs-only v1:** #55's full decomposition is 3 concepts (modexp × cdc ×
-     divisor_sum_filter); we shipped the modexp × cdc pair and **wired dsf but
-     deferred it to the 3-way wave**.
-   - **Direction is chosen for answer-diversity (goldilocks), not arbitrarily.**
-     `constrained_divisor_count`-as-target *collapses* (divisor counts cluster →
-     top3 0.59, answer-hackable). So **#55 flips** to modexp-as-target (cdc count →
-     exponent; top3 0.105). **#75 keeps** cdc-as-target but drops the clustered
-     "odd" branch (top3 0.40→0.19) and feeds a divisor-rich N (smallest int with D
-     divisors) so cdc never sees a degenerate (prime) input.
-
-**4. WHY only 3 right now (not the whole menu).** It is a deliberate first wave to
-   answer the make-or-break question **before** scaling: *does training on
-   compositions transfer to compositional AMC?* The base-model diagnostic measures
-   this directly — the **composition gap** (per-composite `intermediate_hit_rate`
-   high but final pass low ⇒ "the model can do the steps but can't chain them" ⇒
-   exactly what depth-1 training should fix). Each chain is also real, non-trivial
-   work (generator + knob + recomputer + static-gate pass + calibration), and
-   depth-1 calibration is **curriculum-gated** on the depth-0 model (sequential:
-   train depth-0 first), which doesn't exist yet. Building 19 chains before knowing
-   any transfers would be wasted.
-
-**5. The plan IS to expand.** The 76 valid edges are the menu. If the diagnostic +
-   the first depth-1 training run show transfer, we scale into more pairs and 3-way
-   chains (e.g. the full #55 with divisor_sum_filter) to cover more of the ~22
-   compositional AMC problems. Today: 3 chains ≈ 4 AMC problems (#21/#47/#55/#75) —
-   small **on purpose**; it is the proof-of-concept, not the finish line.
+**Pipeline + curriculum.** build 47-chain pool → STATIC GATE (gold recompute + dedupe/top3 +
+atom-equivalence freeze) → **calibrate to goldilocks vs ckpt-40** (the autonomous campaign,
+`tools/depth1_calib_campaign.py`, edits the CHAIN LAYER only — depth-0 atomics frozen by the
+equivalence test) → build the depth-1 train set → train ~300 steps off ckpt-40 → re-run the
+diagnostic (did the gap close?) + AMC. Curriculum is **SEQUENTIAL**: depth-0 first (done), then
+depth-1. One open margin-check rides along: `box_diagonal_sq__perfect_square_divisible` is a thin
+chain (ceiling ≈210) — read its in-band fraction off the converged campaign; if <0.71, widen the
+`perfect_square_divisible` target (never the feeder). The other 7 dedupe-thin chains clear it easily.
 
 ## 7. v10 results
 
@@ -402,6 +326,17 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
 - Self-tests/status checks report findings without fixing unless told.
 - Humans: before pm2-restarting an agent, check for its in-flight "Working…" —
   restart kills tasks silently.
+- **An autonomous step that shells out with `check=False` and never verifies its output will
+  SILENTLY no-op if the tool is missing/errors.** The depth-1 campaign ran a whole iteration
+  committing fake "analysis + edits" because `claude` wasn't installed on the t3 (`command not
+  found`, exit 127, swallowed). Fix: install + smoke-test the tool, AND have the loop verify the
+  effect actually happened (generator files changed) and fail loud otherwise.
+- **Squash-merge makes a fully-merged branch LOOK unmerged** — `git cherry`/ahead-count show
+  "+", the PR badge drops, "behind N" looks scary. The real test is `git diff main branch -- <files>`
+  empty = the content is on main. Don't "rescue"/re-land on the illusion (it bit us twice in one night).
+- **Don't double-launch a single-box autonomous loop** (one git tree + one sampler) — two
+  instances race on the working tree and dispatch duplicate jobs. The campaign now has a
+  startup double-run guard; for hand-launches, check `pgrep` first.
 
 ## 9. Operating rules
 
@@ -415,8 +350,10 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
   one continuous run across resumes. Never commit keys.
 - Held-out `mean_pass_rate` → stdout banners only (W&B rejects out-of-order
   steps); rebuild via `holdout_matrix.py`.
-- Calibrate vs BASE model; callback evals *merged* LoRA. Keep grader + system
-  prompt + gen length identical across calib/held-out/AMC.
+- Calibrate vs the TARGET model: **BASE** for depth-0, the **trained ckpt-40** for depth-1
+  (merged into base via `PeftModel.from_pretrained(...).merge_and_unload()` at load — same
+  path in `sample.py`, `eval_amc_baseline.py`). Callback evals *merged* LoRA. Keep grader +
+  system prompt + gen length identical across calib/held-out/AMC.
 - Keep `log_completions=True` (writes per-prompt parquets).
 - `gen_clean.py --concept X --n N --out path`. Concept→AMC truth = `@concept`
   decorators. Stratified holdout 3–5/concept. Watch heredoc truncation.
@@ -436,18 +373,26 @@ goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
 
 ## 10. Repo & infra
 
-- `generate/skeleton_injector_v11.py` (generators, `@concept`, `DEPTH1_PARTNERS`,
-  `REGISTRY`) · `prep/clean_dataset.py` + `prep/gen_clean.py` ·
-  `core/reward_func.py` · `eval_amc_baseline.py` · `measure_environment.py` ·
-  `train/train_grpo.py` (8 completions/prompt, 4 prompts/step).
-- `data/`: goldilocks_train_v10 (106), holdout_v10 (12), calib_v10_7B (300),
-  skeleton_dataset_v11_clean, calib_v11_2048_7B (500×8).
-- `results/`: base 32/83, checkpoint-120 34/83, trainer_state_120step, holdout
-  matrix · `training_completions/*.parquet` ×120.
-- Compute: **AWS (primary)** — L40S training box `i-07455ba55e473769d` (34.226.11.242) + 3× L4
-  sampling boxes; agents (kathryne/gilbert/charizard/awesome-ash) hosted on AWS 24/7. Runbook:
-  `AWS_SETUP_FAISAL.md`. (Earlier: Lightning A100/L4, Vast.ai, GCP `qwen7bv3training`.)
-  Tracking: W&B `rl-intro`/`tiny-math-solver`.
+- **Generators:** `generate/skeleton_injector_v12.py` (CANONICAL — 28 depth-0 atoms +
+  47 diverse chains; `@concept`, `REGISTRY`; v13 = parked depth-0-phrasing copy, do NOT
+  sample chains from it) · `prep/gen_clean.py` (dedupe + gold-fix) · `prep/check_dataset.py`
+  (independent gold recomputers) · `automation/calibrator/` (`static_checks.py` gate +
+  `knobs/` per-chain knob files).
+- **Train/eval:** `core/reward_func.py` · `train/train_grpo.py` (8 completions/prompt,
+  4 prompts/step) · `eval/eval_amc_baseline.py` (binary NN/83) · `eval/eval_amc_coverage.py`
+  (mean_pass by `@concept` coverage, #89) · `analysis/chain_composition_gap.py` (the gap diagnostic).
+- **Fleet:** `tools/run_sample_job.sh` (queue runner — `sample|train|setup|eval`; S3 spec →
+  run → sync → Slack → self-stop; streams a `.heartbeat` to S3 for mid-run liveness) ·
+  `tools/depth1_calib_campaign.py` (autonomous calibration loop on the t3) ·
+  `tools/gpu_job_monitor.sh` (liveness) · `tools/propose-pr.sh` (PR-only landing).
+- **Data / checkpoints:** `data/v12_train.json` (449/79/90 depth-0 split) →
+  `runs/v12_depth0_run2/checkpoint-40` (THE depth-1 base) · `data/chain_depth1_47_pool_v1.json`
+  (47-chain pool) · `data/calib_v12_2048_7B.json` · `results/amc_coverage_base_vs_ckpt40.md` (#89).
+- **Compute: AWS.** L40S trainer `i-07455ba55e473769d` (`awesome-ash`) + 3× L4 samplers —
+  sam `i-065bb6d4bcea507db` / sadie `i-05c7938e1c6711370` / sage `i-0161b1d0bc48ede12` — +
+  the always-on t3 agents box `i-09d247668650dad2d` (gilbert/kathryne/charizard/thinkrock/autocalib).
+  L4s are queue-driven (S3 poll) + SSM-reachable. Runbook `AWS_SETUP_FAISAL.md`;
+  W&B `rl-intro`/`tiny-math-solver`. (Pre-AWS: Lightning A100, Vast.ai, GCP — all retired.)
 
 ## 11. Roadmap
 
@@ -464,60 +409,75 @@ calibrated pool → train ~300 steps off ckpt-40 → **validate**: re-run the co
 
 > Live state only — "where the project is right now." Completed work migrates to the DAILY LOG.
 
-**THE GATE — the depth-0 verdict (in progress).** Depth-0 is TRAINED: **`ckpt-40`**
-(`runs/v12_depth0_run2/checkpoint-40`) is the depth-1 base. (Selection: held-out, train-side diversity, and KL
-all flat-within-noise across steps 40–90 — pass@4 has a ±0.08 same-ckpt floor so the curves can't pick;
-structure breaks the tie → earliest firmly-on-plateau = most general for composition-transfer, least KL drift,
-least end-loaded feeder regression. 50 = fallback; 70 = the 1σ-spike trap that reverted at 80.)
-- **Depth-0 is CAPPED on AMC (#89):** BASE vs ckpt-40 by coverage — `covered` went DOWN −0.057, all subsets
-  within the ±0.05 noise floor ⇒ no AMC transfer. Held-out UP (+0.08) but external AMC flat = template
-  reliability, not concept skill (Zaid's reframe, now measured on AMC). ⇒ **commit to depth-1.**
-- **3-L4 trifecta running (all vs ckpt-40)** to finish the verdict — read as a set when they land:
-  **sam** = composition-gap diagnostic (did depth-0 strengthen the ATOMS for chaining?), **sage** =
-  concept-transfer by-framing (is the held-out gain wording-robust=concept, or template-bound?), + the
-  AMC-capped finding (done). The **"final depth-0 run" decision is HELD** until the by-framing result lands
-  (Faisal wants it; Michael skeptical).
+**THE GATE — depth-0 verdict: IN. Depth-0 is CAPPED, twice over.** ckpt-40
+(`runs/v12_depth0_run2/checkpoint-40`) is the depth-1 base (steps 40–90 flat-within-noise; structure picked the
+earliest firmly-on-plateau ckpt). The trifecta landed + was analyzed (#107):
+- **AMC (#89):** BASE vs ckpt-40 by coverage — `covered` −0.057, all subsets within the ±0.05 noise floor ⇒ no
+  AMC transfer (held-out UP +0.08 but external AMC flat = template reliability, not concept skill).
+- **Composition (ckpt-40 diagnostic):** the gap did NOT close — mean pass 0.498→0.475, P(pass|atom-miss)≈0 still,
+  feeders not strengthened. Depth-0 does not chain better than base.
+- **By-framing:** leans "partly concept, not pure template," but not fully settled (no base run on the 180-row
+  v2 set — the one missing job, now a one-line queue dispatch).
+⇒ **commit to depth-1; ckpt-40 is the right base precisely because the gap is intact in it.**
 
-**THE LEVER — depth-1 composition.** Depth-0 plateaus (atoms mastered → drift out-of-band); the real headroom is
-compositional AMC. Base composition gap CONFIRMED (#55): base computes the feeder atom 79–98% but the composite
-much less (gaps +0.19/+0.33/+0.61; P(pass|atom-miss)≈0) — "can do the steps, can't chain them." Curriculum is
-SEQUENTIAL: depth-0 first (done) → then calibrate + train depth-1 against the depth-0 model.
+**THE LEVER — depth-1 composition.** The composition gap is real (base computes the feeder atom 79–98% but the
+composite far less; P(pass|atom-miss)≈0 — "can do the steps, can't chain them") and depth-0 doesn't close it.
+Curriculum is SEQUENTIAL: depth-0 (done) → calibrate the 47 chains to goldilocks vs ckpt-40 → train depth-1 →
+re-run the diagnostic (did the gap close?). See §6.
 
-**Depth-1 calibration campaign — RUNNING** (autonomous; t3/autocalib; `tools/depth1_calib_campaign.py`, runbook
-`docs/DEPTH1_CALIB_CAMPAIGN.md`; branch `agent/depth1-calib-campaign`, branch-only → human PRs). 5-iter loop:
-build the 47-chain pool → static gate (gold recompute + dedupe/top3 + atom-equivalence freeze) → sample
-250×8@2048 on sadie vs ckpt-40 → analyze per-chain → headless `claude` edits the CHAIN LAYER toward goldilocks
-(depth-0 atomics frozen) → re-gate/auto-revert → commit → Slack. **iter-1 sampling now.** All 47-chain machinery
-is on main (rebuild #78, 47 knob files, 18 partner recomputers, widen-to-41/47, v13-strip); the
-`feat/depth1-diverse-chains` branch is fully merged → safe to delete. Open: the #5 in-band-yield margin-check on
-the 6 thin chains, runnable off the campaign's per-chain calib once it converges.
+**Depth-1 calibration campaign — RUNNING and genuinely editing** (autonomous; t3/autocalib;
+`tools/depth1_calib_campaign.py`; branch `agent/depth1-calib-campaign`, branch-only → human PRs). Per iter:
+build 47-chain pool → static gate → sample 250×8@2048 on sadie vs ckpt-40 → analyze per-chain → headless
+`claude` edits the CHAIN LAYER toward goldilocks (depth-0 atomics frozen) → re-gate → commit → Slack. **iter-1
+eased the hard targets for real** (e.g. inclusion_exclusion_3set 3 sets→2, target-side; iter-2's pool verified
+to differ). The edit step was broken at first (`claude` not installed on the t3 → silent no-op) and fixed
+tonight: **claude CLI installed + edit-guard (fail-loud) + resume + heartbeat-aware wait + double-run guard.**
+iter-1 skewed hard (32% in-band, 21/47 too hard) — watch whether mean-pass climbs toward ~0.5 over iters 2–5.
 
-**Fleet:** 3× L4 samplers (sam/sadie/sage) + L40S trainer (awesome-ash). L4s are queue-driven (S3 poll); jobs stream a progress heartbeat to S3 so
-liveness is readable mid-run without SSM. Quota 20 open (CASE_OPENED). (Fleet/permission-overhaul detail and
-the campaign-build shakeout → DAILY LOG 06-16.)
+**Fleet:** 3× L4 samplers (sam/sadie/sage) + L40S trainer (awesome-ash) + always-on t3 agents box. L4s are
+queue-driven (S3 poll; `sample|train|setup|eval` job types) + SSM-reachable; jobs stream a `.heartbeat` to S3 for
+mid-run liveness. Quota 16→20 open (CASE_OPENED). (Fleet/permission/campaign-build detail → DAILY LOG 06-16/17.)
 
 ## TODO
 
 > Completed items migrate to the DAILY LOG; this section is open/actionable work only. (This session's
 > done items are in CURRENTLY DOING + the log.)
 
-- [ ] **read the depth-0 TRIFECTA when the 3 L4 jobs land = the complete depth-0 verdict:** (a) composition-gap
-      diagnostic (sam: did depth-0 strengthen the atoms for chaining?); (b) concept-transfer by-framing (sage is
-      generating it on ckpt-40 now; **[faisal] analyzes** — does the +0.22 held-out gain transfer across
-      wording=concept, or evaporate=template? older #31 was on the 3-concept ckpt-108); (c) the AMC-capped finding
-      (#89, done). The by-framing is the discriminator gating the **"final depth-0 run" decision**, which stays HELD
-      until it's in — likely moot anyway now that depth-0 is AMC-capped.
-- [x] **depth-1 in-band-yield margin-check (kathryne's catch) — ANALYSIS DONE; box_diagonal_sq folded into the
-      campaign.** Of the 8 dedupe-thin chains, **7 are safe by a wide margin** (need only 19–42% in-band; ceilings
-      375–799). The lone risk is `box_diagonal_sq__perfect_square_divisible` (ceiling ≈210 → needs goldilocks ≥0.71;
-      iter-1 ≈0.21 too-hard). It's one of the 21 too-hard chains the campaign is now easing, so it's no longer a
-      separate task — just a number to **read off the CONVERGED campaign**: if box_diagonal_sq's in-band fraction is
-      still <0.71 then, widen `perfect_square_divisible` TARGET-side (NOT the feeder — desyncs v12 calib + run-2).
-      No dedicated GPU job. ⮕ checked as part of evaluating the converged 47-chain campaign.
+- [ ] **[faisal] settle the by-framing discriminator (the one open trifecta piece).** ckpt-40's concept-transfer
+      landed + was analyzed (#107: "partly concept, not pure template"), but there's **no BASE run on the 180-row
+      v2 set**, so concept-vs-template isn't fully settled. Dispatch base on `concept_transfer_eval_v2.json` — now a
+      one-line queue spec (#108). Low priority — likely moot since depth-0 is AMC-capped (#89), but closes it cleanly.
+- [ ] **[depth-1 NEXT — the payoff, gated on calibration converging]** build the depth-1 train set from the
+      calibrated 47-chain pool → train ~300 steps off ckpt-40 → **validate**: re-run the composition-gap diagnostic
+      (did the gap close — composite pass rises toward the atom?) + AMC via `mean_pass_rate`; also check
+      box_diagonal_sq's in-band fraction (§6). This is the whole point of the program — see §11.
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-17
+- [faisal] **Depth-0 trifecta analyzed → verdict IN: depth-0 is CAPPED on AMC *and* composition (#107).** ckpt-40
+  composition-gap diagnostic: the gap did NOT close (mean pass 0.498→0.475, P(pass|atom-miss)≈0, feeders flat) —
+  depth-0 doesn't chain better than base. By-framing: "partly concept, not pure template" but not fully settled
+  (no base on the 180-row v2 set — the one open piece). ⇒ commit to depth-1; ckpt-40 is the right base *because*
+  the gap is intact. (`results/depth1_ckpt40_trifecta.md`.)
+- [faisal] **The depth-1 calibration campaign was editing NOTHING — root-caused + fixed.** The headless-edit step
+  ran `claude -p`, but the **`claude` CLI was never installed on the t3** → `command not found` (exit 127),
+  swallowed by `check=False`, so the campaign committed fake "analysis + edits" commits that changed zero
+  generators every iteration (gilbert's byte-identical-pool flag). Fixes: **installed the claude CLI** on the t3
+  (verified headless `claude -p` works with autocalib's key) + **edit-guard** (llm_edit returns rc, loop stops loudly
+  if rc≠0 or no generator changed) + **resume** (reuse a landed calib, save ~6h) + **heartbeat-aware wait** (don't
+  false-timeout a slow-but-progressing sample) + **double-run startup guard** + a clean branch reset (dropped the
+  fake iter-1 commit). Relaunched → iter-1 genuinely eased the hard targets (e.g. ie3 3 sets→2, target-side; iter-2
+  pool verified to differ). The loop is real now.
+- [faisal] **Added an `eval` job type to the queue (#108)** — any one-off eval is now a drop-a-spec dispatch (box
+  pulls the ckpt, runs the cmd with repo-root PYTHONPATH, syncs output, self-stops), not a manual SSM session.
+- [faisal] **Heartbeat to S3 (#92)** for mid-run liveness; **propose-pr auto-returns to main (#102)** so agents
+  stop stranding on feature branches; recovered uncommitted box artifacts into git (#103); **fixed the bots**
+  (sage monitor SSH key via persona_sync; routed the bot IAM box-access ask to michael). **Modernized this doc**
+  (§0/§2/§4/§6/§8/§10 — dropped Lightning/`train@lightning`/the old #55/#75 chain plan; §6 now the current 47-chain
+  reality).
 
 ### 2026-06-16  *(continued — afternoon/evening)*
 - [faisal] **Depth-0 confirmed CAPPED — AMC does not transfer (#89).** AMC-by-coverage on ckpt-40 vs BASE:
