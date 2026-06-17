@@ -1074,11 +1074,14 @@ def _a_multisquare_limit(V, kn):
     return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
 def _a_equalize_g(V, kn):
     if V<3: return (None,"")
+    # iter3: dropped the large-denominator fractions (denom 9,10,12) shared by ALL equalize
+    # chains. Every equalize-target chain is ≤0.41 (all need easing); cleaner small-denominator
+    # fractions cut the m/n reduction work without touching number size. Recomputer reads the
+    # actual fn from the clause text, so this stays gold-exact; still 18 options -> answers spread.
     fn=random.choice([Fraction(1,3),Fraction(1,2),Fraction(1,4),Fraction(2,3),Fraction(3,4),
                       Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),Fraction(5,6),
                       Fraction(3,8),Fraction(5,8),Fraction(1,6),Fraction(1,7),Fraction(2,7),
-                      Fraction(3,7),Fraction(1,8),Fraction(7,8),Fraction(1,9),Fraction(4,9),
-                      Fraction(5,9),Fraction(3,10),Fraction(7,10),Fraction(5,12),Fraction(7,12)])
+                      Fraction(3,7),Fraction(1,8),Fraction(7,8)])
     pour=1-((V-1)+fn)/V
     return (pour.numerator+pour.denominator,
             f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")
@@ -1100,10 +1103,15 @@ _ADAPT={
  # left at their originals — lowering them collapsed answer diversity (dedupe/top3 gate fails),
  # so those chains are eased via the per-chain knobs instead, not the fed range.
  "modexp_base":(_a_modexp_base,"modular_exponent","base",2,5000),
- "modexp_exp":(_a_modexp_exp,"modular_exponent","exponent",2,40),
+ # iter3: modexp_exp fed-exponent ceiling 40 -> 20 (only point_rotation feeds it, TOO_HARD 0.167).
+ # a^V mod m with a large fed exponent V is a long fast-exponentiation chain; fewer steps eases it.
+ "modexp_exp":(_a_modexp_exp,"modular_exponent","exponent",2,20),
  "algebraic_x":(_a_algebraic_x,"algebraic_system_2eq","x",1,60),
  "telescoping_N":(_a_telescoping_N,"telescoping_mn","N",3,30),
- "digit_target":(_a_digit_target,"constrained_digit_count","digit_sum_target",5,27),
+ # iter3: digit_sum_target ceiling 27 -> 20. ALL 5 digit_target chains are TOO_HARD; a fed digit
+ # sum near 27 makes matches near-impossible (degenerate/near-0 counts). Capping at 20 keeps the
+ # target tractable for every feeder uniformly (fewer-steps ease; shared filter, all same verdict).
+ "digit_target":(_a_digit_target,"constrained_digit_count","digit_sum_target",5,20),
  "ie3_U":(_a_ie3_U,"inclusion_exclusion_3set","U",60,9000),
  "perfsq_limit":(_a_perfsq_limit,"perfect_square_divisible","limit",300,200000),
  "multisquare_limit":(_a_multisquare_limit,"multi_constraint_square","limit",600,80000),
