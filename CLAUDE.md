@@ -507,14 +507,13 @@ the campaign-build shakeout → DAILY LOG 06-16.)
       wording=concept, or evaporate=template? older #31 was on the 3-concept ckpt-108); (c) the AMC-capped finding
       (#89, done). The by-framing is the discriminator gating the **"final depth-0 run" decision**, which stays HELD
       until it's in — likely moot anyway now that depth-0 is AMC-capped.
-- [ ] **depth-1 chains — in-band-yield margin-check (kathryne's catch). NOW A ONE-CHAIN WATCH.** Check =
-      `ceiling × goldilocks-fraction ≥ 150` per thin chain. **Raw ceilings computed locally (no GPU)** for the 8
-      dedupe-thin chains: **7 are safe by a wide margin** (need only 19–42% in-band — alternating_cubes 799,
-      complement_prob_mn→telescoping 715, ordered_triple 662, complex_eq_solcount 592, telescoping→perfsq 507,
-      prime_power→perfsq 360, constrained_subset 375). The **lone risk is `box_diagonal_sq__perfect_square_divisible`
-      (ceiling ≈210 → needs goldilocks ≥0.71)**. So: read box_diagonal_sq's goldilocks fraction off the campaign
-      when it converges; if <0.71 → fix TARGET-side (widen `perfect_square_divisible` / quota-shrink / reassign —
-      NOT the box_diagonal_sq feeder, which desyncs v12 calib + run-2). **No dedicated L4 job needed.**
+- [x] **depth-1 in-band-yield margin-check (kathryne's catch) — ANALYSIS DONE; box_diagonal_sq folded into the
+      campaign.** Of the 8 dedupe-thin chains, **7 are safe by a wide margin** (need only 19–42% in-band; ceilings
+      375–799). The lone risk is `box_diagonal_sq__perfect_square_divisible` (ceiling ≈210 → needs goldilocks ≥0.71;
+      iter-1 ≈0.21 too-hard). It's one of the 21 too-hard chains the campaign is now easing, so it's no longer a
+      separate task — just a number to **read off the CONVERGED campaign**: if box_diagonal_sq's in-band fraction is
+      still <0.71 then, widen `perfect_square_divisible` TARGET-side (NOT the feeder — desyncs v12 calib + run-2).
+      No dedicated GPU job. ⮕ checked as part of evaluating the converged 47-chain campaign.
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
