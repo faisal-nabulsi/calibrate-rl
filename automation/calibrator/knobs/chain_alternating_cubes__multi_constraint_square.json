@@ -1,0 +1,39 @@
+{
+  "components": [
+    "alternating_cubes",
+    "multi_constraint_square"
+  ],
+  "fed_param": "limit",
+  "params": {
+    "d": {
+      "value": [
+        4,
+        9,
+        16,
+        25
+      ],
+      "type": "choice",
+      "envelope": [
+        4,
+        25
+      ],
+      "knob_class": "num"
+    },
+    "last": {
+      "value": [
+        1,
+        4,
+        5,
+        6,
+        9
+      ],
+      "type": "choice",
+      "envelope": [
+        0,
+        9
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

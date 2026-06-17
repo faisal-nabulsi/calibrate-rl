@@ -1,0 +1,9 @@
+{
+  "components": [
+    "three_number_system",
+    "inclusion_exclusion_3set"
+  ],
+  "fed_param": "U",
+  "params": {},
+  "locked": false
+}

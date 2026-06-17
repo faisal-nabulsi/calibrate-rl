@@ -1,0 +1,10 @@
+# monitor_authorized_keys — public keys trusted on every train/sample box so the
+# t3 liveness monitor + reaper (autocalib@parena-api) can SSH in and run
+# tools/box_health.sh. Installed idempotently each boot by tools/persona_sync.sh
+# (pulled fresh by the job poller's `git reset --hard origin/main`, so it survives
+# AMI re-bakes and new instances — no more per-box hand-appends).
+#
+# Append-only. One OpenSSH public key per line. PUBLIC keys only — never a private key.
+# Without this, a fresh box lacks the monitor key and the monitor pages rc=255
+# "can't verify liveness" while the box looks dark (see gpu_job_monitor.sh:78).
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQZ2cHGhrtOVxzhv3ltkZtgH7sJsrmd1Aqh/5XfY+8m autocalib@t3-monitor

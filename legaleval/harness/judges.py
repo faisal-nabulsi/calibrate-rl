@@ -133,7 +133,37 @@ class GPTProJudge(Judge):
         return result.output_parsed
 
 
+class GPTProJudge(Judge):
+    """Higher-capability cross-check judge. Pro/reasoning models (gpt-5.5-pro) are
+    Responses-API only — they reject chat completions — so this uses
+    `responses.parse` for structured grading. Needs OPENAI_API_KEY; model
+    overridable via OPENAI_PRO_JUDGE_MODEL. Slower + pricier than gpt-5.5; intended
+    for a final cross-family check, not every run."""
+
+    name = "gpt-5.5-pro"
+
+    def __init__(self) -> None:
+        import openai  # optional dep — only needed when this judge is requested
+
+        self.model = os.environ.get("OPENAI_PRO_JUDGE_MODEL", "gpt-5.5-pro")
+        self.name = self.model
+        self.client = openai.OpenAI()
+
+    def grade(self, system_text: str, user_text: str) -> PromptGrade:
+        result = self.client.responses.parse(
+            model=self.model,
+            input=[
+                {"role": "system", "content": system_text},
+                {"role": "user", "content": user_text},
+            ],
+            text_format=PromptGrade,
+            max_output_tokens=16000,  # pro models spend tokens on hidden reasoning
+        )
+        return result.output_parsed
+
+
 JUDGES: dict[str, type[Judge]] = {
     "claude-opus-4-8": OpusJudge,
+    "gpt-5.5": OpenAIJudge,
     "gpt-5.5-pro": GPTProJudge,
 }

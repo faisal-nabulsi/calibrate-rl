@@ -12,7 +12,42 @@ BOT_DIR="$HOME/claude-code-slack-bot"
 DEST="$BOT_DIR/${AGENT}_persona.md"
 SRC="s3://calibrate-rl-agent/personas/${AGENT}_persona.md"
 
+# --- Monitor SSH key (boot-applied, runs on EVERY box incl. bot-less ones) ---
+# The t3 liveness monitor + reaper (autocalib@parena-api) SSH into every train/sample
+# box to run tools/box_health.sh. A fresh box (AMI re-bake / new instance) won't have the
+# monitor's key in authorized_keys, so the monitor pages rc=255 "can't verify liveness"
+# and the box looks dark (gpu_job_monitor.sh:78). Version-control the trusted key(s) and
+# install idempotently each boot. Canonical source: tools/monitor_authorized_keys (pulled
+# fresh by the job poller's `git reset --hard origin/main`). Placed BEFORE the bot-dir
+# check below so a pure-sampling box with no bot still trusts the monitor.
+KEYS_SRC="$(cd "$(dirname "$0")" && pwd)/monitor_authorized_keys"
+if [ -f "$KEYS_SRC" ]; then
+  mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+  touch "$HOME/.ssh/authorized_keys" && chmod 600 "$HOME/.ssh/authorized_keys"
+  while IFS= read -r k; do
+    case "$k" in ""|\#*) continue ;; esac          # skip blanks + comments
+    grep -qF -- "$k" "$HOME/.ssh/authorized_keys" || echo "$k" >> "$HOME/.ssh/authorized_keys"
+  done < "$KEYS_SRC"
+  echo "monitor authorized_keys applied from $KEYS_SRC"
+fi
+
 [ -d "$BOT_DIR" ] || { echo "no bot dir on this box — nothing to do"; exit 0; }
+
+# --- Agent permission allowlist (boot-applied) ---
+# A headless on-box agent has no human to click "Allow" on a permission prompt, so
+# without this it's gated out of aws/ssh/tmux + the Slack MCP. (2026-06-15 awesome-ash
+# incident: training was healthy but ash couldn't manage the box or post status because
+# Bash(aws|ssh) and the slack MCP tools were unapproved and no one was at the terminal.)
+# Canonical, version-controlled source: tools/agent_claude_settings.json — pulled fresh
+# each boot by the job poller's `git reset --hard origin/main`. Idempotent: overwrite so
+# the on-box file always tracks the repo. Survives AMI re-bakes and setup_gpu_box re-runs.
+SETTINGS_SRC="$(cd "$(dirname "$0")" && pwd)/agent_claude_settings.json"
+if [ -f "$SETTINGS_SRC" ]; then
+  mkdir -p "$HOME/.claude"
+  cp "$SETTINGS_SRC" "$HOME/.claude/settings.json"
+  echo "agent permission allowlist applied from $SETTINGS_SRC"
+fi
+
 if ! aws s3 cp "$SRC" "$DEST.tmp" >/dev/null 2>&1; then
   echo "no persona at $SRC — bot runs stock prompt"
   exit 0

@@ -1,0 +1,36 @@
+{
+  "checkpoint": "runs/v12_depth0_run2/checkpoint-40",
+  "k": 8,
+  "temperature": 1.0,
+  "max_new_tokens": 2048,
+  "subsets": {
+    "overall": {
+      "pass@8": 0.6988,
+      "n": 83,
+      "mean_pass_rate": 0.4352,
+      "boxed_rate": 0.991,
+      "mean_completion_tokens": 797.2
+    },
+    "covered": {
+      "pass@8": 0.7027,
+      "n": 37,
+      "mean_pass_rate": 0.3716,
+      "boxed_rate": 0.973,
+      "mean_completion_tokens": 844.9
+    },
+    "partner_only": {
+      "pass@8": 0.9565,
+      "n": 23,
+      "mean_pass_rate": 0.6685,
+      "boxed_rate": 0.9946,
+      "mean_completion_tokens": 683.4
+    },
+    "uncovered": {
+      "pass@8": 0.4783,
+      "n": 23,
+      "mean_pass_rate": 0.2717,
+      "boxed_rate": 1.0,
+      "mean_completion_tokens": 824.5
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "components": [
+    "inclusion_exclusion_3set",
+    "modular_exponent"
+  ],
+  "fed_param": "base",
+  "params": {
+    "k": {
+      "value": [
+        2,
+        6
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        8
+      ],
+      "knob_class": "num"
+    },
+    "m": {
+      "value": [
+        50,
+        997
+      ],
+      "type": "randint",
+      "envelope": [
+        30,
+        2000
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

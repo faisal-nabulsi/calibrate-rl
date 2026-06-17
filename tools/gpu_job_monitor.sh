@@ -2,10 +2,15 @@
 # gpu_job_monitor.sh — continuous fleet idle/liveness monitor (the [thinkrock-monitor]).
 # Runs as the `autocalib` cron on the always-on agents-box, every 10 min.
 #
-# For each RUNNING Project=calibrate-rl GPU box it SSHes in (as ec2-user, key-based —
-# the path already in use) and asks tools/box_health.sh whether the box is actually
-# working. It only ever *pages*; it never stops a box itself — the 8h watchdog under
-# `agent` is the hard backstop.
+# For each RUNNING Project=calibrate-rl GPU box it SSHes in (user/key configurable via
+# MONITOR_SSH_USER / MONITOR_SSH_KEY; defaults ec2-user + ~/.ssh/parena-key.pem) and asks
+# tools/box_health.sh whether the box is actually working. It only ever *pages*; it never
+# stops a box itself — the 8h watchdog under `agent` is the hard backstop.
+#
+# Note: the loop only iterates instances AWS reports as RUNNING, so an SSH failure here is
+# never "the box is down" — it's "running box we couldn't reach" (almost always a fresh box
+# whose authorized_keys lacks the monitor key). That case is paged distinctly and NEVER as
+# a stop suggestion.
 #
 # Liveness source of truth = box_health.sh (systemd/GPU/proc/log aware), NOT a raw
 # `tmux ls` guess. Exit-code contract: 0 = BUSY (leave it alone), 10 = IDLE (page
@@ -18,6 +23,15 @@
 source ~/.profile
 now=$(date +%s)
 mkdir -p ~/.monitor_state
+
+# SSH identity for reaching the GPU boxes. Use an explicit key so the check does not
+# silently depend on the agents-box default identity / ssh-agent (the rc=255 false-page
+# root cause). If the key file is absent we fall back to the default identity rather than
+# hard-failing, so a misconfigured key never *suppresses* a real health check.
+SSH_USER="${MONITOR_SSH_USER:-ec2-user}"
+SSH_KEY="${MONITOR_SSH_KEY:-$HOME/.ssh/parena-key.pem}"
+SSH_OPTS=(-o ConnectTimeout=8 -o BatchMode=yes -o StrictHostKeyChecking=accept-new)
+[ -f "$SSH_KEY" ] && SSH_OPTS+=(-i "$SSH_KEY")
 
 # Paged on every monitor alert: owner + on-call + chaining agent (deduped literal).
 MENTIONS="<@U0B9661M6J2> <@U0B9C6JP2MC> <@U0B9C278VPW>"   # faisal, michael, gilbert
@@ -44,10 +58,10 @@ while read -r id ip launch; do
   up_min=$(( (now - $(date -d "$launch" +%s)) / 60 ))
   [ $up_min -lt 20 ] && continue   # grace period after start
 
-  # Ask box_health.sh over the existing ec2-user SSH path. The remote prints
+  # Ask box_health.sh over the configured SSH path. The remote prints
   # "<verdict_exit> <fresh_log_count>". A missing checkout exits 99 (distinct from a
-  # busy/idle verdict); ssh itself exits 255 on connect failure.
-  out=$(ssh -o ConnectTimeout=8 -o BatchMode=yes -o StrictHostKeyChecking=accept-new ec2-user@"$ip" '
+  # busy/idle verdict); ssh itself exits 255 on connect/auth failure.
+  out=$(ssh "${SSH_OPTS[@]}" "$SSH_USER@$ip" '
     cd ~/calibrate-rl 2>/dev/null || exit 99
     bash tools/box_health.sh >/dev/null 2>&1; v=$?
     f=$(find ~/job_state ~/calibrate-rl/logs -name "*.log" -mmin -15 2>/dev/null | wc -l)
@@ -55,9 +69,16 @@ while read -r id ip launch; do
   sshrc=$?
 
   # Fail SAFE: any failure to obtain a clean verdict pages for a human look — never
-  # a stop suggestion on a box we could not actually inspect.
+  # a stop suggestion. Split the two cases: a pure SSH connect/auth failure (255) on a
+  # box AWS reports RUNNING is almost always a fresh-box key gap, not a sick box — page
+  # it distinctly and non-urgently with the actual remediation, so it stops reading as
+  # "the box might be dead."
   if [ $sshrc -ne 0 ] || [ -z "$out" ]; then
-    alert "${id}-unverifiable" "[thinkrock-monitor] could not verify liveness on $id ($ip) — SSH/box_health check failed (rc=$sshrc). Manual check needed; do NOT blind-stop, the box may be busy. $MENTIONS"
+    if [ $sshrc -eq 255 ]; then
+      alert "${id}-ssh-unreachable" "[thinkrock-monitor] $id ($ip) is RUNNING ${up_min}min but the monitor can't SSH in (rc=255) — health check skipped, NOT a down box. Likely the monitor key isn't in this box's authorized_keys (fresh box) or MONITOR_SSH_KEY is unset/wrong. Do NOT stop; fix authorized_keys / MONITOR_SSH_KEY. $MENTIONS"
+    else
+      alert "${id}-unverifiable" "[thinkrock-monitor] could not verify liveness on $id ($ip) — connected but health check failed (rc=$sshrc; e.g. missing checkout). Manual look needed; do NOT blind-stop, the box may be busy. $MENTIONS"
+    fi
     continue
   fi
 
@@ -78,8 +99,8 @@ done
 # Unclaimed-handoff check: a spec in pending/<agent>/ while that agent's box is
 # RUNNING (>10 min) means the boot poller never claimed it — the silent failure
 # mode of 2026-06-12. Page a human; do NOT suggest stopping (a job is queued!).
-declare -A AGENT_BOX=( [sam]=i-065bb6d4bcea507db [sadie]=i-05c7938e1c6711370 [awesome-ash]=i-07455ba55e473769d )
-for a in sam sadie awesome-ash; do
+declare -A AGENT_BOX=( [sam]=i-065bb6d4bcea507db [sadie]=i-05c7938e1c6711370 [sage]=i-0161b1d0bc48ede12 [awesome-ash]=i-07455ba55e473769d )
+for a in sam sadie sage awesome-ash; do
   spec=$(aws s3 ls "s3://calibrate-rl-agent/pending/$a/" 2>/dev/null | awk '$NF ~ /\.json$/ {print $NF}' | head -1)
   [ -z "$spec" ] && continue
   read -r bst blaunch <<< "$(aws ec2 describe-instances --instance-ids ${AGENT_BOX[$a]} --query 'Reservations[0].Instances[0].[State.Name,LaunchTime]' --output text 2>/dev/null)"

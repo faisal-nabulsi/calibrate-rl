@@ -1,0 +1,9 @@
+{
+  "components": [
+    "primality_in_sequence",
+    "equalization_fraction"
+  ],
+  "fed_param": "g",
+  "params": {},
+  "locked": false
+}

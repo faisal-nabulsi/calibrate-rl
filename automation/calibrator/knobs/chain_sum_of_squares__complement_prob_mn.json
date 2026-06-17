@@ -1,0 +1,9 @@
+{
+  "components": [
+    "sum_of_squares",
+    "complement_prob_mn"
+  ],
+  "fed_param": "faces",
+  "params": {},
+  "locked": false
+}

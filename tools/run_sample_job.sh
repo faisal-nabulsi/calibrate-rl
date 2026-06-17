@@ -10,7 +10,14 @@
 #                   no GPU work, no S3 upload, no Slack posts, no shutdown
 #
 # job.json spec fields:
-#   type        "sample" | "train" — routes to tools/sample.py or train/train_grpo.py
+#   type        "sample" | "train" | "setup" | "eval" — sample/train route to tools/sample.py
+#               or train/train_grpo.py; setup runs tools/provision_box.sh to build the box's
+#               rl-venv (how the queue-only L4s sam/sadie/sage get provisioned — no SSH/SSM);
+#               eval runs an arbitrary `cmd` (any one-off eval) then self-stops — so an eval is
+#               a queue dispatch, not a manual SSM session (see the eval branch below)
+#   cmd         (eval) the command to run, under bash + repo-root PYTHONPATH; `{ckpt}` → the
+#               downloaded checkpoint dir
+#   output_file (eval) local path/glob produced by cmd; synced (newest match) to output_uri
 #   concepts    optional list — sample only: build the pool first with
 #               prep/gen_clean.py (one call per concept, merged)
 #   n           sample: N_PROBLEMS (problems to calibrate)
@@ -23,6 +30,9 @@
 #               data/skeleton_dataset_v11_clean.json, ignored when concepts set);
 #               train: TRAIN_DATA (REQUIRED for train jobs)
 #   holdout     optional (train) — HOLDOUT_DATA for the held-out monitor
+#   checkpoint  optional (sample) — LoRA adapter dir or s3:// uri; merged into the
+#               base model so calibration samples a TRAINED checkpoint, not base
+#               (e.g. depth-1 calibrates vs v12_depth0 checkpoint-40)
 #
 # Reporting: start/done/fail posted to $SLACK_WEBHOOK_URL if set (best-effort —
 # a dead webhook never fails the job). The job log is uploaded next to the output.
@@ -33,6 +43,10 @@ cd "$(dirname "$0")/.."
 
 # GPU deps live in the box's rl-venv (torch/transformers); systemd gives us bare PATH.
 [ -f "$HOME/rl-venv/bin/activate" ] && source "$HOME/rl-venv/bin/activate"
+# ...but `source activate` has fallen through to system python3 under systemd before (PATH/HOME),
+# silently running sample.py/train on a venv-less python (the depth1_calib_iter1 numpy death).
+# Belt-and-suspenders: invoke the venv's python EXPLICITLY when it exists — no PATH dependency.
+PY="python3"; [ -x "$HOME/rl-venv/bin/python3" ] && PY="$HOME/rl-venv/bin/python3"
 # AGENT_NAME / SLACK_WEBHOOK_URL / ESCALATE_SLACK_ID come from systemd's EnvironmentFile;
 # source it for hand-runs too, so a direct invocation reports under the right identity and
 # can still page on failure (instead of falling back to the hostname / silent webhooks).
@@ -84,6 +98,7 @@ slack_post() {
 # success AND failure — a failed job must not leave the box burning money.
 finish() {
   local code="$1" msg="$2"
+  [ -n "${HB_PID:-}" ] && kill "$HB_PID" 2>/dev/null || true   # stop the progress heartbeat (any exit path)
   if [ "$code" -eq 0 ]; then
     echo "job $JOB_ID done — $msg"
     slack_post ":white_check_mark: job \`$JOB_ID\` done — $msg"
@@ -137,12 +152,15 @@ print(f"OUTPUT_URI={q(j.get('output_uri', ''))}")
 print(f"JOB_DATASET={q(j.get('dataset', ''))}")
 print(f"JOB_HOLDOUT={q(j.get('holdout', ''))}")
 print(f"JOB_CONCEPTS={q(','.join(j.get('concepts') or []))}")
+print(f"JOB_CKPT={q(j.get('checkpoint', ''))}")
+print(f"JOB_CMD={q(j.get('cmd', ''))}")
+print(f"JOB_OUTPUT_FILE={q(j.get('output_file', ''))}")
 PY
 )" || { LOG_URI="(none)"; finish 1 "spec $SPEC_URI is not valid JSON"; }
 eval "$PARSED"
 
 LOG_URI="${OUTPUT_URI%/}.log"
-case "$JOB_TYPE" in sample|train) ;; *) finish 1 "spec 'type' must be sample|train, got '$JOB_TYPE'";; esac
+case "$JOB_TYPE" in sample|train|setup|eval) ;; *) finish 1 "spec 'type' must be sample|train|setup|eval, got '$JOB_TYPE'";; esac
 case "$OUTPUT_URI" in s3://*) ;; *) finish 1 "spec 'output_uri' must be an s3:// uri";; esac
 
 # --- build the command -------------------------------------------------------
@@ -151,8 +169,22 @@ declare -a PREP_CMDS
 RUN_CMD=""
 SYNC_CMD=""
 
-if [ "$JOB_TYPE" = "sample" ]; then
+if [ "$JOB_TYPE" = "setup" ]; then
+  # Provision the box's rl-venv sampling stack (idempotent). The queue-only L4s
+  # (sam/sadie/sage) have no SSM/SSH path, so a fresh box is provisioned by dispatching a
+  # setup job that the poller runs on boot. output_uri is just the log destination; nothing
+  # to sync. Reuses the poller + self-stop machinery as-is.
+  RUN_CMD="bash tools/provision_box.sh"
+  SYNC_CMD=""
+elif [ "$JOB_TYPE" = "sample" ]; then
   POOL="${JOB_DATASET:-data/skeleton_dataset_v11_clean.json}"
+  case "$POOL" in
+    # An s3:// dataset lets an orchestrator hand a pool built off-box (e.g. the depth-1
+    # campaign builds the EDITED pool on the t3 and uploads it) without the box needing
+    # that branch — it stays on origin/main. Pull it down to a local file for sample.py.
+    s3://*) POOL_LOCAL="data/job_${JOB_ID}_pool.json"
+            PREP_CMDS+=("aws s3 cp $POOL $POOL_LOCAL"); POOL="$POOL_LOCAL" ;;
+  esac
   if [ -n "$JOB_CONCEPTS" ]; then
     # Build a fresh pool: one gen_clean per concept, merged. Per-concept size
     # defaults to gen_clean's own default (200) when 'n' is absent.
@@ -163,12 +195,50 @@ if [ "$JOB_TYPE" = "sample" ]; then
     PREP_CMDS+=("python3 -c \"import json,glob; rows=[r for f in sorted(glob.glob('data/job_${JOB_ID}_pool_*.json')) for r in json.load(open(f))]; json.dump(rows, open('$POOL','w'))\"")
   fi
   OUT="data/job_${JOB_ID}_calib.json"
-  RUN_ENV=(DATASET="$POOL" OUT="$OUT"
+  CKPT_ENV=""
+  if [ -n "$JOB_CKPT" ]; then
+    # Sample a TRAINED checkpoint (e.g. depth-1 vs ckpt-40), not base. Pull the LoRA
+    # adapter from S3 if needed; sample.py merges it into base at load.
+    case "$JOB_CKPT" in
+      s3://*) CKPT_DIR="checkpoint/job_${JOB_ID}_ckpt"
+              PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_CKPT%/} $CKPT_DIR") ;;
+      *)      CKPT_DIR="$JOB_CKPT" ;;
+    esac
+    CKPT_ENV="CKPT=$CKPT_DIR"
+  fi
+  RUN_ENV=(DATASET="$POOL" OUT="$OUT" ${CKPT_ENV:+$CKPT_ENV}
            ${JOB_N:+N_PROBLEMS="$JOB_N"}
            ${JOB_ROLLOUTS:+N_ROLLOUTS="$JOB_ROLLOUTS"}
            ${JOB_MAX_TOKENS:+MAX_NEW_TOKENS="$JOB_MAX_TOKENS"})
-  RUN_CMD="python3 tools/sample.py"
+  RUN_CMD="$PY tools/sample.py"
   SYNC_CMD="aws s3 cp $OUT $OUTPUT_URI"
+elif [ "$JOB_TYPE" = "eval" ]; then
+  # Run an ARBITRARY eval/command, then self-stop — so a one-off eval is a queue dispatch
+  # (drop a spec → the box runs it) instead of a manual SSM session. `cmd` runs under bash
+  # (pipes/&& OK) with the repo root on PYTHONPATH, so evals importing top-level pkgs like
+  # core/ just work (the footgun that needed a manual PYTHONPATH=.). A `{ckpt}` token in cmd
+  # is replaced with the downloaded LoRA-adapter dir; `output_file` (path or glob) is synced
+  # to output_uri (newest match). Example spec:
+  #   {"type":"eval","checkpoint":"s3://…/checkpoint-40",
+  #    "cmd":"python eval/eval_amc_baseline.py {ckpt}",
+  #    "output_file":"results_qwen7b__*.json","output_uri":"s3://…/amc_baseline_ckpt40.json"}
+  [ -n "$JOB_CMD" ] || finish 1 "eval job needs a 'cmd' field"
+  if [ -n "$JOB_CKPT" ]; then
+    case "$JOB_CKPT" in
+      s3://*) CKPT_DIR="checkpoint/job_${JOB_ID}_ckpt"
+              PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_CKPT%/} $CKPT_DIR") ;;
+      *)      CKPT_DIR="$JOB_CKPT" ;;
+    esac
+    JOB_CMD="${JOB_CMD//\{ckpt\}/$CKPT_DIR}"
+  fi
+  EVAL_SH="/tmp/eval_cmd_${JOB_ID}.sh"
+  { echo 'set -e'
+    echo 'export PYTHONPATH="${PYTHONPATH:-.}"'
+    echo "$JOB_CMD"
+    [ -n "$JOB_OUTPUT_FILE" ] && echo "aws s3 cp \"\$(ls -t $JOB_OUTPUT_FILE | head -1)\" $OUTPUT_URI"
+  } > "$EVAL_SH"
+  RUN_CMD="bash $EVAL_SH"
+  SYNC_CMD=""   # the eval script does its own output sync
 else
   [ -n "$JOB_DATASET" ] || finish 1 "train job needs a 'dataset' field (TRAIN_DATA)"
   RUN_DIR="checkpoint/job_${JOB_ID}"
@@ -176,7 +246,7 @@ else
            ${JOB_HOLDOUT:+HOLDOUT_DATA="$JOB_HOLDOUT"}
            ${JOB_N:+MAX_STEPS="$JOB_N"}
            ${JOB_MAX_TOKENS:+MAX_COMPLETION_LENGTH="$JOB_MAX_TOKENS"})
-  RUN_CMD="python3 train/train_grpo.py"
+  RUN_CMD="$PY train/train_grpo.py"
   SYNC_CMD="aws s3 sync $RUN_DIR ${OUTPUT_URI%/}/"
 fi
 
@@ -186,6 +256,7 @@ if [ "$DRY_RUN" -eq 1 ]; then
   echo "  env ${RUN_ENV[*]} $RUN_CMD"
   echo "  $SYNC_CMD"
   echo "  aws s3 cp $LOG $LOG_URI"
+  echo "  (progress heartbeat → ${OUTPUT_URI%/}.heartbeat every ${HEARTBEAT_S:-120}s)"
   [ "$NO_SHUTDOWN" -eq 0 ] && echo "  sudo shutdown -h +1"
   exit 0
 fi
@@ -200,6 +271,28 @@ for p in "${PREP_CMDS[@]+"${PREP_CMDS[@]}"}"; do
     finish 1 "pool build failed: $p"
   fi
 done
+
+# --- progress heartbeat -------------------------------------------------------
+# Stream a small tail of the LIVE log to S3 every HEARTBEAT_S seconds so a reader
+# (a human, the autocalib campaign, or another agent) can see liveness + ETA
+# WITHOUT shell on the box — just `aws s3 cp ${OUTPUT_URI%/}.heartbeat -`. This is
+# what was missing when jobs only synced logs at the END: mid-run, S3 showed
+# nothing, so "is it alive / how far along" needed an SSM round-trip nobody could
+# always make. Pure observability: it writes a SEPARATE .heartbeat key and never
+# touches the authoritative .log/.json (those still sync only at the end), so the
+# campaign's fail-detector semantics on .log are unchanged. Killed in finish().
+HEARTBEAT_URI="${OUTPUT_URI%/}.heartbeat"
+HEARTBEAT_S="${HEARTBEAT_S:-120}"
+(
+  while true; do
+    sleep "$HEARTBEAT_S"
+    { echo "[$JOB_ID] heartbeat $(date -u +%Y-%m-%dT%H:%M:%SZ) on $AGENT"
+      nvidia-smi --query-gpu=utilization.gpu,memory.used --format=csv,noheader 2>/dev/null | head -1
+      echo "--- last log lines ---"
+      tail -n 15 "$LOG" 2>/dev/null
+    } | aws s3 cp - "$HEARTBEAT_URI" >/dev/null 2>&1 || true
+  done
+) & HB_PID=$!
 
 echo "+ env ${RUN_ENV[*]} $RUN_CMD" >> "$LOG"
 if ! env "${RUN_ENV[@]}" $RUN_CMD >> "$LOG" 2>&1; then

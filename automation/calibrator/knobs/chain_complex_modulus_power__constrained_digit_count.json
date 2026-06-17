@@ -1,0 +1,38 @@
+{
+  "components": [
+    "complex_modulus_power",
+    "constrained_digit_count"
+  ],
+  "fed_param": "digit_sum_target",
+  "params": {
+    "lo": {
+      "value": [
+        1000,
+        2000,
+        3000,
+        4000,
+        5000
+      ],
+      "type": "choice",
+      "envelope": [
+        500,
+        6000
+      ],
+      "knob_class": "num"
+    },
+    "span": {
+      "value": [
+        1000,
+        2000,
+        3000
+      ],
+      "type": "choice",
+      "envelope": [
+        500,
+        4000
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}

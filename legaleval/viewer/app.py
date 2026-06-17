@@ -35,95 +35,6 @@ DIM_ABBR = {"faithfulness": "Faith", "directionality": "Dir", "coverage": "Cov",
             "soundness": "Sound", "actionability": "Action"}
 STAGES = {"A": "Issue-spotting", "B": "Summarization & Extraction", "C": "Redlining",
           "D": "Drafting", "E": "Negotiation"}
-# Per-stage explainer for the Overview page: (what the task is, why it matters for the benchmark).
-STAGE_INFO = {
-    "A": ("Find the legal problems in a document — missing protections, problematic clauses, "
-          "and whether each gap helps or hurts the client.",
-          "The highest-judgment, lowest-scoring work (A1 is the hardest task). Catching what's "
-          "<i>absent</i> — and which absences are actually favorable — is where every model fails most."),
-    "B": ("Pull and condense specific facts or terms from a contract — defined-term glossaries, "
-          "key figures, structured extracts.",
-          "The mechanical floor: faithfulness is near-ceiling here, so this stage is the control "
-          "that proves models rarely fabricate — weakness elsewhere is judgment, not reading."),
-    "C": ("Mark up a clause in the client's favor — directional editing toward an assigned seat.",
-          "The most discriminating stage. Advocate-a-side editing is where directional drift and "
-          "gate trips concentrate (C1/C2), separating strong models from weak ones."),
-    "D": ("Produce a new document or clause from a brief — NDA, notice of breach, scoped amendment.",
-          "Tests scope fidelity: does the model add only what's asked? The faithfulness / scope-creep "
-          "gate lives here and is the single largest source of cross-judge disagreement."),
-    "E": ("Reason across a whole deal — triage opposing-counsel redlines, assess deal viability.",
-          "Holistic legal judgment under fluent prose: soundness failures (calling a bridgeable deal "
-          "dead) and long-context frame-holding surface here, not in extraction or drafting."),
-}
-
-
-def categories_html(order, pmeta):
-    """Overview explainer: each task category (stage) + why it matters."""
-    cnt = {st: sum(1 for pid in order if pid.startswith(st)) for st in STAGES}
-    items = "".join(
-        f"<li style='margin:8px 0'><b>{st} · {STAGES[st]}</b> "
-        f"<span class='meta'>({cnt[st]} prompt{'s' if cnt[st] != 1 else ''})</span><br>"
-        f"{what} <i>Why it matters:</i> {why}</li>"
-        for st, (what, why) in STAGE_INFO.items())
-    return ('<h3 style="margin-top:26px">Task categories (the five stages)</h3>'
-            '<p class="meta">What each category tests, and why it earns a place in the benchmark.</p>'
-            f'<ul style="list-style:none;padding-left:0">{items}</ul>')
-
-
-# Per-dimension explainer: name -> (max points, is_gate, what it measures, why it matters).
-DIM_INFO = {
-    "faithfulness": (3, True,
-        "Does the answer stick to the facts and clauses actually in the instance — no fabricated "
-        "clauses, invented figures, or asserted facts that aren't shown?",
-        "A <b>gate</b>: any trip caps the score at 0.40, because hallucinated law is the highest-risk "
-        "error. It's near-ceiling (~96%), so the real risk here is judgment, not invention."),
-    "directionality": (4, True,
-        "Does the answer advocate for the <i>assigned</i> party — never argue the wrong side or add "
-        "terms that help the counterparty?",
-        "A <b>gate</b>, and the weakest dimension (~74%). Taking and holding the client's side is core "
-        "to legal advocacy; it's where weaker models drift (the Qwen/Llama gate trips)."),
-    "coverage": (4, False,
-        "Did the answer find <i>all</i> the issues or points the gold key expects — completeness across "
-        "the required findings?",
-        "Measures thoroughness: how much of the expected analysis the model actually surfaces, versus "
-        "stopping at the obvious one or two points."),
-    "soundness": (3, False,
-        "Is the legal reasoning correct — valid analysis and the right conclusions, not just confident "
-        "prose?",
-        "The second-weakest dimension. Reaching the correct legal answer is where models fail under "
-        "fluent writing (e.g. declaring a bridgeable deal 'dead' on E2)."),
-    "actionability": (2, False,
-        "Is the output usable in practice — deployable clause language, clear recommendations, concrete "
-        "next steps?",
-        "Captures practical value: whether a lawyer could act on the answer as-is, not just whether it's "
-        "analytically right."),
-}
-
-
-def dimensions_html():
-    """Overview explainer: each grading dimension + why it matters."""
-    items = "".join(
-        f"<li style='margin:8px 0'><b>{d.title()}</b> "
-        f"<span class='meta'>(max {mx} pt{'s' if mx != 1 else ''}{', GATE' if gate else ''})</span><br>"
-        f"{what} <i>Why it matters:</i> {why}</li>"
-        for d, (mx, gate, what, why) in DIM_INFO.items())
-    return ('<h3 style="margin-top:26px">Grading categories (the five dimensions)</h3>'
-            '<p class="meta">Every response is scored on these five dimensions against a gold rubric. '
-            'The two <b>gates</b> (Faithfulness, Directionality) cap a tripping response at 0.40.</p>'
-            f'<ul style="list-style:none;padding-left:0">{items}</ul>')
-
-
-V8_PLAN_LOCAL = ROOT / "viewer" / "v8_plan.local.html"  # gitignored: v8 DESIGN rationale stays OUT of the repo (local + Drive only)
-
-
-def v8_plan_available() -> bool:
-    return V8_PLAN_LOCAL.exists()
-
-
-def next_version_html():
-    """Load the v8-plan page body from the local-only file. The design rationale is
-    deliberately not committed (kept local + on Google Drive); returns None if absent."""
-    return V8_PLAN_LOCAL.read_text() if V8_PLAN_LOCAL.exists() else None
 
 app = Flask(__name__)
 
@@ -208,7 +119,6 @@ BASE = """
 <nav class="side">
  <h1>⚖️ LegalEval</h1>
  <a href="/" class="{{ 'on' if page=='ov' }}">Overview & results</a>
- {% if has_next_page %}<a href="/next" class="{{ 'on' if page=='next' }}">Next version (v8) plan</a>{% endif %}
  {% for st,sname in stages.items() %}<div class="stg">{{st}} · {{sname}}</div>
    {% for pid in order if pid.startswith(st) %}
      <a href="/prompt/{{pid}}" class="{{ 'on' if pid==cur }}">{{pid}} · {{pmeta[pid].name}}</a>
@@ -240,84 +150,30 @@ def badge(norm, tripped):
 DIM_MAX = {"faithfulness": 3, "directionality": 4, "coverage": 4, "soundness": 3, "actionability": 2}
 
 
-def struggle_stats(grades, cells, pmeta):
-    """Compute the struggle/focus metrics from one run. Shared by the GUI and the
-    standalone report tool so both read the same numbers."""
+def struggle_html(grades, cells, pmeta):
+    """Live 'what the models struggled on' summary, computed from this run."""
     def agg(pid, prov):
         return grades.get(pid, {}).get(prov, {}).get("aggregate", {})
     prompts = sorted({p for p in pmeta})
-    n_prompts = len(prompts)
     # hardest quality = mean as % of dimension max, ONLY over prompts where the dimension is graded
-    qpct = {}
+    qrows = []
     for d in DIMS:
         applic = [p for p in prompts if max((agg(p, m).get(d, 0) or 0) for m in MODELS) > 0]
         vals = [agg(p, m).get(d, 0) or 0 for p in applic for m in MODELS if (p, m) in cells]
         if vals:
-            qpct[d] = (sum(vals) / len(vals) / DIM_MAX[d] * 100, len(applic))
-    qsorted = sorted(qpct.items(), key=lambda kv: kv[1][0])  # low (=hard) first
-    # per-task mean + model spread
+            qrows.append((sum(vals) / len(vals) / DIM_MAX[d] * 100, d.title(), len(applic)))
+    qrows.sort()
+    qtab = "".join(f"<tr><td>{d}</td><td>{pct:.0f}%</td><td class='meta'>{n}/14 prompts</td></tr>"
+                   for pct, d, n in qrows)
+    # hardest tasks
     byp = defaultdict(list)
     for (pid, prov), r in cells.items():
         byp[pid].append(float(r["norm"]))
-    hard = sorted(byp.items(), key=lambda kv: sum(kv[1]) / len(kv[1]))
-    spread = {pid: (max(v) - min(v)) for pid, v in byp.items() if len(v) > 1}
-    # gate trips overall + per task
+    hard = sorted(byp.items(), key=lambda kv: sum(kv[1]) / len(kv[1]))[:5]
+    ptab = "".join(f"<tr><td>{pid} · {pmeta[pid]['name']}</td><td>{sum(v)/len(v):.2f}</td></tr>"
+                   for pid, v in hard)
     dt = sum(1 for r in cells.values() if "directionality" in (r["gates_tripped"] or ""))
     ft = sum(1 for r in cells.values() if "faithfulness" in (r["gates_tripped"] or ""))
-    tgate = defaultdict(int)
-    for (pid, prov), r in cells.items():
-        if r["gates_tripped"]:
-            tgate[pid] += 1
-    return {
-        "qsorted": qsorted, "qpct": qpct, "n_prompts": n_prompts,
-        "hard": hard, "byp": byp, "spread": spread,
-        "dt": dt, "ft": ft, "tgate": tgate, "pmeta": pmeta,
-    }
-
-
-def focus_recs(s):
-    """Derive 'what to focus on next' bullets (as (title, body) tuples) from struggle_stats."""
-    pmeta = s["pmeta"]
-    weak = [d for d, _ in s["qsorted"][:2]]
-    weak_names = " + ".join(d.title() for d in weak)
-    ceiling = [d.title() for d, (pct, _) in s["qpct"].items() if pct >= 90]
-    ceil_names = ", ".join(ceiling) if ceiling else "the top dimensions"
-    discr = sorted(s["spread"].items(), key=lambda kv: -kv[1])[:4]
-    discr_str = ", ".join(f"{pid} (Δ{v:.2f})" for pid, v in discr)
-    gate_tasks = sorted(s["tgate"].items(), key=lambda kv: -kv[1])
-    gate_str = ", ".join(f"{pid} ({c} trip{'s' if c > 1 else ''})" for pid, c in gate_tasks) or "none this run"
-    hp, hv = s["hard"][0]
-    hmean = sum(hv) / len(hv)
-    return [
-        ("More adversarial / directional tasks",
-         f"The gate trips ({gate_str}) and the widest model spread ({discr_str}) are on the "
-         f"advocate-a-side prompts — the most <i>discriminating</i> items. More C1/C2-style "
-         f"“redline toward your client” and E2-style verdict prompts sharpen ranking power."),
-        (f"Expand the hardest family ({hp} · {pmeta[hp]['name']}, mean {hmean:.2f})",
-         "It's the lowest-scoring task — an issue-spotting failure where models treat every gap as "
-         "harmful, missing that some <i>absent</i> clauses are neutral-to-favorable for the client. "
-         "Build 2–3 more prompts that hinge on whether an omission helps or hurts your side."),
-        (f"Stress {weak_names}",
-         "The two weakest dimensions. Build holistic-judgment prompts (E2-style) that force the right "
-         "overall conclusion under fluent prose — where confident writing masks a wrong verdict."),
-        (f"De-prioritize near-ceiling dimensions ({ceil_names})",
-         "Near-ceiling across all models — high coverage but low discrimination. Pure extraction / "
-         "drafting rarely separates models, so it's low-value for ranking."),
-    ]
-
-
-def struggle_html(grades, cells, pmeta):
-    """Live 'what the models struggled on' + 'what to focus on next', computed from this run."""
-    s = struggle_stats(grades, cells, pmeta)
-    np = s["n_prompts"]
-    qtab = "".join(f"<tr><td>{d.title()}</td><td>{pct:.0f}%</td><td class='meta'>{n}/{np} prompts</td></tr>"
-                   for d, (pct, n) in s["qsorted"])
-    ptab = "".join(f"<tr><td>{pid} · {pmeta[pid]['name']}</td><td>{sum(v)/len(v):.2f}</td></tr>"
-                   for pid, v in s["hard"][:5])
-    dt, ft = s["dt"], s["ft"]
-    weak2 = " and ".join(f"<b>{d.title()}</b>" for d, _ in s["qsorted"][:2])
-    faith = s["qpct"].get("faithfulness", (0, 0))[0]
-    foc = "".join(f"<li><b>{t}.</b> {b}</li>" for t, b in focus_recs(s))
     return f"""
     <h3 style="margin-top:26px">What the models struggled on</h3>
     <div style="display:flex;gap:28px;flex-wrap:wrap">
@@ -332,10 +188,10 @@ def struggle_html(grades, cells, pmeta):
       </div>
     </div>
     <p style="margin-top:10px"><b>The pattern.</b> Models are strongest where the work is mechanical
-    (<b>Faithfulness {faith:.0f}%</b> — they rarely fabricate; extraction & drafting near-ceiling) and weakest where
-    it needs <b>legal judgment</b>: {weak2} (taking and holding the client's side; reaching the right legal
-    conclusion). The hardest tasks are issue-spotting, adversarial redlining, and holistic reasoning — not
-    extraction or drafting.</p>
+    (<b>Faithfulness ~96%</b> — they rarely fabricate; extraction & drafting near-ceiling) and weakest where it
+    needs <b>legal judgment</b>: <b>Directionality</b> (taking and holding the client's side) and <b>Soundness</b>
+    (reaching the right legal conclusion). The hardest tasks are issue-spotting (A1), adversarial redlining
+    (C1/C2), and holistic reasoning (E2) — not extraction or drafting.</p>
     <p><b>Recurring failure modes.</b></p>
     <ul>
       <li><b>Directional drift</b> — on adversarial tasks, weaker models argue the wrong party's side or restore
@@ -348,17 +204,13 @@ def struggle_html(grades, cells, pmeta):
       consistency breaks down.</li>
       <li><b>Fabrication is rare</b> — only {ft} faithfulness gate trips; hallucinated clauses/figures are NOT the
       main risk here. The risk is judgment, not invention.</li>
-    </ul>
-    <h3 style="margin-top:26px">What to focus prompts on next</h3>
-    <p class="meta">Derived from this run — where scores collapse and where models separate.</p>
-    <ol>{foc}</ol>"""
+    </ul>"""
 
 
 def render(body, **kw):
     suite, pmeta, order = load_suite()
     return render_template_string(BASE, body=body, stages=STAGES, order=order, pmeta=pmeta,
-                                  run_name=RUN.name if RUN else "—",
-                                  has_next_page=v8_plan_available(), **kw)
+                                  run_name=RUN.name if RUN else "—", **kw)
 
 
 def rationale_html(pid, pmeta, agg, sample):
@@ -414,23 +266,13 @@ def index():
     The Opus 4.8 judge scores 5 dimensions (Faithfulness, Directionality, Coverage, Soundness, Actionability)
     against a gold rubric; code normalizes to 0–1 and <b>caps any gate-tripping response at 0.40</b> (a gate trips on
     fabrication or advocating the wrong party). Pick a prompt on the left to see all five responses + their grades and rationale.</p>
-    {categories_html(order, pmeta)}
-    {dimensions_html()}
-    <h3 style="margin-top:26px">Overall ranking (mean normalized score, after gate cap)</h3>
+    <h3>Overall ranking (mean normalized score, after gate cap)</h3>
     <table><tr><th>#</th><th>Model</th><th>Mean</th><th>Gate trips</th></tr>{rows}</table>
     {struggle_html(grades, cells, pmeta)}
     <p class="meta">⚠ k=1 single judge sample; margins overlap within CIs. Opus grading Claude Sonnet is same-family
     (self-grading caveat). Edit prompts/rubrics from any prompt page.</p>
     """
     return render(body, page="ov", cur=None)
-
-
-@app.route("/next")
-def next_version():
-    body = next_version_html()
-    if body is None:
-        abort(404)
-    return render(body, page="next", cur=None)
 
 
 @app.route("/prompt/<pid>")

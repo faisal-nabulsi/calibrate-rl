@@ -1,0 +1,9 @@
+{
+  "components": [
+    "count_obtuse_triangles",
+    "equalization_fraction"
+  ],
+  "fed_param": "g",
+  "params": {},
+  "locked": false
+}
