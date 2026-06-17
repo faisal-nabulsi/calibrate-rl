@@ -418,9 +418,11 @@ earliest firmly-on-plateau ckpt). The trifecta landed + was analyzed (#107):
   AMC transfer (held-out UP +0.08 but external AMC flat = template reliability, not concept skill).
 - **Composition (ckpt-40 diagnostic):** the gap did NOT close — mean pass 0.498→0.475, P(pass|atom-miss)≈0 still,
   feeders not strengthened. Depth-0 does not chain better than base.
-- **By-framing:** leans "partly concept, not pure template," but not fully settled (no base run on the 180-row
-  v2 set — the one missing job, now a one-line queue dispatch).
-⇒ **commit to depth-1; ckpt-40 is the right base precisely because the gap is intact in it.**
+- **By-framing (SETTLED — base-180 in):** training did NOT flatten the framing-spread (Δ −0.03/0.00/+0.02 ≈ 0),
+  it lifted the level uniformly (overall +0.031; cdc +0.094 across all 5 framings) ⇒ execution reliability, NOT
+  concept consolidation. The last open trifecta axis is closed.
+⇒ **depth-0 is CAPPED on all four axes (AMC binary, AMC coverage, composition gap, concept-vs-template); commit to
+  depth-1; ckpt-40 is the right base precisely because the gap is intact in it.**
 
 **THE LEVER — depth-1 composition.** The composition gap is real (base computes the feeder atom 79–98% but the
 composite far less; P(pass|atom-miss)≈0 — "can do the steps, can't chain them") and depth-0 doesn't close it.
@@ -430,11 +432,12 @@ re-run the diagnostic (did the gap close?). See §6.
 **Depth-1 calibration campaign — RUNNING and genuinely editing** (autonomous; t3/autocalib;
 `tools/depth1_calib_campaign.py`; branch `agent/depth1-calib-campaign`, branch-only → human PRs). Per iter:
 build 47-chain pool → static gate → sample 250×8@2048 on sadie vs ckpt-40 → analyze per-chain → headless
-`claude` edits the CHAIN LAYER toward goldilocks (depth-0 atomics frozen) → re-gate → commit → Slack. **iter-1
-eased the hard targets for real** (e.g. inclusion_exclusion_3set 3 sets→2, target-side; iter-2's pool verified
-to differ). The edit step was broken at first (`claude` not installed on the t3 → silent no-op) and fixed
-tonight: **claude CLI installed + edit-guard (fail-loud) + resume + heartbeat-aware wait + double-run guard.**
-iter-1 skewed hard (32% in-band, 21/47 too hard) — watch whether mean-pass climbs toward ~0.5 over iters 2–5.
+`claude` edits the CHAIN LAYER toward goldilocks (depth-0 atomics frozen) → re-gate → commit → Slack. Ran
+unattended through iters 2→3→4 without stopping (edit step fixed: claude CLI installed + edit-guard + resume +
+heartbeat-aware wait + double-run guard). **Trajectory (mean / goldilocks% / too-hard%): iter-1 0.308/32/37 →
+iter-2 0.299/27/46 → iter-3 0.374/38/31** — noisy but iter-3 best-yet + climbing toward goldilocks; on this slope
+~0.45 mean / ~45% in-band by iter-5. ~6 feeder-bound chains will still need a manual diversity pass (Gilbert
+owns the per-iter readout).
 
 **Fleet:** 3× L4 samplers (sam/sadie/sage) + L40S trainer (awesome-ash) + always-on t3 agents box. L4s are
 queue-driven (S3 poll; `sample|train|setup|eval` job types) + SSM-reachable; jobs stream a `.heartbeat` to S3 for
@@ -445,10 +448,6 @@ mid-run liveness. Quota 16→20 open (CASE_OPENED). (Fleet/permission/campaign-b
 > Completed items migrate to the DAILY LOG; this section is open/actionable work only. (This session's
 > done items are in CURRENTLY DOING + the log.)
 
-- [ ] **[faisal] settle the by-framing discriminator (the one open trifecta piece).** ckpt-40's concept-transfer
-      landed + was analyzed (#107: "partly concept, not pure template"), but there's **no BASE run on the 180-row
-      v2 set**, so concept-vs-template isn't fully settled. Dispatch base on `concept_transfer_eval_v2.json` — now a
-      one-line queue spec (#108). Low priority — likely moot since depth-0 is AMC-capped (#89), but closes it cleanly.
 - [ ] **[depth-1 NEXT — the payoff, gated on calibration converging]** build the depth-1 train set from the
       calibrated 47-chain pool → train ~300 steps off ckpt-40 → **validate**: re-run the composition-gap diagnostic
       (did the gap close — composite pass rises toward the atom?) + AMC via `mean_pass_rate`; also check
@@ -459,6 +458,16 @@ mid-run liveness. Quota 16→20 open (CASE_OPENED). (Fleet/permission/campaign-b
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
 ### 2026-06-17
+- [faisal] **By-framing SETTLED → depth-0 is CAPPED on all four axes.** Base-180 by-framing landed (sam,
+  `runs/concept_transfer_base/`): training did NOT flatten the per-concept framing-spread (Δ −0.03/0.00/+0.02 ≈ 0),
+  it lifted the level uniformly (overall +0.031; cdc +0.094 across all 5 framings) ⇒ **execution reliability, NOT
+  concept consolidation** — Zaid's reframe proven against base. Closes the last open trifecta axis (the by-framing
+  TODO is done). **Composition gap confirmed at scale**: base (sage, `runs/chain_diverse_base_diag/`) vs ckpt-40 on
+  the *same* iter-2 47-chain pool → mean 0.290→0.299 (Δ +0.009), gap +0.606→+0.625 (intact/wider), P(pass|miss)≈0
+  — the 3-composite #107 pattern now holds on 47 diverse chains. Both banked in `results/all_experiments_retrospective.md`.
+- [faisal] **Overnight fleet ran clean**: sadie campaign self-advanced iters 2→3→4 (no stop; mean 0.308→0.299→0.374,
+  goldilocks 32→27→38%), sam base-180 by-framing + sage base composition-gap both done & self-stopped. Desktop clone
+  de-staled (reset to origin/main + junk dirs removed); both checkouts synced.
 - [faisal] **Depth-0 trifecta analyzed → verdict IN: depth-0 is CAPPED on AMC *and* composition (#107).** ckpt-40
   composition-gap diagnostic: the gap did NOT close (mean pass 0.498→0.475, P(pass|atom-miss)≈0, feeders flat) —
   depth-0 doesn't chain better than base. By-framing: "partly concept, not pure template" but not fully settled
