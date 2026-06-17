@@ -240,13 +240,20 @@ When done, write a concise rationale (which chains, what you changed, why) to: {
 
 
 def llm_edit(it, report_md, rationale_path):
+    """Run headless claude to edit the chain generators. Returns the claude EXIT CODE so the
+    caller can verify it actually ran: a missing / unauthenticated CLI exits non-zero (127 =
+    'command not found') and used to be SWALLOWED by check=False, letting the campaign commit a
+    fake 'edits' iteration that changed nothing for a whole run."""
     prompt = EDIT_PROMPT.format(report=report_md, injector=INJECTOR, rationale_path=rationale_path)
     pf = f"/tmp/edit_prompt_iter{it}.txt"; open(pf, "w").write(prompt)
     if DRY_RUN:
-        log("[dry-run] would invoke claude to edit generators"); open(rationale_path, "w").write("(dry-run, no edits)\n"); return
+        log("[dry-run] would invoke claude to edit generators"); open(rationale_path, "w").write("(dry-run, no edits)\n"); return 0
     # headless claude; allow file edits + reading; bounded. CLAUDE_CMD is configurable per box.
-    sh(f'{CLAUDE} "$(cat {pf})" --allowedTools Edit Read Bash --permission-mode acceptEdits',
-       check=False, timeout=1800)
+    r = sh(f'{CLAUDE} "$(cat {pf})" --allowedTools Edit Read Bash --permission-mode acceptEdits',
+           check=False, timeout=1800)
+    if r.returncode != 0:
+        log(f"edit step: '{CLAUDE}' exited {r.returncode} — claude CLI missing / unauthenticated / errored; generators NOT tuned")
+    return r.returncode
 
 
 def revert_unstaged():
@@ -324,7 +331,17 @@ def main():
             report_text = "(dry-run: no calib data)"
 
         # ---- edit + re-gate (revert on fail) ----
-        llm_edit(it, report_text, rat)
+        rc = llm_edit(it, report_text, rat)
+        # HARD GUARD: the edit must have RUN (rc 0) AND actually changed a generator. A silent
+        # no-op (claude not installed -> rc 127, swallowed by check=False) ran a whole campaign
+        # committing fake "edits" that changed nothing. Stop loudly instead of looping uselessly.
+        if not DRY_RUN:
+            changed = sh("git status --porcelain generate/ automation/ prep/",
+                         check=False, capture=True).stdout.strip()
+            if rc != 0 or not changed:
+                slack(f":x: iter {it}: edit step made NO generator changes (claude rc={rc}) — not a real "
+                      f"edit. Stopping; fix the editor (is the claude CLI installed + on PATH?) first.")
+                revert_unstaged(); break
         post_pool = f"/tmp/postedit_pool_iter{it}.json"
         if not DRY_RUN:
             build_pool(post_pool)
