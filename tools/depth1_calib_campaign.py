@@ -283,6 +283,18 @@ def _resume_calib(out_s3, calib_local):
 
 
 def main():
+    # double-run guard: refuse to start if another campaign instance is already running.
+    # Two instances race on the same git tree + dispatch duplicate samples (the 02:32 footgun
+    # that took two kills + a branch reset to clean up). pgrep -f matches the script name in
+    # argv; exclude our own pid.
+    me = os.getpid()
+    others = [p for p in sh("pgrep -f depth1_calib_campaign.py", check=False, capture=True).stdout.split()
+              if p.strip().isdigit() and int(p) != me]
+    if others:
+        slack(f":no_entry: campaign launch aborted — another instance is already running (pids {','.join(others)}). "
+              f"Not double-running.")
+        log(f"ABORT: campaign already running (pids {others}); refusing to double-run")
+        return
     sh(f"git checkout {BRANCH}", check=False)
     slack(f":arrows_counterclockwise: depth-1 calibration campaign starting — {N_ITERS} iters, "
           f"{N}x{ROLLOUTS}@{MAX_TOKENS} on {SAMPLER} vs ckpt-40")
