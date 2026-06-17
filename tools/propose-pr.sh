@@ -48,6 +48,13 @@ gh pr create \
   --title "${DESC}" \
   --body "Proposed by agent \`${TAG}\` via propose-pr. A human must review and merge — this branch does not touch main on its own."
 
+# Return to main so the checkout is NEVER left stranded on a feature branch.
+# A stranded branch is the recurring agent footgun: once this PR is squash-merged
+# and the remote branch deleted, the next `git pull` on the stale branch errors
+# ("couldn't find remote ref") and the agent burns turns re-deriving why.
+git checkout main >/dev/null 2>&1 \
+  || git checkout "$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's@^origin/@@')" >/dev/null 2>&1 \
+  || true
+
 echo ""
-echo "PR opened from ${BRANCH}. A human reviews and merges on GitHub."
-echo "Return to main locally with: git checkout main"
+echo "PR opened from ${BRANCH}; checkout returned to $(git rev-parse --abbrev-ref HEAD). A human reviews + merges on GitHub."
