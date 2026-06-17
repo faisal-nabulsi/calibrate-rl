@@ -202,10 +202,11 @@ too-hard ghosts that teach tedium, not method (see count_pythagorean in §5).
 
 ## 5. Concept catalog (depth-0)
 
-`knob`: `num` = number-size (anti-pattern; thin band, watch ghosts) · `C` =
-constraint-count · `S` = structure/method. `gold%` = calib_v10 goldilocks rate
-(in-band fraction for base Qwen-7B). Exact param ranges live in each generator's
-`random.*` calls (source of truth); recompute rates from `data/calib_v10_7B.json`.
+The 28 atomic concepts — **all trained into ckpt-40** (depth-0, now capped); they are
+the feeders the depth-1 chains compose. `knob`: `num` = number-size (anti-pattern; thin
+band, watch ghosts) · `C` = constraint-count · `S` = structure/method. `gold%` = the
+**base-model** goldilocks rate (in-band fraction for base Qwen-7B, the original baseline).
+Exact param ranges live in each generator's `random.*` calls (source of truth).
 
 | concept | computes | AMC | knob | gold% |
 |---|---|---|---|---|
@@ -279,29 +280,30 @@ depth-1. One open margin-check rides along: `box_diagonal_sq__perfect_square_div
 chain (ceiling ≈210) — read its in-band fraction off the converged campaign; if <0.71, widen the
 `perfect_square_divisible` target (never the feeder). The other 7 dedupe-thin chains clear it easily.
 
-## 7. v10 results
+## 7. Depth-0 results (v10 ckpt-120 + v12 ckpt-40)
 
-**Reward.** Raw `train/reward` looks flat but is confounded (batch composition,
-lucky first step, EMA anchored to spikes, smoothing reset at the resume seam ~82).
-Honest signal = per-pass average (same 106 problems each pass):
-`0.541 → 0.657 → 0.679 → 0.695` (1st→4th; 5th partial 0.754); ~80% of the gain by
-the 2nd pass. Held-out: base 0.537 → 0.651 (step 81) → 0.672 (120), saturating ~81.
-Plateau mechanism: ghost batches climb 8%→15%. `training_completions/*.parquet`
-(120×32 per-prompt rollouts) → true per-problem curves recoverable; not yet built.
+**Training (historical, v10 ckpt-120).** Honest reward = per-pass average (same 106
+problems each pass): `0.541 → 0.657 → 0.679 → 0.695` (~80% of the gain by pass 2; raw
+`train/reward` is confounded by batch composition + the resume seam). Held-out: base
+0.537 → 0.651 (step 81) → 0.672 (120), saturating ~81; plateau = ghost batches climbing
+8%→15%. **v12 depth-0 run-2 → ckpt-40** is the current depth-1 base (steps 40–90 flat-within-noise).
 
-**AMC by coverage** (from `@concept` decorators):
+**AMC — binary solved / 83** (`eval/eval_amc_baseline.py`, greedy/pass@1 — the canonical count):
 
-| AMC subset | n | base | ckpt-120 | Δ |
+| AMC subset | n | base | v10 ckpt-120 | v12 ckpt-40 |
 |---|---|---|---|---|
-| depth-0 covered | 37 | 12 | 15 | **+3** |
-| depth-1 partner only | 23 | 16 | 14 | **−2** |
-| uncovered | 23 | 4 | 5 | +1 |
-| total | 83 | 32 | 34 | +2 |
+| depth-0 covered | 37 | 12 | 15 | — |
+| partner-only | 23 | 16 | 14 | — |
+| uncovered | 23 | 4 | 5 | — |
+| **total** | 83 | **32** | **34** | **35** |
 
-Flips up: 18,42,59,66,67,68,80. Down: 7,19,53,60,71. The −2 broke easy problems
-base already had — watch this regression. **Base = 32/83, not 18/83** (old =
-harness artifact). v11 calib (`calib_v11_2048_7B.json`, 500×8 @2048): 48%
-goldilocks, mean pass 0.55; 2048 cut too-hard 16→10% and truncation 14→1%.
+**Verdict: depth-0 is CAPPED.** The binary total only creeps 32→34→35, and +1–3 is within
+McNemar noise (v10's +2 was p≈0.79). The reliable read is the *sampled* by-coverage
+`mean_pass_rate` (#89): on ckpt-40 the **covered** subset (where depth-0 trained) went DOWN
+−0.057 — no generalization. The composition diagnostic (#107) agrees — ckpt-40 doesn't chain
+better than base (gap intact). So ckpt-40 is the right depth-1 base *because* the gap survives
+in it. (v10 binary flips up: 18,42,59,66,67,68,80; down: 7,19,53,60,71. Base = 32/83, not 18/83
+— the old 18 was a harness artifact. ckpt-40 per-problem: `runs/v12_depth0_run2/amc_baseline_ckpt40.json`.)
 
 ## 8. Lessons
 
