@@ -316,8 +316,8 @@ def c_triples():
     # feeder-surgery (structural cardinality, NOT number size — §4): a `parts` knob k∈{3,4}
     # generalizes the count to integer k-tuples 0≤a_1<...<a_k summing to N. k=3 == the old
     # _triples_gold; k=4 is a parallel count-family at the SAME N range, ~doubling distinct
-    # answers + feeder sub-question texts -> fixes the dedupe-FAIL (0.830) that blocked the
-    # campaign from easing chain_ordered_triple_constraint__constrained_digit_count.
+    # answers + feeder sub-question texts -> fixed the dedupe-FAIL (0.830) when this fed a
+    # count target. (ordered_triple_constraint now feeds box_diagonal_sq — see _DIVERSE_CHAINS.)
     kn=K["ordered_triple_constraint"]
     N=kn.randint("N")  # number range stays [10,20] (narrowed in v12; num-class, frozen)
     k=kn.choice("parts") if "parts" in kn.params else 3

@@ -43,7 +43,7 @@
   },
   "locked": false,
   "components": [
-    "equalization_fraction",
+    "complex_modulus_power",
     "box_diagonal_sq"
   ],
   "fed_param": "edge"

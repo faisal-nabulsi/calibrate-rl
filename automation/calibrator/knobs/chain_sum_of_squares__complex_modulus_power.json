@@ -35,7 +35,7 @@
   },
   "locked": false,
   "components": [
-    "vieta_pair_count",
+    "sum_of_squares",
     "complex_modulus_power"
   ],
   "fed_param": "real_part"

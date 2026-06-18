@@ -43,7 +43,7 @@
   },
   "locked": false,
   "components": [
-    "equalization_fraction",
+    "ordered_triple_constraint",
     "box_diagonal_sq"
   ],
   "fed_param": "edge"
