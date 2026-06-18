@@ -87,20 +87,26 @@ special. The real rule:
 
 `modular_exponent` works because `Vᵏ mod m` has the modulus + other base as free entropy — but so do
 plenty of concepts. `tools/scan_chain_targets.py` measures this empirically and the current chain set
-spreads the final step across **9 distinct target concepts** (modexp is now only the *fallback* for the
+spreads the final step across **12 distinct target concepts** (modexp is now only the *fallback* for the
 few feeders whose output fits no other target's envelope). The menu, with the input we feed:
 
 | target | fed input | free entropy from |
 |---|---|---|
 | algebraic_system_2eq | `x` (one unknown) | the other two unknowns `y,z` |
 | inclusion_exclusion_3set | range bound `U` | the divisor triple `a,b,c` |
-| perfect_square_divisible | `limit` | the divisor `div` |
 | telescoping_mn | term count `N` | the gap |
 | constrained_digit_count | digit-sum target | the range `[lo,hi]` |
 | equalization_fraction | #glasses `g` | the fill fraction |
 | complement_prob_mn | #die faces | the threshold |
+| divisor_sum_filter | `n` (sum its divisors) | odd/even cond (value `V` supplies cardinality) |
+| complex_modulus_power | real part of `z` | the imaginary part `b` + power `k` |
+| custom_binary_op | one operand | the other two operands `b,c` |
+| box_diagonal_sq | one edge | the other two edges `b,c` (V² dominates → near-unique) |
 | multi_constraint_square | `limit` | divisor + last-digit |
 | modular_exponent | base / exponent | the other base + modulus (fallback) |
+
+(`perfect_square_divisible` is multi-input via its divisor and stays in the scan menu, but the live
+46-chain set dropped it — its count answer clusters, so the value-valued targets above were preferred.)
 
 ---
 
@@ -174,32 +180,39 @@ If you're reading the code, here's everything depth-1 added on top of the depth-
 
 ## 9. What's covered today
 
-**Depth-1 chains (47 total) — one per concept, maximally diverse.** Every one of the 47 concepts
-(28 depth-0 atomics + 19 partners) appears as a **feeder** exactly once, and the final step is spread
-across **9 distinct target concepts** (§4 menu). modexp is now only **5/47 (11%)** — the fallback for
-the 5 feeders whose output fits no other target's envelope (`modular_exponent, infinite_product_exp,
-mean_removal, point_rotation, distinct_product_count`).
+**Depth-1 chains (46 total) — one per concept, maximally diverse.** Every concept except
+`box_diagonal_sq` (dropped as a feeder — only 12 distinct V, dead when fed; it now serves as a *target*)
+appears as a **feeder** exactly once, and the final step is spread across **12 distinct target concepts**
+(§4 menu). modexp is now only **7/46 (15%)** — the fallback for the feeders whose output fits no other
+target's envelope.
 
 Built by one factory in `generate/skeleton_injector_v12.py` (`_register_diverse_chain` + the `_ADAPT`
 target adapters + the `_DIVERSE_CHAINS` feeder→target map). Final-step distribution:
 
 | target concept | # chains |
 |---|---|
-| algebraic_system_2eq | 7 |
-| inclusion_exclusion_3set | 7 |
-| perfect_square_divisible | 5 |
 | modular_exponent | 7 |
-| telescoping_mn | 6 |
-| constrained_digit_count | 5 |
-| equalization_fraction | 5 |
-| complement_prob_mn | 4 |
+| inclusion_exclusion_3set | 7 |
+| algebraic_system_2eq | 6 |
+| telescoping_mn | 5 |
+| constrained_digit_count | 4 |
+| equalization_fraction | 4 |
+| divisor_sum_filter | 4 |
+| complement_prob_mn | 3 |
+| custom_binary_op | 2 |
+| complex_modulus_power | 2 |
 | multi_constraint_square | 1 |
+| box_diagonal_sq | 1 |
 
-*(Counts are AFTER the self-chain reassignment, which shifted 4 targets: algebraic 8→7, modexp 5→7, telescoping 5→6, complement 5→4, perfsq 6→5 (divisor_sum reassigned to modexp for a top3 fix). Sum = 47.)*
+*(Sum = 46. The more-targets pass added 4 value-valued targets — divisor_sum_filter, complex_modulus_power,
+custom_binary_op, box_diagonal_sq — de-concentrating modexp and dropping the count-clustering perfsq target.)*
 
-**Verification** (`tools/verify_diverse_chains.py`): 47/47 chains pass — **0 gold mismatches, 0 unparsed**,
-top-3 ≤ 0.30, full feeder coverage. Golds are construction-correct (feeder's own oracle `V` → target
-oracle) *and* independently text-recomputed from the target clause + the stored `intermediate_gold`.
+**Verification** (`tools/verify_diverse_chains.py`, which delegates gold recompute to `prep/check_dataset.py`):
+46/46 chains pass — **0 gold mismatches, 0 unparsed**,
+top-3 ≤ 0.30 at the canonical seed (4 count-target chains hug the ceiling and can tip on an unlucky
+draw — they're on the calibration watch-list, eased in-loop by widening the *target's* entropy knob),
+full feeder coverage. Golds are construction-correct (feeder's own oracle `V` → target oracle) *and*
+independently text-recomputed from the target clause + the stored `intermediate_gold`.
 
 **AMC-targeting dropped by design.** The old set hand-picked #55/#75 directions; this set optimizes
 *diversity + coverage* (general composition is the goal — depth-0/AMC is capped, §0). Chains carry no

@@ -15,14 +15,14 @@ Then it greedily assigns each feeder a viable target, spreading targets to maxim
 and reports coverage (all 47 feeders used) + the target histogram. modexp is the fallback
 ONLY when a feeder has no other viable target.
 
-  INJECTOR=generate/skeleton_injector_v13.py python3 tools/scan_chain_targets.py
+  INJECTOR=generate/skeleton_injector_v12.py python3 tools/scan_chain_targets.py
 """
 import os, math, random, importlib.util
 from fractions import Fraction
 from collections import Counter, defaultdict
 
 random.seed(7)
-INJ = os.environ.get("INJECTOR", "generate/skeleton_injector_v13.py")
+INJ = os.environ.get("INJECTOR", "generate/skeleton_injector_v12.py")
 spec = importlib.util.spec_from_file_location("inj", INJ)
 M = importlib.util.module_from_spec(spec); spec.loader.exec_module(M)
 
@@ -67,18 +67,41 @@ def t_complement_faces(v):
         r += 1
         if r > 60: return None
     return r
+# --- the 4 targets added in the more-targets pass (mirror skeleton_injector_v12 _ADAPT) ---
+def _divisors(n):
+    n = abs(n); ds = []
+    for i in range(1, int(n**.5)+1):
+        if n % i == 0: ds += [i, n//i]
+    return set(ds)
+def t_cmod(v):  # complex_modulus_power: |V+bi|^{2k} = (V^2+b^2)^k  (b,k entropy)
+    b = random.choice([2,3,5,7,11,13,17,19,23,29]); k = random.choice([1,2])
+    return (v*v + b*b)**k
+def t_divsum(v):  # divisor_sum_filter: sum of odd/even divisors of V  (cond entropy; V supplies cardinality)
+    cond = random.choice(["odd","even"])
+    return sum(d for d in _divisors(v) if (d % 2 == 1) == (cond == "odd"))
+def t_customop(v):  # custom_binary_op: ((V (+) b) (+) c), x(+)y = x+y+xy  (b,c entropy; V<=15 cap)
+    b = random.choice(range(3,13)); c = random.choice(range(3,13)); op = lambda x,y: x+y+x*y
+    return op(op(v,b),c)
+def t_boxdiag(v):  # box_diagonal_sq: V^2+b^2+c^2  (b,c entropy; V^2 dominates -> near-unique)
+    b = random.choice([2,3,4,5,6,7,8,9,11,13]); c = random.choice([2,3,4,5,6,7,8,9,11,13])
+    return v*v + b*b + c*c
 
 TARGETS = {  # target concept -> (fed_lo, fed_hi, oracle, fed input description)
-    "modular_exponent@exp":      (2,   40,        t_modexp_exp,        "count -> exponent"),
-    "modular_exponent@base":     (2,   10**12,    t_modexp_base,       "value -> base"),
+    "modular_exponent@exp":      (2,   20,        t_modexp_exp,        "count -> exponent"),
+    "modular_exponent@base":     (2,   5000,      t_modexp_base,       "value -> base"),
     "algebraic_system_2eq@x":    (1,   60,        t_algebraic_x,       "value -> one unknown x"),
     "telescoping_mn@N":          (3,   30,        t_telescoping_N,     "count -> term count N"),
-    "constrained_digit_count@t": (5,   27,        t_digit_target,      "count -> digit-sum target"),
+    "constrained_digit_count@t": (5,   20,        t_digit_target,      "count -> digit-sum target"),
     "inclusion_exclusion_3set@U":(60,  9000,      t_ie3_U,             "value -> range bound U"),
     "perfect_square_divisible@L":(300, 200000,    t_perfsq_limit,      "value -> limit"),
     "multi_constraint_square@L": (600, 80000,     t_multisquare_limit, "value -> limit"),
     "equalization_fraction@g":   (3,   14,        t_equalize_g,        "count -> #glasses g"),
     "complement_prob_mn@faces":  (3,   30,        t_complement_faces,  "count -> #die faces"),
+    # more-targets pass (now live in the 46-chain set; ranges from _ADAPT in skeleton_injector_v12):
+    "complex_modulus_power@re":  (2,   120,       t_cmod,              "value -> real part of z"),
+    "divisor_sum_filter@n":      (6,   30000,     t_divsum,            "value -> n (sum its divisors)"),
+    "custom_binary_op@operand":  (2,   15,        t_customop,          "count -> one operand"),
+    "box_diagonal_sq@edge":      (2,   500,       t_boxdiag,           "value -> one edge length"),
 }
 MODEXP = {"modular_exponent@exp", "modular_exponent@base"}  # fallbacks
 
