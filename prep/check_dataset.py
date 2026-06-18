@@ -164,11 +164,16 @@ def rc_ordered_triple_constraint(p):
     return sum(1 for t in combinations(range(0, S + 1), k) if sum(t) == S)
 
 def rc_alternating_cubes(p):
-    n = ints(p)
-    if not n: return None
+    # feeder-surgery: partial alternating-cube sum from k=start to k=top//2. The displayed
+    # series' smallest base is 2*start-1 = min(n); top (even) = max(n). start=1 == the old full sum.
+    # the displayed "2³-1³" renders the subtraction as "-", so ints() signs the odd bases;
+    # take absolute values. smallest base = 2*start-1 = min; top (even) = max.
+    n = [abs(x) for x in ints(p)]
+    if len(n) < 2: return None
     top = max(n)
     if top % 2: top -= 1
-    return sum((2 * k) ** 3 - (2 * k - 1) ** 3 for k in range(1, top // 2 + 1))
+    start = (min(n) + 1) // 2
+    return sum((2 * k) ** 3 - (2 * k - 1) ** 3 for k in range(start, top // 2 + 1))
 
 def rc_complex_eq_solcount(p):
     m = re.search(r"z\^?(\d+)\s*=", p)
@@ -488,6 +493,10 @@ def rc_frobenius_stamps(p):
          or re.search(r"worth (\d+) and (\d+)", p))
     if not g: return None
     fa, fb = int(g.group(1)), int(g.group(2))
+    # feeder-surgery: "largest/greatest/biggest ... cannot" -> Frobenius number ab-a-b;
+    # otherwise the Sylvester count (a-1)(b-1)/2.
+    if re.search(r"largest|greatest|biggest", p, re.I):
+        return fa*fb - fa - fb
     return (fa-1)*(fb-1)//2
 
 def rc_digit_count_bigprod(p):

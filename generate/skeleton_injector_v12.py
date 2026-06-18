@@ -191,14 +191,25 @@ def c_lcmgcd():
 
 @concept("alternating_cubes",[46])
 def c_altcubes():
+    # feeder-surgery (structural cardinality, NOT number size — §4): a `start` index makes it a
+    # PARTIAL alternating-cube sum from k=start. start=1 == the old full sum; start∈{2,3} are
+    # parallel value-families at the SAME top range, ~tripling distinct answers + series texts ->
+    # lets the campaign ease chain_alternating_cubes__multi_constraint_square without the dedupe
+    # collapse it hit (0.745). The displayed series always shows the first two pairs … last pair,
+    # so the start (smallest base 2·start-1) and top are unambiguous to the recomputer.
     top=random.choice(list(range(10,46,2)))
-    val=sum((2*k)**3-(2*k-1)**3 for k in range(1,top//2+1))
+    m=top//2
+    start=random.choice([1,2,3])
+    if m-start+1<4: start=1                       # keep >=4 pairs so the "..." series reads clearly
+    val=sum((2*k)**3-(2*k-1)**3 for k in range(start,m+1))
+    def pr(k): return f"{2*k}³-{2*k-1}³"
+    series=f"{pr(start)} + {pr(start+1)} + ... + {pr(m)}"
     return (random.choice([
-        f"Evaluate 2³ - 1³ + 4³ - 3³ + 6³ - 5³ + ... + {top}³ - {top-1}³.",
-        f"What is (2³-1³) + (4³-3³) + ... + ({top}³-{top-1}³)?",
-        f"Find the alternating sum of cubes 2³-1³+4³-3³+...+{top}³-{top-1}³.",
-        f"Compute the sum where each pair is (even)³-(previous odd)³, up to {top}³-{top-1}³.",
-        f"Add the differences of consecutive cubes 2³-1³, 4³-3³, ..., {top}³-{top-1}³.",
+        f"Evaluate {series}.",
+        f"What is ({pr(start)}) + ({pr(start+1)}) + ... + ({pr(m)})?",
+        f"Find the alternating sum of cubes {series}.",
+        f"Compute the sum of consecutive-cube differences {series} (each term is even³−odd³).",
+        f"Add the differences of cubes {pr(start)}, {pr(start+1)}, ..., {pr(m)}.",
     ]), val, "alternating_cubes")
 
 @concept("complex_eq_solcount",[48])
@@ -775,17 +786,31 @@ def c_digitcount():
 
 @concept("frobenius_stamps",[71])
 def c_frobenius():
-    # COUNTING: how many positive integers are NOT representable as ax+by (x,y>=0)?
-    # = (a-1)(b-1)/2 for coprime a,b -- but make them COMPUTE by reasoning, larger pairs
+    # For coprime a,b the non-representable amounts (as ax+by, x,y>=0) are finite:
+    #   COUNT  = (a-1)(b-1)/2     (Sylvester)
+    #   MAX    = ab-a-b           (Frobenius number)
+    # feeder-surgery (structural cardinality, NOT number size — §4): a `variant` knob exposes
+    # BOTH quantities. They are disjoint value-families at the SAME pair range, ~doubling distinct
+    # answers + texts -> lets the campaign ease chain_frobenius_stamps__telescoping_mn without the
+    # dedupe drop (<0.9) that a gap-pool shrink alone caused.
     a,b=K["frobenius_stamps"].choice("pairs")
     if gcd(a,b)!=1: return None
-    ans=(a-1)*(b-1)//2
+    if random.choice(["count","max"])=="count":
+        ans=(a-1)*(b-1)//2
+        return (random.choice([
+            f"Using only {a}-cent and {b}-cent stamps, how many positive integer amounts CANNOT be made exactly?",
+            f"With coins of {a} and {b} cents, how many positive values are impossible to form?",
+            f"How many positive integers cannot be expressed as a nonnegative combination of {a} and {b}?",
+            f"Stamps worth {a} and {b} cents: count the postage amounts that cannot be paid exactly.",
+            f"How many positive integers are NOT representable as {a}x+{b}y for nonnegative integers x,y?",
+        ]), ans, "frobenius_stamps")
+    ans=a*b-a-b
     return (random.choice([
-        f"Using only {a}-cent and {b}-cent stamps, how many positive integer amounts CANNOT be made exactly?",
-        f"With coins of {a} and {b} cents, how many positive values are impossible to form?",
-        f"How many positive integers cannot be expressed as a nonnegative combination of {a} and {b}?",
-        f"Stamps worth {a} and {b} cents: count the postage amounts that cannot be paid exactly.",
-        f"How many positive integers are NOT representable as {a}x+{b}y for nonnegative integers x,y?",
+        f"Using only {a}-cent and {b}-cent stamps, what is the LARGEST positive integer amount that CANNOT be made exactly?",
+        f"With coins of {a} and {b} cents, what is the greatest positive value that is impossible to form?",
+        f"What is the largest positive integer that cannot be expressed as a nonnegative combination of {a} and {b}?",
+        f"Stamps worth {a} and {b} cents: what is the biggest postage amount that cannot be paid exactly?",
+        f"What is the largest positive integer NOT representable as {a}x+{b}y for nonnegative integers x,y?",
     ]), ans, "frobenius_stamps")
 
 @concept("vieta_pair_count",[70,38])
