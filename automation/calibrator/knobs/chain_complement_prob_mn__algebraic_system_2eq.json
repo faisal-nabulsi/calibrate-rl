@@ -1,8 +1,4 @@
 {
-  "components": [
-    "triangular_filter_count",
-    "algebraic_system_2eq"
-  ],
   "fed_param": "x",
   "params": {
     "y": {
@@ -42,5 +38,9 @@
       "knob_class": "num"
     }
   },
-  "locked": false
+  "locked": false,
+  "components": [
+    "complement_prob_mn",
+    "algebraic_system_2eq"
+  ]
 }

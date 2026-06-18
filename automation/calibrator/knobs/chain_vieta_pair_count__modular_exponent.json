@@ -1,6 +1,6 @@
 {
   "components": [
-    "mean_removal",
+    "vieta_pair_count",
     "modular_exponent"
   ],
   "fed_param": "base",
@@ -8,7 +8,7 @@
     "k": {
       "value": [
         2,
-        2
+        3
       ],
       "type": "randint",
       "envelope": [
@@ -19,8 +19,8 @@
     },
     "m": {
       "value": [
-        30,
-        300
+        50,
+        2000
       ],
       "type": "randint",
       "envelope": [
