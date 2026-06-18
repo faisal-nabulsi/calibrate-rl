@@ -528,7 +528,8 @@ def rc_digit_count_bigprod(p):
 
 def rc_sum_of_squares(p):
     n = (re.search(r"1 to (\d+)", p) or re.search(r"up to (\d+) terms", p)
-         or re.search(r"k\s*≤\s*(\d+)", p) or re.search(r"\[1,\s*(\d+)\]", p))
+         or re.search(r"k\s*≤\s*(\d+)", p) or re.search(r"\[1,\s*(\d+)\]", p)
+         or re.search(r"1\s*\.\.\s*(\d+)", p))   # "Counting k=1..N" phrasing (was ~20% unparsed)
     m = re.search(r"(?:divisible by|multiple of|multiples of)\s+(\d+)", p)
     if not (n and m): return None
     n, m = int(n.group(1)), int(m.group(1)); cnt = run = 0
@@ -802,7 +803,7 @@ _CHAIN_TARGET = {
  "algebraic_system_2eq":"modular_exponent","alternating_cubes":"multi_constraint_square",
  "arith_series_sum":"constrained_digit_count","arith_term_filter":"constrained_digit_count",
 "complement_prob_mn":"algebraic_system_2eq",
- "complex_eq_solcount":"custom_binary_op","complex_modulus_power":"constrained_digit_count",
+ "complex_eq_solcount":"custom_binary_op","complex_modulus_power":"box_diagonal_sq",
  "constrained_digit_count":"inclusion_exclusion_3set","constrained_divisor_count":"telescoping_mn",
  "constrained_subset_count":"algebraic_system_2eq","continued_fraction":"inclusion_exclusion_3set",
  "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"custom_binary_op",
@@ -813,12 +814,12 @@ _CHAIN_TARGET = {
  "infinite_product_exp":"modular_exponent","lattice_points_circle":"inclusion_exclusion_3set",
  "lcm_gcd_system":"inclusion_exclusion_3set","log_laws":"complement_prob_mn",
  "mean_removal":"modular_exponent","modular_exponent":"divisor_sum_filter",
- "multi_constraint_square":"algebraic_system_2eq","ordered_triple_constraint":"constrained_digit_count",
+ "multi_constraint_square":"algebraic_system_2eq","ordered_triple_constraint":"box_diagonal_sq",
  "percent_compound":"algebraic_system_2eq","perfect_square_divisible":"telescoping_mn",
  "point_rotation":"modular_exponent","poly_remainder":"telescoping_mn",
  "polynomial_sign_intervals":"complex_modulus_power","primality_in_sequence":"equalization_fraction",
  "prime_power_divisors":"inclusion_exclusion_3set","rate_closing":"telescoping_mn",
- "roots_of_unity_sum":"equalization_fraction","sum_of_squares":"complement_prob_mn",
+ "roots_of_unity_sum":"equalization_fraction","sum_of_squares":"complex_modulus_power",
  "telescoping_mn":"inclusion_exclusion_3set","three_number_system":"divisor_sum_filter",
  "trapezoid_area":"algebraic_system_2eq","triangular_filter_count":"algebraic_system_2eq",
  "unit_conversion_area":"divisor_sum_filter","vieta_pair_count":"complex_modulus_power",
