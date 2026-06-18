@@ -189,7 +189,9 @@ def rc_alternating_cubes(p):
     return sum((2 * k) ** 3 - (2 * k - 1) ** 3 for k in range(start, top // 2 + 1))
 
 def rc_complex_eq_solcount(p):
-    m = re.search(r"z\^?(\d+)\s*=", p)
+    # match "z^N" directly — the old r"z\^?(\d+)\s*=" required a literal "=" and missed
+    # the "z^N equal to its own conjugate" phrasing (no = sign) → ~20% gate-unverified.
+    m = re.search(r"z\^(\d+)", p)
     if not m: return None
     P = int(m.group(1))
     return P + 2                      # r=1: z^(P+1)=1 -> P+1 roots; plus z=0
