@@ -1,9 +1,0 @@
-{
-  "components": [
-    "complex_eq_solcount",
-    "equalization_fraction"
-  ],
-  "fed_param": "g",
-  "params": {},
-  "locked": false
-}

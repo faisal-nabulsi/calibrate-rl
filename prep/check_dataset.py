@@ -767,20 +767,27 @@ def _recompute_target(target, c, V):
     if target == "divisor_sum_filter":
         cond = "odd" if "odd divisors" in c else "even"
         return sum(d for d in divisors(V) if (d % 2 == 1) == (cond == "odd"))
+    if target == "custom_binary_op":
+        bc = re.findall(r"\u2295(\d+)", c)
+        op = lambda x, y: x + y + x * y
+        return op(op(V, int(bc[0])), int(bc[1]))
+    if target == "box_diagonal_sq":
+        mm = re.search(r"edge lengths V, (\d+), and (\d+)", c)
+        return V * V + int(mm.group(1)) ** 2 + int(mm.group(2)) ** 2
     return None
 
 # feeder -> target concept (mirror of v12 _DIVERSE_CHAINS o _ADAPT); chain = chain_<feeder>__<target>
 _CHAIN_TARGET = {
  "algebraic_system_2eq":"modular_exponent","alternating_cubes":"multi_constraint_square",
  "arith_series_sum":"constrained_digit_count","arith_term_filter":"constrained_digit_count",
- "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"algebraic_system_2eq",
- "complex_eq_solcount":"algebraic_system_2eq","complex_modulus_power":"constrained_digit_count",
+"complement_prob_mn":"algebraic_system_2eq",
+ "complex_eq_solcount":"custom_binary_op","complex_modulus_power":"constrained_digit_count",
  "constrained_digit_count":"inclusion_exclusion_3set","constrained_divisor_count":"telescoping_mn",
  "constrained_subset_count":"algebraic_system_2eq","continued_fraction":"inclusion_exclusion_3set",
- "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"algebraic_system_2eq",
- "custom_binary_op":"perfect_square_divisible","digit_count_bigprod":"complement_prob_mn",
+ "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"custom_binary_op",
+ "custom_binary_op":"divisor_sum_filter","digit_count_bigprod":"complement_prob_mn",
  "distinct_product_count":"modular_exponent","divisor_sum_filter":"modular_exponent",
- "equalization_fraction":"constrained_digit_count","frobenius_stamps":"telescoping_mn",
+ "equalization_fraction":"box_diagonal_sq","frobenius_stamps":"telescoping_mn",
  "geo_first_exceed":"equalization_fraction","inclusion_exclusion_3set":"modular_exponent",
  "infinite_product_exp":"modular_exponent","lattice_points_circle":"inclusion_exclusion_3set",
  "lcm_gcd_system":"inclusion_exclusion_3set","log_laws":"complement_prob_mn",
@@ -793,7 +800,7 @@ _CHAIN_TARGET = {
  "roots_of_unity_sum":"equalization_fraction","sum_of_squares":"complement_prob_mn",
  "telescoping_mn":"inclusion_exclusion_3set","three_number_system":"divisor_sum_filter",
  "trapezoid_area":"algebraic_system_2eq","triangular_filter_count":"algebraic_system_2eq",
- "unit_conversion_area":"perfect_square_divisible","vieta_pair_count":"complex_modulus_power",
+ "unit_conversion_area":"divisor_sum_filter","vieta_pair_count":"complex_modulus_power",
  "vieta_sumcubes":"inclusion_exclusion_3set",
 }
 def _make_chain_rc(feeder, target):

@@ -1177,6 +1177,17 @@ def _a_divsum(V, kn):
     # NEW TARGET (pass-through; needs a high-cardinality feeder): sum of odd/even divisors of V.
     cond=kn.choice("cond")
     return (sum(d for d in divisors(V) if (d%2==1)==(cond=="odd")), f"What is the sum of the {cond} divisors of V?")
+def _a_customop_target(V, kn):
+    # NEW TARGET (charizard): nested custom op x(+)y=x+y+xy. Feed V->operand (V<=15, overflow cap),
+    # b,c supply entropy. Value-valued -> diversity-rich (top3 ~0.04 even for small-count feeders).
+    b=kn.choice("b"); c=kn.choice("c"); op=lambda x,y:x+y+x*y
+    return (op(op(V,b),c), f"Define x\u2295y = x+y+xy for all integers. Compute ((V\u2295{b})\u2295{c}).")
+def _a_boxdiag_target(V, kn):
+    # NEW TARGET (charizard): box space-diagonal^2 = V^2+b^2+c^2 (V->one edge). V^2 dominates ->
+    # every V gives a distinct answer -> top3 ~0.008. box_diagonal is dead as a FEEDER (12 distinct V)
+    # but pristine as a TARGET.
+    b=kn.choice("b"); c=kn.choice("c")
+    return (V*V+b*b+c*c, f"A rectangular box has edge lengths V, {b}, and {c}. Find the square of its space diagonal.")
 _ADAPT={
  # iter2: modexp_base V-ceiling lowered 10^12 -> 5000. V^k mod m on a ~10^12 base is an
  # intractable too-hard ghost (CLAUDE.md §5: big numbers teach tedium, not method); capping
@@ -1201,19 +1212,21 @@ _ADAPT={
  "complement_faces":(_a_complement_faces,"complement_prob_mn","faces",3,30),
  "cmod":(_a_cmod,"complex_modulus_power","real_part",2,120),
  "divsum":(_a_divsum,"divisor_sum_filter","n",6,30000),
+ "customop":(_a_customop_target,"custom_binary_op","operand",2,15),
+ "boxdiag":(_a_boxdiag_target,"box_diagonal_sq","edge",2,500),
 }
 # feeder -> tkey  (tools/scan_chain_targets.py; covers all 47 concepts as feeders)
 _DIVERSE_CHAINS={
  "algebraic_system_2eq":"modexp_base","alternating_cubes":"multisquare_limit",
  "arith_series_sum":"digit_target","arith_term_filter":"digit_target",
- "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"algebraic_x",
- "complex_eq_solcount":"algebraic_x","complex_modulus_power":"digit_target",
+"complement_prob_mn":"algebraic_x",
+ "complex_eq_solcount":"customop","complex_modulus_power":"digit_target",
  "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
  "constrained_subset_count":"algebraic_x","continued_fraction":"ie3_U",
- "count_obtuse_triangles":"equalize_g","count_pythagorean":"algebraic_x",
- "custom_binary_op":"perfsq_limit","digit_count_bigprod":"complement_faces",
+ "count_obtuse_triangles":"equalize_g","count_pythagorean":"customop",
+ "custom_binary_op":"divsum","digit_count_bigprod":"complement_faces",
  "distinct_product_count":"modexp_base","divisor_sum_filter":"modexp_base",
- "equalization_fraction":"digit_target","frobenius_stamps":"telescoping_N",
+ "equalization_fraction":"boxdiag","frobenius_stamps":"telescoping_N",
  "geo_first_exceed":"equalize_g","inclusion_exclusion_3set":"modexp_base",
  "infinite_product_exp":"modexp_base","lattice_points_circle":"ie3_U",
  "lcm_gcd_system":"ie3_U","log_laws":"complement_faces","mean_removal":"modexp_base",
@@ -1225,7 +1238,7 @@ _DIVERSE_CHAINS={
  "rate_closing":"telescoping_N","roots_of_unity_sum":"equalize_g",
  "sum_of_squares":"complement_faces","telescoping_mn":"ie3_U",
  "three_number_system":"divsum","trapezoid_area":"algebraic_x",
- "triangular_filter_count":"algebraic_x","unit_conversion_area":"perfsq_limit",
+ "triangular_filter_count":"algebraic_x","unit_conversion_area":"divsum",
  "vieta_pair_count":"cmod","vieta_sumcubes":"ie3_U",
 }
 def _register_diverse_chain(feeder,tkey):

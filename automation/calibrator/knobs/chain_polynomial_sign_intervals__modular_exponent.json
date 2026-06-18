@@ -1,4 +1,0 @@
-{"components":["polynomial_sign_intervals","modular_exponent"],"fed_param":"exponent",
- "params":{"a":{"value":[2,3,4,5,6,7,8,9],"type":"choice","envelope":[2,9],"knob_class":"num"},
-           "m":{"value":[50,2000],"type":"randint","envelope":[30,2000],"knob_class":"num"}},
- "locked":false}

@@ -1,22 +1,21 @@
 {
   "components": [
     "custom_binary_op",
-    "perfect_square_divisible"
+    "divisor_sum_filter"
   ],
-  "fed_param": "limit",
+  "fed_param": "n",
   "params": {
-    "div": {
+    "cond": {
       "value": [
-        25,
-        36,
-        49
+        "odd",
+        "even"
       ],
       "type": "choice",
       "envelope": [
-        4,
-        49
+        "odd",
+        "even"
       ],
-      "knob_class": "num"
+      "knob_class": "S"
     }
   },
   "locked": false
