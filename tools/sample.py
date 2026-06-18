@@ -34,6 +34,8 @@ N_ROLLOUTS     = int(_env("N_ROLLOUTS", "8"))
 MAX_NEW_TOKENS = int(_env("MAX_NEW_TOKENS", "2048"))
 TEMP           = float(_env("TEMP", "1.0"))
 SEED           = int(_env("SEED", "42"))
+SHARD_TOTAL    = int(_env("SHARD_TOTAL", "1"))   # split the N-slice across this many boxes (parallel sampling)
+SHARD_IDX      = int(_env("SHARD_IDX", "0"))     # this box's shard (0-based)
 GEN_BATCH      = int(_env("GEN_BATCH", "8"))
 SAVE_EVERY     = int(_env("SAVE_EVERY", "25"))
 SYSTEM_PROMPT  = ("You are a math problem solver. Think step by step and put your "
@@ -47,7 +49,16 @@ with open(DATASET) as f:
     data = json.load(f)
 random.seed(SEED)
 random.shuffle(data)
-data = data[:N_PROBLEMS]
+data = data[:N_PROBLEMS]                          # the full N-problem slice (IDENTICAL across shards: same SEED+pool)
+
+# Sharding: split the N-slice across SHARD_TOTAL boxes so they sample in PARALLEL with NO overlap
+# and NO gaps. Strided (data[idx::total]) => disjoint, balanced, and the union is exactly the full
+# slice — so the campaign can merge the per-shard calibs back into one N-problem set. Relies on every
+# shard seeing the same shuffle (same SEED + same pool file), which the campaign guarantees.
+if SHARD_TOTAL > 1:
+    data = data[SHARD_IDX::SHARD_TOTAL]
+    print(f"shard {SHARD_IDX + 1}/{SHARD_TOTAL}: this box samples {len(data)} of {N_PROBLEMS} problems", flush=True)
+N_PROBLEMS = len(data)                            # this box's actual workload (display + resume math)
 
 # resume: keep any work already on disk, skip those problems.
 # CRITICAL: the OUT path is keyed by job name (data/job_<id>_calib.json), and job names

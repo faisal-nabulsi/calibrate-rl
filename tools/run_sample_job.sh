@@ -155,6 +155,8 @@ print(f"JOB_CONCEPTS={q(','.join(j.get('concepts') or []))}")
 print(f"JOB_CKPT={q(j.get('checkpoint', ''))}")
 print(f"JOB_CMD={q(j.get('cmd', ''))}")
 print(f"JOB_OUTPUT_FILE={q(j.get('output_file', ''))}")
+print(f"JOB_SHARD_IDX={q(j.get('shard_idx', ''))}")
+print(f"JOB_SHARD_TOTAL={q(j.get('shard_total', ''))}")
 PY
 )" || { LOG_URI="(none)"; finish 1 "spec $SPEC_URI is not valid JSON"; }
 eval "$PARSED"
@@ -209,7 +211,9 @@ elif [ "$JOB_TYPE" = "sample" ]; then
   RUN_ENV=(DATASET="$POOL" OUT="$OUT" ${CKPT_ENV:+$CKPT_ENV}
            ${JOB_N:+N_PROBLEMS="$JOB_N"}
            ${JOB_ROLLOUTS:+N_ROLLOUTS="$JOB_ROLLOUTS"}
-           ${JOB_MAX_TOKENS:+MAX_NEW_TOKENS="$JOB_MAX_TOKENS"})
+           ${JOB_MAX_TOKENS:+MAX_NEW_TOKENS="$JOB_MAX_TOKENS"}
+           ${JOB_SHARD_IDX:+SHARD_IDX="$JOB_SHARD_IDX"}
+           ${JOB_SHARD_TOTAL:+SHARD_TOTAL="$JOB_SHARD_TOTAL"})
   RUN_CMD="$PY tools/sample.py"
   SYNC_CMD="aws s3 cp $OUT $OUTPUT_URI"
 elif [ "$JOB_TYPE" = "eval" ]; then
@@ -303,7 +307,12 @@ fi
 # Self-check: a zero-exit run can still produce broken output. Verify before
 # declaring success — a bad file that syncs cleanly poisons downstream work.
 if [ "$JOB_TYPE" = "sample" ]; then
-  CHECK_MSG="$(python3 - "$OUT" "${JOB_N:-0}" <<'PYCHECK'
+  # expected row count: when sharded, this box only samples JOB_N/SHARD_TOTAL of the slice.
+  WANT="${JOB_N:-0}"
+  if [ -n "$JOB_SHARD_TOTAL" ] && [ "${JOB_SHARD_TOTAL:-1}" -gt 1 ] 2>/dev/null; then
+    WANT=$(( ${JOB_N:-0} / JOB_SHARD_TOTAL ))
+  fi
+  CHECK_MSG="$(python3 - "$OUT" "$WANT" <<'PYCHECK'
 import json, sys
 path, want = sys.argv[1], int(sys.argv[2])
 try:
