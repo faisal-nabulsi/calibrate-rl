@@ -86,6 +86,10 @@ def analyze(rows, detector="loose"):
     return out
 
 
+def _f(x):                       # None-safe formatter: a chain with 0 hits or 0 misses has no ratio
+    return f"{x:.3f}" if x is not None else " n/a "
+
+
 def main():
     rows = json.load(open(sys.argv[1]))
     rows = [r for r in rows if r.get("depth") == 1 and "chain" in r]
@@ -97,12 +101,25 @@ def main():
             print(f"  intermediate_hit_rate {s['intermediate_hit_rate']:.3f}   "
                   f"rollout pass {s['rollout_pass_rate']:.3f}   "
                   f"gap {s['intermediate_hit_rate'] - s['rollout_pass_rate']:+.3f}")
-            print(f"  P(pass|hit) {s['p_pass_given_hit']:.3f}   "
-                  f"P(pass|miss) {s['p_pass_given_miss']:.3f}   "
+            print(f"  P(pass|hit) {_f(s['p_pass_given_hit'])}   "
+                  f"P(pass|miss) {_f(s['p_pass_given_miss'])}   "
                   f"hit-but-fail {s['hit_but_fail_frac']:.1%}")
+    # AGGREGATE composition gap across all chains (loose detector) — the headline signal:
+    # high feeder-hit + low composite-pass + P(pass|miss)~0 = "can do the steps, can't chain them".
+    H = M = HP = MP = roll = 0
+    for r in rows:
+        pat = loose_pattern(r["chain"]["intermediate_gold"])
+        for t, rew in zip(rollout_texts(r), r["rollout_rewards"]):
+            hit, p = bool(pat.search(t)), rew == 1.0
+            roll += 1
+            if hit: H += 1; HP += p
+            else:   M += 1; MP += p
     gl = sum(1 for r in rows if r["zone"] == "goldilocks")
     print(f"\nOVERALL: {len(rows)} problems, mean pass "
           f"{sum(r['pass_rate'] for r in rows) / len(rows):.3f}, goldilocks {gl}")
+    print(f"  composition gap (all chains): intermediate_hit_rate {H/max(1,roll):.3f}  "
+          f"P(pass|hit) {HP/max(1,H):.3f}  P(pass|miss) {MP/max(1,M):.3f}  "
+          f"hit-but-fail {(H-HP)/max(1,roll):.1%}")
 
 
 if __name__ == "__main__":
