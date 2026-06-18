@@ -31,7 +31,7 @@ sys.path.insert(0, REPO)
 from automation.calibrator.knob_loader import (  # noqa: E402
     KNOB_DIR, KnobBank, KnobEditError, KnobError, apply_edit)
 
-TARGETS = ["triangular_filter_count", "log_laws", "ordered_triple_constraint",
+TARGETS = ["triangular_filter_count", "log_laws",
            "constrained_subset_count", "inclusion_exclusion_3set",
            "constrained_divisor_count", "complex_modulus_power",
            "modular_exponent", "divisor_sum_filter", "prime_power_divisors",
@@ -39,6 +39,8 @@ TARGETS = ["triangular_filter_count", "log_laws", "ordered_triple_constraint",
            # The other 12 partners were intentionally restructured for answer-diversity
            # (the diversity PR), so they left the wiring-equivalence baseline — they are
            # now guarded by static_checks (top3/dedupe) + check_dataset golds instead.
+           # ordered_triple_constraint JOINED that set in the feeder-surgery pass (added a
+           # structural `parts` k-tuple knob to fix its dedupe-FAIL); now static_checks/golds-guarded.
            "arith_series_sum", "arith_term_filter", "digit_count_bigprod",
            "mean_removal", "point_rotation", "rate_closing", "three_number_system",
            "vieta_sumcubes"]
@@ -47,7 +49,6 @@ TARGETS = ["triangular_filter_count", "log_laws", "ordered_triple_constraint",
 OLD_INLINE = {
     "triangular_filter_count": {"lim": [800, 6000], "k": [2, 3, 5]},
     "log_laws": {"base": [2, 3, 5], "e1": [10, 16], "e2": [10, 16], "e3": [3, 8]},
-    "ordered_triple_constraint": {"N": [10, 20]},
     "constrained_subset_count": {"n": [7, 11], "mod": [3, 4]},
     "inclusion_exclusion_3set": {"U": [200, 900],
                                  "divisor_triples": [[2, 3, 5], [3, 4, 5], [2, 5, 7],

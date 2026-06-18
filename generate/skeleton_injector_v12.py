@@ -108,6 +108,21 @@ def _loglaws_gold(e1, e2, e3):
     return e1 + e2 - e3
 def _triples_gold(N):
     return sum(1 for a in range(N+1) for b in range(a+1, N+1) if (N-a-b) > b)
+_PA_MEMO={}
+def _parts_atmost(M, k):
+    # partitions of M into at most k nonnegative parts
+    if M==0: return 1
+    if k<=0 or M<0: return 0
+    key=(M,k)
+    if key not in _PA_MEMO:
+        _PA_MEMO[key]=_parts_atmost(M-k,k)+_parts_atmost(M,k-1)
+    return _PA_MEMO[key]
+def _ktuple_gold(N, k):
+    # number of integer k-tuples 0<=a_1<a_2<...<a_k with sum N (k=3 == _triples_gold).
+    # Bijection a_i -> a_i-(i-1) maps strict-increasing -> non-decreasing nonneg, shifting
+    # the target by 0+1+...+(k-1)=k(k-1)/2; count = partitions of that into at most k parts.
+    M = N - k*(k-1)//2
+    return _parts_atmost(M, k) if M >= 0 else 0
 def _cdc_count(N, cond, t):
     """constrained_divisor_count oracle: # divisors of N that are odd / >t / <t.
     Same logic as c_divfilter; shared so composites with cdc as the target compose
@@ -285,19 +300,25 @@ def c_subsets():
 
 @concept("ordered_triple_constraint",[21,47])
 def c_triples():
-    N=K["ordered_triple_constraint"].randint("N")  # v12: narrowed to [10,20] from [12,25] (v11 0.13 mean, 54% too-hard); range now in knobs/
-    cnt=_triples_gold(N)
+    # feeder-surgery (structural cardinality, NOT number size — §4): a `parts` knob k∈{3,4}
+    # generalizes the count to integer k-tuples 0≤a_1<...<a_k summing to N. k=3 == the old
+    # _triples_gold; k=4 is a parallel count-family at the SAME N range, ~doubling distinct
+    # answers + feeder sub-question texts -> fixes the dedupe-FAIL (0.830) that blocked the
+    # campaign from easing chain_ordered_triple_constraint__constrained_digit_count.
+    kn=K["ordered_triple_constraint"]
+    N=kn.randint("N")  # number range stays [10,20] (narrowed in v12; num-class, frozen)
+    k=kn.choice("parts") if "parts" in kn.params else 3
+    cnt=_ktuple_gold(N,k)
     if cnt<5: return None
-    # v12 representation fix: every phrasing now states 0<=a<b<c EXPLICITLY. The v11
-    # natural-language variants ("nonnegative integers" without the 0<= bound) made the
-    # model drop the a=0 case -> a consistent count-1 error -> pr~0 ghost. Gold unchanged
-    # (rc counts 0<=a<b<c, check_dataset agrees).
+    # every phrasing states 0≤a_1<...<a_k EXPLICITLY (the v12 a=0 representation fix).
+    vs="abcde"[:k]; vlist=",".join(vs); chain="<".join(vs); summ="+".join(vs)
+    noun={3:"triples",4:"quadruples",5:"quintuples"}[k]
     return (random.choice([
-        f"How many triples of integers (a,b,c) with 0≤a<b<c satisfy a+b+c={N}?",
-        f"How many triples (a,b,c) of integers with 0≤a<b<c have a+b+c={N}?",
-        f"In how many ways can {N} be written as a+b+c with 0≤a<b<c (integers)?",
-        f"How many ordered triples (a,b,c) of integers, 0≤a<b<c, sum to {N}?",
-        f"Count the integer triples (a,b,c) with 0≤a<b<c and a+b+c={N}.",
+        f"How many {noun} of integers ({vlist}) with 0≤{chain} satisfy {summ}={N}?",
+        f"How many {noun} ({vlist}) of integers with 0≤{chain} have {summ}={N}?",
+        f"In how many ways can {N} be written as {summ} with 0≤{chain} (integers)?",
+        f"How many ordered {noun} ({vlist}) of integers, 0≤{chain}, sum to {N}?",
+        f"Count the integer {noun} ({vlist}) with 0≤{chain} and {summ}={N}.",
     ]), cnt, "ordered_triple_constraint")
 
 

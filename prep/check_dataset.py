@@ -152,12 +152,16 @@ def rc_lattice_points_circle(p):
     return sum(1 for x in range(-R, R + 1) for y in range(-R, R + 1) if x * x + y * y <= bound)
 
 def rc_ordered_triple_constraint(p):
-    m = (re.search(r"a\+b\+c\s*=\s*(\d+)", p) or re.search(r"sum to (\d+)", p)
-         or re.search(r"can (\d+) be written as a\+b\+c", p)
-         or re.search(r"(\d+) be written as a\+b\+c", p))
+    # feeder-surgery: count of integer k-tuples 0<=a_1<...<a_k summing to S. k is read from
+    # the explicit "0<=a<b<c[<d]" inequality (# of '<' + 1); k=3 reproduces the old triples.
+    cm = re.search(r"\b([a-z](?:<[a-z])+)\b", p)
+    k = cm.group(1).count("<") + 1 if cm else 3
+    m = (re.search(r"[a-z](?:\+[a-z])+\s*=\s*(\d+)", p) or re.search(r"sum to (\d+)", p)
+         or re.search(r"can (\d+) be written", p)
+         or re.search(r"(\d+) be written as", p))
     if not m: return None
     S = int(m.group(1))
-    return sum(1 for a, b, c in combinations(range(0, S + 1), 3) if a + b + c == S)
+    return sum(1 for t in combinations(range(0, S + 1), k) if sum(t) == S)
 
 def rc_alternating_cubes(p):
     n = ints(p)
