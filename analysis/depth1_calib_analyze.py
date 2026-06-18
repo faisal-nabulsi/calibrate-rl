@@ -24,6 +24,10 @@ import json, sys, argparse, collections, statistics
 GOLD_LO, GOLD_HI = 0.45, 0.55     # strict goldilocks band (GRPO advantage target)
 BAND_LO, BAND_HI = 0.25, 0.75     # wider usable band
 TOP3_MAX = 0.30                   # answer-diversity gate (share of 3 commonest answers)
+MIN_DIV_N = 30                    # min rows/chain to TRUST a sample top3. Below this the share is
+                                  # upward-biased noise (n<=3 reads ~1.0 trivially); diversity is then
+                                  # left to the static BUILD GATE (recomputes top3 at build-n ~40 and
+                                  # reverts >0.30). The iter1-5 plateau was the editor chasing this noise.
 
 
 def chain_name(r):
@@ -49,14 +53,16 @@ def analyze(rows):
         too_easy = sum(1 for p in ps if p == 1.0) / n
         mean = statistics.mean(ps)
         # advisory verdict: difficulty first, then diversity
+        # DIFFICULTY (from the sample pass rate) is the editor's lever; DIVERSITY (top3) is owned by
+        # the static build gate. Only raise a diversity verdict when the sample is big enough to trust it.
         if mean < 0.20 or too_hard > 0.60:
-            verdict, direction = "TOO_HARD", "ease (fewer steps/constraints)"
+            verdict, direction = "TOO_HARD", "ease (fewer steps/constraints); don't over-ease past 0.75"
         elif mean > 0.80 or too_easy > 0.60:
             verdict, direction = "TOO_EASY", "harden (more steps/constraints)"
-        elif top3 > TOP3_MAX:
-            verdict, direction = "LOW_DIVERSITY", "diversify answers (widen non-fed inputs)"
+        elif n >= MIN_DIV_N and top3 > TOP3_MAX:
+            verdict, direction = "LOW_DIVERSITY", "diversify (build-confirmed); if feeder-capped, FLAG for human feeder-pass"
         else:
-            verdict, direction = "IN_BAND", "leave"
+            verdict, direction = "IN_BAND", "leave (difficulty-usable; diversity owned by build gate)"
         out[name] = dict(n=n, mean_pass=round(mean, 3), gold_frac=round(gold_frac, 3),
                          band_frac=round(band_frac, 3), too_hard=round(too_hard, 3),
                          too_easy=round(too_easy, 3), top3=round(top3, 3),

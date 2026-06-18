@@ -232,7 +232,17 @@ Edit the generators to move the FLAGGED chains toward goldilocks. Rules (HARD):
 - Edit ONLY the chain layer: the `_register_diverse_chain` factory, `_ADAPT` adapters, `_DIVERSE_CHAINS` map, and chain framings in {injector}; and automation/calibrator/knobs/chain_*.json. If you change a chain's structure, update its recomputer in prep/check_dataset.py to match.
 - NEVER edit depth-0 atomic generators or knobs/<atomic>.json. (An atom-equivalence test will revert any such change.)
 - Difficulty moves via STEP/CONSTRAINT COUNT, never number size (§4).
-- TOO_HARD -> fewer steps/constraints. TOO_EASY -> more. LOW_DIVERSITY -> widen the non-fed inputs so answers spread.
+- Your PRIMARY lever is DIFFICULTY. TOO_HARD -> fewer steps/constraints; TOO_EASY -> more. Aim for the
+  usable band (mean pass 0.25-0.75, ideally ~0.5). Do NOT over-ease a TOO_HARD chain past 0.75 into too-easy
+  (iters 1-5 over-eased several chains, e.g. vieta_sumcubes/percent_compound, into the 0.9s).
+- DIVERSITY (answer top3) is OWNED BY THE STATIC BUILD GATE, which recomputes top3 at build-n (~40/chain)
+  and reverts any edit that pushes a chain >0.30. Do NOT chase the per-iteration SAMPLE top3 — at ~5-10
+  rows/chain it is small-sample noise (a sample top3 of 0.45 is almost always already <0.30 at build n).
+  Only act on a LOW_DIVERSITY verdict — the readout raises it ONLY when the sample is large enough to trust.
+- If a LOW_DIVERSITY chain's cap is the FEEDER (it emits few distinct intermediate V, so no target-side
+  widening can spread the answers), you CANNOT fix it from the chain layer — write it in your rationale under
+  a "FEEDER-CAPPED (needs human feeder-pass)" heading and LEAVE IT; do not thrash the target side (that only
+  breaks dedupe -> revert, which is what burned iters 1-5).
 A static gate (gold recompute + dedupe/top3 + atom-equivalence + smoke) runs after you finish and REVERTS any edit that breaks it, so make valid, gate-passing edits.
 
 When done, write a concise rationale (which chains, what you changed, why) to: {rationale_path}
