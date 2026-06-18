@@ -355,7 +355,7 @@ def main():
         rep_md = f"results/depth1_calib_iter{it}.md"
         rat    = f"/tmp/rationale_iter{it}.md"
         if not DRY_RUN:
-            sh(f"python3 analysis/depth1_calib_analyze.py {calib_local} --md {rep_md} --json /tmp/rep{it}.json")
+            sh(f"python3 analysis/depth1_calib_analyze.py {calib_local} --pool {pool_local} --md {rep_md} --json /tmp/rep{it}.json")
             report_text = open(rep_md).read()
         else:
             report_text = "(dry-run: no calib data)"
