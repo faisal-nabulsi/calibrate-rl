@@ -49,13 +49,24 @@ random.seed(SEED)
 random.shuffle(data)
 data = data[:N_PROBLEMS]
 
-# resume: keep any work already on disk, skip those problems
+# resume: keep any work already on disk, skip those problems.
+# CRITICAL: the OUT path is keyed by job name (data/job_<id>_calib.json), and job names
+# repeat across campaign runs with DIFFERENT pools — so a leftover OUT from a prior run
+# would otherwise mix stale rows (different chains/golds) into this run's calib, poisoning
+# the analyzer. Prune the resume set to problems that are actually IN the current slice:
+# stale cross-pool rows are dropped; genuine interrupted-run progress (same pool) is kept.
 results, done = [], set()
+_pool_problems = {it["problem"] for it in data}
 if os.path.exists(OUT):
     try:
-        results = json.load(open(OUT))
+        loaded = json.load(open(OUT))
+        results = [r for r in loaded if r.get("problem") in _pool_problems]
+        dropped = len(loaded) - len(results)
         done = {r["problem"] for r in results}
-        print(f"resuming — {len(done)} problems already done", flush=True)
+        msg = f"resuming — {len(done)} problems already done"
+        if dropped:
+            msg += f" (dropped {dropped} STALE rows not in the current pool — leftover OUT from a prior run)"
+        print(msg, flush=True)
     except Exception:
         results, done = [], set()
 
