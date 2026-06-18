@@ -468,6 +468,24 @@ liveness. **Operator kill-switch: `tools/kill_run.sh`** sets an S3 halt flag so 
       partial reward would need. PARTIAL-REWARD design (if we go there): NOT global (rewarding an earlier stage
       cuts pressure on the failing last stage) — gate a staged feeder→carry reward to ALL-FAIL ghost-batch groups
       only (feeder-capped too-hard chains calibration can't ease), where binary gives zero gradient. See §8.
+- [ ] **[when training depth-1 — PARTIAL REWARDS (look into, don't build yet)]** Binary is well-aimed (the
+      depth-0 transcripts PROVED RL patches execution slips: base one-shots `170+102+73−34−24−14+4=283`, trained
+      shows it step-by-step → 277; same for incomplete-enumeration + hallucinated-case). So default = clean binary
+      first. IF binary stalls, the strongest *next* lever (better than an LLM judge — our intermediate gold makes
+      it unhackable) = a **2-component EXACT reward: final-answer (dominant) + small feeder/carry bonus**, but
+      **gated to ALL-FAIL ghost-batch groups only** (where binary gives zero gradient) — global partial reward is
+      counterproductive (transcript audit: ~50% of failures are *target-step execution*, so paying for the feeder
+      the model already computes cuts pressure on the stage that's actually failing). Crux = a robust feeder/carry
+      detector (text-containment is gameable + false-positives) — build it via the failure-mode classifier first,
+      THEN decide. Keep final dominant so the model optimizes the whole chain, not the feeder.
+- [ ] **[when training depth-1 — REEVALUATE the goldilocks band / selection]** 2-6/8 (centered 0.5) maximizes
+      gradient *magnitude*, but magnitude ≠ best learning. Do NOT go 0-4/8 (0/8 = zero-gradient dead weight; 1/8 =
+      noisy 1-positive signal + near the capability ceiling; and for chains "harder" usually means a harder FROZEN
+      feeder → trains feeder-difficulty you can't keep, not chaining). The real lever isn't a harder band, it's
+      **failure-mode-WEIGHTED selection** (via the classifier): within the in-band set, up-weight chains whose
+      failures are *chaining* failures, not feeder-hard / pure-slip — targets the skill directly, not the pass-rate
+      proxy. Once the depth-1 baseline lands, ABLATE: 2-6/8 vs 2-5/8 (drop the fast-ghosting 6/8) vs failure-weighted,
+      on held-out gap-closing. Keep 2-6/8 as the proven default (gave depth-0's +0.13 + the slip-patching). See §8.
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
