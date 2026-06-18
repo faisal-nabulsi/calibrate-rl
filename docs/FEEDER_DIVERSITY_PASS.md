@@ -52,11 +52,41 @@ recomputer, drop from equivalence TARGETS, validate (golds exact + chain dedupe 
   low-cardinality standalone; this change improved it). Irrelevant: depth-0 is done/capped and
   never regenerated; the campaign gates only the chains.
 
-## Next (same template)
+### `alternating_cubes` ✅ (batch 2)
+- **Lever:** a `start` index — a PARTIAL alternating-cube sum from k=start∈{1,2,3} (start=1 ==
+  the old full sum). Same `top` range, parallel value-families.
+- **Result:** distinct-V 17→53; chain `chain_alternating_cubes__multi_constraint_square` dedupe
+  **0.955 PASS**, golds 191/191 exact, top3 0.246. (Recomputer gotcha fixed: the displayed
+  "2³-1³" signs the odd bases through `ints()` → take `abs()`.)
 
-- `alternating_cubes→multi_constraint_square` and `frobenius_stamps→telescoping_mn` — the other
-  two dedupe-blocked chains. Their cardinality is less extreme (distV 17 / 22) and the chain
-  issue is easing-collapse, so assess whether a structural feeder knob or a target-side
-  diversity lever is the cleaner fix before editing.
-- Feeder-difficulty set: **do not** cardinality-surgery; re-measure against the depth-1-trained
-  model once the first depth-1 run lands.
+### `frobenius_stamps` ✅ (batch 2)
+- **Lever:** a `variant` ∈ {count, max} — the Sylvester **count** `(a-1)(b-1)/2` vs the Frobenius
+  **number** `ab-a-b`. Two disjoint value-families at the same pair range.
+- **Result:** distinct-V 22→45; chain `chain_frobenius_stamps__telescoping_mn` dedupe **0.950
+  PASS**, golds 190/190 exact, top3 0.068. (Recomputer: match `largest|greatest|biggest` case-
+  insensitively to pick the `max` formula.)
+
+→ **All 3 dedupe-blocked chains fixed.**
+
+## The ~6 feeder-difficulty chains — investigated, deliberately NOT surgered
+
+`box_diagonal_sq→perfsq`, `prime_power_divisors→perfsq`, `lattice_points_circle→ie3`,
+`vieta_pair_count→algebraic`, `polynomial_sign_intervals→algebraic`,
+`constrained_subset_count→complement`.
+
+These are too-hard because the model can't *execute* the feeder sub-problem (deep search /
+factorization / enumeration), not because of cardinality. Two findings made "leave them" the
+right call, not a punt:
+
+1. **They're borderline, not deeply hard.** iter-3 means: box_diagonal 0.25, prime_power 0.25,
+   polynomial_sign 0.275 (already in the loose band [0.25,0.75]); lattice 0.208, vieta 0.225,
+   constrained_subset 0.229 (just below). The campaign's overall mean is still climbing
+   (0.308→0.374 over iters 1–3, iters 4–5 pending), so the borderline ones likely tip in on their own.
+2. **The only feeder lever would damage the concept.** Making these feeders fewer-steps (the
+   only structural easing left — number size is §4-forbidden, cardinality is irrelevant to their
+   hardness) would trivialize the exact compositional skill depth-1 exists to teach. That's the
+   wrong trade.
+
+**Disposition:** let the campaign finish (iters 4–5) and re-measure against the **depth-1-trained**
+model — the recursive-gap point (`all_experiments_retrospective.md`): training on the ~38
+calibratable chains lifts feeder execution, which is what these need. No generator surgery.
