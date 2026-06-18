@@ -77,9 +77,14 @@ mkdir -p logs data
 # making a healthy job look like it was on the old N/progress (the [17/500] vs [2/250] scare).
 : > "$LOG"
 # Operator-halt flag: when set in S3, a non-zero exit is an INTENTIONAL kill (someone ran
-# tools/kill_run.sh), so finish() posts a calm note instead of a FAILED + DIAGNOSE page. The
-# next campaign launch clears it, so it never suppresses a REAL failure on the following run.
+# tools/kill_run.sh), so finish() posts a calm note instead of a FAILED + DIAGNOSE page.
 CONTROL_HALT="s3://calibrate-rl-agent/control/halt"
+# CLEAR it at the START of every job: the flag is meant to suppress the page for the jobs the
+# operator just killed (which already started before the kill). A brand-new job starting means
+# the kill is consumed — so reset the state now, else a stale flag from a kill-without-relaunch
+# would mask a REAL failure of this fresh job (the gap all 3 reviewers flagged). kill_run.sh sets
+# the flag AFTER this point, so the killed job's own finish() still reads it.
+aws s3 rm "$CONTROL_HALT" >/dev/null 2>&1 || true
 
 # Recipients rendered as <@id> mentions (mentions trigger mobile push; channel
 # posts don't). Two tiers:
