@@ -1,23 +1,135 @@
 {
   "id": "C1",
+  "stage": "C",
+  "name": "Directional Redline (Indemnification, Vendor)",
   "max_points": 16,
   "gates": [
     "faithfulness",
     "directionality"
   ],
-  "rubric_version": "v7.0",
-  "provenance": "REAL-QUOTED clause + constructed key (ACORD)",
+  "rubric_version": "v8.0",
+  "source_type": "real quoted clause (ACORD)",
+  "source_contract": "Commerce One / Corio \u00a78.1 (via ACORD), real names retained",
+  "provenance": "REAL quoted clause, no planted gap. AUTHORED edit key (provisional).",
   "gold_unit_ids": [
-    "C1.edit.combination_carveout",
-    "C1.edit.exclusive_remedy",
-    "C1.edit.indemnity_cap",
     "C1.edit.modifications_carveout",
-    "C1.edit.narrow_causation",
+    "C1.edit.combination_carveout",
     "C1.edit.specifications_carveout",
+    "C1.edit.indemnity_cap",
+    "C1.edit.narrow_causation",
+    "C1.edit.exclusive_remedy",
     "C1.extra.beneficiary_narrowing",
     "C1.extra.finally_awarded",
     "C1.extra.sole_remedy_preclusion"
   ],
-  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
-  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 C1 (Directional Redline (Indemnification, Vendor)) \u00b7 Max /16 \u00b7 Gates: Faithfulness + Directionality\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: Real quoted clause (Commerce One / Corio Section 8.1, via ACORD); no planted gap, so real party names are retained -- nothing a model can recall conflicts with the gold. The edit key is AUTHORED. Grade edits against the clause as printed; in-block source attributions were removed from the model-facing text.\nFAITHFULNESS /3 (GATE): TRIPS IF a specific cap figure is fabricated that the text cannot support, or third-party claims absent from the original are invented.\nDIRECTIONALITY /4 (GATE): Near pass/fail. EVERY edit must favor Vendor (Commerce One). TRIPS on ANY edit that favors Corio, any symmetric edit, or refusal to engage with one-sided advocacy.\nCOVERAGE /4: Six core edits, all expected: (1) carve-out for Corio's modifications; (2) carve-out for combination with non-Vendor products; (3) carve-out for infringement required by Corio's design specifications [most-missed]; (4) cap the indemnification obligation or subordinate 8.1 to the liability cap (no dollar amount required); (5) narrow causation ('arising out of any claim' -> third-party claim that the Software as delivered and properly used directly infringes); (6) procure / modify / refund as sole-and-exclusive remedy [most-missed]. Partial credit for 4-5 of 6. OPEN SET: market-standard extras earn credit (dropping 'and its Customers'; recovery limited to amounts finally awarded or settlements approved in writing; sole-exclusive-remedy language) but extras cannot push Coverage past /4 and are never penalized as noise.\nUNIT IDs (v7): C1.edit.modifications_carveout; C1.edit.combination_carveout; C1.edit.specifications_carveout; C1.edit.indemnity_cap; C1.edit.narrow_causation; C1.edit.exclusive_remedy. Extras: C1.extra.beneficiary_narrowing; C1.extra.finally_awarded; C1.extra.sole_remedy_preclusion.\nSOUNDNESS /3: Edits legally correct and enforceable. Geographic limits applied ONLY to patents/trademarks, never copyright (global under Berne) -- the Berne error is a Soundness dock. Carve-outs drafted loosely enough not to limit liability = dock.\nACTIONABILITY /2: Clean consolidated redline (original struck, replacement shown, purpose noted) PLUS a flag of which asks are market-standard vs. aggressive.\nPROCEDURE: Score every dimension -> raw total -> normalize to /16 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+  "dimensions": {
+    "faithfulness": {
+      "max": 3,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "No fabricated cap figure the text cannot support; no invented third-party claims",
+          "weight": "critical"
+        }
+      ]
+    },
+    "directionality": {
+      "max": 4,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "EVERY edit favors Vendor (Commerce One) \u2014 near pass/fail",
+          "weight": "critical"
+        }
+      ]
+    },
+    "coverage": {
+      "max": 4,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": "C1.edit.modifications_carveout",
+          "criterion": "Carve-out for Corio's modifications",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "C1.edit.combination_carveout",
+          "criterion": "Carve-out for combination with non-Vendor products",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "C1.edit.specifications_carveout",
+          "criterion": "Carve-out for infringement required by Corio's design specs (most-missed)",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "C1.edit.indemnity_cap",
+          "criterion": "Cap the indemnity / subordinate \u00a78.1 to the liability cap",
+          "weight": "major"
+        },
+        {
+          "unit_id": "C1.edit.narrow_causation",
+          "criterion": "Narrow causation to a third-party claim that the Software as delivered & properly used directly infringes",
+          "weight": "minor"
+        },
+        {
+          "unit_id": "C1.edit.exclusive_remedy",
+          "criterion": "Procure / modify / refund as sole-and-exclusive remedy (most-missed)",
+          "weight": "minor"
+        }
+      ]
+    },
+    "soundness": {
+      "max": 3,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Edits legally correct and enforceable; geographic limits applied ONLY to patents/trademarks, never copyright (Berne) \u2014 the Berne error is a dock",
+          "weight": "critical"
+        },
+        {
+          "unit_id": null,
+          "criterion": "Carve-outs drafted tightly enough to actually limit liability",
+          "weight": "major"
+        }
+      ]
+    },
+    "actionability": {
+      "max": 2,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Clean consolidated redline (original struck, replacement shown, purpose noted) + market-standard vs aggressive flag",
+          "weight": "critical"
+        }
+      ]
+    }
+  },
+  "gate_conditions": {
+    "faithfulness": {
+      "trips_on": [
+        "Fabricating a specific cap figure the text cannot support",
+        "Inventing third-party claims absent from the original"
+      ],
+      "does_not_trip_on": [
+        "A true statement about indemnity law not misattributed to the clause"
+      ]
+    },
+    "directionality": {
+      "trips_on": [
+        "ANY edit that favors Corio",
+        "Any symmetric/mutual edit",
+        "Refusing to engage with one-sided advocacy"
+      ],
+      "does_not_trip_on": [
+        "A market-standard pro-Vendor extra (e.g. dropping 'and its Customers'; 'finally awarded' language)"
+      ]
+    }
+  },
+  "source": "LegalEval_Complete_v8_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 C1 (Directional Redline (Indemnification, Vendor)) \u00b7 Max /16 \u00b7 Gates: Faithfulness + Directionality\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Never show this block to the model.\nSOURCE OF TRUTH: Real quoted \u00a78.1; grade edits against the clause as printed. The edit key is authored.\nSEAT: You represent Vendor (Commerce One); EVERY edit must favor Vendor.\nSCORING (v8 \u2014 weighted ratio): each dimension score = \u03a3(weight\u00d7verdict)/\u03a3(weight), weights critical=3/major=2/minor=1, verdict met=1/partial=0.5/not_met=0/n-a=excluded. Assign a verdict to EACH listed criterion; never assign the dimension number yourself.\nFAITHFULNESS /3 (GATE): criteria \u2014 [critical] No fabricated cap figure the text cannot support; no invented third-party claims. TRIPS ONLY ON: Fabricating a specific cap figure the text cannot support; Inventing third-party claims absent from the original. DOES NOT TRIP ON: A true statement about indemnity law not misattributed to the clause.\nDIRECTIONALITY /4 (GATE): criteria \u2014 [critical] EVERY edit favors Vendor (Commerce One) \u2014 near pass/fail. TRIPS ONLY ON: ANY edit that favors Corio; Any symmetric/mutual edit; Refusing to engage with one-sided advocacy. DOES NOT TRIP ON: A market-standard pro-Vendor extra (e.g. dropping 'and its Customers'; 'finally awarded' language).\nCOVERAGE /4: criteria \u2014 [critical, C1.edit.modifications_carveout] Carve-out for Corio's modifications; [critical, C1.edit.combination_carveout] Carve-out for combination with non-Vendor products; [critical, C1.edit.specifications_carveout] Carve-out for infringement required by Corio's design specs (most-missed); [major, C1.edit.indemnity_cap] Cap the indemnity / subordinate \u00a78.1 to the liability cap; [minor, C1.edit.narrow_causation] Narrow causation to a third-party claim that the Software as delivered & properly used directly infringes; [minor, C1.edit.exclusive_remedy] Procure / modify / refund as sole-and-exclusive remedy (most-missed).\nSOUNDNESS /3: criteria \u2014 [critical] Edits legally correct and enforceable; geographic limits applied ONLY to patents/trademarks, never copyright (Berne) \u2014 the Berne error is a dock; [major] Carve-outs drafted tightly enough to actually limit liability.\nACTIONABILITY /2: criteria \u2014 [critical] Clean consolidated redline (original struck, replacement shown, purpose noted) + market-standard vs aggressive flag.\nDISCRETION VALVE (v8): if a response is not addressed by the enumerated gate conditions, return verdict not_covered on that gate (routes to human-confirm) + a proposed_condition stating the rule that would resolve it \u2014 do NOT guess trip/pass.\nPROCEDURE: assign a verdict to every criterion \u2192 weighted ratio per dimension \u2192 raw = \u03a3 max(dim)\u00d7ratio \u2192 normalize to /16 \u2192 if ANY gate tripped, cap the normalized score at 0.40 and flag it."
 }

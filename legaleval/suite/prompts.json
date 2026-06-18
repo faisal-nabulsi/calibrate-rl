@@ -1,6 +1,6 @@
 {
-  "suite": "LegalEval v7",
-  "rubric_version": "v7.0",
+  "suite": "LegalEval v8",
+  "rubric_version": "v8.0",
   "total_points": 189,
   "stage_totals": {
     "A": 44,
@@ -9,7 +9,7 @@
     "D": 36,
     "E": 32
   },
-  "notes": "Source of truth for the harness. All 14 prompts + grader rubrics extracted directly from LegalEval_Complete_v7_clean.docx (Part II). A1/A2/C2 paste blocks are the v7 OPEN (existence-neutral) variants; DIRECTED (v6) phrasing preserved in each prompt's 'variants'. B3 carries an instructed/uninstructed A/B. Gold-unit IDs (task.unit-type.slug) under 'gold_unit_ids'. Dimensions, gates, gold keys, and stage weights unchanged from v6 per the v7 change log.",
+  "notes": "LegalEval v8. v8 grades via weighted-ratio dimensions + enumerable gate_conditions (structured fields live in each suite/rubrics/<ID>.json; rubric_markdown applies them as text until the deferred harness-code phase). Active suite = the 14 v7 prompts re-graded under v8 (total_points 189); design_prompts ['A4', 'B4', 'C4', 'E3'] are authored gold designs whose instances are to be sourced (status 'design-v8', no prompt_text -> skipped by runs). New gold is provisional, pending attorney review.",
   "prompts": [
     {
       "id": "A1",
@@ -40,7 +40,7 @@
         "A1.favorable.standstill",
         "A1.refine.compelled_disclosure"
       ],
-      "rubric_version": "v7.0",
+      "rubric_version": "v8.0",
       "variants": {
         "type": "open_directed",
         "headline": "open",
@@ -70,7 +70,7 @@
         "A2.issue.payment_suspension",
         "A2.issue.termination_notice"
       ],
-      "rubric_version": "v7.0",
+      "rubric_version": "v8.0",
       "variants": {
         "type": "open_directed",
         "headline": "open",
@@ -100,7 +100,7 @@
         "A3.diff.renewal_nuance",
         "A3.diff.survival"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "B1",
@@ -121,7 +121,7 @@
         "B1.term.control_nested",
         "B1.term.losses"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "B2",
@@ -142,7 +142,7 @@
         "B2.obligation.3_01_g_inspection_limit",
         "B2.obligation.4_02_delay_carveout"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "B3",
@@ -167,7 +167,7 @@
         "B3.element.termination_risk",
         "B3.trap.cap_amount_unknowable"
       ],
-      "rubric_version": "v7.0",
+      "rubric_version": "v8.0",
       "variants": {
         "type": "instruction_ab",
         "headline": "instructed",
@@ -201,7 +201,7 @@
         "C1.extra.finally_awarded",
         "C1.extra.sole_remedy_preclusion"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "C2",
@@ -222,7 +222,7 @@
         "C2.issue.early_term_cap",
         "C2.issue.uncapped_indemnity"
       ],
-      "rubric_version": "v7.0",
+      "rubric_version": "v8.0",
       "variants": {
         "type": "open_directed",
         "headline": "open",
@@ -251,7 +251,7 @@
         "C3.term.employees",
         "C3.term.work_product"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "D1",
@@ -281,7 +281,7 @@
         "D1.provision.survival_3y",
         "D1.provision.term_2y"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "D2",
@@ -306,7 +306,7 @@
         "D2.element.uptime_calc",
         "D2.math.uptime_97_5"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "D3",
@@ -331,7 +331,7 @@
         "D3.element.original_msa_named",
         "D3.gate.scope_creep"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "E1",
@@ -358,7 +358,7 @@
         "E1.call.change7_force_majeure",
         "E1.call.change8_inspection"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
     },
     {
       "id": "E2",
@@ -367,7 +367,7 @@
       "max_points": 16,
       "gates": [
         "faithfulness",
-        "directionality"
+        "neutrality"
       ],
       "source_type": "constructed scenario on real MSA (directionality = neutrality)",
       "source_contract": "kelmont-spireline-msa",
@@ -384,7 +384,86 @@
         "E2.conflict.termination",
         "E2.verdict.overall"
       ],
-      "rubric_version": "v7.0"
+      "rubric_version": "v8.0"
+    },
+    {
+      "id": "A4",
+      "stage": "A",
+      "name": "Clean-Instance Control (NDA)",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "clean sibling instance (well-drafted NDA)",
+      "source_contract": "Clean NDA with all standard protections present \u2014 TO BE SOURCED",
+      "rubric_file": "rubrics/A4.json",
+      "prompt_text": "",
+      "status": "design-v8 (instance to be sourced)",
+      "gold_unit_ids": [
+        "A4.clean.no_material_issue",
+        "A4.clean.protections_present"
+      ],
+      "rubric_version": "v8.0"
+    },
+    {
+      "id": "B4",
+      "stage": "B",
+      "name": "Authority-Bounded Q&A (world-vs-instance trap)",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "modified statute/case excerpt",
+      "source_contract": "Statute/case excerpt, modified so the real-world rule differs \u2014 TO BE SOURCED + PERTURBED",
+      "rubric_file": "rubrics/B4.json",
+      "prompt_text": "",
+      "status": "design-v8 (instance to be sourced)",
+      "gold_unit_ids": [
+        "B4.authority.controlling_provision",
+        "B4.trap.no_world_override"
+      ],
+      "rubric_version": "v8.0"
+    },
+    {
+      "id": "C4",
+      "stage": "C",
+      "name": "Cross-Document Consistency (MSA + SOW)",
+      "max_points": 12,
+      "gates": [
+        "faithfulness"
+      ],
+      "source_type": "two related documents (MSA + SOW)",
+      "source_contract": "MSA + SOW pair with planted cross-document conflicts \u2014 TO BE SOURCED + PERTURBED",
+      "rubric_file": "rubrics/C4.json",
+      "prompt_text": "",
+      "status": "design-v8 (instance to be sourced)",
+      "gold_unit_ids": [
+        "C4.conflict.payment_terms",
+        "C4.conflict.ip_ownership",
+        "C4.conflict.termination"
+      ],
+      "rubric_version": "v8.0"
+    },
+    {
+      "id": "E3",
+      "stage": "E",
+      "name": "Multi-Turn Frame-Holding Negotiation",
+      "max_points": 16,
+      "gates": [
+        "faithfulness",
+        "directionality"
+      ],
+      "source_type": "constructed multi-turn negotiation",
+      "source_contract": "Constructed negotiation exchange (counterparty counters across turns) \u2014 authored",
+      "rubric_file": "rubrics/E3.json",
+      "prompt_text": "",
+      "status": "design-v8 (instance to be sourced)",
+      "gold_unit_ids": [
+        "E3.hold.must_have_1",
+        "E3.hold.must_have_2",
+        "E3.turn.coverage"
+      ],
+      "rubric_version": "v8.0"
     }
   ],
   "stage_weights": {
@@ -393,5 +472,12 @@
     "C": 0.25,
     "D": 0.2,
     "E": 0.15
-  }
+  },
+  "design_prompts": [
+    "A4",
+    "B4",
+    "C4",
+    "E3"
+  ],
+  "design_points": 52
 }

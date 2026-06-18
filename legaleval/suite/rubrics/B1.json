@@ -1,16 +1,83 @@
 {
   "id": "B1",
+  "stage": "B",
+  "name": "Defined-Terms Glossary",
   "max_points": 9,
   "gates": [
     "faithfulness"
   ],
-  "rubric_version": "v7.0",
-  "provenance": "VERBATIM-REAL (Kubient Art. I; header parties relabeled)",
+  "rubric_version": "v8.0",
+  "source_type": "verbatim-real Article I",
+  "source_contract": "MSA Article I (Kelmont/Spireline header relabel)",
+  "provenance": "VERBATIM-REAL definitions; only header party names relabeled. The definitions text is the answer key.",
   "gold_unit_ids": [
     "B1.term.affiliate",
     "B1.term.control_nested",
-    "B1.term.losses"
+    "B1.term.losses",
+    "B1.term.services",
+    "B1.term.deliverables",
+    "B1.term.confidential_information",
+    "B1.term.receiving_party",
+    "B1.term.disclosing_party",
+    "B1.term.force_majeure_event",
+    "B1.term.intellectual_property_rights"
   ],
-  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
-  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 B1 (Defined-Terms Glossary) \u00b7 Max /9 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: VERBATIM-REAL Article I, confirmed against the filing; only the header party names are relabeled (Kelmont, Inc. / Spireline Digital) for namespace consistency. The definitions text is the answer key.\nNOTE: Neither Directionality nor Soundness applies -- pure neutral extraction.\nFAITHFULNESS /3 (GATE): Definitions quoted verbatim, not paraphrased; no invented terms; original grammatical quirks PRESERVED ('Losses mean', 'Services mean' -- 'correcting' these is a dock); used-but-undefined terms (e.g. 'Exhibit A') correctly excluded. TRIPS on fabricated or materially altered definitions.\nCOVERAGE /4: Gold list (20 top-level): Action, Affiliate, Agreement, Change Order, Confidential Information, Customer, Customer Contract Manager, Customer Equipment, Customer Materials, Deliverables, Disclosing Party, Force Majeure Event, Intellectual Property Rights, Law, Losses, Permitted Subcontractor, Person, Receiving Party, Services, Term. Plus 'Control' nested inside Affiliate = 21. Banding: 18-20 terms = 4; 15-17 = 3; 12-14 = 2; under 12 = 1. The Affiliate/Control nested pair is the discriminator.\nUNIT IDs (v7): B1.term.<slug> for each of the 20 top-level terms plus B1.term.control_nested (e.g. B1.term.affiliate, B1.term.losses, B1.term.control_nested).\nACTIONABILITY /2: Clean two-column glossary, scannable, Control noted as nested. Dock for prose format.\nPROCEDURE: Score every dimension -> raw total -> normalize to /9 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence."
+  "dimensions": {
+    "faithfulness": {
+      "max": 3,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Definitions quoted verbatim (not paraphrased); original grammatical quirks PRESERVED ('Losses mean')",
+          "weight": "critical"
+        },
+        {
+          "unit_id": null,
+          "criterion": "No invented terms; used-but-undefined terms (e.g. 'Exhibit A') correctly excluded",
+          "weight": "critical"
+        }
+      ]
+    },
+    "coverage": {
+      "max": 4,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": "B1.term.affiliate",
+          "criterion": "Captures the 20 top-level defined terms (banding: 18\u201320=4; 15\u201317=3; 12\u201314=2; <12=1)",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "B1.term.control_nested",
+          "criterion": "Notes 'Control' nested inside Affiliate (the discriminator) \u2192 21 total",
+          "weight": "major"
+        }
+      ]
+    },
+    "actionability": {
+      "max": 2,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Clean two-column glossary, scannable, Control noted as nested (not prose)",
+          "weight": "critical"
+        }
+      ]
+    }
+  },
+  "gate_conditions": {
+    "faithfulness": {
+      "trips_on": [
+        "A fabricated or materially altered definition",
+        "'Correcting' an original grammatical quirk ('Losses mean' \u2192 'means')"
+      ],
+      "does_not_trip_on": [
+        "Excluding a used-but-undefined term such as 'Exhibit A'"
+      ]
+    }
+  },
+  "source": "LegalEval_Complete_v8_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 B1 (Defined-Terms Glossary) \u00b7 Max /9 \u00b7 Gates: Faithfulness\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Never show this block to the model.\nSOURCE OF TRUTH: Verbatim Article I; the definitions text is the answer key. Neither Directionality nor Soundness applies (pure neutral extraction).\nSCORING (v8 \u2014 weighted ratio): each dimension score = \u03a3(weight\u00d7verdict)/\u03a3(weight), weights critical=3/major=2/minor=1, verdict met=1/partial=0.5/not_met=0/n-a=excluded. Assign a verdict to EACH listed criterion; never assign the dimension number yourself.\nFAITHFULNESS /3 (GATE): criteria \u2014 [critical] Definitions quoted verbatim (not paraphrased); original grammatical quirks PRESERVED ('Losses mean'); [critical] No invented terms; used-but-undefined terms (e.g. 'Exhibit A') correctly excluded. TRIPS ONLY ON: A fabricated or materially altered definition; 'Correcting' an original grammatical quirk ('Losses mean' \u2192 'means'). DOES NOT TRIP ON: Excluding a used-but-undefined term such as 'Exhibit A'.\nCOVERAGE /4: criteria \u2014 [critical, B1.term.affiliate] Captures the 20 top-level defined terms (banding: 18\u201320=4; 15\u201317=3; 12\u201314=2; <12=1); [major, B1.term.control_nested] Notes 'Control' nested inside Affiliate (the discriminator) \u2192 21 total.\nACTIONABILITY /2: criteria \u2014 [critical] Clean two-column glossary, scannable, Control noted as nested (not prose).\nDISCRETION VALVE (v8): if a response is not addressed by the enumerated gate conditions, return verdict not_covered on that gate (routes to human-confirm) + a proposed_condition stating the rule that would resolve it \u2014 do NOT guess trip/pass.\nPROCEDURE: assign a verdict to every criterion \u2192 weighted ratio per dimension \u2192 raw = \u03a3 max(dim)\u00d7ratio \u2192 normalize to /9 \u2192 if ANY gate tripped, cap the normalized score at 0.40 and flag it."
 }

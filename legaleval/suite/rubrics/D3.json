@@ -1,20 +1,96 @@
 {
   "id": "D3",
+  "stage": "D",
+  "name": "Scoped Amendment",
   "max_points": 12,
   "gates": [
     "faithfulness"
   ],
-  "rubric_version": "v7.0",
-  "provenance": "SYNTHETIC/CONSTRUCTED (drafted from brief)",
+  "rubric_version": "v8.0",
+  "source_type": "synthetic (drafted from brief)",
+  "source_contract": "Synthetic amendment brief (Kelmont/Spireline)",
+  "provenance": "SYNTHETIC; the three listed payment changes are the gold. Faithfulness = scope discipline.",
   "gold_unit_ids": [
-    "D3.element.amendment_no_1",
-    "D3.element.cure_10d",
-    "D3.element.dispute_20d",
-    "D3.element.interest_1pct_month",
-    "D3.element.net30_invoice_date",
     "D3.element.original_msa_named",
+    "D3.element.amendment_no_1",
+    "D3.element.net30_invoice_date",
+    "D3.element.cure_10d",
+    "D3.element.interest_1pct_month",
+    "D3.element.dispute_20d",
     "D3.gate.scope_creep"
   ],
-  "source": "LegalEval_Complete_v7_clean.docx (Part II, GRADER INSTRUCTIONS block)",
-  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 D3 (Scoped Amendment) \u00b7 Max /12 \u00b7 Gates: Faithfulness only\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Composition: this block = GOLD_RUBRIC; the prompt's PASTE BELOW INTO MODEL block = SOURCE_CONTRACT + PROMPT_GIVEN_TO_MODEL; the model's answer = RESPONSE_UNDER_TEST. Never show this block to the model under test.\nSOURCE OF TRUTH: SYNTHETIC -- drafted from the brief; party names fictionalized (Kelmont, Inc. / Spireline Digital) to match the perturbed MSA universe. The three listed payment changes are the gold. Faithfulness = scope discipline.\nFAITHFULNESS /3 (GATE): TRIPS on scope creep -- ANY modification beyond the three listed payment changes (term, IP, indemnification, governing law, anything else), or omission of the continuity clause ('All other terms remain in full force and effect').\nCOVERAGE /4: Six elements: (1) original MSA identified by full name + June 1, 2018 date; (2) labeled 'Amendment No. 1'; (3) Section 7.05 amended to 30 days from invoice DATE (not receipt); (4) 10-day cure notice before suspension; (5) 1.0% per month late interest; (6) 20-day dispute window requiring a description of the specific basis.\nUNIT IDs (v7): D3.element.original_msa_named; D3.element.amendment_no_1; D3.element.net30_invoice_date; D3.element.cure_10d; D3.element.interest_1pct_month; D3.element.dispute_20d. Gate unit: D3.gate.scope_creep.\nSOUNDNESS /3: Payment trigger correctly moved to 'invoice date' (the date/receipt distinction matters legally; 'receipt' = dock); interest per MONTH not per year; amendment mechanics correct.\nACTIONABILITY /2: Complete amendment -- title, recitals identifying the original agreement, numbered changes, continuity clause, signature blocks.\nPROCEDURE: Score every dimension -> raw total -> normalize to /12 -> if ANY gate tripped, cap the normalized score at 0.40 and flag which gate tripped and on what evidence.\n\nStage E \u2014 Negotiation Simulation\n\"They sent this back \u2014 now what?\"\n\nApplicable dimensions: Faithfulness /3 (gate) \u00b7 Directionality /4 (gate) \u00b7 Coverage /4 \u00b7 Soundness /3 \u00b7 Actionability /2"
+  "dimensions": {
+    "faithfulness": {
+      "max": 3,
+      "gate": true,
+      "criteria": [
+        {
+          "unit_id": "D3.gate.scope_creep",
+          "criterion": "No scope creep beyond the three listed payment changes; includes the continuity clause ('All other terms remain in full force and effect')",
+          "weight": "critical"
+        }
+      ]
+    },
+    "coverage": {
+      "max": 4,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": "D3.element.net30_invoice_date",
+          "criterion": "\u00a77.05 amended to 30 days from invoice DATE (not receipt)",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "D3.element.interest_1pct_month",
+          "criterion": "1.0% per month late interest + 10-day cure notice before suspension",
+          "weight": "critical"
+        },
+        {
+          "unit_id": "D3.element.original_msa_named",
+          "criterion": "Original MSA identified by full name + June 1, 2018 date; labeled 'Amendment No. 1'",
+          "weight": "minor"
+        },
+        {
+          "unit_id": "D3.element.dispute_20d",
+          "criterion": "20-day dispute window requiring a description of the specific basis",
+          "weight": "minor"
+        }
+      ]
+    },
+    "soundness": {
+      "max": 3,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Payment trigger correctly moved to 'invoice date' (not 'receipt'); interest per MONTH not per year; amendment mechanics correct",
+          "weight": "critical"
+        }
+      ]
+    },
+    "actionability": {
+      "max": 2,
+      "gate": false,
+      "criteria": [
+        {
+          "unit_id": null,
+          "criterion": "Complete amendment \u2014 title, recitals identifying the original, numbered changes, continuity clause, signature blocks",
+          "weight": "critical"
+        }
+      ]
+    }
+  },
+  "gate_conditions": {
+    "faithfulness": {
+      "trips_on": [
+        "ANY modification beyond the three payment changes (term, IP, indemnity, governing law, etc.)",
+        "Omitting the continuity clause"
+      ],
+      "does_not_trip_on": [
+        "Standard amendment mechanics (title, recitals, signature blocks)"
+      ]
+    }
+  },
+  "source": "LegalEval_Complete_v8_clean.docx (Part II, GRADER INSTRUCTIONS block)",
+  "rubric_markdown": "GRADER INSTRUCTIONS \u2014 D3 (Scoped Amendment) \u00b7 Max /12 \u00b7 Gates: Faithfulness\nROLE: Grade the model's response against this gold rubric. Do NOT solve the task yourself. For every sub-judgment, quote the exact span of the response you relied on; a judgment with no quotable evidence scores 0. Return structured JSON per the Tier 1 template (Section 6.5). Never show this block to the model.\nSOURCE OF TRUTH: Synthetic; the three listed payment changes are the gold; Faithfulness = scope discipline (no changes beyond the three).\nSCORING (v8 \u2014 weighted ratio): each dimension score = \u03a3(weight\u00d7verdict)/\u03a3(weight), weights critical=3/major=2/minor=1, verdict met=1/partial=0.5/not_met=0/n-a=excluded. Assign a verdict to EACH listed criterion; never assign the dimension number yourself.\nFAITHFULNESS /3 (GATE): criteria \u2014 [critical, D3.gate.scope_creep] No scope creep beyond the three listed payment changes; includes the continuity clause ('All other terms remain in full force and effect'). TRIPS ONLY ON: ANY modification beyond the three payment changes (term, IP, indemnity, governing law, etc.); Omitting the continuity clause. DOES NOT TRIP ON: Standard amendment mechanics (title, recitals, signature blocks).\nCOVERAGE /4: criteria \u2014 [critical, D3.element.net30_invoice_date] \u00a77.05 amended to 30 days from invoice DATE (not receipt); [critical, D3.element.interest_1pct_month] 1.0% per month late interest + 10-day cure notice before suspension; [minor, D3.element.original_msa_named] Original MSA identified by full name + June 1, 2018 date; labeled 'Amendment No. 1'; [minor, D3.element.dispute_20d] 20-day dispute window requiring a description of the specific basis.\nSOUNDNESS /3: criteria \u2014 [critical] Payment trigger correctly moved to 'invoice date' (not 'receipt'); interest per MONTH not per year; amendment mechanics correct.\nACTIONABILITY /2: criteria \u2014 [critical] Complete amendment \u2014 title, recitals identifying the original, numbered changes, continuity clause, signature blocks.\nDISCRETION VALVE (v8): if a response is not addressed by the enumerated gate conditions, return verdict not_covered on that gate (routes to human-confirm) + a proposed_condition stating the rule that would resolve it \u2014 do NOT guess trip/pass.\nPROCEDURE: assign a verdict to every criterion \u2192 weighted ratio per dimension \u2192 raw = \u03a3 max(dim)\u00d7ratio \u2192 normalize to /12 \u2192 if ANY gate tripped, cap the normalized score at 0.40 and flag it."
 }
