@@ -431,19 +431,21 @@ composite far less; P(pass|atom-miss)≈0 — "can do the steps, can't chain the
 Curriculum is SEQUENTIAL: depth-0 (done) → calibrate the 47 chains to goldilocks vs ckpt-40 → train depth-1 →
 re-run the diagnostic (did the gap close?). See §6.
 
-**Depth-1 calibration campaign — RUNNING and genuinely editing** (autonomous; t3/autocalib;
-`tools/depth1_calib_campaign.py`; branch `agent/depth1-calib-campaign`, branch-only → human PRs). Per iter:
-build 47-chain pool → static gate → sample 250×8@2048 on sadie vs ckpt-40 → analyze per-chain → headless
-`claude` edits the CHAIN LAYER toward goldilocks (depth-0 atomics frozen) → re-gate → commit → Slack. Ran
-unattended through iters 2→3→4 without stopping (edit step fixed: claude CLI installed + edit-guard + resume +
-heartbeat-aware wait + double-run guard). **Trajectory (mean / goldilocks% / too-hard%): iter-1 0.308/32/37 →
-iter-2 0.299/27/46 → iter-3 0.374/38/31** — noisy but iter-3 best-yet + climbing toward goldilocks; on this slope
-~0.45 mean / ~45% in-band by iter-5. ~6 feeder-bound chains will still need a manual diversity pass (Gilbert
-owns the per-iter readout).
+**Depth-1 dataset FINALIZED → calibration campaign RUNNING (sharded, 500×3).** The diverse set is on main
+(#117–#120): **47 atoms / 46 chains / 12 targets** — custom_op + box_diagonal-as-target added (box_diagonal dropped
+as a dead 12-distinct-V feeder, 47→46); the **3 marginal count-target chains re-paired onto value-targets** (#119,
+sum_of_squares→cmod, cmod→boxdiag, otc→boxdiag, all top3 ≤0.05); recomputers at 100% coverage; golds 0-mismatch;
+atom-equivalence green. The campaign (`tools/depth1_calib_campaign.py`, t3/autocalib, branch
+`agent/depth1-calib-campaign`, branch-only → human PRs) is **running 500×3 SHARDED across sam+sadie** (#122: 250
+disjoint each → merged to 500, ~5.3h/iter, RESUME=0) vs ckpt-40: per iter build pool → static gate → sample →
+merge → analyze per-chain → headless `claude` (acceptEdits, auth-verified) edits the CHAIN LAYER toward goldilocks
+(depth-0 frozen) → re-gate → commit → Slack. (Prior single-box trajectory, goldilocks-mean: iter-1 0.308 → iter-2
+0.299 → iter-3 0.374.) **Gated next: when iters converge → build the depth-1 train set → train off ckpt-40 → validate.**
 
 **Fleet:** 3× L4 samplers (sam/sadie/sage) + L40S trainer (awesome-ash) + always-on t3 agents box. L4s are
-queue-driven (S3 poll; `sample|train|setup|eval` job types) + SSM-reachable; jobs stream a `.heartbeat` to S3 for
-mid-run liveness. Quota 16→20 open (CASE_OPENED). (Fleet/permission/campaign-build detail → DAILY LOG 06-16/17.)
+queue-driven (S3 poll; `sample|train|setup|eval`) + SSM-reachable; jobs stream a `.heartbeat` to S3 for mid-run
+liveness. **Operator kill-switch: `tools/kill_run.sh`** sets an S3 halt flag so a deliberate kill posts a calm
+"stopped by operator" instead of paging DIAGNOSE (#124). (Fleet/campaign/infra detail → DAILY LOG 06-16→18.)
 
 ## TODO
 
@@ -458,6 +460,42 @@ mid-run liveness. Quota 16→20 open (CASE_OPENED). (Fleet/permission/campaign-b
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-18
+- [faisal] **Depth-1 dataset finalized on main + 500×3 SHARDED calibration campaign launched.** Landed the diverse
+  set through PRs #117–#120: 12 targets (added custom_binary_op + box_diagonal-as-target; dropped box_diagonal as a
+  dead feeder, 47→46 chains), kathryne's recomputers widened to 100% coverage, depth-tag fix, golds 0-mismatch,
+  atom-equivalence green. **#119:** re-paired the 3 marginal count-target chains (sum_of_squares→complex_modulus,
+  complex_modulus→box_diagonal, ordered_triple→box_diagonal) onto value-targets — all max-top3 ≤0.052 across 5 seeds
+  (were 0.26–0.315), killing the last answer-hackable risk. **#120:** version-controlled all 3 review-bot personas
+  (kathryne was NOT in repo/S3 — pulled off the t3) + gave gilbert/kathryne the channel-synthesis section so all
+  three post top-level syntheses, not just charizard. (Also discovered: this faisal session's Slack MCP posts AS
+  gilbert — never @mention gilbert from it; tag kathryne+charizard, paste for gilbert.)
+- [faisal] **Sharded sampling (#122) — the real throughput fix.** The campaign now splits each iter's N across
+  multiple L4s in parallel (`SAMPLERS=sam,sadie`, 250 disjoint each via `data[idx::total]` on the shared
+  SEED-shuffled pool → merge to 500), ~5.3h/iter vs ~9.3h single-box, full signal. sample.py SHARD_IDX/SHARD_TOTAL,
+  run_sample_job passes them + the self-check expects N/shards rows, campaign dispatch→wait_for_all→merge. All 3
+  bots traced it clean (disjoint/exhaustive, fails-clean, back-compat). Verified live: both shards 250, 0-skipped,
+  disjoint outputs.
+- [faisal] **Calibration-contamination bug — caught mid-run by gilbert, root-caused + fixed (#121).** sample.py
+  resumed from a local OUT keyed by job name, but job names repeat across runs with DIFFERENT pools, so a leftover
+  iter1 OUT from the prior 500×2 run mixed stale rows in (sadie: 625 rows / 63 chains incl. 3 deleted chains).
+  Fix: prune the resume set to the current pool on load (stale cross-pool rows dropped, genuine progress kept).
+- [faisal] **Operator kill-switch (#124) + post-review hardening (#125).** A bare `pkill` looked like a crash and
+  paged DIAGNOSE. **#124:** `tools/kill_run.sh` sets an S3 halt flag → run_sample_job `finish()` posts a calm
+  "stopped by operator" (no DIAGNOSE/escalation) when set; campaign clears it at launch + checks between iters;
+  folded in #123's per-job-log truncate (the `[17/500]` stale-tail scare) + fixed kathryne's RESUME `pool_local`
+  NameError. **#125:** clear the halt flag at every job START (so a stale flag can't mask a later non-campaign
+  job), `provision_box.sh` installs `python3.11-devel gcc gcc-c++` for triton's cold-kernel JIT, and a partial-
+  dispatch cleanup. All bot-reviewed GO.
+- [faisal] **Triton headers installed live on sam+sadie** (gilbert's `Python.h` diagnosis CONFIRMED — sadie was
+  missing `python3.11-devel`; sam already had it). Direct SSM `yum install` on the running boxes (persists on EBS,
+  didn't disturb the sample) → both cold-start-proof now; #125 is the durable backstop for fresh/rebaked boxes.
+- [faisal] **Verified autocalib's editor permissions** — headless `claude -p --allowedTools Edit Read Bash
+  --permission-mode acceptEdits`, key set in env, live smoke returned `EDIT-AUTH-OK`; the #107 edit-guard halts
+  loudly if it ever can't edit. So the campaign genuinely tunes the chain layer (depth-0 frozen by the gate, not
+  permissions). Branch hygiene: reset the campaign branch to main repeatedly through the relaunches; deleted stale
+  `agent/finalize-depth1-onto-main` + S3 `runs/depth1_calib_iter4,5/` leftovers.
 
 ### 2026-06-17
 - [faisal] **By-framing SETTLED → depth-0 is CAPPED on all four axes.** Base-180 by-framing landed (sam,
