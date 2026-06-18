@@ -13,6 +13,14 @@ set -uo pipefail
 echo "== provision_box on $(hostname) — $(date -u) =="
 nvidia-smi --query-gpu=name,driver_version --format=csv,noheader 2>/dev/null || echo "(no nvidia-smi)"
 
+# System headers for triton's JIT: triton compiles a CUDA driver util with gcc at the FIRST
+# COLD kernel launch (independent of bitsandbytes — dropping bnb below doesn't avoid this), and
+# it needs Python.h + a compiler. Without them a sample runs on a warm cache but DIES the moment
+# a cold kernel must recompile (gilbert's "Python.h: No such file" diagnosis on sadie/sage).
+# Idempotent; covers every L4 boot, fleet-wide. python3.11 matches the venv's base interpreter.
+sudo yum install -y python3.11-devel gcc gcc-c++ 2>/dev/null \
+  || echo "WARN: yum install of triton build headers failed — cold-kernel JIT may break"
+
 [ -d "$HOME/rl-venv" ] || python3 -m venv "$HOME/rl-venv"
 source "$HOME/rl-venv/bin/activate"
 pip install --upgrade pip

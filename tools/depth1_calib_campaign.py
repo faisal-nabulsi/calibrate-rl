@@ -212,6 +212,19 @@ def dispatch_sample(it, pool_s3):
             outs.append(out_s3); continue
         upload(spec_local, spec_s3)
         if not ensure_running(_L4[s]):
+            # PARTIAL-DISPATCH ABORT: box i won't start (e.g. GPU capacity). Don't strand the
+            # boxes that already started running a full shard for an iter we're abandoning, and
+            # don't leave box i's queued spec to be picked up on a later boot. Clean up:
+            sh(f"aws s3 rm {spec_s3}", check=False)        # box i never started — drop its spec
+            if outs:                                       # boxes 0..i-1 ARE running — stop them
+                # set the halt flag so their torn-down finish() posts calm, not a FAILED/DIAGNOSE
+                # page (this is our own abort, not a crash). Next launch / job-start clears it.
+                sh(f"printf 'partial-dispatch abort iter{it}\\n' | aws s3 cp - s3://{BUCKET}/control/halt", check=False)
+                for j in range(i):
+                    sj = SAMPLERS[j]
+                    sh(f"aws s3 rm s3://{BUCKET}/pending/{sj}/depth1_calib_iter{it}.json", check=False)
+                    sh(f"aws ec2 stop-instances --instance-ids {_L4[sj]}", check=False)
+            log(f"iter {it}: partial-dispatch abort — {s} wouldn't start; cleaned up {len(outs)} started shard(s)")
             return None
         outs.append(out_s3)
     return outs
