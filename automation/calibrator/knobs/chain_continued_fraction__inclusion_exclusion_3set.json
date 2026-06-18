@@ -4,6 +4,19 @@
     "inclusion_exclusion_3set"
   ],
   "fed_param": "U",
-  "params": {},
+  "params": {
+    "nsets": {
+      "value": [
+        2,
+        3
+      ],
+      "type": "choice",
+      "envelope": [
+        1,
+        3
+      ],
+      "knob_class": "C"
+    }
+  },
   "locked": false
 }

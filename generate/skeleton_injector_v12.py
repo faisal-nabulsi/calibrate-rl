@@ -1082,56 +1082,134 @@ def _a_digit_target(V, kn):
     return (sum(1 for x in range(lo,hi) if sum(int(c) for c in str(x))==V),
             f"How many integers from {lo} to {hi-1} have digits summing to exactly V?")
 def _a_ie3_U(V, kn):
-    a,b,c=sorted(random.sample([2,3,4,5,6,7],3))
-    return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
-            f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
+    # iter1: 3 sets -> 2 sets (fewer constraints) to ease the TOO_HARD ie3-target chains;
+    # divisor pool widened [2..9] to keep answers diverse after dropping a term.
+    # iter2: optional per-chain "nsets" knob (2 or 3) so a TOO_EASY chain
+    # (three_number_system, 0.92) can re-add the third set without re-hardening the
+    # TOO_HARD ie3 chains (which keep the default 2-set form). Recomputer detects the
+    # form from the clause ("a, b, or c" vs "a or b").
+    # iter4: optional nsets=1 (single divisor -> one floor-division, no inclusion-exclusion)
+    # to MAX-EASE the feeder-limited TOO_HARD ie3 targets (continued_fraction, lattice_points,
+    # vieta_sumcubes ~0): the chain pass then floors at the feeder's own rate instead of being
+    # killed by a 2/3-set IE step on top of a hard feeder. Recomputer detects the 1-set form
+    # (single divisor, no "or"/comma) from the clause.
+    n = kn.choice("nsets") if "nsets" in kn.params else 2
+    pool=[2,3,4,5,6,7,8,9]
+    if n>=3:
+        a,b,c=sorted(random.sample(pool,3))
+        return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
+                f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
+    if n<=1:
+        a=random.choice(pool)
+        return (V//a, f"How many integers from 1 to V are divisible by {a}?")
+    a,b=sorted(random.sample(pool,2))
+    return (V//a+V//b-V//lcm(a,b),
+            f"How many integers from 1 to V are divisible by {a} or {b}?")
 def _a_perfsq_limit(V, kn):
+    # iter2: optional per-chain "last" knob (a digit 0-9) adds a SECOND constraint
+    # ("...and end in the digit L") to HARDEN the two TOO_EASY perfsq chains
+    # (custom_binary_op 0.96, unit_conversion_area 0.95) without touching the
+    # TOO_HARD perfsq chains (which omit "last" -> the original single-constraint
+    # form). Recomputer detects the extra clause from the text.
     div=kn.choice("div"); rd=int(div**0.5); cnt=0; k=1
+    last=kn.choice("last") if "last" in kn.params else -1
+    if last>=0:
+        while (rd*k)**2<V:
+            if ((rd*k)**2)%10==last: cnt+=1
+            k+=1
+        return (cnt, f"How many perfect squares less than V are divisible by {div} and end in the digit {last}?")
     while (rd*k)**2<V: cnt+=1; k+=1
     return (cnt, f"How many perfect squares less than V are divisible by {div}?")
 def _a_multisquare_limit(V, kn):
-    d=kn.choice("d"); last=kn.choice("last"); cnt=0; k=1
+    # iter4: "last" digit is now OPTIONAL (a SECOND constraint). alternating_cubes (the only
+    # multisquare chain) was 0.05 TOO_HARD with BOTH "divisible by d" AND "ends in last" on a
+    # huge fed V; dropping "last" (knob omits it) leaves a single divisibility constraint ->
+    # one count step. Recomputer detects the missing clause.
+    d=kn.choice("d"); cnt=0; k=1
+    last=kn.choice("last") if "last" in kn.params else -1
+    if last>=0:
+        while k*k<V:
+            if (k*k)%d==0 and (k*k)%10==last: cnt+=1
+            k+=1
+        return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
     while k*k<V:
-        if (k*k)%d==0 and (k*k)%10==last: cnt+=1
+        if (k*k)%d==0: cnt+=1
         k+=1
-    return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
+    return (cnt, f"How many perfect squares less than V are divisible by {d}?")
 def _a_equalize_g(V, kn):
     if V<3: return (None,"")
-    fn=random.choice([Fraction(1,3),Fraction(1,2),Fraction(1,4),Fraction(2,3),Fraction(3,4),
-                      Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),Fraction(5,6),
-                      Fraction(3,8),Fraction(5,8)])
+    # iter4: cut the denominator-7/8 fractions entirely. The equalize-target chains are .1-.36
+    # even when the FEEDER is easy (complex_eq atom 92%, roots_of_unity 64%), so the m/n
+    # reduction of (1-fn)/V is the real bottleneck, not the feeder. Restricting fn to
+    # denominators <=6 (simple, single-step reductions) eases the arithmetic for every equalize
+    # chain. Still 12 options x V(3..14) -> answers spread. Recomputer reads fn from the clause.
+    fn=random.choice([Fraction(1,2),Fraction(1,3),Fraction(2,3),Fraction(1,4),Fraction(3,4),
+                      Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),
+                      Fraction(1,6),Fraction(5,6)])
     pour=1-((V-1)+fn)/V
     return (pour.numerator+pour.denominator,
             f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")
 def _a_complement_faces(V, kn):
     if V<3: return (None,"")
-    thr=random.choice([Fraction(2,3),Fraction(3,4),Fraction(4,5)]); r=1
+    # iter4: threshold is now a per-chain knob "thr" (list of [num,den] pairs). The answer r =
+    # fewest rolls until the complement exceeds thr; a SMALLER thr needs FEWER rolls (fewer
+    # iterations = fewer steps), a LARGER thr needs more. So the 2 TOO_HARD chains
+    # (constrained_subset .125, sum_of_squares .188) get a low-thr set (ease) while
+    # digit_count_bigprod (.604) gets a high-thr set (harden); log_laws keeps the full range.
+    if "thr" in kn.params:
+        nd=kn.choice("thr"); thr=Fraction(nd[0],nd[1])
+    else:
+        thr=random.choice([Fraction(1,2),Fraction(3,5),Fraction(2,3),Fraction(5,8),Fraction(7,10),
+                           Fraction(3,4),Fraction(4,5),Fraction(5,6)])
+    r=1
     while 1-Fraction((V-1)**r,V**r)<=thr:
         r+=1
         if r>60: return (None,"")
     return (r, f"A V-sided die is rolled repeatedly. What is the fewest rolls so the probability a specific face appears at least once first exceeds {thr.numerator}/{thr.denominator}?")
 
 # tkey -> (adapter, target_concept, fed_input_label, fed_lo, fed_hi)
+def _a_cmod(V, kn):
+    # NEW TARGET (more-targets pass): complex modulus power |z|^{2k} for z=V+bi -> (V^2+b^2)^k.
+    # Multi-input (b, k supply entropy), V load-bearing, clean symbolic V-embedding, top3~0.01.
+    b=kn.choice("b"); k=kn.choice("k")
+    return ((V*V+b*b)**k, f"Let z = V + {b}i (where i squared = -1). Compute |z|^{2*k} (its modulus raised to the {2*k}th power).")
+def _a_divsum(V, kn):
+    # NEW TARGET (pass-through; needs a high-cardinality feeder): sum of odd/even divisors of V.
+    cond=kn.choice("cond")
+    return (sum(d for d in divisors(V) if (d%2==1)==(cond=="odd")), f"What is the sum of the {cond} divisors of V?")
 _ADAPT={
- "modexp_base":(_a_modexp_base,"modular_exponent","base",2,10**12),
- "modexp_exp":(_a_modexp_exp,"modular_exponent","exponent",2,40),
+ # iter2: modexp_base V-ceiling lowered 10^12 -> 5000. V^k mod m on a ~10^12 base is an
+ # intractable too-hard ghost (CLAUDE.md §5: big numbers teach tedium, not method); capping
+ # V keeps the modular-reduction step learnable. This is a FILTER bound (which feeder outputs
+ # feed the target), not the difficulty knob. The perfsq/multisquare/complement ceilings were
+ # left at their originals — lowering them collapsed answer diversity (dedupe/top3 gate fails),
+ # so those chains are eased via the per-chain knobs instead, not the fed range.
+ "modexp_base":(_a_modexp_base,"modular_exponent","base",2,5000),
+ # iter3: modexp_exp fed-exponent ceiling 40 -> 20 (only point_rotation feeds it, TOO_HARD 0.167).
+ # a^V mod m with a large fed exponent V is a long fast-exponentiation chain; fewer steps eases it.
+ "modexp_exp":(_a_modexp_exp,"modular_exponent","exponent",2,20),
  "algebraic_x":(_a_algebraic_x,"algebraic_system_2eq","x",1,60),
  "telescoping_N":(_a_telescoping_N,"telescoping_mn","N",3,30),
- "digit_target":(_a_digit_target,"constrained_digit_count","digit_sum_target",5,27),
+ # iter3: digit_sum_target ceiling 27 -> 20. ALL 5 digit_target chains are TOO_HARD; a fed digit
+ # sum near 27 makes matches near-impossible (degenerate/near-0 counts). Capping at 20 keeps the
+ # target tractable for every feeder uniformly (fewer-steps ease; shared filter, all same verdict).
+ "digit_target":(_a_digit_target,"constrained_digit_count","digit_sum_target",5,20),
  "ie3_U":(_a_ie3_U,"inclusion_exclusion_3set","U",60,9000),
  "perfsq_limit":(_a_perfsq_limit,"perfect_square_divisible","limit",300,200000),
  "multisquare_limit":(_a_multisquare_limit,"multi_constraint_square","limit",600,80000),
  "equalize_g":(_a_equalize_g,"equalization_fraction","g",3,14),
  "complement_faces":(_a_complement_faces,"complement_prob_mn","faces",3,30),
+ "cmod":(_a_cmod,"complex_modulus_power","real_part",2,120),
+ "divsum":(_a_divsum,"divisor_sum_filter","n",6,30000),
 }
 # feeder -> tkey  (tools/scan_chain_targets.py; covers all 47 concepts as feeders)
 _DIVERSE_CHAINS={
  "algebraic_system_2eq":"modexp_base","alternating_cubes":"multisquare_limit",
  "arith_series_sum":"digit_target","arith_term_filter":"digit_target",
- "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"telescoping_N",
- "complex_eq_solcount":"equalize_g","complex_modulus_power":"digit_target",
+ "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"algebraic_x",
+ "complex_eq_solcount":"algebraic_x","complex_modulus_power":"digit_target",
  "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
- "constrained_subset_count":"complement_faces","continued_fraction":"ie3_U",
+ "constrained_subset_count":"algebraic_x","continued_fraction":"ie3_U",
  "count_obtuse_triangles":"equalize_g","count_pythagorean":"algebraic_x",
  "custom_binary_op":"perfsq_limit","digit_count_bigprod":"complement_faces",
  "distinct_product_count":"modexp_base","divisor_sum_filter":"modexp_base",
@@ -1139,16 +1217,16 @@ _DIVERSE_CHAINS={
  "geo_first_exceed":"equalize_g","inclusion_exclusion_3set":"modexp_base",
  "infinite_product_exp":"modexp_base","lattice_points_circle":"ie3_U",
  "lcm_gcd_system":"ie3_U","log_laws":"complement_faces","mean_removal":"modexp_base",
- "modular_exponent":"ie3_U","multi_constraint_square":"algebraic_x",
+ "modular_exponent":"divsum","multi_constraint_square":"algebraic_x",
  "ordered_triple_constraint":"digit_target","percent_compound":"algebraic_x",
  "perfect_square_divisible":"telescoping_N","point_rotation":"modexp_exp",
- "poly_remainder":"telescoping_N","polynomial_sign_intervals":"algebraic_x",
- "primality_in_sequence":"equalize_g","prime_power_divisors":"perfsq_limit",
+ "poly_remainder":"telescoping_N","polynomial_sign_intervals":"cmod",
+ "primality_in_sequence":"equalize_g","prime_power_divisors":"ie3_U",
  "rate_closing":"telescoping_N","roots_of_unity_sum":"equalize_g",
- "sum_of_squares":"complement_faces","telescoping_mn":"perfsq_limit",
- "three_number_system":"ie3_U","trapezoid_area":"algebraic_x",
+ "sum_of_squares":"complement_faces","telescoping_mn":"ie3_U",
+ "three_number_system":"divsum","trapezoid_area":"algebraic_x",
  "triangular_filter_count":"algebraic_x","unit_conversion_area":"perfsq_limit",
- "vieta_pair_count":"algebraic_x","vieta_sumcubes":"ie3_U",
+ "vieta_pair_count":"cmod","vieta_sumcubes":"ie3_U",
 }
 def _register_diverse_chain(feeder,tkey):
     adapt,tconcept,flabel,flo,fhi=_ADAPT[tkey]

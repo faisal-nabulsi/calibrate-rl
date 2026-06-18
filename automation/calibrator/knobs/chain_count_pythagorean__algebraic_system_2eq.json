@@ -7,8 +7,8 @@
   "params": {
     "y": {
       "value": [
-        5,
-        25
+        3,
+        40
       ],
       "type": "randint",
       "envelope": [
@@ -19,8 +19,8 @@
     },
     "z": {
       "value": [
-        5,
-        25
+        3,
+        40
       ],
       "type": "randint",
       "envelope": [

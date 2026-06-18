@@ -4,6 +4,29 @@
     "complement_prob_mn"
   ],
   "fed_param": "faces",
-  "params": {},
+  "params": {
+    "thr": {
+      "value": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "type": "choice",
+      "envelope": [
+        1,
+        10
+      ],
+      "knob_class": "C"
+    }
+  },
   "locked": false
 }

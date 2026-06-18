@@ -1,20 +1,21 @@
 {
   "components": [
     "three_number_system",
-    "inclusion_exclusion_3set"
+    "divisor_sum_filter"
   ],
-  "fed_param": "U",
+  "fed_param": "n",
   "params": {
-    "nsets": {
+    "cond": {
       "value": [
-        3
+        "odd",
+        "even"
       ],
       "type": "choice",
       "envelope": [
-        2,
-        3
+        "odd",
+        "even"
       ],
-      "knob_class": "C"
+      "knob_class": "S"
     }
   },
   "locked": false

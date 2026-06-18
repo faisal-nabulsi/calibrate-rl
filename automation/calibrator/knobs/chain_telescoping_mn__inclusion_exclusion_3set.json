@@ -1,6 +1,6 @@
 {
   "components": [
-    "lattice_points_circle",
+    "telescoping_mn",
     "inclusion_exclusion_3set"
   ],
   "fed_param": "U",
@@ -15,7 +15,7 @@
         1,
         3
       ],
-      "knob_class": "C"
+      "knob_class": "S"
     }
   },
   "locked": false

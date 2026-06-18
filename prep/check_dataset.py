@@ -715,17 +715,38 @@ def _recompute_target(target, c, V):
         lo, hi = (int(x) for x in re.search(r"from (\d+) to (\d+)", c).groups())
         return sum(1 for x in range(lo, hi+1) if sum(int(d) for d in str(x)) == V)
     if target == "inclusion_exclusion_3set":
-        a, b, d = (int(x) for x in re.search(r"divisible by (\d+), (\d+), or (\d+)", c).groups())
-        return (V//a+V//b+V//d-V//_lcm2(a,b)-V//_lcm2(a,d)-V//_lcm2(b,d)+V//_lcm2(a,_lcm2(b,d)))
+        # iter1: reduced 3 sets -> 2 sets. iter2: per-chain "nsets" knob may restore
+        # the 3-set form. iter4: nsets=1 (single divisor) form added. Detect which form
+        # from the clause text: 3-set ("a, b, or c") -> 2-set ("a or b") -> 1-set ("a?").
+        m3 = re.search(r"divisible by (\d+), (\d+), or (\d+)", c)
+        if m3:
+            a, b, d = (int(x) for x in m3.groups())
+            return (V//a+V//b+V//d-V//_lcm2(a,b)-V//_lcm2(a,d)-V//_lcm2(b,d)
+                    + V//_lcm2(a, _lcm2(b, d)))
+        m2 = re.search(r"divisible by (\d+) or (\d+)", c)
+        if m2:
+            a, b = (int(x) for x in m2.groups())
+            return V//a + V//b - V//_lcm2(a, b)
+        a = int(re.search(r"divisible by (\d+)\?", c).group(1))
+        return V//a
     if target == "perfect_square_divisible":
-        div = int(re.search(r"divisible by (\d+)", c).group(1)); rd = isqrt(div); cnt = 0; k = 1
-        while (rd*k)**2 < V: cnt += 1; k += 1
+        # iter2: optional "...and end in the digit L" second constraint (harden).
+        div = int(re.search(r"divisible by (\d+)", c).group(1)); rd = isqrt(div)
+        ml = re.search(r"end in the digit (\d+)", c)
+        last = int(ml.group(1)) if ml else -1
+        cnt = 0; k = 1
+        while (rd*k)**2 < V:
+            if last < 0 or ((rd*k)**2) % 10 == last: cnt += 1
+            k += 1
         return cnt
     if target == "multi_constraint_square":
+        # iter4: "end in the digit L" is now optional (one fewer constraint when omitted).
         d = int(re.search(r"divisible by (\d+)", c).group(1))
-        last = int(re.search(r"end in the digit (\d+)", c).group(1)); cnt = 0; k = 1
+        ml = re.search(r"end in the digit (\d+)", c)
+        last = int(ml.group(1)) if ml else -1
+        cnt = 0; k = 1
         while k*k < V:
-            if (k*k) % d == 0 and (k*k) % 10 == last: cnt += 1
+            if (k*k) % d == 0 and (last < 0 or (k*k) % 10 == last): cnt += 1
             k += 1
         return cnt
     if target == "equalization_fraction":
@@ -739,16 +760,23 @@ def _recompute_target(target, c, V):
             r += 1
             if r > 60: return None
         return r
+    if target == "complex_modulus_power":
+        b = int(re.search(r"V \+ (\d+)i", c).group(1))
+        p = int(re.search(r"\|z\|\^(\d+)", c).group(1))
+        return (V*V + b*b) ** (p // 2)
+    if target == "divisor_sum_filter":
+        cond = "odd" if "odd divisors" in c else "even"
+        return sum(d for d in divisors(V) if (d % 2 == 1) == (cond == "odd"))
     return None
 
 # feeder -> target concept (mirror of v12 _DIVERSE_CHAINS o _ADAPT); chain = chain_<feeder>__<target>
 _CHAIN_TARGET = {
  "algebraic_system_2eq":"modular_exponent","alternating_cubes":"multi_constraint_square",
  "arith_series_sum":"constrained_digit_count","arith_term_filter":"constrained_digit_count",
- "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"telescoping_mn",
- "complex_eq_solcount":"equalization_fraction","complex_modulus_power":"constrained_digit_count",
+ "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"algebraic_system_2eq",
+ "complex_eq_solcount":"algebraic_system_2eq","complex_modulus_power":"constrained_digit_count",
  "constrained_digit_count":"inclusion_exclusion_3set","constrained_divisor_count":"telescoping_mn",
- "constrained_subset_count":"complement_prob_mn","continued_fraction":"inclusion_exclusion_3set",
+ "constrained_subset_count":"algebraic_system_2eq","continued_fraction":"inclusion_exclusion_3set",
  "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"algebraic_system_2eq",
  "custom_binary_op":"perfect_square_divisible","digit_count_bigprod":"complement_prob_mn",
  "distinct_product_count":"modular_exponent","divisor_sum_filter":"modular_exponent",
@@ -756,16 +784,16 @@ _CHAIN_TARGET = {
  "geo_first_exceed":"equalization_fraction","inclusion_exclusion_3set":"modular_exponent",
  "infinite_product_exp":"modular_exponent","lattice_points_circle":"inclusion_exclusion_3set",
  "lcm_gcd_system":"inclusion_exclusion_3set","log_laws":"complement_prob_mn",
- "mean_removal":"modular_exponent","modular_exponent":"inclusion_exclusion_3set",
+ "mean_removal":"modular_exponent","modular_exponent":"divisor_sum_filter",
  "multi_constraint_square":"algebraic_system_2eq","ordered_triple_constraint":"constrained_digit_count",
  "percent_compound":"algebraic_system_2eq","perfect_square_divisible":"telescoping_mn",
  "point_rotation":"modular_exponent","poly_remainder":"telescoping_mn",
- "polynomial_sign_intervals":"algebraic_system_2eq","primality_in_sequence":"equalization_fraction",
- "prime_power_divisors":"perfect_square_divisible","rate_closing":"telescoping_mn",
+ "polynomial_sign_intervals":"complex_modulus_power","primality_in_sequence":"equalization_fraction",
+ "prime_power_divisors":"inclusion_exclusion_3set","rate_closing":"telescoping_mn",
  "roots_of_unity_sum":"equalization_fraction","sum_of_squares":"complement_prob_mn",
- "telescoping_mn":"perfect_square_divisible","three_number_system":"inclusion_exclusion_3set",
+ "telescoping_mn":"inclusion_exclusion_3set","three_number_system":"divisor_sum_filter",
  "trapezoid_area":"algebraic_system_2eq","triangular_filter_count":"algebraic_system_2eq",
- "unit_conversion_area":"perfect_square_divisible","vieta_pair_count":"algebraic_system_2eq",
+ "unit_conversion_area":"perfect_square_divisible","vieta_pair_count":"complex_modulus_power",
  "vieta_sumcubes":"inclusion_exclusion_3set",
 }
 def _make_chain_rc(feeder, target):
