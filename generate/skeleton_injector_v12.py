@@ -1168,6 +1168,11 @@ def _a_complement_faces(V, kn):
     return (r, f"A V-sided die is rolled repeatedly. What is the fewest rolls so the probability a specific face appears at least once first exceeds {thr.numerator}/{thr.denominator}?")
 
 # tkey -> (adapter, target_concept, fed_input_label, fed_lo, fed_hi)
+def _a_cmod(V, kn):
+    # NEW TARGET (more-targets pass): complex modulus power |z|^{2k} for z=V+bi -> (V^2+b^2)^k.
+    # Multi-input (b, k supply entropy), V load-bearing, clean symbolic V-embedding, top3~0.01.
+    b=kn.choice("b"); k=kn.choice("k")
+    return ((V*V+b*b)**k, f"Let z = V + {b}i (where i squared = -1). Compute |z|^{2*k} (its modulus raised to the {2*k}th power).")
 _ADAPT={
  # iter2: modexp_base V-ceiling lowered 10^12 -> 5000. V^k mod m on a ~10^12 base is an
  # intractable too-hard ghost (CLAUDE.md §5: big numbers teach tedium, not method); capping
@@ -1190,6 +1195,7 @@ _ADAPT={
  "multisquare_limit":(_a_multisquare_limit,"multi_constraint_square","limit",600,80000),
  "equalize_g":(_a_equalize_g,"equalization_fraction","g",3,14),
  "complement_faces":(_a_complement_faces,"complement_prob_mn","faces",3,30),
+ "cmod":(_a_cmod,"complex_modulus_power","real_part",2,120),
 }
 # feeder -> tkey  (tools/scan_chain_targets.py; covers all 47 concepts as feeders)
 _DIVERSE_CHAINS={
@@ -1209,13 +1215,13 @@ _DIVERSE_CHAINS={
  "modular_exponent":"ie3_U","multi_constraint_square":"algebraic_x",
  "ordered_triple_constraint":"digit_target","percent_compound":"algebraic_x",
  "perfect_square_divisible":"telescoping_N","point_rotation":"modexp_exp",
- "poly_remainder":"telescoping_N","polynomial_sign_intervals":"modexp_exp",
+ "poly_remainder":"telescoping_N","polynomial_sign_intervals":"cmod",
  "primality_in_sequence":"equalize_g","prime_power_divisors":"ie3_U",
  "rate_closing":"telescoping_N","roots_of_unity_sum":"equalize_g",
- "sum_of_squares":"complement_faces","telescoping_mn":"perfsq_limit",
+ "sum_of_squares":"complement_faces","telescoping_mn":"ie3_U",
  "three_number_system":"ie3_U","trapezoid_area":"algebraic_x",
  "triangular_filter_count":"algebraic_x","unit_conversion_area":"perfsq_limit",
- "vieta_pair_count":"modexp_base","vieta_sumcubes":"ie3_U",
+ "vieta_pair_count":"cmod","vieta_sumcubes":"ie3_U",
 }
 def _register_diverse_chain(feeder,tkey):
     adapt,tconcept,flabel,flo,fhi=_ADAPT[tkey]

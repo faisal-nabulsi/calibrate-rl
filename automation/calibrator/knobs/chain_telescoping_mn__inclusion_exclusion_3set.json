@@ -1,0 +1,22 @@
+{
+  "components": [
+    "telescoping_mn",
+    "inclusion_exclusion_3set"
+  ],
+  "fed_param": "U",
+  "params": {
+    "nsets": {
+      "value": [
+        2,
+        3
+      ],
+      "type": "choice",
+      "envelope": [
+        1,
+        3
+      ],
+      "knob_class": "S"
+    }
+  },
+  "locked": false
+}
