@@ -72,6 +72,11 @@ AGENT="${AGENT_NAME:-$(hostname)}"
 JOB_ID="$(basename "$SPEC_URI" .json)"
 LOG="logs/job_${JOB_ID}.log"
 mkdir -p logs data
+# TRUNCATE the per-job log at start: job names repeat across campaign runs (depth1_calib_iter1,
+# ...), so an appended log carried STALE tail from a prior run — which the S3 heartbeat streams,
+# making a healthy job look like it was on the old N/progress (the [17/500] vs [2/250] scare).
+# Fresh log per run => the heartbeat always reflects THIS job.
+: > "$LOG"
 
 # Recipients rendered as <@id> mentions (mentions trigger mobile push; channel
 # posts don't). Two tiers:
