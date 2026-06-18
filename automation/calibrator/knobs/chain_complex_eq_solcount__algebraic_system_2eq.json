@@ -1,0 +1,46 @@
+{
+  "fed_param": "x",
+  "params": {
+    "y": {
+      "value": [
+        3,
+        40
+      ],
+      "type": "randint",
+      "envelope": [
+        3,
+        40
+      ],
+      "knob_class": "num"
+    },
+    "z": {
+      "value": [
+        3,
+        40
+      ],
+      "type": "randint",
+      "envelope": [
+        3,
+        40
+      ],
+      "knob_class": "num"
+    },
+    "coef": {
+      "value": [
+        1,
+        7
+      ],
+      "type": "randint",
+      "envelope": [
+        1,
+        9
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false,
+  "components": [
+    "complex_eq_solcount",
+    "algebraic_system_2eq"
+  ]
+}

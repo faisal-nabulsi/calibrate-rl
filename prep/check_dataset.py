@@ -766,8 +766,8 @@ def _recompute_target(target, c, V):
 _CHAIN_TARGET = {
  "algebraic_system_2eq":"modular_exponent","alternating_cubes":"multi_constraint_square",
  "arith_series_sum":"constrained_digit_count","arith_term_filter":"constrained_digit_count",
- "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"telescoping_mn",
- "complex_eq_solcount":"equalization_fraction","complex_modulus_power":"constrained_digit_count",
+ "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"algebraic_system_2eq",
+ "complex_eq_solcount":"algebraic_system_2eq","complex_modulus_power":"constrained_digit_count",
  "constrained_digit_count":"inclusion_exclusion_3set","constrained_divisor_count":"telescoping_mn",
  "constrained_subset_count":"algebraic_system_2eq","continued_fraction":"inclusion_exclusion_3set",
  "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"algebraic_system_2eq",

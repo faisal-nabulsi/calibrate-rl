@@ -1195,8 +1195,8 @@ _ADAPT={
 _DIVERSE_CHAINS={
  "algebraic_system_2eq":"modexp_base","alternating_cubes":"multisquare_limit",
  "arith_series_sum":"digit_target","arith_term_filter":"digit_target",
- "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"telescoping_N",
- "complex_eq_solcount":"equalize_g","complex_modulus_power":"digit_target",
+ "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"algebraic_x",
+ "complex_eq_solcount":"algebraic_x","complex_modulus_power":"digit_target",
  "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
  "constrained_subset_count":"algebraic_x","continued_fraction":"ie3_U",
  "count_obtuse_triangles":"equalize_g","count_pythagorean":"algebraic_x",
