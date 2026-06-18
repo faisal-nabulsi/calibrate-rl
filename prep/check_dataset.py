@@ -51,10 +51,20 @@ def ints(s):
 # Each returns the correct answer (int/float) or None if it can't parse.
 def rc_continued_fraction(p):
     # "X+1/(X+1/X)" or deeper; base X repeated 'depth' times. Read X and depth.
+    x = depth = None
     m = re.search(r"value of\s*(\d+)\+1/", p)
-    if not m: return None
-    x = int(m.group(1))
-    depth = p.count(f"{x}+1/") + 1     # each "x+1/" plus the innermost x
+    if m:
+        x = int(m.group(1)); depth = p.count(f"{x}+1/") + 1
+    else:
+        for pat, order in [(r"repeats (\d+) for (\d+) level", "xd"),
+                           (r"(\d+)[- ]level[^.]*?from (\d+)", "dx"),
+                           (r"(\d+) levels? of (\d+)", "dx"),
+                           (r"with (\d+) total (\d+)", "dx")]:
+            mm = re.search(pat, p)
+            if mm:
+                a, b = int(mm.group(1)), int(mm.group(2))
+                x, depth = (a, b) if order == "xd" else (b, a); break
+    if x is None or depth is None: return None
     v = Fraction(x)
     for _ in range(depth - 1):
         v = x + 1 / v
@@ -145,9 +155,12 @@ def rc_arith_term_filter(p):
 def rc_lattice_points_circle(p):
     # bound after <= ; "N²"/"N^2" -> square it, plain "N" -> use directly
     m = re.search(r"[≤<]=?\s*(\d+)\s*(²|\^2)?", p)
-    if not m: return None
-    base = int(m.group(1))
-    bound = base * base if m.group(2) else base
+    if m:
+        base = int(m.group(1)); bound = base * base if m.group(2) else base
+    else:
+        m2 = re.search(r"(?:radius|within distance|distance|of radius)\s*(\d+)", p)
+        if not m2: return None
+        bound = int(m2.group(1)) ** 2
     R = isqrt(bound)
     return sum(1 for x in range(-R, R + 1) for y in range(-R, R + 1) if x * x + y * y <= bound)
 
@@ -198,20 +211,26 @@ def rc_inclusion_exclusion_3set(p):
     return sum(1 for x in range(1, N + 1) if x % a == 0 or x % b == 0 or x % c == 0)
 
 def rc_telescoping_mn(p):
-    D = re.search(r"k\s*\(\s*k\s*\+\s*(\d+)\s*\)", p)
-    N = re.search(r"k\s*=\s*1\s*(?:\.\.|to|…|,\s*\.\.\.,)\s*(\d+)", p) or \
-        re.search(r"for k\s*=\s*1[^\d]{1,6}(\d+)", p)
-    if not (D and N): return None
-    D, N = int(D.group(1)), int(N.group(1))
+    prods = re.findall(r"1/\(\s*(\d+)\s*[·*]\s*(\d+)\s*\)", p)
+    Dm = re.search(r"k\s*\(\s*k\s*\+\s*(\d+)\s*\)", p)
+    D = int(Dm.group(1)) if Dm else (int(prods[0][1]) - int(prods[0][0]) if prods else None)
+    Nm = (re.search(r"k\s*=\s*1\s*(?:\.\.|to|…|,\s*\.\.\.,)\s*(\d+)", p)
+          or re.search(r"for k\s*=\s*1[^\d]{1,6}(\d+)", p)
+          or re.search(r"k up to (\d+)", p) or re.search(r"up to (\d+) terms", p))
+    N = int(Nm.group(1)) if Nm else (int(prods[-1][0]) if prods else None)
+    if D is None or N is None: return None
     s = sum(Fraction(1, k * (k + D)) for k in range(1, N + 1))
     return s.numerator + s.denominator
 
 def rc_constrained_digit_count(p):
     m = (re.search(r"between (\d+) and (\d+)", p) or re.search(r"\[(\d+),\s*(\d+)\]", p)
-         or re.search(r"from (\d+) to (\d+)", p))
-    s = re.search(r"digit sum (?:of|is|equal to|to) (\d+)", p) or \
-        re.search(r"digits sum to (\d+)", p) or \
-        re.search(r"sum of (?:the )?digits (?:is |of |equal to )?(\d+)", p)
+         or re.search(r"from (\d+) to (\d+)", p) or re.search(r"(\d+) through (\d+)", p)
+         or re.search(r"range (\d+) to (\d+)", p) or re.search(r"(\d+) to (\d+)", p))
+    s = (re.search(r"digit sum (?:of|is|equal to|to) (\d+)", p) or re.search(r"digits sum to (\d+)", p)
+         or re.search(r"sum of (?:the )?digits (?:is |of |equal to )?(\d+)", p)
+         or re.search(r"digits summing to (?:exactly )?(\d+)", p)
+         or re.search(r"digits (?:that )?add up to (\d+)", p)
+         or re.search(r"add up to (\d+)", p))
     if not (m and s): return None
     A, B, S = int(m.group(1)), int(m.group(2)), int(s.group(1))
     return sum(1 for v in range(A, B + 1) if sum(int(c) for c in str(v)) == S)

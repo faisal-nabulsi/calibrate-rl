@@ -29,11 +29,19 @@ if [ -f "$SETTINGS_SRC" ]; then
   echo "agent permission allowlist applied from $SETTINGS_SRC"
 fi
 
-if ! aws s3 cp "$SRC" "$DEST.tmp" >/dev/null 2>&1; then
+# Prefer the VERSION-CONTROLLED repo persona (pulled fresh via the poller's `git reset --hard
+# origin/main`) so persona edits go through PR review, not a manual S3 push. Fall back to S3 for
+# any agent without a repo persona.
+REPO_PERSONA="$(cd "$(dirname "$0")/.." && pwd)/personas/${AGENT}_persona.md"
+if [ -f "$REPO_PERSONA" ]; then
+  cp "$REPO_PERSONA" "$DEST"
+  echo "persona for $AGENT from repo (version-controlled): $REPO_PERSONA"
+elif ! aws s3 cp "$SRC" "$DEST.tmp" >/dev/null 2>&1; then
   echo "no persona at $SRC — bot runs stock prompt"
   exit 0
+else
+  mv "$DEST.tmp" "$DEST"
 fi
-mv "$DEST.tmp" "$DEST"
 grep -q "^PERSONA_FILE=" "$BOT_DIR/.env" 2>/dev/null || echo "PERSONA_FILE=$DEST" >> "$BOT_DIR/.env"
 command -v pm2 >/dev/null 2>&1 && pm2 restart "$AGENT" --update-env >/dev/null 2>&1
 echo "persona synced for $AGENT"

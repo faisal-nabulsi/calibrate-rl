@@ -168,9 +168,11 @@ SMALL_OK={"complex_eq_solcount","constrained_divisor_count","count_pythagorean",
 def concept(name, amc):
     def deco(fn): REGISTRY.append((name,fn,amc)); return fn
     return deco
-def add(problem, answer, st):
+def add(problem, answer, st, meta=None):
     assert isinstance(answer,int), f"{st}: non-int {answer!r}"
-    PROBLEMS.append({"problem":problem,"answer":str(answer),"skeleton_type":st,"depth":0})
+    row={"problem":problem,"answer":str(answer),"skeleton_type":st,"depth":0}
+    if meta: row.update(meta)   # chain generators supply {"depth":1,"chain":{...}} — keep it in the flat dump too
+    PROBLEMS.append(row)
 
 # ===================================================================
 # SURVIVORS — already calibrated for 7B in v6 (keep as-is)
@@ -1040,7 +1042,7 @@ def build(per):
             guard+=1
             r=fn()
             if r is None: continue
-            add(r[0],r[1],name)
+            add(r[0],r[1],name, r[3] if len(r)>3 else None)   # r[3]=chain meta (depth:1 + chain) when present
             made+=1
 
 
