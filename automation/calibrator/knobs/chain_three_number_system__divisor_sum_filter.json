@@ -1,0 +1,22 @@
+{
+  "components": [
+    "three_number_system",
+    "divisor_sum_filter"
+  ],
+  "fed_param": "n",
+  "params": {
+    "cond": {
+      "value": [
+        "odd",
+        "even"
+      ],
+      "type": "choice",
+      "envelope": [
+        "odd",
+        "even"
+      ],
+      "knob_class": "S"
+    }
+  },
+  "locked": false
+}

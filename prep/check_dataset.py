@@ -764,6 +764,9 @@ def _recompute_target(target, c, V):
         b = int(re.search(r"V \+ (\d+)i", c).group(1))
         p = int(re.search(r"\|z\|\^(\d+)", c).group(1))
         return (V*V + b*b) ** (p // 2)
+    if target == "divisor_sum_filter":
+        cond = "odd" if "odd divisors" in c else "even"
+        return sum(d for d in divisors(V) if (d % 2 == 1) == (cond == "odd"))
     return None
 
 # feeder -> target concept (mirror of v12 _DIVERSE_CHAINS o _ADAPT); chain = chain_<feeder>__<target>
@@ -781,14 +784,14 @@ _CHAIN_TARGET = {
  "geo_first_exceed":"equalization_fraction","inclusion_exclusion_3set":"modular_exponent",
  "infinite_product_exp":"modular_exponent","lattice_points_circle":"inclusion_exclusion_3set",
  "lcm_gcd_system":"inclusion_exclusion_3set","log_laws":"complement_prob_mn",
- "mean_removal":"modular_exponent","modular_exponent":"inclusion_exclusion_3set",
+ "mean_removal":"modular_exponent","modular_exponent":"divisor_sum_filter",
  "multi_constraint_square":"algebraic_system_2eq","ordered_triple_constraint":"constrained_digit_count",
  "percent_compound":"algebraic_system_2eq","perfect_square_divisible":"telescoping_mn",
  "point_rotation":"modular_exponent","poly_remainder":"telescoping_mn",
  "polynomial_sign_intervals":"complex_modulus_power","primality_in_sequence":"equalization_fraction",
  "prime_power_divisors":"inclusion_exclusion_3set","rate_closing":"telescoping_mn",
  "roots_of_unity_sum":"equalization_fraction","sum_of_squares":"complement_prob_mn",
- "telescoping_mn":"inclusion_exclusion_3set","three_number_system":"inclusion_exclusion_3set",
+ "telescoping_mn":"inclusion_exclusion_3set","three_number_system":"divisor_sum_filter",
  "trapezoid_area":"algebraic_system_2eq","triangular_filter_count":"algebraic_system_2eq",
  "unit_conversion_area":"perfect_square_divisible","vieta_pair_count":"complex_modulus_power",
  "vieta_sumcubes":"inclusion_exclusion_3set",
