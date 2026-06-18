@@ -457,6 +457,17 @@ liveness. **Operator kill-switch: `tools/kill_run.sh`** sets an S3 halt flag so 
       calibrated 46-chain pool (`prep/build_goldilocks_set_depth1.py`, verified drop-in) → train ~300 steps off
       ckpt-40 → **validate**: re-run the composition-gap diagnostic (did the gap close — composite pass rises
       toward the atom?) + AMC via `mean_pass_rate`. This is the whole point of the program — see §11.
+- [ ] **[diagnostic — failure-mode classifier (reasoning, not binary)]** Build a programmatic classifier over
+      the depth-1 calib that buckets each FAILING rollout: `feeder-error` (V wrong) · `wrong-extraction` (solved
+      feeder, took the wrong quantity as V) · `chaining-failure` (didn't carry V / contaminated a feeder number)
+      · `target-execution` (arithmetic slip / incomplete enumeration). Run it per-iter to TRACK which mode shrinks
+      as depth-1 trains — does it actually fix *chaining*, or just execution? Transcript audit (06-18, 12 hit-but-
+      fail rollouts) found **~50% target-execution, ~25% chaining, ~17% feeder, ~8% wrong-extraction** — so the
+      binary answer-reward is well-aimed (it already contrasts careful-vs-careless + chained-vs-not on goldilocks
+      groups). This classifier (a) verifies that holds at scale, (b) builds the exact feeder/carry detectors a
+      partial reward would need. PARTIAL-REWARD design (if we go there): NOT global (rewarding an earlier stage
+      cuts pressure on the failing last stage) — gate a staged feeder→carry reward to ALL-FAIL ghost-batch groups
+      only (feeder-capped too-hard chains calibration can't ease), where binary gives zero gradient. See §8.
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
