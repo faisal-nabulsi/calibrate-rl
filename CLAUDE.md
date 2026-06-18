@@ -274,11 +274,12 @@ and **ckpt-40 is the right base precisely because the gap survives in it.**
 **Pipeline + curriculum.** build 47-chain pool → STATIC GATE (gold recompute + dedupe/top3 +
 atom-equivalence freeze) → **calibrate to goldilocks vs ckpt-40** (the autonomous campaign,
 `tools/depth1_calib_campaign.py`, edits the CHAIN LAYER only — depth-0 atomics frozen by the
-equivalence test) → build the depth-1 train set → train ~300 steps off ckpt-40 → re-run the
+equivalence test) → build the depth-1 train set (`prep/build_goldilocks_set_depth1.py`: re-grade the
+converged calib → keep 2-6/8, hold out 1/chain) → train ~300 steps off ckpt-40 → re-run the
 diagnostic (did the gap close?) + AMC. Curriculum is **SEQUENTIAL**: depth-0 first (done), then
-depth-1. One open margin-check rides along: `box_diagonal_sq__perfect_square_divisible` is a thin
-chain (ceiling ≈210) — read its in-band fraction off the converged campaign; if <0.71, widen the
-`perfect_square_divisible` target (never the feeder). The other 7 dedupe-thin chains clear it easily.
+depth-1. (The old `box_diagonal_sq__perfect_square_divisible` margin-check is RETIRED — that chain no
+longer exists: `perfect_square_divisible` was dropped as a target and `box_diagonal_sq` flipped to a
+target (#118/#119). box_diagonal's 3 chains now read off the standard per-chain readout like any other.)
 
 ## 7. Depth-0 results (v10 ckpt-120 + v12 ckpt-40)
 
@@ -453,9 +454,9 @@ liveness. **Operator kill-switch: `tools/kill_run.sh`** sets an S3 halt flag so 
 > done items are in CURRENTLY DOING + the log.)
 
 - [ ] **[depth-1 NEXT — the payoff, gated on calibration converging]** build the depth-1 train set from the
-      calibrated 47-chain pool → train ~300 steps off ckpt-40 → **validate**: re-run the composition-gap diagnostic
-      (did the gap close — composite pass rises toward the atom?) + AMC via `mean_pass_rate`; also check
-      box_diagonal_sq's in-band fraction (§6). This is the whole point of the program — see §11.
+      calibrated 46-chain pool (`prep/build_goldilocks_set_depth1.py`, verified drop-in) → train ~300 steps off
+      ckpt-40 → **validate**: re-run the composition-gap diagnostic (did the gap close — composite pass rises
+      toward the atom?) + AMC via `mean_pass_rate`. This is the whole point of the program — see §11.
 - [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
       usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
 
