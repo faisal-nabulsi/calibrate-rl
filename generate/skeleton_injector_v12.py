@@ -1152,7 +1152,7 @@ _DIVERSE_CHAINS={
  "box_diagonal_sq":"perfsq_limit","complement_prob_mn":"telescoping_N",
  "complex_eq_solcount":"equalize_g","complex_modulus_power":"digit_target",
  "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
- "constrained_subset_count":"complement_faces","continued_fraction":"ie3_U",
+ "constrained_subset_count":"algebraic_x","continued_fraction":"ie3_U",
  "count_obtuse_triangles":"equalize_g","count_pythagorean":"algebraic_x",
  "custom_binary_op":"perfsq_limit","digit_count_bigprod":"complement_faces",
  "distinct_product_count":"modexp_base","divisor_sum_filter":"modexp_base",
@@ -1163,13 +1163,13 @@ _DIVERSE_CHAINS={
  "modular_exponent":"ie3_U","multi_constraint_square":"algebraic_x",
  "ordered_triple_constraint":"digit_target","percent_compound":"algebraic_x",
  "perfect_square_divisible":"telescoping_N","point_rotation":"modexp_exp",
- "poly_remainder":"telescoping_N","polynomial_sign_intervals":"algebraic_x",
- "primality_in_sequence":"equalize_g","prime_power_divisors":"perfsq_limit",
+ "poly_remainder":"telescoping_N","polynomial_sign_intervals":"modexp_exp",
+ "primality_in_sequence":"equalize_g","prime_power_divisors":"ie3_U",
  "rate_closing":"telescoping_N","roots_of_unity_sum":"equalize_g",
  "sum_of_squares":"complement_faces","telescoping_mn":"perfsq_limit",
  "three_number_system":"ie3_U","trapezoid_area":"algebraic_x",
  "triangular_filter_count":"algebraic_x","unit_conversion_area":"perfsq_limit",
- "vieta_pair_count":"algebraic_x","vieta_sumcubes":"ie3_U",
+ "vieta_pair_count":"modexp_base","vieta_sumcubes":"ie3_U",
 }
 def _register_diverse_chain(feeder,tkey):
     adapt,tconcept,flabel,flo,fhi=_ADAPT[tkey]

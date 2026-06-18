@@ -1,0 +1,34 @@
+{
+  "components": [
+    "vieta_pair_count",
+    "modular_exponent"
+  ],
+  "fed_param": "base",
+  "params": {
+    "k": {
+      "value": [
+        2,
+        3
+      ],
+      "type": "randint",
+      "envelope": [
+        2,
+        8
+      ],
+      "knob_class": "num"
+    },
+    "m": {
+      "value": [
+        50,
+        2000
+      ],
+      "type": "randint",
+      "envelope": [
+        30,
+        2000
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false
+}
