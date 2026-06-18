@@ -316,8 +316,8 @@ def c_triples():
     # feeder-surgery (structural cardinality, NOT number size — §4): a `parts` knob k∈{3,4}
     # generalizes the count to integer k-tuples 0≤a_1<...<a_k summing to N. k=3 == the old
     # _triples_gold; k=4 is a parallel count-family at the SAME N range, ~doubling distinct
-    # answers + feeder sub-question texts -> fixes the dedupe-FAIL (0.830) that blocked the
-    # campaign from easing chain_ordered_triple_constraint__constrained_digit_count.
+    # answers + feeder sub-question texts -> fixed the dedupe-FAIL (0.830) when this fed a
+    # count target. (ordered_triple_constraint now feeds box_diagonal_sq — see _DIVERSE_CHAINS.)
     kn=K["ordered_triple_constraint"]
     N=kn.randint("N")  # number range stays [10,20] (narrowed in v12; num-class, frozen)
     k=kn.choice("parts") if "parts" in kn.params else 3
@@ -1222,7 +1222,7 @@ _DIVERSE_CHAINS={
  "algebraic_system_2eq":"modexp_base","alternating_cubes":"multisquare_limit",
  "arith_series_sum":"digit_target","arith_term_filter":"digit_target",
 "complement_prob_mn":"algebraic_x",
- "complex_eq_solcount":"customop","complex_modulus_power":"digit_target",
+ "complex_eq_solcount":"customop","complex_modulus_power":"boxdiag",
  "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
  "constrained_subset_count":"algebraic_x","continued_fraction":"ie3_U",
  "count_obtuse_triangles":"equalize_g","count_pythagorean":"customop",
@@ -1233,12 +1233,12 @@ _DIVERSE_CHAINS={
  "infinite_product_exp":"modexp_base","lattice_points_circle":"ie3_U",
  "lcm_gcd_system":"ie3_U","log_laws":"complement_faces","mean_removal":"modexp_base",
  "modular_exponent":"divsum","multi_constraint_square":"algebraic_x",
- "ordered_triple_constraint":"digit_target","percent_compound":"algebraic_x",
+ "ordered_triple_constraint":"boxdiag","percent_compound":"algebraic_x",
  "perfect_square_divisible":"telescoping_N","point_rotation":"modexp_exp",
  "poly_remainder":"telescoping_N","polynomial_sign_intervals":"cmod",
  "primality_in_sequence":"equalize_g","prime_power_divisors":"ie3_U",
  "rate_closing":"telescoping_N","roots_of_unity_sum":"equalize_g",
- "sum_of_squares":"complement_faces","telescoping_mn":"ie3_U",
+ "sum_of_squares":"cmod","telescoping_mn":"ie3_U",
  "three_number_system":"divsum","trapezoid_area":"algebraic_x",
  "triangular_filter_count":"algebraic_x","unit_conversion_area":"divsum",
  "vieta_pair_count":"cmod","vieta_sumcubes":"ie3_U",
