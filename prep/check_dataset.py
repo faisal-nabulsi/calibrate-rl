@@ -51,10 +51,20 @@ def ints(s):
 # Each returns the correct answer (int/float) or None if it can't parse.
 def rc_continued_fraction(p):
     # "X+1/(X+1/X)" or deeper; base X repeated 'depth' times. Read X and depth.
+    x = depth = None
     m = re.search(r"value of\s*(\d+)\+1/", p)
-    if not m: return None
-    x = int(m.group(1))
-    depth = p.count(f"{x}+1/") + 1     # each "x+1/" plus the innermost x
+    if m:
+        x = int(m.group(1)); depth = p.count(f"{x}+1/") + 1
+    else:
+        for pat, order in [(r"repeats (\d+) for (\d+) level", "xd"),
+                           (r"(\d+)[- ]level[^.]*?from (\d+)", "dx"),
+                           (r"(\d+) levels? of (\d+)", "dx"),
+                           (r"with (\d+) total (\d+)", "dx")]:
+            mm = re.search(pat, p)
+            if mm:
+                a, b = int(mm.group(1)), int(mm.group(2))
+                x, depth = (a, b) if order == "xd" else (b, a); break
+    if x is None or depth is None: return None
     v = Fraction(x)
     for _ in range(depth - 1):
         v = x + 1 / v
@@ -145,9 +155,12 @@ def rc_arith_term_filter(p):
 def rc_lattice_points_circle(p):
     # bound after <= ; "N²"/"N^2" -> square it, plain "N" -> use directly
     m = re.search(r"[≤<]=?\s*(\d+)\s*(²|\^2)?", p)
-    if not m: return None
-    base = int(m.group(1))
-    bound = base * base if m.group(2) else base
+    if m:
+        base = int(m.group(1)); bound = base * base if m.group(2) else base
+    else:
+        m2 = re.search(r"(?:radius|within distance|distance|of radius)\s*(\d+)", p)
+        if not m2: return None
+        bound = int(m2.group(1)) ** 2
     R = isqrt(bound)
     return sum(1 for x in range(-R, R + 1) for y in range(-R, R + 1) if x * x + y * y <= bound)
 
@@ -176,7 +189,9 @@ def rc_alternating_cubes(p):
     return sum((2 * k) ** 3 - (2 * k - 1) ** 3 for k in range(start, top // 2 + 1))
 
 def rc_complex_eq_solcount(p):
-    m = re.search(r"z\^?(\d+)\s*=", p)
+    # match "z^N" directly — the old r"z\^?(\d+)\s*=" required a literal "=" and missed
+    # the "z^N equal to its own conjugate" phrasing (no = sign) → ~20% gate-unverified.
+    m = re.search(r"z\^(\d+)", p)
     if not m: return None
     P = int(m.group(1))
     return P + 2                      # r=1: z^(P+1)=1 -> P+1 roots; plus z=0
@@ -198,20 +213,26 @@ def rc_inclusion_exclusion_3set(p):
     return sum(1 for x in range(1, N + 1) if x % a == 0 or x % b == 0 or x % c == 0)
 
 def rc_telescoping_mn(p):
-    D = re.search(r"k\s*\(\s*k\s*\+\s*(\d+)\s*\)", p)
-    N = re.search(r"k\s*=\s*1\s*(?:\.\.|to|…|,\s*\.\.\.,)\s*(\d+)", p) or \
-        re.search(r"for k\s*=\s*1[^\d]{1,6}(\d+)", p)
-    if not (D and N): return None
-    D, N = int(D.group(1)), int(N.group(1))
+    prods = re.findall(r"1/\(\s*(\d+)\s*[·*]\s*(\d+)\s*\)", p)
+    Dm = re.search(r"k\s*\(\s*k\s*\+\s*(\d+)\s*\)", p)
+    D = int(Dm.group(1)) if Dm else (int(prods[0][1]) - int(prods[0][0]) if prods else None)
+    Nm = (re.search(r"k\s*=\s*1\s*(?:\.\.|to|…|,\s*\.\.\.,)\s*(\d+)", p)
+          or re.search(r"for k\s*=\s*1[^\d]{1,6}(\d+)", p)
+          or re.search(r"k up to (\d+)", p) or re.search(r"up to (\d+) terms", p))
+    N = int(Nm.group(1)) if Nm else (int(prods[-1][0]) if prods else None)
+    if D is None or N is None: return None
     s = sum(Fraction(1, k * (k + D)) for k in range(1, N + 1))
     return s.numerator + s.denominator
 
 def rc_constrained_digit_count(p):
     m = (re.search(r"between (\d+) and (\d+)", p) or re.search(r"\[(\d+),\s*(\d+)\]", p)
-         or re.search(r"from (\d+) to (\d+)", p))
-    s = re.search(r"digit sum (?:of|is|equal to|to) (\d+)", p) or \
-        re.search(r"digits sum to (\d+)", p) or \
-        re.search(r"sum of (?:the )?digits (?:is |of |equal to )?(\d+)", p)
+         or re.search(r"from (\d+) to (\d+)", p) or re.search(r"(\d+) through (\d+)", p)
+         or re.search(r"range (\d+) to (\d+)", p) or re.search(r"(\d+) to (\d+)", p))
+    s = (re.search(r"digit sum (?:of|is|equal to|to) (\d+)", p) or re.search(r"digits sum to (\d+)", p)
+         or re.search(r"sum of (?:the )?digits (?:is |of |equal to )?(\d+)", p)
+         or re.search(r"digits summing to (?:exactly )?(\d+)", p)
+         or re.search(r"digits (?:that )?add up to (\d+)", p)
+         or re.search(r"add up to (\d+)", p))
     if not (m and s): return None
     A, B, S = int(m.group(1)), int(m.group(2)), int(s.group(1))
     return sum(1 for v in range(A, B + 1) if sum(int(c) for c in str(v)) == S)
@@ -767,20 +788,27 @@ def _recompute_target(target, c, V):
     if target == "divisor_sum_filter":
         cond = "odd" if "odd divisors" in c else "even"
         return sum(d for d in divisors(V) if (d % 2 == 1) == (cond == "odd"))
+    if target == "custom_binary_op":
+        bc = re.findall(r"\u2295(\d+)", c)
+        op = lambda x, y: x + y + x * y
+        return op(op(V, int(bc[0])), int(bc[1]))
+    if target == "box_diagonal_sq":
+        mm = re.search(r"edge lengths V, (\d+), and (\d+)", c)
+        return V * V + int(mm.group(1)) ** 2 + int(mm.group(2)) ** 2
     return None
 
 # feeder -> target concept (mirror of v12 _DIVERSE_CHAINS o _ADAPT); chain = chain_<feeder>__<target>
 _CHAIN_TARGET = {
  "algebraic_system_2eq":"modular_exponent","alternating_cubes":"multi_constraint_square",
  "arith_series_sum":"constrained_digit_count","arith_term_filter":"constrained_digit_count",
- "box_diagonal_sq":"perfect_square_divisible","complement_prob_mn":"algebraic_system_2eq",
- "complex_eq_solcount":"algebraic_system_2eq","complex_modulus_power":"constrained_digit_count",
+"complement_prob_mn":"algebraic_system_2eq",
+ "complex_eq_solcount":"custom_binary_op","complex_modulus_power":"constrained_digit_count",
  "constrained_digit_count":"inclusion_exclusion_3set","constrained_divisor_count":"telescoping_mn",
  "constrained_subset_count":"algebraic_system_2eq","continued_fraction":"inclusion_exclusion_3set",
- "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"algebraic_system_2eq",
- "custom_binary_op":"perfect_square_divisible","digit_count_bigprod":"complement_prob_mn",
+ "count_obtuse_triangles":"equalization_fraction","count_pythagorean":"custom_binary_op",
+ "custom_binary_op":"divisor_sum_filter","digit_count_bigprod":"complement_prob_mn",
  "distinct_product_count":"modular_exponent","divisor_sum_filter":"modular_exponent",
- "equalization_fraction":"constrained_digit_count","frobenius_stamps":"telescoping_mn",
+ "equalization_fraction":"box_diagonal_sq","frobenius_stamps":"telescoping_mn",
  "geo_first_exceed":"equalization_fraction","inclusion_exclusion_3set":"modular_exponent",
  "infinite_product_exp":"modular_exponent","lattice_points_circle":"inclusion_exclusion_3set",
  "lcm_gcd_system":"inclusion_exclusion_3set","log_laws":"complement_prob_mn",
@@ -793,7 +821,7 @@ _CHAIN_TARGET = {
  "roots_of_unity_sum":"equalization_fraction","sum_of_squares":"complement_prob_mn",
  "telescoping_mn":"inclusion_exclusion_3set","three_number_system":"divisor_sum_filter",
  "trapezoid_area":"algebraic_system_2eq","triangular_filter_count":"algebraic_system_2eq",
- "unit_conversion_area":"perfect_square_divisible","vieta_pair_count":"complex_modulus_power",
+ "unit_conversion_area":"divisor_sum_filter","vieta_pair_count":"complex_modulus_power",
  "vieta_sumcubes":"inclusion_exclusion_3set",
 }
 def _make_chain_rc(feeder, target):

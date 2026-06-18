@@ -1,0 +1,50 @@
+{
+  "params": {
+    "b": {
+      "value": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "type": "choice",
+      "envelope": [
+        3,
+        12
+      ],
+      "knob_class": "num"
+    },
+    "c": {
+      "value": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "type": "choice",
+      "envelope": [
+        3,
+        12
+      ],
+      "knob_class": "num"
+    }
+  },
+  "locked": false,
+  "components": [
+    "complex_eq_solcount",
+    "custom_binary_op"
+  ],
+  "fed_param": "operand"
+}

@@ -38,9 +38,17 @@ ROLLOUTS  = int(E("ROLLOUTS", "8"))
 MAX_TOKENS= int(E("MAX_TOKENS", "2048"))
 CKPT_S3   = E("CKPT_S3", "s3://calibrate-rl-agent/runs/v12_depth0_run2/checkpoint-40")
 # which L4 sampler to dispatch to (queue path = pending/<SAMPLER>/, woken by instance id)
+# Only sam + sadie are wired (LoRA-capable + boot-poller installed). sage is NOT: it has no
+# python3.11-devel (can't merge LoRA) and isn't in _L4.
 _L4 = {"sam": "i-065bb6d4bcea507db", "sadie": "i-05c7938e1c6711370"}
 SAMPLER   = E("SAMPLER", "sadie")
-SAM       = E("SAMPLER_INSTANCE", _L4.get(SAMPLER, _L4["sadie"]))
+# HARD-FAIL on an unknown SAMPLER. The old `_L4.get(SAMPLER, sadie)` silently started sadie while the
+# spec went to pending/<SAMPLER>/ (e.g. pending/sage/) — box != queue -> the job stranded and the
+# campaign died in minutes with no calib.json (the sage->sam->sadie relaunch thrash). A typo must stop us.
+if SAMPLER not in _L4:
+    raise SystemExit(f"FATAL: SAMPLER={SAMPLER!r} not in {sorted(_L4)}. Use sam or sadie — "
+                     f"an unknown name starts the wrong box while the spec lands in pending/{SAMPLER}/ (silent strand).")
+SAM       = E("SAMPLER_INSTANCE", _L4[SAMPLER])
 BUCKET    = E("BUCKET", "calibrate-rl-agent")
 BRANCH    = E("BRANCH", "agent/depth1-calib-campaign")
 INJECTOR  = E("INJECTOR", "generate/skeleton_injector_v12.py")

@@ -388,8 +388,10 @@ in it. (v10 binary flips up: 18,42,59,66,67,68,80; down: 7,19,53,60,71. Base = 3
   `tools/depth1_calib_campaign.py` (autonomous calibration loop on the t3) ·
   `tools/gpu_job_monitor.sh` (liveness) · `tools/propose-pr.sh` (PR-only landing).
 - **Data / checkpoints:** `data/v12_train.json` (449/79/90 depth-0 split) →
-  `runs/v12_depth0_run2/checkpoint-40` (THE depth-1 base) · `data/chain_depth1_47_pool_v1.json`
-  (47-chain pool) · `data/calib_v12_2048_7B.json` · `results/amc_coverage_base_vs_ckpt40.md` (#89).
+  `runs/v12_depth0_run2/checkpoint-40` (THE depth-1 base) · the **46-chain depth-1 pool is built
+  FRESH each campaign iteration** from `skeleton_injector_v12.py` + the static gate (no committed
+  snapshot — the old `chain_depth1_47_pool_v1.json` was deleted as a stale reference artifact) ·
+  `data/calib_v12_2048_7B.json` · `results/amc_coverage_base_vs_ckpt40.md` (#89).
 - **Compute: AWS.** L40S trainer `i-07455ba55e473769d` (`awesome-ash`) + 3× L4 samplers —
   sam `i-065bb6d4bcea507db` / sadie `i-05c7938e1c6711370` / sage `i-0161b1d0bc48ede12` — +
   the always-on t3 agents box `i-09d247668650dad2d` (gilbert/kathryne/charizard/thinkrock/autocalib).
