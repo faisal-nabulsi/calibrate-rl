@@ -41,14 +41,19 @@ CKPT_S3   = E("CKPT_S3", "s3://calibrate-rl-agent/runs/v12_depth0_run2/checkpoin
 # Only sam + sadie are wired (LoRA-capable + boot-poller installed). sage is NOT: it has no
 # python3.11-devel (can't merge LoRA) and isn't in _L4.
 _L4 = {"sam": "i-065bb6d4bcea507db", "sadie": "i-05c7938e1c6711370"}
+# SAMPLERS = the box(es) to SHARD each iter's N-problem sample across, in PARALLEL. Each box samples a
+# disjoint 1/K of the N-slice; the campaign waits for all K, merges them into one N-problem calib, and
+# the analyzer/editor decides off the merged set. SAMPLERS="sam,sadie" -> 2-way shard (250 each of 500).
+# Single name (back-compat) = one box, no shard. SAMPLER kept as the default/legacy alias.
 SAMPLER   = E("SAMPLER", "sadie")
-# HARD-FAIL on an unknown SAMPLER. The old `_L4.get(SAMPLER, sadie)` silently started sadie while the
-# spec went to pending/<SAMPLER>/ (e.g. pending/sage/) — box != queue -> the job stranded and the
-# campaign died in minutes with no calib.json (the sage->sam->sadie relaunch thrash). A typo must stop us.
-if SAMPLER not in _L4:
-    raise SystemExit(f"FATAL: SAMPLER={SAMPLER!r} not in {sorted(_L4)}. Use sam or sadie — "
-                     f"an unknown name starts the wrong box while the spec lands in pending/{SAMPLER}/ (silent strand).")
-SAM       = E("SAMPLER_INSTANCE", _L4[SAMPLER])
+SAMPLERS  = [s.strip() for s in E("SAMPLERS", SAMPLER).split(",") if s.strip()]
+# HARD-FAIL on an unknown sampler. The old `_L4.get(name, sadie)` silently started sadie while the spec
+# went to pending/<name>/ (e.g. pending/sage/) — box != queue -> the job stranded and the campaign died
+# in minutes with no calib.json (the sage->sam->sadie relaunch thrash). A typo must stop us.
+for _s in SAMPLERS:
+    if _s not in _L4:
+        raise SystemExit(f"FATAL: sampler {_s!r} not in {sorted(_L4)} (SAMPLERS={SAMPLERS}). Use sam/sadie — "
+                         f"an unknown name starts the wrong box while the spec lands in pending/{_s}/ (silent strand).")
 BUCKET    = E("BUCKET", "calibrate-rl-agent")
 BRANCH    = E("BRANCH", "agent/depth1-calib-campaign")
 INJECTOR  = E("INJECTOR", "generate/skeleton_injector_v12.py")
@@ -180,16 +185,59 @@ def ensure_running(instance, tries=30, wait=60):
     return False
 
 
-def dispatch_sample(it, pool_s3, out_s3):
-    spec = {"type": "sample", "checkpoint": CKPT_S3, "dataset": pool_s3,
-            "n": N, "rollouts": ROLLOUTS, "max_tokens": MAX_TOKENS, "output_uri": out_s3}
-    spec_local = f"/tmp/depth1_calib_iter{it}_spec.json"
-    json.dump(spec, open(spec_local, "w"))
-    spec_s3 = f"s3://{BUCKET}/pending/{SAMPLER}/depth1_calib_iter{it}.json"
-    if DRY_RUN:
-        log(f"[dry-run] would upload spec {spec} -> {spec_s3} and start {SAM}"); return True
-    upload(spec_local, spec_s3)
-    return ensure_running(SAM)
+def shard_out(it, i, k):
+    """S3 uri for shard i's calib. k==1 keeps the legacy single-file name (resume compat)."""
+    base = f"s3://{BUCKET}/runs/depth1_calib_iter{it}"
+    return f"{base}/calib.json" if k == 1 else f"{base}/calib_shard{i}of{k}.json"
+
+
+def dispatch_sample(it, pool_s3):
+    """Dispatch the iter's N-problem sample SHARDED across SAMPLERS (parallel). Each box gets a
+    spec with its shard_idx/shard_total so sample.py samples a disjoint 1/K slice. Returns the list
+    of per-shard output uris (to wait on + merge), or None if any box couldn't be started."""
+    k = len(SAMPLERS); outs = []
+    for i, s in enumerate(SAMPLERS):
+        out_s3 = shard_out(it, i, k)
+        spec = {"type": "sample", "checkpoint": CKPT_S3, "dataset": pool_s3,
+                "n": N, "rollouts": ROLLOUTS, "max_tokens": MAX_TOKENS, "output_uri": out_s3,
+                "shard_idx": i, "shard_total": k}
+        spec_local = f"/tmp/depth1_calib_iter{it}_shard{i}of{k}.json"
+        json.dump(spec, open(spec_local, "w"))
+        spec_s3 = f"s3://{BUCKET}/pending/{s}/depth1_calib_iter{it}.json"
+        # clear any stale output at this shard's key from a PRIOR run (else wait_for_output reads an
+        # old .log traceback and false-fails instantly).
+        sh(f"aws s3 rm {out_s3}", check=False); sh(f"aws s3 rm {out_s3}.log", check=False)
+        if DRY_RUN:
+            log(f"[dry-run] would dispatch shard {i+1}/{k} ({N}//{k}) -> {spec_s3}, start {_L4[s]}")
+            outs.append(out_s3); continue
+        upload(spec_local, spec_s3)
+        if not ensure_running(_L4[s]):
+            return None
+        outs.append(out_s3)
+    return outs
+
+
+def wait_for_all(outs):
+    """Wait for every shard's calib (heartbeat-aware per shard). The boxes sample in parallel, so the
+    second wait usually returns near-instantly once the first finishes. Any shard failing fails the iter."""
+    for o in outs:
+        st = wait_for_output(o)
+        if st != "ok":
+            return st
+    return "ok"
+
+
+def merge_shards(outs, calib_local, merged_s3):
+    """Concatenate the per-shard calibs into one N-problem calib (disjoint shards -> no dedup needed).
+    Writes calib_local and uploads the merged set to merged_s3 (for resume/record)."""
+    rows = []
+    for i, o in enumerate(outs):
+        loc = f"/tmp/calib_shard{i}.json"
+        sh(f"aws s3 cp {o} {loc}")
+        rows += json.load(open(loc))
+    json.dump(rows, open(calib_local, "w"))
+    sh(f"aws s3 cp {calib_local} {merged_s3}")
+    return len(rows)
 
 
 def wait_for_output(out_s3):
@@ -322,8 +370,9 @@ def main():
         log(f"ABORT: campaign already running (pids {others}); refusing to double-run")
         return
     sh(f"git checkout {BRANCH}", check=False)
+    _shard_desc = f"{len(SAMPLERS)} shards ({','.join(SAMPLERS)})" if len(SAMPLERS) > 1 else SAMPLERS[0]
     slack(f":arrows_counterclockwise: depth-1 calibration campaign starting — {N_ITERS} iters, "
-          f"{N}x{ROLLOUTS}@{MAX_TOKENS} on {SAMPLER} vs ckpt-40")
+          f"{N}x{ROLLOUTS}@{MAX_TOKENS} across {_shard_desc} vs ckpt-40")
     for it in range(1, N_ITERS + 1):
         log(f"================= ITERATION {it}/{N_ITERS} =================")
         out_s3      = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/calib.json"
@@ -352,14 +401,17 @@ def main():
             # old calib.json.log (e.g. a previous iteration's traceback) and false-fails instantly.
             sh(f"aws s3 rm {out_s3}", check=False); sh(f"aws s3 rm {out_s3}.log", check=False)
             upload(pool_local, pool_s3)
-            slack(f":satellite: iter {it}: sampling {N} on {SAMPLER} (vs ckpt-40)…")
-            if not dispatch_sample(it, pool_s3, out_s3):
-                slack(f":warning: iter {it}: couldn't start {SAMPLER} — AWS out of GPU capacity after retries. "
+            slack(f":satellite: iter {it}: sampling {N} across {_shard_desc} (vs ckpt-40)…")
+            outs = dispatch_sample(it, pool_s3)
+            if not outs:
+                slack(f":warning: iter {it}: couldn't start a sampler — AWS out of GPU capacity after retries. "
                       f"Campaign stopping; relaunch when capacity returns."); break
-            status = wait_for_output(out_s3)
+            status = wait_for_all(outs)
             if status != "ok":
-                slack(f":x: iter {it}: sample did not complete on {SAMPLER} — {status[:300]} — stopping"); break
-            if not DRY_RUN: sh(f"aws s3 cp {out_s3} {calib_local}")
+                slack(f":x: iter {it}: a sample shard did not complete ({','.join(SAMPLERS)}) — {status[:300]} — stopping"); break
+            if not DRY_RUN:
+                n_merged = merge_shards(outs, calib_local, out_s3)
+                log(f"iter {it}: merged {n_merged} rows from {len(outs)} shard(s) -> {calib_local}")
         rep_md = f"results/depth1_calib_iter{it}.md"
         rat    = f"/tmp/rationale_iter{it}.md"
         if not DRY_RUN:
