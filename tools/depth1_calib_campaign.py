@@ -370,11 +370,19 @@ def main():
         log(f"ABORT: campaign already running (pids {others}); refusing to double-run")
         return
     sh(f"git checkout {BRANCH}", check=False)
+    HALT = f"s3://{BUCKET}/control/halt"
+    # clear any operator-halt flag left by a prior tools/kill_run.sh, so a fresh launch re-arms
+    # real-failure paging (the flag only suppresses DIAGNOSE for the intentional kill that set it).
+    sh(f"aws s3 rm {HALT}", check=False)
     _shard_desc = f"{len(SAMPLERS)} shards ({','.join(SAMPLERS)})" if len(SAMPLERS) > 1 else SAMPLERS[0]
     slack(f":arrows_counterclockwise: depth-1 calibration campaign starting — {N_ITERS} iters, "
           f"{N}x{ROLLOUTS}@{MAX_TOKENS} across {_shard_desc} vs ckpt-40")
     for it in range(1, N_ITERS + 1):
         log(f"================= ITERATION {it}/{N_ITERS} =================")
+        # operator halt: if kill_run.sh set the flag (and pkill raced/missed this loop), stop
+        # gracefully between iters instead of dispatching another sample.
+        if not DRY_RUN and sh(f"aws s3 ls {HALT}", check=False, capture=True).returncode == 0:
+            slack(":octagonal_sign: operator halt flag set — stopping campaign (no further iters)."); break
         out_s3      = f"s3://{BUCKET}/runs/depth1_calib_iter{it}/calib.json"
         calib_local = f"data/depth1_calib_iter{it}.json"
 
@@ -384,6 +392,11 @@ def main():
         # it). The no-edits guard keeps it correct: after any iter commits edits, a stale calib no
         # longer matches the generators, so we fall through to a fresh sample.
         if RESUME and not DRY_RUN and _no_edits_yet() and _resume_calib(out_s3, calib_local):
+            # the analyzer below needs --pool {pool_local}; the resume path skips SAMPLING, not the
+            # (cheap) pool build, so build it if absent — else pool_local is undefined -> NameError.
+            pool_local = f"data/chain_depth1_47_pool_iter{it}.json"
+            if not os.path.exists(pool_local):
+                build_pool(pool_local)
             slack(f":recycle: iter {it}: resuming from already-sampled calib — skipped re-sampling (~6h saved)")
             log(f"iter {it}: RESUMED from existing {out_s3}")
         else:

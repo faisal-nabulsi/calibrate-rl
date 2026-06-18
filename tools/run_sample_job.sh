@@ -72,6 +72,14 @@ AGENT="${AGENT_NAME:-$(hostname)}"
 JOB_ID="$(basename "$SPEC_URI" .json)"
 LOG="logs/job_${JOB_ID}.log"
 mkdir -p logs data
+# TRUNCATE the per-job log at start: job names repeat across campaign runs (depth1_calib_iter1,
+# ...), so an appended log carried STALE tail from a prior run — which the S3 heartbeat streams,
+# making a healthy job look like it was on the old N/progress (the [17/500] vs [2/250] scare).
+: > "$LOG"
+# Operator-halt flag: when set in S3, a non-zero exit is an INTENTIONAL kill (someone ran
+# tools/kill_run.sh), so finish() posts a calm note instead of a FAILED + DIAGNOSE page. The
+# next campaign launch clears it, so it never suppresses a REAL failure on the following run.
+CONTROL_HALT="s3://calibrate-rl-agent/control/halt"
 
 # Recipients rendered as <@id> mentions (mentions trigger mobile push; channel
 # posts don't). Two tiers:
@@ -102,6 +110,11 @@ finish() {
   if [ "$code" -eq 0 ]; then
     echo "job $JOB_ID done — $msg"
     slack_post ":white_check_mark: job \`$JOB_ID\` done — $msg"
+  elif aws s3 ls "$CONTROL_HALT" >/dev/null 2>&1; then
+    # Operator killed the run (halt flag set) — NOT a real failure. Calm note, NO DIAGNOSE
+    # page, NO escalation mentions, so the bots/on-call don't investigate an intentional stop.
+    echo "job $JOB_ID stopped by operator (halt flag) — $msg"
+    slack_post ":octagonal_sign: job \`$JOB_ID\` stopped by operator (intentional — no action needed)"
   else
     echo "job $JOB_ID FAILED — $msg" >&2
     slack_post ":x: job \`$JOB_ID\` FAILED — $msg (log: $LOG_URI)
