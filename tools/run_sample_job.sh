@@ -263,6 +263,18 @@ elif [ "$JOB_TYPE" = "eval" ]; then
   SYNC_CMD=""   # the eval script does its own output sync
 else
   [ -n "$JOB_DATASET" ] || finish 1 "train job needs a 'dataset' field (TRAIN_DATA)"
+  # An s3:// dataset/holdout lets an orchestrator hand a train set built off-box (e.g. a
+  # per-concept trio set for the interference experiment) without committing it to the
+  # branch — mirror the sample case: train_grpo.py json.load(open())s a LOCAL path, so pull
+  # the s3:// uri down first. A non-s3 value (a repo path) passes through untouched.
+  case "$JOB_DATASET" in
+    s3://*) TRAIN_LOCAL="data/job_${JOB_ID}_train.json"
+            PREP_CMDS+=("aws s3 cp $JOB_DATASET $TRAIN_LOCAL"); JOB_DATASET="$TRAIN_LOCAL" ;;
+  esac
+  case "$JOB_HOLDOUT" in
+    s3://*) HOLD_LOCAL="data/job_${JOB_ID}_holdout.json"
+            PREP_CMDS+=("aws s3 cp $JOB_HOLDOUT $HOLD_LOCAL"); JOB_HOLDOUT="$HOLD_LOCAL" ;;
+  esac
   RUN_DIR="checkpoint/job_${JOB_ID}"
   RUN_ENV=(TRAIN_DATA="$JOB_DATASET" RESUME_OUTPUT_DIR="$RUN_DIR"
            ${JOB_HOLDOUT:+HOLDOUT_DATA="$JOB_HOLDOUT"}
