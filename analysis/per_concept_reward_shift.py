@@ -12,9 +12,12 @@ competition in the rank-32 LoRA), NOT under-fitting (that rises from low) or ove
 high). This script is what produced the per-concept chart.
 
 INPUT: a directory of log_completions parquets (cols: step, prompt, completion, correctness_reward,
-format_reward, advantage) — train_grpo.py writes these when log_completions=True (synced under a
-run's completions/ on S3). Concept attribution: each prompt's problem text is matched (exact, then
-numbers->'#' template) against every data/*.json that carries skeleton_type.
+format_reward, advantage). Current TRL logs completions to W&B (not local parquets), and a box's
+./training_completions/ dir is NOT run-scoped — it can hold a PRIOR run's stale parquets (it bit us:
+a trio pull came back as a stale 28-concept run). So get a RUN-SCOPED dir first via
+tools/fetch_wandb_completions.py <entity>/<project>/<run_id> (writes the run's rows), then point this
+at that — do NOT read a reused box's training_completions/. Concept attribution: each prompt's problem
+text is matched (exact, then numbers->'#' template) against every data/*.json that carries skeleton_type.
 
   python3 analysis/per_concept_reward_shift.py <completions_dir> [--out results/x.json] [--md results/x.md]
 
