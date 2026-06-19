@@ -1,12 +1,12 @@
 # calibrate-job-poller.service — run the S3 job poller once per boot.
 #
-# Install on a GPU box (sam / sadie / awesome-ash):
-#   sudo tee /etc/calibrate-rl-job.env >/dev/null <<'EOF'
-#   AGENT_NAME=sam
-#   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
-#   EOF
+# Install on a GPU box (sam / sadie / sage / awesome-ash):
+#   tools/setup_box_env.sh <agent_name>      # writes /etc/calibrate-rl-job.env: AGENT_NAME +
+#                                            # SLACK_WEBHOOK_URL (from SSM param store) + WANDB
 #   sudo cp tools/calibrate-job-poller.service /etc/systemd/system/
 #   sudo systemctl daemon-reload && sudo systemctl enable calibrate-job-poller
+# (Webhook lives in SSM Parameter Store /calibrate-rl/slack-webhook, NOT hand-copied per box —
+#  the omission that left awesome-ash silently muted for training posts.)
 #
 # Type=simple (not oneshot): a sampling/training job runs for hours and must not
 # block the boot transaction. run_sample_job.sh powers the box off when done.
