@@ -34,6 +34,9 @@
 #   early_stop_patience optional (train) — EARLY_STOP_PATIENCE (set high, e.g. 999, to disable
 #                       early stop so a run always completes its full MAX_STEPS)
 #   early_stop_min_decline optional (train) — EARLY_STOP_MIN_DECLINE
+#   lora_rank           optional (train) — LORA_RANK (adapter rank; alpha auto-scales to 2x)
+#   per_device_batch    optional (train) — PER_DEVICE_BATCH
+#   grad_accum          optional (train) — GRAD_ACCUM  (prompts/step = per_device_batch*grad_accum/8)
 #   checkpoint  optional (sample) — LoRA adapter dir or s3:// uri; merged into the
 #               base model so calibration samples a TRAINED checkpoint, not base
 #               (e.g. depth-1 calibrates vs v12_depth0 checkpoint-40)
@@ -182,6 +185,9 @@ print(f"JOB_SHARD_TOTAL={q(j.get('shard_total', ''))}")
 print(f"JOB_EVAL_EVERY={q(j.get('eval_every', ''))}")
 print(f"JOB_EARLY_STOP={q(j.get('early_stop_patience', ''))}")
 print(f"JOB_EARLY_STOP_DECLINE={q(j.get('early_stop_min_decline', ''))}")
+print(f"JOB_LORA_RANK={q(j.get('lora_rank', ''))}")
+print(f"JOB_PER_DEVICE_BATCH={q(j.get('per_device_batch', ''))}")
+print(f"JOB_GRAD_ACCUM={q(j.get('grad_accum', ''))}")
 PY
 )" || { LOG_URI="(none)"; finish 1 "spec $SPEC_URI is not valid JSON"; }
 eval "$PARSED"
@@ -289,7 +295,10 @@ else
            ${JOB_MAX_TOKENS:+MAX_COMPLETION_LENGTH="$JOB_MAX_TOKENS"}
            ${JOB_EVAL_EVERY:+EVAL_EVERY="$JOB_EVAL_EVERY"}
            ${JOB_EARLY_STOP:+EARLY_STOP_PATIENCE="$JOB_EARLY_STOP"}
-           ${JOB_EARLY_STOP_DECLINE:+EARLY_STOP_MIN_DECLINE="$JOB_EARLY_STOP_DECLINE"})
+           ${JOB_EARLY_STOP_DECLINE:+EARLY_STOP_MIN_DECLINE="$JOB_EARLY_STOP_DECLINE"}
+           ${JOB_LORA_RANK:+LORA_RANK="$JOB_LORA_RANK"}
+           ${JOB_PER_DEVICE_BATCH:+PER_DEVICE_BATCH="$JOB_PER_DEVICE_BATCH"}
+           ${JOB_GRAD_ACCUM:+GRAD_ACCUM="$JOB_GRAD_ACCUM"})
   RUN_CMD="$PY train/train_grpo.py"
   SYNC_CMD="aws s3 sync $RUN_DIR ${OUTPUT_URI%/}/"
 fi
