@@ -118,6 +118,16 @@ dataset = Dataset.from_list(train_rows).map(build_prompt)
 logger.info(f"Train (goldilocks): {len(dataset)} | held-out goldilocks: {len(holdout_skel)} "
             f"| AMC: OFF (small hillclimb loop)")
 
+# Decontaminate the local completions dir at run start. TRL's log_completions can leave
+# per-step parquets in ./training_completions/, and the dir is NEVER cleared between runs on
+# a reused box — so a per-concept analysis off the box picked up a PRIOR run's parquets (the
+# trio's pull came back as a stale 28-concept run, Jun-11). Clearing it here guarantees the dir
+# only ever holds THIS run's data. NOTE: completions also log to W&B (log_completions=True) —
+# tools/fetch_wandb_completions.py is the authoritative, run-scoped cross-run source; prefer it
+# for per-concept analysis (analysis/per_concept_reward_shift.py) rather than a box-local dir.
+import shutil
+shutil.rmtree("training_completions", ignore_errors=True)
+
 
 # ── LoRA config ─────────────────────────────────────────────────────────────
 # Rank is env-overridable (LORA_RANK) so capacity experiments don't need a code edit.
