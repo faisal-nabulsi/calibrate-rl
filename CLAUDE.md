@@ -443,10 +443,13 @@ merge → analyze per-chain → headless `claude` (acceptEdits, auth-verified) e
 (depth-0 frozen) → re-gate → commit → Slack. (Prior single-box trajectory, goldilocks-mean: iter-1 0.308 → iter-2
 0.299 → iter-3 0.374.) **Gated next: when iters converge → build the depth-1 train set → train off ckpt-40 → validate.**
 
-**Fleet:** 3× L4 samplers (sam/sadie/sage) + L40S trainer (awesome-ash) + always-on t3 agents box. L4s are
-queue-driven (S3 poll; `sample|train|setup|eval`) + SSM-reachable; jobs stream a `.heartbeat` to S3 for mid-run
-liveness. **Operator kill-switch: `tools/kill_run.sh`** sets an S3 halt flag so a deliberate kill posts a calm
-"stopped by operator" instead of paging DIAGNOSE (#124). (Fleet/campaign/infra detail → DAILY LOG 06-16→18.)
+**Fleet:** 3× L4 samplers (sam/sadie/sage) + L40S trainer (awesome-ash, **now queue-wired too** — poller service + Slack
+lifecycle posts, 06-18; was manual-launch only) + always-on t3 agents box. All GPU boxes are queue-driven (S3 poll;
+`sample|train|setup|eval`) + SSM-reachable; jobs stream a `.heartbeat` to S3 + self-report `[box] :rocket:/:white_check_mark:/:x:`
+to Slack (webhook now from SSM Parameter Store `/calibrate-rl/slack-webhook`, written per box by `tools/setup_box_env.sh`,
+auto on provision — #137/#138). **Operator kill-switch: `tools/kill_run.sh`** sets an S3 halt flag so a deliberate kill posts
+a calm "stopped by operator" instead of paging DIAGNOSE (#124). **Side-diagnostic LIVE:** concept-isolation trio training on
+ash (does isolation stop the depth-0 interference decline — see DAILY LOG 06-18). (Fleet/campaign/infra detail → DAILY LOG 06-16→18.)
 
 ## TODO
 
@@ -492,6 +495,34 @@ liveness. **Operator kill-switch: `tools/kill_run.sh`** sets an S3 halt flag so 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
 
 ### 2026-06-18
+- [faisal] **Depth-0 per-concept decomposition → the flat v12 reward is concept INTERFERENCE, not a bad concept.**
+  Mined the v10 (120-step) + v12 (90-step) depth-0 training completions, attributing every rollout to its concept. v12's
+  flat train reward = an **8-up/8-down tug-of-war**: early-mastered concepts DEGRADE (modexp 0.88→0.55, divisor_sum
+  0.85→0.56, complement/cdc/cmod down) while hard ones CLIMB (alternating_cubes 0.25→0.78, lcm_gcd, equalization), netting
+  flat + peaking ~step 50 (re-confirms ckpt-40 = earliest-on-plateau). Mechanism = catastrophic interference / capacity
+  competition in the rank-32 LoRA. So "3-concept works, 28 doesn't" = **dilution + interference, not a poisoning concept**
+  (same ie3/cdc moved +0.06 buried in 28 vs +0.28 as a trio). Also: the old abl3 3-concept run trained **UNFILTERED**
+  (balanced downsample of a raw 600 gen_clean pool), NOT goldilocks — a confound in the old 3-vs-28 read.
+- [faisal] **Concept-isolation experiment LIVE on ash** (interference causal test). Built an UNFILTERED 150/15
+  decliner-trio (modular_exponent + divisor_sum_filter + complex_modulus_power, the 3 steepest v12 decliners) via
+  gen_clean — abl3-style, no goldilocks filter (keep all data; static goldilocks decays via ghost accumulation, dynamic
+  filtering is the real fix). Off BASE, 150 steps, eval-15, early-stop OFF, 2048 ctx, W&B (rl-intro/tiny-math-solver) →
+  `s3://…/runs/trio_decliners_unfiltered/`. If the decliners HOLD when isolated → interference confirmed. Plumbing:
+  **#134** (train stages s3:// dataset/holdout), **#135** (train spec exposes eval_every + early_stop_patience).
+- [faisal] **Depth-1 iter-1 reviewed + feeder-localization baked into the analyzer (#136).** Validated gilbert's
+  feeder-vs-target split but found the **loose feeder-hit detector misclassifies** — it over-counts small-V golds 5–13×
+  (frobenius 0.04 true→0.57 loose; count_obtuse 0.00→0.93), which would have the editor ease targets that aren't the wall.
+  Added a **strict result-context detector + single-digit-V confidence gate** to `depth1_calib_analyze.py` → TOO_HARD splits
+  into TOO_HARD_FEEDER (human feeder-pass) / TOO_HARD_TARGET (editor eases) / uncertain (spot-check); taught the campaign
+  EDIT_PROMPT to act on it. Matches gilbert's manual reads (exact on 3 target-bound; 5 confident feeder-bound; 3 honestly
+  uncertain incl. the single-digit-V case both detectors miss). Held the failure-mode classifier per Faisal (waits for depth-1 training).
+- [faisal] **L40S (awesome-ash) queue-wired + Slack-enabled; durable per-box env via SSM param store.** ash was
+  manual-launch only and **silently muted** (no SLACK_WEBHOOK_URL → slack_post no-op'd). Queue-wired it (poller service +
+  AGENT_NAME + W&B in `/etc/calibrate-rl-job.env`; fixed env-file perms so the ec2-user service can read it). Slack:
+  quick-fix (webhook into env) + **durable** — webhook → SSM Parameter Store `/calibrate-rl/slack-webhook` (SecureString)
+  + IAM read on BOTH box roles (parena-prod-ec2-role + calibrate-rl-gpu-box, both verified), **#137** `tools/setup_box_env.sh`
+  writes the env from the param, **#138** folds it into `provision_box.sh` (setup job auto-refreshes env on re-provision).
+  ash now self-reports `[awesome-ash] :rocket: … type=train …` like the L4s.
 - [faisal] **Depth-1 dataset finalized on main + 500×3 SHARDED calibration campaign launched.** Landed the diverse
   set through PRs #117–#120: 12 targets (added custom_binary_op + box_diagonal-as-target; dropped box_diagonal as a
   dead feeder, 47→46 chains), kathryne's recomputers widened to 100% coverage, depth-tag fix, golds 0-mismatch,
