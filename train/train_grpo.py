@@ -120,9 +120,13 @@ logger.info(f"Train (goldilocks): {len(dataset)} | held-out goldilocks: {len(hol
 
 
 # ── LoRA config ─────────────────────────────────────────────────────────────
+# Rank is env-overridable (LORA_RANK) so capacity experiments don't need a code edit.
+# alpha defaults to 2*r (the prior 32->64 convention) so the effective scale alpha/r
+# stays constant as rank grows; override LORA_ALPHA to decouple it.
+_LORA_R = int(os.environ.get("LORA_RANK", "32"))
 peft_config = LoraConfig(
-    r=32,
-    lora_alpha=64,
+    r=_LORA_R,
+    lora_alpha=int(os.environ.get("LORA_ALPHA", str(2 * _LORA_R))),
     lora_dropout=0.05,
     target_modules="all-linear",
     task_type="CAUSAL_LM",
