@@ -7,8 +7,8 @@
   "params": {
     "k": {
       "value": [
-        2,
-        2
+        3,
+        4
       ],
       "type": "randint",
       "envelope": [
@@ -19,8 +19,8 @@
     },
     "m": {
       "value": [
-        30,
-        300
+        40,
+        400
       ],
       "type": "randint",
       "envelope": [

@@ -8,7 +8,7 @@
     "k": {
       "value": [
         2,
-        3
+        2
       ],
       "type": "randint",
       "envelope": [
@@ -19,8 +19,8 @@
     },
     "m": {
       "value": [
-        50,
-        2000
+        40,
+        600
       ],
       "type": "randint",
       "envelope": [
