@@ -40,6 +40,18 @@
         9
       ],
       "knob_class": "num"
+    },
+    "w": {
+      "value": [
+        3,
+        18
+      ],
+      "type": "randint",
+      "envelope": [
+        3,
+        40
+      ],
+      "knob_class": "num"
     }
   },
   "locked": false

@@ -1071,6 +1071,22 @@ def _a_modexp_exp(V, kn):
     return (pow(a,V,m), f"What is the remainder when {a}^V is divided by {m}?")
 def _a_algebraic_x(V, kn):
     y=kn.randint("y"); z=kn.randint("z")
+    if "w" in kn.params:
+        # iter2: HARDER variant — a 3-equation / 4-unknown system (x,y,z,w) with x=V given.
+        # trapezoid_area was TOO_EASY (0.81) as a 2x2 (y,z) solve; the extra unknown adds one
+        # elimination step. This is a STRUCTURE/step knob (§4: difficulty via steps, NOT number
+        # size — coefficients stay in their existing small range). Recomputer detects the
+        # 4-variable form (a "...+Nw=" term) from the clause and solves the 3x3.
+        w=kn.randint("w")
+        a1=kn.randint("coef"); b1=kn.randint("coef"); c1=kn.randint("coef"); e1=kn.randint("coef")
+        a2=kn.randint("coef"); b2=kn.randint("coef"); c2=kn.randint("coef"); e2=kn.randint("coef")
+        a3=kn.randint("coef"); b3=kn.randint("coef"); c3=kn.randint("coef"); e3=kn.randint("coef")
+        det=(b1*(c2*e3-c3*e2)-c1*(b2*e3-b3*e2)+e1*(b2*c3-b3*c2))
+        if det==0: return (None,"")
+        d1=a1*V+b1*y+c1*z+e1*w; d2=a2*V+b2*y+c2*z+e2*w; d3=a3*V+b3*y+c3*z+e3*w
+        return (V+y+z+w,
+                f"Positive integers x, y, z, w satisfy x=V, {a1}x+{b1}y+{c1}z+{e1}w={d1}, "
+                f"{a2}x+{b2}y+{c2}z+{e2}w={d2}, and {a3}x+{b3}y+{c3}z+{e3}w={d3}. Find x+y+z+w.")
     a1=kn.randint("coef"); b1=kn.randint("coef"); c1=kn.randint("coef")
     a2=kn.randint("coef"); b2=kn.randint("coef"); c2=kn.randint("coef")
     if b1*c2-b2*c1==0: return (None,"")
@@ -1145,9 +1161,18 @@ def _a_equalize_g(V, kn):
     # reduction of (1-fn)/V is the real bottleneck, not the feeder. Restricting fn to
     # denominators <=6 (simple, single-step reductions) eases the arithmetic for every equalize
     # chain. Still 12 options x V(3..14) -> answers spread. Recomputer reads fn from the clause.
-    fn=random.choice([Fraction(1,2),Fraction(1,3),Fraction(2,3),Fraction(1,4),Fraction(3,4),
-                      Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),
-                      Fraction(1,6),Fraction(5,6)])
+    # iter2: optional per-chain "frac" knob restricts fn to simple low-denominator fractions
+    # (single-step reductions). The two TOO_HARD equalize chains whose FEEDER is the bottleneck
+    # (count_obtuse_triangles 0.05, roots_of_unity_sum 0.19) carry it -> the m/n reduction step
+    # is eased so the composite floors at the feeder rate instead of being killed by a messy
+    # fifths/sixths reduction on top of a hard feeder. Chains without the knob keep the full
+    # range. Recomputer reads fn straight from the clause, so no recomputer change is needed.
+    if "frac" in kn.params:
+        nd=kn.choice("frac"); fn=Fraction(nd[0],nd[1])
+    else:
+        fn=random.choice([Fraction(1,2),Fraction(1,3),Fraction(2,3),Fraction(1,4),Fraction(3,4),
+                          Fraction(1,5),Fraction(2,5),Fraction(3,5),Fraction(4,5),
+                          Fraction(1,6),Fraction(5,6)])
     pour=1-((V-1)+fn)/V
     return (pour.numerator+pour.denominator,
             f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")

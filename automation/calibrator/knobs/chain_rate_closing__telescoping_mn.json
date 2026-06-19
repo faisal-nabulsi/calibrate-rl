@@ -7,8 +7,9 @@
   "params": {
     "gap": {
       "value": [
-        1,
-        2
+        2,
+        3,
+        4
       ],
       "type": "choice",
       "envelope": [

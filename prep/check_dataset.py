@@ -711,6 +711,24 @@ def _chain_split(problem):
     if len(parts) < 2: return None, None
     return parts[0].split("“", 1)[-1], parts[-1]   # (sub-question, target clause)
 
+def _solve_linear(M, rhs):
+    """Solve the square linear system M x = rhs over Fractions (Gaussian elimination
+    with partial-ish pivoting). Returns the solution list, or None if singular."""
+    n = len(M)
+    A = [list(M[i]) + [rhs[i]] for i in range(n)]
+    for col in range(n):
+        piv = next((r for r in range(col, n) if A[r][col] != 0), None)
+        if piv is None: return None
+        A[col], A[piv] = A[piv], A[col]
+        pv = A[col][col]
+        A[col] = [v / pv for v in A[col]]
+        for r in range(n):
+            if r != col and A[r][col] != 0:
+                f = A[r][col]
+                A[r] = [a - f*b for a, b in zip(A[r], A[col])]
+    return [A[i][n] for i in range(n)]
+
+
 def _recompute_target(target, c, V):
     if target == "modular_exponent":
         m = int(re.search(r"divided by (\d+)", c).group(1))
@@ -719,6 +737,17 @@ def _recompute_target(target, c, V):
         if me: return pow(int(me.group(1)), V, m)
         return None
     if target == "algebraic_system_2eq":
+        # iter2: optional 4-unknown (x,y,z,w) HARDER form — 3 equations, x=V given.
+        rows4 = re.findall(r"(\d+)x\+(\d+)y\+(\d+)z\+(\d+)w=(\d+)", c)
+        if len(rows4) == 3:
+            M = []; rhs = []
+            for (a,b,cc,e,d) in [tuple(map(int, r)) for r in rows4]:
+                M.append([Fraction(b), Fraction(cc), Fraction(e)]); rhs.append(Fraction(d-a*V))
+            sol = _solve_linear(M, rhs)   # solves for (y,z,w)
+            if sol is None: return None
+            y, z, w = sol
+            s = V+y+z+w
+            return int(s) if s.denominator == 1 else None
         rows = re.findall(r"(\d+)x\+(\d+)y\+(\d+)z=(\d+)", c)
         if len(rows) != 2: return None
         (a1,b1,c1,d1),(a2,b2,c2,d2) = [tuple(map(int, r)) for r in rows]
