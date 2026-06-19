@@ -153,7 +153,7 @@ training_args = GRPOConfig(
     # - 8 completions per prompt at temp=1.0 for diverse reasoning paths
     # - 1024 completion length for <think> section + answer
     num_generations=8,
-    max_completion_length=int(os.environ.get("MAX_COMPLETION_LENGTH", "1024")),  # v12 runs set 2048 to match calibration
+    max_completion_length=int(os.environ.get("MAX_COMPLETION_LENGTH", "2048")),  # default 2048 to match calibration (v12+)
     # Held constant at 1.0 to MATCH the v10 calibration sampling temperature
     # (measure_v10_full.py samples at temp=1.0). Calibrating difficulty at one
     # temperature and training at another invalidates the goldilocks zone

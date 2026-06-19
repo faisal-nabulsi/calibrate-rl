@@ -18,10 +18,9 @@ cd ~/calibrate-rl && git pull && \
 export WANDB_API_KEY=$(awk '/api\.wandb\.ai/{f=1} f&&/password/{print $2; exit}' ~/.netrc) && \
 TRAIN_DATA=data/v12_hardband_0to5_train.json \
 HOLDOUT_DATA=data/v12_holdout.json \
-MAX_COMPLETION_LENGTH=2048 \
 SAVE_STEPS=10 EVAL_EVERY=10 EVAL_K=4 MAX_STEPS=112 \
 PER_DEVICE_BATCH=2 GRAD_ACCUM=16 \
-EARLY_STOP_PATIENCE=2 EARLY_STOP_MIN_DECLINE=0.02 \
+EARLY_STOP_PATIENCE=0 \
 SYNC_S3_URI=s3://calibrate-rl-agent/runs/v12_hardband_run1/ \
 WANDB_ENTITY=rl-intro \
 python train/train_grpo.py > logs/hardband_run1.log 2>&1
@@ -30,15 +29,15 @@ python train/train_grpo.py > logs/hardband_run1.log 2>&1
 Everything except `TRAIN_DATA` and `SYNC_S3_URI` matches v12 run-2 (no vLLM, batch 2×16, 2048 ctx).
 W&B key is read from the box's netrc at launch (never written to disk).
 
-## Two things worth deciding for THIS experiment's goal
+## Notes for THIS experiment's goal
 
-1. **Early-stop may cut it before the hard band comes online.** Early-stop watches the *full* held-out
-   `mean_pass_rate`; the easy 24/79 saturate fast, so a plateau there could stop the run while the hard
-   problems are still improving. If the point is to let the `0/8` bake, set
-   **`EARLY_STOP_PATIENCE=999`** (effectively off → runs all 112 steps). Default above keeps `=2`
-   (exact-same-as-v12).
-2. **More epochs help the `0/8` crack.** At 1.08 epochs each hard problem is seen ~once. Raising
-   `MAX_STEPS` gives them more chances to come online. Default keeps `112` (exact-same-as-v12).
+1. **Early-stop is OFF** (`EARLY_STOP_PATIENCE=0` → runs all 112 steps). Reason: early-stop watches the
+   *full* held-out, where the easy 24/79 saturate fast; a plateau there could stop the run while the hard
+   band is still coming online. We want the `0/8` to have the whole run to bake in.
+2. **`MAX_COMPLETION_LENGTH` now defaults to 2048** (train_grpo.py), matching calibration — no longer
+   needs to be set in the launch env.
+3. **More epochs would help the `0/8` crack.** At 1.08 epochs each hard problem is seen ~once; raising
+   `MAX_STEPS` gives them more chances. Left at `112` (exact-same-as-v12) unless you decide otherwise.
 
 ## End-of-run metric (the actual point)
 
