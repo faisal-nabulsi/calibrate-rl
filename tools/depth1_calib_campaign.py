@@ -301,9 +301,17 @@ Edit the generators to move the FLAGGED chains toward goldilocks. Rules (HARD):
 - Edit ONLY the chain layer: the `_register_diverse_chain` factory, `_ADAPT` adapters, `_DIVERSE_CHAINS` map, and chain framings in {injector}; and automation/calibrator/knobs/chain_*.json. If you change a chain's structure, update its recomputer in prep/check_dataset.py to match.
 - NEVER edit depth-0 atomic generators or knobs/<atomic>.json. (An atom-equivalence test will revert any such change.)
 - Difficulty moves via STEP/CONSTRAINT COUNT, never number size (§4).
-- Your PRIMARY lever is DIFFICULTY. TOO_HARD -> fewer steps/constraints; TOO_EASY -> more. Aim for the
-  usable band (mean pass 0.25-0.75, ideally ~0.5). Do NOT over-ease a TOO_HARD chain past 0.75 into too-easy
-  (iters 1-5 over-eased several chains, e.g. vieta_sumcubes/percent_compound, into the 0.9s).
+- Your PRIMARY lever is DIFFICULTY, but only the TARGET side is yours. The readout LOCALIZES each too-hard chain
+  (feeder_hit column = strict rate the rollouts compute the feeder atom's gold V), so act on the SPLIT:
+  * TOO_HARD_TARGET -> feeder is computed fine, the TARGET is the wall: ease the target (fewer steps/constraints).
+  * TOO_HARD_FEEDER -> the model botches the FEEDER atom (frozen, not yours); easing the target NO-OPS and just
+    breaks dedupe -> revert. You CANNOT fix it from the chain layer — write it under a "FEEDER-BOUND (needs human
+    feeder-pass #115/#116)" heading and LEAVE IT.
+  * plain TOO_HARD (uncertain: small feeder gold or middling feeder_hit) -> localization isn't reliable; do NOT
+    blindly ease. Note it for a transcript spot-check and LEAVE IT this iter.
+  * TOO_EASY -> harden (more steps/constraints).
+  Aim for the usable band (mean pass 0.25-0.75, ideally ~0.5). Do NOT over-ease a TOO_HARD_TARGET chain past 0.75
+  into too-easy (iters 1-5 over-eased several chains, e.g. vieta_sumcubes/percent_compound, into the 0.9s).
 - DIVERSITY (answer top3) is OWNED BY THE STATIC BUILD GATE, which recomputes top3 at build-n (~40/chain)
   and reverts any edit that pushes a chain >0.30. Do NOT chase the per-iteration SAMPLE top3 — at ~5-10
   rows/chain it is small-sample noise (a sample top3 of 0.45 is almost always already <0.30 at build n).
