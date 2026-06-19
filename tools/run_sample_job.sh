@@ -30,6 +30,10 @@
 #               data/skeleton_dataset_v11_clean.json, ignored when concepts set);
 #               train: TRAIN_DATA (REQUIRED for train jobs)
 #   holdout     optional (train) — HOLDOUT_DATA for the held-out monitor
+#   eval_every          optional (train) — EVAL_EVERY (held-out monitor cadence in steps)
+#   early_stop_patience optional (train) — EARLY_STOP_PATIENCE (set high, e.g. 999, to disable
+#                       early stop so a run always completes its full MAX_STEPS)
+#   early_stop_min_decline optional (train) — EARLY_STOP_MIN_DECLINE
 #   checkpoint  optional (sample) — LoRA adapter dir or s3:// uri; merged into the
 #               base model so calibration samples a TRAINED checkpoint, not base
 #               (e.g. depth-1 calibrates vs v12_depth0 checkpoint-40)
@@ -175,6 +179,9 @@ print(f"JOB_CMD={q(j.get('cmd', ''))}")
 print(f"JOB_OUTPUT_FILE={q(j.get('output_file', ''))}")
 print(f"JOB_SHARD_IDX={q(j.get('shard_idx', ''))}")
 print(f"JOB_SHARD_TOTAL={q(j.get('shard_total', ''))}")
+print(f"JOB_EVAL_EVERY={q(j.get('eval_every', ''))}")
+print(f"JOB_EARLY_STOP={q(j.get('early_stop_patience', ''))}")
+print(f"JOB_EARLY_STOP_DECLINE={q(j.get('early_stop_min_decline', ''))}")
 PY
 )" || { LOG_URI="(none)"; finish 1 "spec $SPEC_URI is not valid JSON"; }
 eval "$PARSED"
@@ -279,7 +286,10 @@ else
   RUN_ENV=(TRAIN_DATA="$JOB_DATASET" RESUME_OUTPUT_DIR="$RUN_DIR"
            ${JOB_HOLDOUT:+HOLDOUT_DATA="$JOB_HOLDOUT"}
            ${JOB_N:+MAX_STEPS="$JOB_N"}
-           ${JOB_MAX_TOKENS:+MAX_COMPLETION_LENGTH="$JOB_MAX_TOKENS"})
+           ${JOB_MAX_TOKENS:+MAX_COMPLETION_LENGTH="$JOB_MAX_TOKENS"}
+           ${JOB_EVAL_EVERY:+EVAL_EVERY="$JOB_EVAL_EVERY"}
+           ${JOB_EARLY_STOP:+EARLY_STOP_PATIENCE="$JOB_EARLY_STOP"}
+           ${JOB_EARLY_STOP_DECLINE:+EARLY_STOP_MIN_DECLINE="$JOB_EARLY_STOP_DECLINE"})
   RUN_CMD="$PY train/train_grpo.py"
   SYNC_CMD="aws s3 sync $RUN_DIR ${OUTPUT_URI%/}/"
 fi
