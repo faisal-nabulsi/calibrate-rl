@@ -11,7 +11,15 @@ emits a per-chain difficulty + diversity report the campaign uses to decide edit
   - in-band fraction: rows in the wider 0.25..0.75 zone
   - too_hard / too_easy fractions (pass==0 / pass==1)  <- the ghost-batch killers
   - top3 answer share (answer-diversity; >0.30 = answer-hackable, the #78 concern)
-  - verdict: TOO_HARD | TOO_EASY | LOW_DIVERSITY | IN_BAND  + a suggested direction
+  - feeder_hit: STRICT result-context rate at which the rollouts compute the feeder atom's gold V
+    (trailing '?' = low confidence, median feeder gold < 10, text-localization unreliable)
+  - verdict: TOO_HARD_FEEDER | TOO_HARD_TARGET | TOO_HARD | TOO_EASY | LOW_DIVERSITY | IN_BAND  + direction
+
+A TOO_HARD chain is split by feeder_hit: TOO_HARD_FEEDER (model botches the feeder -> easing the
+target NO-OPS, belongs to the human feeder-pass #115/#116) vs TOO_HARD_TARGET (feeder fine -> the
+editor's ease-the-target lever works). Plain TOO_HARD = couldn't localize confidently (small V or
+middling hit) -> spot-check transcripts. This stops the loop easing targets that aren't the wall
+(iter-1: 5+ "too-hard" chains are feeder-bound; the loose detector misread them as target-bound).
 
   python3 analysis/depth1_calib_analyze.py <calib.json> [--md out.md] [--json out.json]
 
@@ -19,7 +27,7 @@ The verdict/direction is ADVISORY — the edit step (campaign) decides the actua
 generator change; this only measures and flags. Difficulty must move via step/
 constraint count, never number size (§4); this script never edits anything.
 """
-import json, sys, argparse, collections, statistics
+import json, sys, argparse, collections, statistics, re, ast
 
 GOLD_LO, GOLD_HI = 0.45, 0.55     # strict goldilocks band (GRPO advantage target)
 BAND_LO, BAND_HI = 0.25, 0.75     # wider usable band
@@ -28,6 +36,56 @@ MIN_DIV_N = 30                    # min rows/chain to TRUST a sample top3. Below
                                   # upward-biased noise (n<=3 reads ~1.0 trivially); diversity is then
                                   # left to the static BUILD GATE (recomputes top3 at build-n ~40 and
                                   # reverts >0.30). The iter1-5 plateau was the editor chasing this noise.
+
+# Feeder localization: splits a TOO_HARD chain into FEEDER-bound (the model botches the feeder
+# atom -> easing the target NO-OPS, needs the human feeder-pass #115/#116) vs TARGET-bound (the
+# editor's ease-the-target lever works). A too-hard chain is a dead ghost-batch either way; this
+# decides WHICH lever moves it. CRITICAL: localization is STRICT result-context, not "feeder gold
+# appears anywhere" — the loose detector over-counts incidental small numbers 5-13x and silently
+# MISCLASSIFIES (iter-1 frobenius read 0.57 loose vs 0.04 true; count_obtuse 0.93 vs 0.00). And even
+# strict can't localize a SINGLE-DIGIT feeder gold (incidental "= 9" is unbeatable) -> conf="low" =>
+# don't auto-classify, flag for a transcript spot-check. Only act on confident splits.
+FEEDER_BOUND_MAX = 0.30           # strict feeder-hit below this => feeder-bound
+FEEDER_OK_MIN    = 0.85           # strict feeder-hit at/above this => target-bound
+SMALL_V          = 10             # median feeder gold below this => text-localization unreliable
+
+
+def _texts(r):
+    t = r.get("rollout_texts")
+    if t is None:
+        return []
+    return ast.literal_eval(t) if isinstance(t, str) else t
+
+
+def _feeder_in(text, ig):
+    """STRICT: feeder gold V stated as a RESULT (after =/is/equals/so/thus/colon, or immediately
+    before a counted noun), NOT merely present. Incidental small numbers rarely sit in a result slot."""
+    s = re.escape(str(ig))
+    pats = (r"(?:=|≈|\\approx|:|\bis\b|\bequals\b|equal to|\bso\b|\bthus\b|\btherefore\b|\bgives?\b|\\Rightarrow|→)\s*\\?\(?\$?\s*" + s + r"(?![\d.])",
+            r"(?<![\d.])" + s + r"\s+(?:values?|integers?|numbers?|ways?|triangles?|points?|divisors?|solutions?|terms?|pairs?|count)")
+    return any(re.search(p, text, re.I) for p in pats)
+
+
+def _feeder(rs):
+    """Per-chain strict feeder-hit rate + confidence. None if not a chain calib with feeder golds."""
+    hits = tot = 0
+    vals = []
+    for r in rs:
+        ig = (r.get("chain") or {}).get("intermediate_gold")
+        if ig is None:
+            return None
+        try:
+            vals.append(abs(float(ig)))
+        except (TypeError, ValueError):
+            pass
+        for t in _texts(r):
+            tot += 1
+            hits += 1 if _feeder_in(t, ig) else 0
+    if not tot:
+        return None
+    med = statistics.median(vals) if vals else 0
+    return dict(hit=round(hits / tot, 3), conf=("low" if med < SMALL_V else "ok"),
+                med_vgold=int(med) if vals else None)
 
 
 def chain_name(r):
@@ -66,9 +124,27 @@ def analyze(rows, pool_rows=None):
         too_hard = sum(1 for p in ps if p == 0.0) / n
         too_easy = sum(1 for p in ps if p == 1.0) / n
         mean = statistics.mean(ps)
+        feeder = _feeder(rs)        # strict feeder-hit + confidence (None if no feeder golds)
         # DIFFICULTY first (the editor's main lever); then DIVERSITY from the reliable build-pool top3.
         if mean < 0.20 or too_hard > 0.60:
             verdict, direction = "TOO_HARD", "ease (fewer steps/constraints); don't over-ease past 0.75"
+            # Localize: is the wall the FEEDER atom or the TARGET? Decides if the editor's lever even
+            # applies. Only split on a CONFIDENT strict reading; small-V or middling => flag, don't act.
+            if feeder is not None:
+                fh, conf = feeder["hit"], feeder["conf"]
+                if conf == "low":
+                    direction = (f"feeder/target UNCERTAIN (median feeder gold {feeder['med_vgold']}<{SMALL_V}; "
+                                 "text-localization unreliable) — spot-check transcripts before editing")
+                elif fh < FEEDER_BOUND_MAX:
+                    verdict = "TOO_HARD_FEEDER"
+                    direction = (f"FEEDER-bound (strict feeder-hit {fh:.2f}: model botches the feeder atom) — "
+                                 "easing the target NO-OPS; FLAG for the human feeder-pass (#115/#116), not the editor")
+                elif fh >= FEEDER_OK_MIN:
+                    verdict = "TOO_HARD_TARGET"
+                    direction = (f"TARGET-bound (strict feeder-hit {fh:.2f}: feeder computed fine) — "
+                                 "ease the target (fewer steps/constraints); don't over-ease past 0.75")
+                else:
+                    direction = (f"mixed feeder/target (strict feeder-hit {fh:.2f}) — spot-check before editing")
         elif mean > 0.80 or too_easy > 0.60:
             verdict, direction = "TOO_EASY", "harden (more steps/constraints)"
         elif top3 > TOP3_MAX and (top3_src == "pool" or n >= MIN_DIV_N):
@@ -78,6 +154,8 @@ def analyze(rows, pool_rows=None):
         out[name] = dict(n=n, mean_pass=round(mean, 3), gold_frac=round(gold_frac, 3),
                          band_frac=round(band_frac, 3), too_hard=round(too_hard, 3),
                          too_easy=round(too_easy, 3), top3=round(top3, 3), top3_src=top3_src,
+                         feeder_hit=(feeder["hit"] if feeder else None),
+                         feeder_conf=(feeder["conf"] if feeder else None),
                          verdict=verdict, direction=direction)
     return out
 
@@ -108,11 +186,13 @@ def main():
     lines = [f"# depth-1 calibration readout — {len(rows)} rows, {n_chains} chains",
              f"in-band chains: **{in_band}/{n_chains}** | mean goldilocks-frac: {pool_gold:.2f}",
              "", f"flagged (need edits): **{len(flagged)}**", "",
-             "| chain | n | mean | gold% | too_hard | too_easy | top3 | verdict | direction |",
-             "|---|--|--|--|--|--|--|--|---|"]
+             "| chain | n | mean | gold% | too_hard | too_easy | top3 | feeder_hit | verdict | direction |",
+             "|---|--|--|--|--|--|--|--|--|---|"]
     for k, v in sorted(rep.items(), key=lambda kv: (kv[1]["verdict"] == "IN_BAND", kv[0])):
+        fh = v.get("feeder_hit")
+        fhs = "—" if fh is None else (f"{fh}{'?' if v.get('feeder_conf') == 'low' else ''}")
         lines.append(f"| {k} | {v['n']} | {v['mean_pass']} | {v['gold_frac']} | "
-                     f"{v['too_hard']} | {v['too_easy']} | {v['top3']} | {v['verdict']} | {v['direction']} |")
+                     f"{v['too_hard']} | {v['too_easy']} | {v['top3']} | {fhs} | {v['verdict']} | {v['direction']} |")
     md = "\n".join(lines)
     print(md if not a.md else f"in-band {in_band}/{n_chains} | flagged {len(flagged)} | mean gold {pool_gold:.2f}")
     if a.md:
