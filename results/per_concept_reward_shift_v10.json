@@ -1,0 +1,226 @@
+{
+  "summary": {
+    "run": "training_completions",
+    "n_rollouts": 3840,
+    "unmatched": 0,
+    "max_step": 120,
+    "early_window": [
+      1,
+      40
+    ],
+    "late_window": [
+      81,
+      120
+    ]
+  },
+  "concepts": [
+    {
+      "concept": "multi_constraint_square",
+      "early": 0.3,
+      "late": 0.225,
+      "delta": -0.075,
+      "n_early": 40,
+      "n_late": 40
+    },
+    {
+      "concept": "triangular_filter_count",
+      "early": 0.542,
+      "late": 0.486,
+      "delta": -0.056,
+      "n_early": 72,
+      "n_late": 72
+    },
+    {
+      "concept": "polynomial_sign_intervals",
+      "early": 0.438,
+      "late": 0.417,
+      "delta": -0.021,
+      "n_early": 16,
+      "n_late": 24
+    },
+    {
+      "concept": "divisor_sum_filter",
+      "early": 0.906,
+      "late": 0.9,
+      "delta": -0.006,
+      "n_early": 32,
+      "n_late": 40
+    },
+    {
+      "concept": "equalization_fraction",
+      "early": 0.656,
+      "late": 0.675,
+      "delta": 0.019,
+      "n_early": 64,
+      "n_late": 40
+    },
+    {
+      "concept": "modular_exponent",
+      "early": 0.25,
+      "late": 0.292,
+      "delta": 0.042,
+      "n_early": 40,
+      "n_late": 48
+    },
+    {
+      "concept": "roots_of_unity_sum",
+      "early": 0.545,
+      "late": 0.602,
+      "delta": 0.057,
+      "n_early": 88,
+      "n_late": 88
+    },
+    {
+      "concept": "prime_power_divisors",
+      "early": 0.25,
+      "late": 0.312,
+      "delta": 0.062,
+      "n_early": 8,
+      "n_late": 16
+    },
+    {
+      "concept": "algebraic_system_2eq",
+      "early": 0.484,
+      "late": 0.562,
+      "delta": 0.078,
+      "n_early": 64,
+      "n_late": 64
+    },
+    {
+      "concept": "constrained_digit_count",
+      "early": 0.325,
+      "late": 0.425,
+      "delta": 0.1,
+      "n_early": 40,
+      "n_late": 40
+    },
+    {
+      "concept": "lcm_gcd_system",
+      "early": 0.448,
+      "late": 0.552,
+      "delta": 0.104,
+      "n_early": 96,
+      "n_late": 96
+    },
+    {
+      "concept": "telescoping_mn",
+      "early": 0.525,
+      "late": 0.667,
+      "delta": 0.142,
+      "n_early": 40,
+      "n_late": 24
+    },
+    {
+      "concept": "constrained_divisor_count",
+      "early": 0.375,
+      "late": 0.531,
+      "delta": 0.156,
+      "n_early": 24,
+      "n_late": 32
+    },
+    {
+      "concept": "lattice_points_circle",
+      "early": 0.578,
+      "late": 0.75,
+      "delta": 0.172,
+      "n_early": 64,
+      "n_late": 64
+    },
+    {
+      "concept": "constrained_subset_count",
+      "early": 0.438,
+      "late": 0.625,
+      "delta": 0.187,
+      "n_early": 16,
+      "n_late": 8
+    },
+    {
+      "concept": "complement_prob_mn",
+      "early": 0.812,
+      "late": 1.0,
+      "delta": 0.188,
+      "n_early": 16,
+      "n_late": 16
+    },
+    {
+      "concept": "complex_modulus_power",
+      "early": 0.25,
+      "late": 0.438,
+      "delta": 0.188,
+      "n_early": 32,
+      "n_late": 32
+    },
+    {
+      "concept": "continued_fraction",
+      "early": 0.536,
+      "late": 0.732,
+      "delta": 0.196,
+      "n_early": 56,
+      "n_late": 56
+    },
+    {
+      "concept": "complex_eq_solcount",
+      "early": 0.597,
+      "late": 0.797,
+      "delta": 0.2,
+      "n_early": 144,
+      "n_late": 128
+    },
+    {
+      "concept": "box_diagonal_sq",
+      "early": 0.516,
+      "late": 0.766,
+      "delta": 0.25,
+      "n_early": 64,
+      "n_late": 64
+    },
+    {
+      "concept": "count_pythagorean",
+      "early": 0.375,
+      "late": 0.625,
+      "delta": 0.25,
+      "n_early": 48,
+      "n_late": 56
+    },
+    {
+      "concept": "inclusion_exclusion_3set",
+      "early": 0.417,
+      "late": 0.667,
+      "delta": 0.25,
+      "n_early": 24,
+      "n_late": 24
+    },
+    {
+      "concept": "perfect_square_divisible",
+      "early": 0.625,
+      "late": 0.875,
+      "delta": 0.25,
+      "n_early": 16,
+      "n_late": 16
+    },
+    {
+      "concept": "ordered_triple_constraint",
+      "early": 0.357,
+      "late": 0.609,
+      "delta": 0.252,
+      "n_early": 56,
+      "n_late": 64
+    },
+    {
+      "concept": "poly_remainder",
+      "early": 0.25,
+      "late": 0.542,
+      "delta": 0.292,
+      "n_early": 24,
+      "n_late": 24
+    },
+    {
+      "concept": "alternating_cubes",
+      "early": 0.479,
+      "late": 0.846,
+      "delta": 0.367,
+      "n_early": 96,
+      "n_late": 104
+    }
+  ]
+}
