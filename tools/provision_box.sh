@@ -43,4 +43,17 @@ from peft import PeftModel
 print("PROVISION OK | torch", torch.__version__, "| transformers", transformers.__version__,
       "| cuda", torch.cuda.is_available(), "| PeftModel import clean")
 PY
+
+# Refresh /etc/calibrate-rl-job.env (the poller's EnvironmentFile: AGENT_NAME + Slack webhook from
+# the SSM param store + W&B) as part of provisioning, so a (re-)provision keeps it current — no
+# hand-run of setup_box_env.sh, and a rotated webhook propagates on the next setup job. Best-effort:
+# a param/IAM failure must not fail the venv build (setup_box_env.sh exits before clobbering on read
+# failure). Needs the box's identity: AGENT_NAME is exported by run_sample_job sourcing the existing
+# env (any re-provision has it). A truly fresh box has no name yet -> warn + skip, never write a wrong one.
+if [ -n "${AGENT_NAME:-}" ]; then
+  echo "== refreshing /etc/calibrate-rl-job.env for agent=$AGENT_NAME =="
+  bash "$(dirname "$0")/setup_box_env.sh" "$AGENT_NAME" || echo "WARN: setup_box_env.sh failed (param/IAM?) — env left unchanged"
+else
+  echo "WARN: AGENT_NAME unset (fresh box) — bootstrap the env once by hand: tools/setup_box_env.sh <agent_name>"
+fi
 echo "== provision_box done =="
