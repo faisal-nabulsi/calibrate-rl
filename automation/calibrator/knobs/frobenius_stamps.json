@@ -201,6 +201,17 @@
         30
       ],
       "knob_class": "C"
+    },
+    "variant": {
+      "value": [
+        "max"
+      ],
+      "type": "choice",
+      "envelope": [
+        "count",
+        "max"
+      ],
+      "knob_class": "S"
     }
   },
   "locked": false

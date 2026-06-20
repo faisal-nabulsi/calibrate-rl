@@ -1,0 +1,42 @@
+{
+  "components": [
+    "perfect_square_divisible",
+    "complex_modulus_power"
+  ],
+  "fed_param": "real_part",
+  "params": {
+    "b": {
+      "value": [
+        2,
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29
+      ],
+      "type": "choice",
+      "envelope": [
+        2,
+        40
+      ],
+      "knob_class": "num"
+    },
+    "k": {
+      "value": [
+        1,
+        2
+      ],
+      "type": "choice",
+      "envelope": [
+        1,
+        2
+      ],
+      "knob_class": "S"
+    }
+  },
+  "locked": false
+}

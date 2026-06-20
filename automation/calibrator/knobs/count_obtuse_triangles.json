@@ -3,7 +3,7 @@
     "plo": {
       "value": [
         6,
-        12
+        9
       ],
       "type": "randint",
       "envelope": [
@@ -15,7 +15,7 @@
     "pspan": {
       "value": [
         3,
-        6
+        4
       ],
       "type": "randint",
       "envelope": [

@@ -3,7 +3,7 @@
     "r1": {
       "value": [
         2,
-        20
+        11
       ],
       "type": "randint",
       "envelope": [
@@ -15,7 +15,7 @@
     "r2": {
       "value": [
         2,
-        20
+        11
       ],
       "type": "randint",
       "envelope": [
