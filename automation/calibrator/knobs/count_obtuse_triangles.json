@@ -2,8 +2,8 @@
   "params": {
     "plo": {
       "value": [
-        6,
-        8
+        7,
+        11
       ],
       "type": "randint",
       "envelope": [
@@ -14,8 +14,8 @@
     },
     "pspan": {
       "value": [
-        2,
-        3
+        4,
+        5
       ],
       "type": "randint",
       "envelope": [

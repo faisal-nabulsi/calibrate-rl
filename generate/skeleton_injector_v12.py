@@ -841,6 +841,9 @@ def c_vietacount():
         f"Count the integer pairs (a,b) for which x³+ax²+bx+{c} has three different integer roots.",
         f"In how many ways can integers a,b be chosen so x³+ax²+bx+{c} has 3 distinct integer roots?",
         f"How many (a,b) with integer entries give x³+ax²+bx+{c} three distinct integer roots?",
+        f"How many sets of three distinct nonzero integers have a product of {-c}?",
+        f"In how many ways can {-c} be written as a product of three distinct nonzero integers (order ignored)?",
+        f"Count the unordered triples of distinct nonzero integers whose product is {-c}.",
     ]), len(trip), "vieta_pair_count")
 
 @concept("continued_fraction",[0])
