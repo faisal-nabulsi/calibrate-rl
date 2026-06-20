@@ -806,7 +806,7 @@ _CHAIN_TARGET = {
  "complex_eq_solcount":"custom_binary_op","complex_modulus_power":"box_diagonal_sq",
  "constrained_digit_count":"inclusion_exclusion_3set","constrained_divisor_count":"telescoping_mn",
  "constrained_subset_count":"algebraic_system_2eq","continued_fraction":"inclusion_exclusion_3set",
- "count_obtuse_triangles":"box_diagonal_sq","count_pythagorean":"custom_binary_op",
+ "count_pythagorean":"custom_binary_op",
  "custom_binary_op":"divisor_sum_filter","digit_count_bigprod":"complement_prob_mn",
  "distinct_product_count":"modular_exponent","divisor_sum_filter":"modular_exponent",
  "equalization_fraction":"box_diagonal_sq","frobenius_stamps":"complex_modulus_power",
@@ -822,7 +822,7 @@ _CHAIN_TARGET = {
  "roots_of_unity_sum":"equalization_fraction","sum_of_squares":"complex_modulus_power",
  "telescoping_mn":"inclusion_exclusion_3set","three_number_system":"divisor_sum_filter",
  "trapezoid_area":"complex_modulus_power","triangular_filter_count":"algebraic_system_2eq",
- "unit_conversion_area":"divisor_sum_filter","vieta_pair_count":"complex_modulus_power",
+ "unit_conversion_area":"divisor_sum_filter",
  "vieta_sumcubes":"inclusion_exclusion_3set",
 }
 def _make_chain_rc(feeder, target):

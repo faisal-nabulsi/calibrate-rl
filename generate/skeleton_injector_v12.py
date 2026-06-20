@@ -1232,7 +1232,7 @@ _DIVERSE_CHAINS={
  "complex_eq_solcount":"customop","complex_modulus_power":"boxdiag",
  "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
  "constrained_subset_count":"algebraic_x","continued_fraction":"ie3_U",
- "count_obtuse_triangles":"boxdiag","count_pythagorean":"customop",
+ "count_pythagorean":"customop",
  "custom_binary_op":"divsum","digit_count_bigprod":"complement_faces",
  "distinct_product_count":"modexp_base","divisor_sum_filter":"modexp_base",
  "equalization_fraction":"boxdiag","frobenius_stamps":"cmod",
@@ -1248,7 +1248,7 @@ _DIVERSE_CHAINS={
  "sum_of_squares":"cmod","telescoping_mn":"ie3_U",
  "three_number_system":"divsum","trapezoid_area":"cmod",
  "triangular_filter_count":"algebraic_x","unit_conversion_area":"divsum",
- "vieta_pair_count":"cmod","vieta_sumcubes":"ie3_U",
+ "vieta_sumcubes":"ie3_U",
 }
 # DECOUPLED feeder ease (freeze-safe): when a chain's FEEDER is a frozen depth-0 atom that ckpt-40
 # can't reliably compute, the chain draws the feeder with EASIER params via _ez, while the standalone
