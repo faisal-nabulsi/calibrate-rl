@@ -487,8 +487,14 @@ def rc_geo_first_exceed(p):
 
 def rc_vieta_pair_count(p):
     g = re.search(r"bx\s*\+\s*(\d+)", p)
-    if not g: return None
-    c = int(g.group(1)); trip = set(); R = 15
+    if g:
+        c = int(g.group(1))
+    else:                                  # direct-factorization phrasing: product = -c
+        g2 = (re.search(r"product (?:of |is )?(-?\d+)", p)
+              or re.search(r"can (-?\d+) be written as a product", p))
+        if not g2: return None
+        c = -int(g2.group(1))
+    trip = set(); R = 15
     for r1 in range(-R, R+1):
         if r1 == 0 or c % r1: continue
         for r2 in range(r1+1, R+1):
