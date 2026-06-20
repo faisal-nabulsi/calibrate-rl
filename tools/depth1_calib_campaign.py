@@ -38,9 +38,10 @@ ROLLOUTS  = int(E("ROLLOUTS", "8"))
 MAX_TOKENS= int(E("MAX_TOKENS", "2048"))
 CKPT_S3   = E("CKPT_S3", "s3://calibrate-rl-agent/runs/v12_depth0_run2/checkpoint-40")
 # which L4 sampler to dispatch to (queue path = pending/<SAMPLER>/, woken by instance id)
-# Only sam + sadie are wired (LoRA-capable + boot-poller installed). sage is NOT: it has no
-# python3.11-devel (can't merge LoRA) and isn't in _L4.
-_L4 = {"sam": "i-065bb6d4bcea507db", "sadie": "i-05c7938e1c6711370"}
+# sam + sadie + sage all wired (LoRA-capable + boot-poller installed). sage was provisioned
+# 2026-06-19 (setup job: "PeftModel import clean" + python3.11-devel via provision_box #125) and
+# verified merging ckpt-40 in the hand-cal resample, so its old exclusion no longer holds.
+_L4 = {"sam": "i-065bb6d4bcea507db", "sadie": "i-05c7938e1c6711370", "sage": "i-0161b1d0bc48ede12"}
 # SAMPLERS = the box(es) to SHARD each iter's N-problem sample across, in PARALLEL. Each box samples a
 # disjoint 1/K of the N-slice; the campaign waits for all K, merges them into one N-problem calib, and
 # the analyzer/editor decides off the merged set. SAMPLERS="sam,sadie" -> 2-way shard (250 each of 500).
