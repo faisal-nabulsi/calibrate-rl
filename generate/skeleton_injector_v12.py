@@ -255,8 +255,9 @@ def c_modexp():
     ]), ans, "modular_exponent")
 
 @concept("telescoping_mn",[14])
-def c_tele():
-    N=random.randint(6,16); gap=random.choice([2,3])
+def c_tele(_ez=None):
+    N=random.randint(*_ez["N"]) if _ez and "N" in _ez else random.randint(6,16)
+    gap=random.choice([2,3])
     s=sum(Fraction(1,k*(k+gap)) for k in range(1,N+1))
     ans=s.numerator+s.denominator
     if ans<20: return None
@@ -312,15 +313,15 @@ def c_subsets():
     ]), cnt, "constrained_subset_count")
 
 @concept("ordered_triple_constraint",[21,47])
-def c_triples():
+def c_triples(_ez=None):
     # feeder-surgery (structural cardinality, NOT number size — §4): a `parts` knob k∈{3,4}
     # generalizes the count to integer k-tuples 0≤a_1<...<a_k summing to N. k=3 == the old
     # _triples_gold; k=4 is a parallel count-family at the SAME N range, ~doubling distinct
     # answers + feeder sub-question texts -> fixed the dedupe-FAIL (0.830) when this fed a
     # count target. (ordered_triple_constraint now feeds box_diagonal_sq — see _DIVERSE_CHAINS.)
     kn=K["ordered_triple_constraint"]
-    N=kn.randint("N")  # number range stays [10,20] (narrowed in v12; num-class, frozen)
-    k=kn.choice("parts") if "parts" in kn.params else 3
+    N=random.randint(*_ez["N"]) if _ez and "N" in _ez else kn.randint("N")  # range frozen for standalone; chain-feeder may ease (decoupled)
+    k=(_ez["parts"][0] if _ez and "parts" in _ez else (kn.choice("parts") if "parts" in kn.params else 3))
     cnt=_ktuple_gold(N,k)
     if cnt<5: return None
     # every phrasing states 0≤a_1<...<a_k EXPLICITLY (the v12 a=0 representation fix).
@@ -431,9 +432,9 @@ def c_geoexceed():
     ]), k, "geo_first_exceed")
 
 @concept("inclusion_exclusion_3set",[40])
-def c_incexc3():
+def c_incexc3(_ez=None):
     kn=K["inclusion_exclusion_3set"]
-    U=kn.randint("U")
+    U=random.randint(*_ez["U"]) if _ez and "U" in _ez else kn.randint("U")
     a,b,c=kn.choice("divisor_triples")
     v=(U//a+U//b+U//c-U//lcm(a,b)-U//lcm(a,c)-U//lcm(b,c)+U//lcm(a,lcm(b,c)))
     if v<10: return None
@@ -843,8 +844,9 @@ def c_vietacount():
     ]), len(trip), "vieta_pair_count")
 
 @concept("continued_fraction",[0])
-def c_contfrac():
-    depth=random.choice([3,4,5]); a=random.choice([2,3,4,5,6,7])
+def c_contfrac(_ez=None):
+    depth=random.choice(_ez["depth"]) if _ez and "depth" in _ez else random.choice([3,4,5])
+    a=random.choice(_ez["a"]) if _ez and "a" in _ez else random.choice([2,3,4,5,6,7])
     f=Fraction(a)
     for _ in range(depth-1):
         f=a+1/f
@@ -1011,8 +1013,8 @@ def c_obtuse():
     ]), cnt, "count_obtuse_triangles")
 
 @concept("lattice_points_circle",[82])
-def c_lattice():
-    R=random.randint(3,16)  # v12: widened from [3,7] (v11: 5 distinct answers, top-3 60%); answer deterministic per R, rc squares the bound
+def c_lattice(_ez=None):
+    R=random.randint(*_ez["R"]) if _ez and "R" in _ez else random.randint(3,16)  # v12: widened from [3,7] (v11: 5 distinct answers, top-3 60%); answer deterministic per R, rc squares the bound
     cnt=sum(1 for x in range(-R,R+1) for y in range(-R,R+1) if x*x+y*y<=R*R)
     return (random.choice([
         f"How many integer-coordinate points (x,y) satisfy x²+y² ≤ {R}²?",
@@ -1248,12 +1250,24 @@ _DIVERSE_CHAINS={
  "triangular_filter_count":"algebraic_x","unit_conversion_area":"divsum",
  "vieta_pair_count":"cmod","vieta_sumcubes":"ie3_U",
 }
+# DECOUPLED feeder ease (freeze-safe): when a chain's FEEDER is a frozen depth-0 atom that ckpt-40
+# can't reliably compute, the chain draws the feeder with EASIER params via _ez, while the standalone
+# atom generator stays byte-identical (no _ez => unchanged => equivalence intact). Gold stays exact
+# (recomputed from the problem text). Eases keep V legal for the target (e.g. ie3_U floor=60 -> lattice R>=5).
+_FEEDER_EASE={
+ "chain_inclusion_exclusion_3set__modular_exponent":{"U":(60,250)},
+ "chain_lattice_points_circle__inclusion_exclusion_3set":{"R":(5,9)},
+ "chain_continued_fraction__inclusion_exclusion_3set":{"depth":[3],"a":[4,5,6,7,8,9]},
+ "chain_telescoping_mn__inclusion_exclusion_3set":{"N":(5,9)},
+ "chain_ordered_triple_constraint__box_diagonal_sq":{"N":(8,13),"parts":[3]},
+}
 def _register_diverse_chain(feeder,tkey):
     adapt,tconcept,flabel,flo,fhi=_ADAPT[tkey]
     cname=f"chain_{feeder}__{tconcept}"
     @concept(cname,[])
     def _gen(_f=feeder,_ad=adapt,_lo=flo,_hi=fhi,_t=tconcept,_fl=flabel,_cn=cname):
-        sub=_feeder(_f)()
+        _ez=_FEEDER_EASE.get(_cn)
+        sub=_feeder(_f)(_ez=_ez) if _ez else _feeder(_f)()
         if sub is None or not isinstance(sub[1],int): return None
         V=sub[1]
         if not (_lo<=V<=_hi): return None
