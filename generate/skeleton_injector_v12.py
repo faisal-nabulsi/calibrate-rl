@@ -797,7 +797,12 @@ def c_frobenius():
     # dedupe drop (<0.9) that a gap-pool shrink alone caused.
     a,b=K["frobenius_stamps"].choice("pairs")
     if gcd(a,b)!=1: return None
-    if random.choice(["count","max"])=="count":
+    # variant is now a KNOB (was random.choice): the chain feeder pins it to "max" (the Frobenius
+    # number ab-a-b) so ckpt-40 — which reliably computes the largest-unmakeable value but NOT the
+    # Sylvester COUNT — can actually compute the fed V, lifting chain_frobenius__telescoping off the
+    # floor. frobenius is a partner (never depth-0-trained, not in the equivalence-frozen 7), so
+    # this breaks no training consistency; the static gate (golds/top3/dedupe) still guards it.
+    if K["frobenius_stamps"].choice("variant")=="count":
         ans=(a-1)*(b-1)//2
         return (random.choice([
             f"Using only {a}-cent and {b}-cent stamps, how many positive integer amounts CANNOT be made exactly?",
@@ -1225,21 +1230,21 @@ _DIVERSE_CHAINS={
  "complex_eq_solcount":"customop","complex_modulus_power":"boxdiag",
  "constrained_digit_count":"ie3_U","constrained_divisor_count":"telescoping_N",
  "constrained_subset_count":"algebraic_x","continued_fraction":"ie3_U",
- "count_obtuse_triangles":"equalize_g","count_pythagorean":"customop",
+ "count_obtuse_triangles":"boxdiag","count_pythagorean":"customop",
  "custom_binary_op":"divsum","digit_count_bigprod":"complement_faces",
  "distinct_product_count":"modexp_base","divisor_sum_filter":"modexp_base",
- "equalization_fraction":"boxdiag","frobenius_stamps":"telescoping_N",
+ "equalization_fraction":"boxdiag","frobenius_stamps":"cmod",
  "geo_first_exceed":"equalize_g","inclusion_exclusion_3set":"modexp_base",
  "infinite_product_exp":"modexp_base","lattice_points_circle":"ie3_U",
  "lcm_gcd_system":"ie3_U","log_laws":"complement_faces","mean_removal":"modexp_base",
  "modular_exponent":"divsum","multi_constraint_square":"algebraic_x",
  "ordered_triple_constraint":"boxdiag","percent_compound":"algebraic_x",
- "perfect_square_divisible":"telescoping_N","point_rotation":"modexp_exp",
+ "perfect_square_divisible":"cmod","point_rotation":"modexp_exp",
  "poly_remainder":"telescoping_N","polynomial_sign_intervals":"cmod",
  "primality_in_sequence":"equalize_g","prime_power_divisors":"ie3_U",
- "rate_closing":"telescoping_N","roots_of_unity_sum":"equalize_g",
+ "rate_closing":"boxdiag","roots_of_unity_sum":"equalize_g",
  "sum_of_squares":"cmod","telescoping_mn":"ie3_U",
- "three_number_system":"divsum","trapezoid_area":"algebraic_x",
+ "three_number_system":"divsum","trapezoid_area":"cmod",
  "triangular_filter_count":"algebraic_x","unit_conversion_area":"divsum",
  "vieta_pair_count":"cmod","vieta_sumcubes":"ie3_U",
 }
