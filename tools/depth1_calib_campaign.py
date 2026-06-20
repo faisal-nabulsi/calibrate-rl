@@ -392,6 +392,22 @@ def main():
         log(f"ABORT: campaign already running (pids {others}); refusing to double-run")
         return
     sh(f"git checkout {BRANCH}", check=False)
+    # base-currency guard: REFUSE to run on a stale base. The 06-19 campaign silently ran on #124
+    # (18 commits behind main, missing the hand-cal generators) because the launch's `git fetch`
+    # didn't update and `reset --hard origin/main` landed on a cached-stale origin/main. We catch it
+    # by the GROUND TRUTH (git ls-remote = the live GitHub main SHA), not a possibly-stale local ref:
+    # HEAD must CONTAIN that SHA. If fetch never pulled it, `is-ancestor` errors on a missing object
+    # -> abort (correct). Only the BASE must be current; iter commits move HEAD ahead, which is fine.
+    sh("git fetch origin main", check=False)
+    _ls = sh("git ls-remote origin refs/heads/main", check=False, capture=True).stdout.split()
+    _real_main = _ls[0] if _ls else ""
+    _anc = sh(f"git merge-base --is-ancestor {_real_main} HEAD", check=False) if _real_main else None
+    if not _real_main or _anc.returncode != 0:
+        slack(f":no_entry: campaign ABORT — base not current: live main `{_real_main[:8] or '??'}` is NOT in "
+              f"this checkout's HEAD (stale fetch/checkout). Reset the branch to origin/main and relaunch.")
+        log(f"ABORT stale base: real_main={_real_main} is-ancestor_rc={getattr(_anc,'returncode',None)}")
+        return
+    log(f"base-currency OK: HEAD contains live main {_real_main[:8]}")
     HALT = f"s3://{BUCKET}/control/halt"
     # clear any operator-halt flag left by a prior tools/kill_run.sh, so a fresh launch re-arms
     # real-failure paging (the flag only suppresses DIAGNOSE for the intentional kill that set it).
