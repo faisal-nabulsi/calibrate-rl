@@ -1,0 +1,819 @@
+[
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cFind x+y+z if 2x+3y+6z=177, 4x+2y+5z=179, and 2x+6y+5z=177\u201d\nWhat is the remainder when V^2 is divided by 547?",
+  "answer": "208",
+  "skeleton_type": "chain_algebraic_system_2eq__modular_exponent",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "algebraic_system_2eq",
+    "modular_exponent"
+   ],
+   "fed_param": "base",
+   "intermediate_gold": 43
+  },
+  "knobs": {
+   "k": 2,
+   "m": 547
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cCompute the sum of consecutive-cube differences 6\u00b3-5\u00b3 + 8\u00b3-7\u00b3 + ... + 12\u00b3-11\u00b3 (each term is even\u00b3\u2212odd\u00b3)\u201d\nHow many perfect squares less than V are divisible by 4?",
+  "answer": "15",
+  "skeleton_type": "chain_alternating_cubes__multi_constraint_square",
+  "depth": 1,
+  "calib_correct": 5,
+  "chain": {
+   "components": [
+    "alternating_cubes",
+    "multi_constraint_square"
+   ],
+   "fed_param": "limit",
+   "intermediate_gold": 928
+  },
+  "knobs": {
+   "d": 4
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cAn arithmetic sequence starts at 11 with common difference 6. How many terms are needed for the running sum to first exceed 456?\u201d\nHow many integers from 300 to 598 have digits summing to exactly V?",
+  "answer": "27",
+  "skeleton_type": "chain_arith_series_sum__constrained_digit_count",
+  "depth": 1,
+  "calib_correct": 5,
+  "chain": {
+   "components": [
+    "arith_series_sum",
+    "constrained_digit_count"
+   ],
+   "fed_param": "digit_sum_target",
+   "intermediate_gold": 12
+  },
+  "knobs": {
+   "lo": 300,
+   "span": 299
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cIn the arithmetic sequence with first term 14 and common difference 4, how many of the first 38 terms are multiples of 5?\u201d\nHow many integers from 100 to 548 have digits summing to exactly V?",
+  "answer": "25",
+  "skeleton_type": "chain_arith_term_filter__constrained_digit_count",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "arith_term_filter",
+    "constrained_digit_count"
+   ],
+   "fed_param": "digit_sum_target",
+   "intermediate_gold": 7
+  },
+  "knobs": {
+   "lo": 100,
+   "span": 449
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many times must a 10-sided die be rolled for the chance of a given face appearing to first exceed 9/10?\u201d\nPositive integers x, y, z satisfy x=V, 6x+4y+3z=195, and 4x+4y+4z=160. Find x+y+z.",
+  "answer": "40",
+  "skeleton_type": "chain_complement_prob_mn__algebraic_system_2eq",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "complement_prob_mn",
+    "algebraic_system_2eq"
+   ],
+   "fed_param": "x",
+   "intermediate_gold": 22
+  },
+  "knobs": {
+   "y": 9,
+   "z": 9,
+   "coef": 4
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cThe equation z^10=z\u0304 has how many complex solutions?\u201d\nDefine x\u2295y = x+y+xy for all integers. Compute ((V\u22954)\u22959).",
+  "answer": "649",
+  "skeleton_type": "chain_complex_eq_solcount__custom_binary_op",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "complex_eq_solcount",
+    "custom_binary_op"
+   ],
+   "fed_param": "operand",
+   "intermediate_gold": 12
+  },
+  "knobs": {
+   "b": 4,
+   "c": 9
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cFind every pair of positive integers a\u2264b satisfying a\u00b2+b\u00b2=122; add up a+b across all of them\u201d\nA rectangular box has edge lengths V, 11, and 11. Find the square of its space diagonal.",
+  "answer": "386",
+  "skeleton_type": "chain_complex_modulus_power__box_diagonal_sq",
+  "depth": 1,
+  "calib_correct": 6,
+  "chain": {
+   "components": [
+    "complex_modulus_power",
+    "box_diagonal_sq"
+   ],
+   "fed_param": "edge",
+   "intermediate_gold": 12
+  },
+  "knobs": {
+   "b": 11,
+   "c": 11
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many integers from 3000 to 3999 have digits summing to exactly 14?\u201d\nHow many integers from 1 to V are divisible by 5 or 8?",
+  "answer": "20",
+  "skeleton_type": "chain_constrained_digit_count__inclusion_exclusion_3set",
+  "depth": 1,
+  "calib_correct": 4,
+  "chain": {
+   "components": [
+    "constrained_digit_count",
+    "inclusion_exclusion_3set"
+   ],
+   "fed_param": "U",
+   "intermediate_gold": 69
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cFind the number of odd divisors of 1680\u201d\nCompute the sum of 1/(k(k+2)) for k=1 to V as a reduced fraction m/n; find m+n.",
+  "answer": "74",
+  "skeleton_type": "chain_constrained_divisor_count__telescoping_mn",
+  "depth": 1,
+  "calib_correct": 6,
+  "chain": {
+   "components": [
+    "constrained_divisor_count",
+    "telescoping_mn"
+   ],
+   "fed_param": "N",
+   "intermediate_gold": 8
+  },
+  "knobs": {
+   "gap": 2
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many 3-element subsets of {1..9} sum to 3 more than a multiple of 4?\u201d\nPositive integers x, y, z satisfy x=V, 1x+3y+2z=100, and 5x+3y+1z=176. Find x+y+z.",
+  "answer": "48",
+  "skeleton_type": "chain_constrained_subset_count__algebraic_system_2eq",
+  "depth": 1,
+  "calib_correct": 1,
+  "chain": {
+   "components": [
+    "constrained_subset_count",
+    "algebraic_system_2eq"
+   ],
+   "fed_param": "x",
+   "intermediate_gold": 20
+  },
+  "knobs": {
+   "y": 24,
+   "z": 4,
+   "coef": 1
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many integer-sided triangles with perimeter at least 8 and at most 12 have an obtuse angle?\u201d\nA rectangular box has edge lengths V, 8, and 7. Find the square of its space diagonal.",
+  "answer": "122",
+  "skeleton_type": "chain_count_obtuse_triangles__box_diagonal_sq",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "count_obtuse_triangles",
+    "box_diagonal_sq"
+   ],
+   "fed_param": "edge",
+   "intermediate_gold": 3
+  },
+  "knobs": {
+   "b": 8,
+   "c": 7
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many right triangles with whole-number sides have hypotenuse no more than 25?\u201d\nDefine x\u2295y = x+y+xy for all integers. Compute ((V\u22954)\u22959).",
+  "answer": "449",
+  "skeleton_type": "chain_count_pythagorean__custom_binary_op",
+  "depth": 1,
+  "calib_correct": 1,
+  "chain": {
+   "components": [
+    "count_pythagorean",
+    "custom_binary_op"
+   ],
+   "fed_param": "operand",
+   "intermediate_gold": 8
+  },
+  "knobs": {
+   "b": 4,
+   "c": 9
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cLet the operation x\u2295y mean x+y+xy. Compute ((7\u229511)\u229512)\u22959\u201d\nWhat is the sum of the odd divisors of V?",
+  "answer": "12480",
+  "skeleton_type": "chain_custom_binary_op__divisor_sum_filter",
+  "depth": 1,
+  "calib_correct": 1,
+  "chain": {
+   "components": [
+    "custom_binary_op",
+    "divisor_sum_filter"
+   ],
+   "fed_param": "n",
+   "intermediate_gold": 12479
+  },
+  "knobs": {
+   "cond": "odd"
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cWhat is the digit count of the product 8^14 \u00b7 5^14?\u201d\nA V-sided die is rolled repeatedly. What is the fewest rolls so the probability a specific face appears at least once first exceeds 5/6?",
+  "answer": "41",
+  "skeleton_type": "chain_digit_count_bigprod__complement_prob_mn",
+  "depth": 1,
+  "calib_correct": 3,
+  "chain": {
+   "components": [
+    "digit_count_bigprod",
+    "complement_prob_mn"
+   ],
+   "fed_param": "faces",
+   "intermediate_gold": 23
+  },
+  "knobs": {
+   "thr": [
+    5,
+    6
+   ]
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cWhat is the sum of the even positive divisors of 1890?\u201d\nWhat is the remainder when V^2 is divided by 116?",
+  "answer": "28",
+  "skeleton_type": "chain_divisor_sum_filter__modular_exponent",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "divisor_sum_filter",
+    "modular_exponent"
+   ],
+   "fed_param": "base",
+   "intermediate_gold": 3840
+  },
+  "knobs": {
+   "k": 2,
+   "m": 116
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cThere are 4 identical glasses. The first 3 are full; the last is 1/2 full. To make all equal, what fraction must be poured from each full glass into the last? Express as m/n in lowest terms and give m+n\u201d\nA rectangular box has edge lengths V, 7, and 3. Find the square of its space diagonal.",
+  "answer": "139",
+  "skeleton_type": "chain_equalization_fraction__box_diagonal_sq",
+  "depth": 1,
+  "calib_correct": 1,
+  "chain": {
+   "components": [
+    "equalization_fraction",
+    "box_diagonal_sq"
+   ],
+   "fed_param": "edge",
+   "intermediate_gold": 9
+  },
+  "knobs": {
+   "b": 7,
+   "c": 3
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cWhat is the largest positive integer NOT representable as 4x+21y for nonnegative integers x,y?\u201d\nLet z = V + 29i, w = 5 + 4i, and u = 7 + 4i (where i squared = -1). Compute |z*w*u|^2 (the square of the modulus of their product).",
+  "answer": "11518130",
+  "skeleton_type": "chain_frobenius_stamps__complex_modulus_power",
+  "depth": 1,
+  "calib_correct": 1,
+  "chain": {
+   "components": [
+    "frobenius_stamps",
+    "complex_modulus_power"
+   ],
+   "fed_param": "real_part",
+   "intermediate_gold": 59
+  },
+  "knobs": {
+   "b": 29,
+   "c": 5,
+   "d": 4,
+   "e": 7,
+   "f": 4
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cStarting at 2 and tripling each time, what is the index of the first term greater than 39364?\u201d\nThere are V identical glasses; V-1 are full and one is 1/2 full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.",
+  "answer": "21",
+  "skeleton_type": "chain_geo_first_exceed__equalization_fraction",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "geo_first_exceed",
+    "equalization_fraction"
+   ],
+   "fed_param": "g",
+   "intermediate_gold": 10
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cCount the integers in [1,246] divisible by at least one of 3, 4, 5\u201d\nWhat is the remainder when V^2 is divided by 127?",
+  "answer": "60",
+  "skeleton_type": "chain_inclusion_exclusion_3set__modular_exponent",
+  "depth": 1,
+  "calib_correct": 1,
+  "chain": {
+   "components": [
+    "inclusion_exclusion_3set",
+    "modular_exponent"
+   ],
+   "fed_param": "base",
+   "intermediate_gold": 148
+  },
+  "knobs": {
+   "k": 2,
+   "m": 127
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cCompute m if 10^(1/2)\u00b710^(1/2\u00b2)\u00b7... = \u221am\u201d\nWhat is the remainder when V^2 is divided by 97?",
+  "answer": "9",
+  "skeleton_type": "chain_infinite_product_exp__modular_exponent",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "infinite_product_exp",
+    "modular_exponent"
+   ],
+   "fed_param": "base",
+   "intermediate_gold": 100
+  },
+  "knobs": {
+   "k": 2,
+   "m": 97
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many integer-coordinate points (x,y) satisfy x\u00b2+y\u00b2 \u2264 5\u00b2?\u201d\nHow many integers from 1 to V are divisible by 2, 3, or 6?",
+  "answer": "54",
+  "skeleton_type": "chain_lattice_points_circle__inclusion_exclusion_3set",
+  "depth": 1,
+  "calib_correct": 3,
+  "chain": {
+   "components": [
+    "lattice_points_circle",
+    "inclusion_exclusion_3set"
+   ],
+   "fed_param": "U",
+   "intermediate_gold": 81
+  },
+  "knobs": {
+   "nsets": 3
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cWhat is the minimum positive integer n satisfying both lcm(n,45)=270 and gcd(n,15)=15?\u201d\nHow many integers from 1 to V are divisible by 5 or 7?",
+  "answer": "85",
+  "skeleton_type": "chain_lcm_gcd_system__inclusion_exclusion_3set",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "lcm_gcd_system",
+    "inclusion_exclusion_3set"
+   ],
+   "fed_param": "U",
+   "intermediate_gold": 270
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cSimplify log_2(2^15) + log_2(2^13) - log_2(2^3) to an integer\u201d\nA V-sided die is rolled repeatedly. What is the fewest rolls so the probability a specific face appears at least once first exceeds 2/3?",
+  "answer": "27",
+  "skeleton_type": "chain_log_laws__complement_prob_mn",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "log_laws",
+    "complement_prob_mn"
+   ],
+   "fed_param": "faces",
+   "intermediate_gold": 25
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cA list of 6 numbers averages 44. After deleting two, the average is 48. One deleted value is 25; find the other\u201d\nWhat is the remainder when V^3 is divided by 224?",
+  "answer": "111",
+  "skeleton_type": "chain_mean_removal__modular_exponent",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "mean_removal",
+    "modular_exponent"
+   ],
+   "fed_param": "base",
+   "intermediate_gold": 47
+  },
+  "knobs": {
+   "k": 3,
+   "m": 224
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cFind 4^9 mod 125\u201d\nWhat is the sum of the odd divisors of V?",
+  "answer": "20",
+  "skeleton_type": "chain_modular_exponent__divisor_sum_filter",
+  "depth": 1,
+  "calib_correct": 4,
+  "chain": {
+   "components": [
+    "modular_exponent",
+    "divisor_sum_filter"
+   ],
+   "fed_param": "n",
+   "intermediate_gold": 19
+  },
+  "knobs": {
+   "cond": "odd"
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many perfect squares less than 3445 are divisible by 9 and end in the digit 9?\u201d\nPositive integers x, y, z satisfy x=V, 6x+2y+5z=79, and 1x+7y+3z=95. Find x+y+z.",
+  "answer": "21",
+  "skeleton_type": "chain_multi_constraint_square__algebraic_system_2eq",
+  "depth": 1,
+  "calib_correct": 5,
+  "chain": {
+   "components": [
+    "multi_constraint_square",
+    "algebraic_system_2eq"
+   ],
+   "fed_param": "x",
+   "intermediate_gold": 4
+  },
+  "knobs": {
+   "y": 10,
+   "z": 7,
+   "coef": 3
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many triples of integers (a,b,c) with 0\u2264a<b<c satisfy a+b+c=13?\u201d\nA rectangular box has edge lengths V, 2, and 6. Find the square of its space diagonal.",
+  "answer": "236",
+  "skeleton_type": "chain_ordered_triple_constraint__box_diagonal_sq",
+  "depth": 1,
+  "calib_correct": 3,
+  "chain": {
+   "components": [
+    "ordered_triple_constraint",
+    "box_diagonal_sq"
+   ],
+   "fed_param": "edge",
+   "intermediate_gold": 14
+  },
+  "knobs": {
+   "b": 2,
+   "c": 6
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cAfter a 80% raise and then a cut of p%, the value 500 becomes 720. Determine p\u201d\nPositive integers x, y, z, w satisfy x=V, 5x+5y+1z+5w=213, 1x+4y+6z+5w=240, and 5x+5y+3z+3w=239. Find x+y+z+w.",
+  "answer": "61",
+  "skeleton_type": "chain_percent_compound__algebraic_system_2eq",
+  "depth": 1,
+  "calib_correct": 5,
+  "chain": {
+   "components": [
+    "percent_compound",
+    "algebraic_system_2eq"
+   ],
+   "fed_param": "x",
+   "intermediate_gold": 20
+  },
+  "knobs": {
+   "y": 8,
+   "z": 23,
+   "w": 10,
+   "coef": 3
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many perfect squares less than 3324 are divisible by 49?\u201d\nLet z = V + 11i, w = 5 + 5i, and u = 4 + 3i (where i squared = -1). Compute |z*w*u|^2 (the square of the modulus of their product).",
+  "answer": "231250",
+  "skeleton_type": "chain_perfect_square_divisible__complex_modulus_power",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "perfect_square_divisible",
+    "complex_modulus_power"
+   ],
+   "fed_param": "real_part",
+   "intermediate_gold": 8
+  },
+  "knobs": {
+   "b": 11,
+   "c": 5,
+   "d": 5,
+   "e": 4,
+   "f": 3
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cAfter rotating (-9,1) by 180\u00b0 counterclockwise around (3,-3), add the resulting x and y coordinates\u201d\nWhat is the remainder when 3^V is divided by 833?",
+  "answer": "730",
+  "skeleton_type": "chain_point_rotation__modular_exponent",
+  "depth": 1,
+  "calib_correct": 6,
+  "chain": {
+   "components": [
+    "point_rotation",
+    "modular_exponent"
+   ],
+   "fed_param": "exponent",
+   "intermediate_gold": 8
+  },
+  "knobs": {
+   "a": 3,
+   "m": 833
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cFor which positive integer x does 3x\u00b3 -1x\u00b2 +5x -2 equal 12110?\u201d\nCompute the sum of 1/(k(k+2)) for k=1 to V as a reduced fraction m/n; find m+n.",
+  "answer": "259",
+  "skeleton_type": "chain_poly_remainder__telescoping_mn",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "poly_remainder",
+    "telescoping_mn"
+   ],
+   "fed_param": "N",
+   "intermediate_gold": 16
+  },
+  "knobs": {
+   "gap": 2
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cThe polynomial P(x)=(x-1)^4\u00b7(x-2)^2\u00b7(x-3)^3\u00b7(x-4)^4\u00b7(x-5)^3\u00b7(x-6)^1 has its roots removed from the number line, leaving 7 open intervals. On how many is P(x) positive?\u201d\nLet z = V + 19i (where i squared = -1). Compute |z|^2 (its modulus raised to the 2th power).",
+  "answer": "370",
+  "skeleton_type": "chain_polynomial_sign_intervals__complex_modulus_power",
+  "depth": 1,
+  "calib_correct": 4,
+  "chain": {
+   "components": [
+    "polynomial_sign_intervals",
+    "complex_modulus_power"
+   ],
+   "fed_param": "real_part",
+   "intermediate_gold": 3
+  },
+  "knobs": {
+   "b": 19,
+   "k": 1
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cConsider the sequence 13, 17, 21, ... How many of its first 13 terms are prime?\u201d\nThere are V identical glasses; V-1 are full and one is 2/5 full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.",
+  "answer": "38",
+  "skeleton_type": "chain_primality_in_sequence__equalization_fraction",
+  "depth": 1,
+  "calib_correct": 3,
+  "chain": {
+   "components": [
+    "primality_in_sequence",
+    "equalization_fraction"
+   ],
+   "fed_param": "g",
+   "intermediate_gold": 7
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cWhat is the smallest integer n such that n has exactly 40 positive divisors?\u201d\nHow many integers from 1 to V are divisible by 6 or 8?",
+  "answer": "420",
+  "skeleton_type": "chain_prime_power_divisors__inclusion_exclusion_3set",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "prime_power_divisors",
+    "inclusion_exclusion_3set"
+   ],
+   "fed_param": "U",
+   "intermediate_gold": 1680
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cTwo trains 210 miles apart approach each other. The first (19 mph) covers 95 miles before meeting. What is the second train's speed?\u201d\nA 5-dimensional box has edge lengths V, 2, 6, 11, and 4. Find the square of its space diagonal.",
+  "answer": "706",
+  "skeleton_type": "chain_rate_closing__box_diagonal_sq",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "rate_closing",
+    "box_diagonal_sq"
+   ],
+   "fed_param": "edge",
+   "intermediate_gold": 23
+  },
+  "knobs": {
+   "b": 2,
+   "c": 6,
+   "d": 11,
+   "e": 4
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many complex numbers are simultaneously 20th roots of unity and 8th roots of unity?\u201d\nThere are V identical glasses; V-1 are full and one is 1/5 full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.",
+  "answer": "6",
+  "skeleton_type": "chain_roots_of_unity_sum__equalization_fraction",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "roots_of_unity_sum",
+    "equalization_fraction"
+   ],
+   "fed_param": "g",
+   "intermediate_gold": 4
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many of the partial sums 1\u00b2, 1\u00b2+2\u00b2, ..., up to 26 terms are multiples of 4?\u201d\nLet z = V + 5i (where i squared = -1). Compute |z|^4 (its modulus raised to the 4th power).",
+  "answer": "3721",
+  "skeleton_type": "chain_sum_of_squares__complex_modulus_power",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "sum_of_squares",
+    "complex_modulus_power"
+   ],
+   "fed_param": "real_part",
+   "intermediate_gold": 6
+  },
+  "knobs": {
+   "b": 5,
+   "k": 2
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cThe series sum of 1/(k(k+2)), k up to 6, equals m/n reduced. Find m+n\u201d\nHow many integers from 1 to V are divisible by 5 or 7?",
+  "answer": "56",
+  "skeleton_type": "chain_telescoping_mn__inclusion_exclusion_3set",
+  "depth": 1,
+  "calib_correct": 3,
+  "chain": {
+   "components": [
+    "telescoping_mn",
+    "inclusion_exclusion_3set"
+   ],
+   "fed_param": "U",
+   "intermediate_gold": 181
+  },
+  "knobs": {
+   "nsets": 2
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cThe sum of three numbers is 77; the first equals 3 times the third, the third is 42 below the second. What is (first\u00b7third) \u2212 second?\u201d\nWhat is the sum of the even divisors of V?",
+  "answer": "114",
+  "skeleton_type": "chain_three_number_system__divisor_sum_filter",
+  "depth": 1,
+  "calib_correct": 7,
+  "chain": {
+   "components": [
+    "three_number_system",
+    "divisor_sum_filter"
+   ],
+   "fed_param": "n",
+   "intermediate_gold": 98
+  },
+  "knobs": {
+   "cond": "even"
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cA trapezoid's bases are consecutive integers; its height is 4 and area 50. Find the smaller base\u201d\nLet z = V + 5i, w = 6 + 6i, and u = 5 + 7i (where i squared = -1). Compute |z*w*u|^2 (the square of the modulus of their product).",
+  "answer": "900432",
+  "skeleton_type": "chain_trapezoid_area__complex_modulus_power",
+  "depth": 1,
+  "calib_correct": 5,
+  "chain": {
+   "components": [
+    "trapezoid_area",
+    "complex_modulus_power"
+   ],
+   "fed_param": "real_part",
+   "intermediate_gold": 12
+  },
+  "knobs": {
+   "b": 5,
+   "c": 6,
+   "d": 6,
+   "e": 5,
+   "f": 7
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cHow many triangular numbers less than 3390 are divisible by 2? (A triangular number is 1+2+...+n.)\u201d\nPositive integers x, y, z satisfy x=V, 1x+1y+5z=267, and 2x+5y+3z=357. Find x+y+z.",
+  "answer": "111",
+  "skeleton_type": "chain_triangular_filter_count__algebraic_system_2eq",
+  "depth": 1,
+  "calib_correct": 1,
+  "chain": {
+   "components": [
+    "triangular_filter_count",
+    "algebraic_system_2eq"
+   ],
+   "fed_param": "x",
+   "intermediate_gold": 40
+  },
+  "knobs": {
+   "y": 32,
+   "z": 39,
+   "coef": 3
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cCompute the area in cm\u00b2 of a painted strip 5 mm wide and 23 m long\u201d\nWhat is the sum of the even divisors of V?",
+  "answer": "1488",
+  "skeleton_type": "chain_unit_conversion_area__divisor_sum_filter",
+  "depth": 1,
+  "calib_correct": 2,
+  "chain": {
+   "components": [
+    "unit_conversion_area",
+    "divisor_sum_filter"
+   ],
+   "fed_param": "n",
+   "intermediate_gold": 1150
+  },
+  "knobs": {
+   "cond": "even"
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cFor how many ordered pairs (a,b) of integers does x\u00b3+ax\u00b2+bx+10 have 3 distinct integer roots?\u201d\nLet z = V + 11i (where i squared = -1). Compute |z|^2 (its modulus raised to the 2th power).",
+  "answer": "146",
+  "skeleton_type": "chain_vieta_pair_count__complex_modulus_power",
+  "depth": 1,
+  "calib_correct": 3,
+  "chain": {
+   "components": [
+    "vieta_pair_count",
+    "complex_modulus_power"
+   ],
+   "fed_param": "real_part",
+   "intermediate_gold": 5
+  },
+  "knobs": {
+   "b": 11,
+   "k": 1
+  }
+ },
+ {
+  "problem": "Let V be the answer to this problem.\n\u201cGiven a quadratic x\u00b2-14x+48, compute the sum of the cubes of its two roots\u201d\nHow many integers from 1 to V are divisible by 3, 4, or 9?",
+  "answer": "364",
+  "skeleton_type": "chain_vieta_sumcubes__inclusion_exclusion_3set",
+  "depth": 1,
+  "calib_correct": 3,
+  "chain": {
+   "components": [
+    "vieta_sumcubes",
+    "inclusion_exclusion_3set"
+   ],
+   "fed_param": "U",
+   "intermediate_gold": 728
+  },
+  "knobs": {
+   "nsets": 3
+  }
+ }
+]

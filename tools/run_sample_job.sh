@@ -288,8 +288,20 @@ else
     s3://*) HOLD_LOCAL="data/job_${JOB_ID}_holdout.json"
             PREP_CMDS+=("aws s3 cp $JOB_HOLDOUT $HOLD_LOCAL"); JOB_HOLDOUT="$HOLD_LOCAL" ;;
   esac
+  # Train ON TOP of a trained checkpoint (depth-1 off ckpt-40 / the rank-128 ckpt-500): pull the
+  # base adapter and pass CKPT=<dir> so train_grpo merges it into base before the fresh LoRA. Same
+  # download path as the sample/eval branches. No 'checkpoint' field => train from base Qwen.
+  CKPT_ENV=""
+  if [ -n "$JOB_CKPT" ]; then
+    case "$JOB_CKPT" in
+      s3://*) CKPT_DIR="checkpoint/job_${JOB_ID}_baseckpt"
+              PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_CKPT%/} $CKPT_DIR") ;;
+      *)      CKPT_DIR="$JOB_CKPT" ;;
+    esac
+    CKPT_ENV="CKPT=$CKPT_DIR"
+  fi
   RUN_DIR="checkpoint/job_${JOB_ID}"
-  RUN_ENV=(TRAIN_DATA="$JOB_DATASET" RESUME_OUTPUT_DIR="$RUN_DIR"
+  RUN_ENV=(TRAIN_DATA="$JOB_DATASET" RESUME_OUTPUT_DIR="$RUN_DIR" ${CKPT_ENV:+$CKPT_ENV}
            ${JOB_HOLDOUT:+HOLDOUT_DATA="$JOB_HOLDOUT"}
            ${JOB_N:+MAX_STEPS="$JOB_N"}
            ${JOB_MAX_TOKENS:+MAX_COMPLETION_LENGTH="$JOB_MAX_TOKENS"}
