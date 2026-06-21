@@ -257,6 +257,15 @@ model = AutoModelForCausalLM.from_pretrained(
     torch_dtype=torch.bfloat16,
     device_map="cuda"
 )
+# Train ON TOP of a trained checkpoint (depth-1 off ckpt-40 / the rank-128 ckpt-500): merge the
+# starting LoRA adapter INTO the base, then GRPOTrainer adds the FRESH peft_config (new LoRA) on
+# top of the merged weights. Same merge path as sample.py / eval_amc_baseline.py. CKPT unset =>
+# train from base Qwen (the depth-0 path), unchanged.
+_CKPT = os.environ.get("CKPT", "").strip()
+if _CKPT:
+    from peft import PeftModel
+    logger.info(f"  Base ckpt:        merging adapter {_CKPT} into base, then fresh LoRA on top")
+    model = PeftModel.from_pretrained(model, _CKPT).merge_and_unload()
 eval_tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-7B-Instruct")
 trainer = GRPOTrainer(
     model=model,
