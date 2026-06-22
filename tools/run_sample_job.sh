@@ -178,6 +178,7 @@ print(f"JOB_DATASET={q(j.get('dataset', ''))}")
 print(f"JOB_HOLDOUT={q(j.get('holdout', ''))}")
 print(f"JOB_CONCEPTS={q(','.join(j.get('concepts') or []))}")
 print(f"JOB_CKPT={q(j.get('checkpoint', ''))}")
+print(f"JOB_BASE_CKPT={q(j.get('base_checkpoint', ''))}")
 print(f"JOB_CMD={q(j.get('cmd', ''))}")
 print(f"JOB_OUTPUT_FILE={q(j.get('output_file', ''))}")
 print(f"JOB_SHARD_IDX={q(j.get('shard_idx', ''))}")
@@ -239,7 +240,18 @@ elif [ "$JOB_TYPE" = "sample" ]; then
     esac
     CKPT_ENV="CKPT=$CKPT_DIR"
   fi
-  RUN_ENV=(DATASET="$POOL" OUT="$OUT" ${CKPT_ENV:+$CKPT_ENV}
+  BASE_CKPT_ENV=""
+  if [ -n "$JOB_BASE_CKPT" ]; then
+    # Two-stage merge: a BASE adapter (e.g. ckpt-500) baked in before CKPT — eval a
+    # depth-1 ckpt (a LoRA trained on base+ckpt-500). sample.py merges BASE_CKPT then CKPT.
+    case "$JOB_BASE_CKPT" in
+      s3://*) BASE_CKPT_DIR="checkpoint/job_${JOB_ID}_baseckpt"
+              PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_BASE_CKPT%/} $BASE_CKPT_DIR") ;;
+      *)      BASE_CKPT_DIR="$JOB_BASE_CKPT" ;;
+    esac
+    BASE_CKPT_ENV="BASE_CKPT=$BASE_CKPT_DIR"
+  fi
+  RUN_ENV=(DATASET="$POOL" OUT="$OUT" ${CKPT_ENV:+$CKPT_ENV} ${BASE_CKPT_ENV:+$BASE_CKPT_ENV}
            ${JOB_N:+N_PROBLEMS="$JOB_N"}
            ${JOB_ROLLOUTS:+N_ROLLOUTS="$JOB_ROLLOUTS"}
            ${JOB_MAX_TOKENS:+MAX_NEW_TOKENS="$JOB_MAX_TOKENS"}
@@ -265,6 +277,16 @@ elif [ "$JOB_TYPE" = "eval" ]; then
       *)      CKPT_DIR="$JOB_CKPT" ;;
     esac
     JOB_CMD="${JOB_CMD//\{ckpt\}/$CKPT_DIR}"
+  fi
+  if [ -n "$JOB_BASE_CKPT" ]; then
+    # Two-stage merge for eval: download the BASE adapter (e.g. ckpt-500) and substitute
+    # {base_ckpt} in the cmd (e.g. eval_amc_coverage.py --base-checkpoint {base_ckpt} --checkpoint {ckpt}).
+    case "$JOB_BASE_CKPT" in
+      s3://*) BASE_CKPT_DIR="checkpoint/job_${JOB_ID}_baseckpt"
+              PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_BASE_CKPT%/} $BASE_CKPT_DIR") ;;
+      *)      BASE_CKPT_DIR="$JOB_BASE_CKPT" ;;
+    esac
+    JOB_CMD="${JOB_CMD//\{base_ckpt\}/$BASE_CKPT_DIR}"
   fi
   EVAL_SH="/tmp/eval_cmd_${JOB_ID}.sh"
   { echo 'set -e'

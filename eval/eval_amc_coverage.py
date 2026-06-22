@@ -61,6 +61,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", default="Qwen/Qwen2.5-7B-Instruct")
     ap.add_argument("--checkpoint", default=None, help="LoRA adapter dir (omit -> base model)")
+    ap.add_argument("--base-checkpoint", default=None, help="adapter merged into base BEFORE --checkpoint (e.g. ckpt-500 for a depth-1 eval)")
     ap.add_argument("--k", type=int, default=16)              # AMC standard EVAL_K (§0)
     ap.add_argument("--temperature", type=float, default=1.0)
     ap.add_argument("--max-new-tokens", type=int, default=2048)  # == calib/AMC gen length
@@ -81,6 +82,10 @@ def main():
     print(f"Loading base model: {a.base}", flush=True)
     tok = AutoTokenizer.from_pretrained(a.base)
     model = AutoModelForCausalLM.from_pretrained(a.base, dtype=torch.bfloat16, device_map="cuda")
+    if a.base_checkpoint:
+        from peft import PeftModel
+        print(f"Loading BASE adapter: {a.base_checkpoint}", flush=True)
+        model = PeftModel.from_pretrained(model, a.base_checkpoint).merge_and_unload()
     if a.checkpoint:
         from peft import PeftModel
         print(f"Loading LoRA adapter: {a.checkpoint}", flush=True)
