@@ -25,7 +25,16 @@ if "--base" in args:
 if len(args) < 2:
     sys.exit("usage: consolidate_model.py <adapter1> [<adapter2> ...] <s3_out_uri> [--base <hf>]")
 *adapters, s3_out = args
-OUT = os.environ.get("CONSOLIDATE_OUT", "/tmp/consolidated_model")
+# Write to the EBS volume (the repo cwd, where run_sample_job already stages 10s of GB of
+# checkpoints), NOT /tmp — /tmp is tmpfs/small on these boxes, so a ~15GB save OOMs / disk-fulls
+# the box and the process dies mid-write (both the L4 and L40S consolidation attempts died exactly
+# there, leaving an orphaned .tmp). Fail LOUD if the target can't hold a 7B save rather than dying silently.
+import shutil
+OUT = os.environ.get("CONSOLIDATE_OUT", os.path.abspath("consolidated_model_out"))
+_free_gb = shutil.disk_usage(os.path.dirname(OUT) or ".").free / 1e9
+if _free_gb < 20:
+    sys.exit(f"FATAL: only {_free_gb:.0f}GB free for the model save at {OUT} — need >=20GB for a 7B. "
+             f"Set CONSOLIDATE_OUT to a bigger volume.")
 
 print(f"base={BASE}\nadapters (in merge order)={adapters}\n-> {s3_out}", flush=True)
 tok = AutoTokenizer.from_pretrained(BASE)
