@@ -27,6 +27,7 @@ from core.reward_func import extract_predicted_answer, extract_gold_answer, _num
 def _env(k, d): return os.environ.get(k, d)
 MODEL          = _env("MODEL", "Qwen/Qwen2.5-7B-Instruct")
 CKPT           = _env("CKPT", "")   # optional LoRA adapter dir; merged into MODEL at load (depth-1 calibrates vs the trained ckpt, not base)
+BASE_CKPT      = _env("BASE_CKPT", "")  # optional adapter merged into base BEFORE CKPT — eval a depth-1 ckpt = base + ckpt-500 (BASE_CKPT) + depth-1 (CKPT)
 DATASET        = os.path.join(REPO, _env("DATASET", "data/skeleton_dataset_v11_clean.json"))
 OUT            = os.path.join(REPO, _env("OUT", "data/calib_v11_2048_7B.json"))
 N_PROBLEMS     = int(_env("N_PROBLEMS", "500"))
@@ -93,6 +94,10 @@ if tok.pad_token is None:
 _t_load = time.time()
 model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.bfloat16,
                                              device_map="cuda")
+if BASE_CKPT:                                  # two-stage merge: bake the BASE adapter (e.g. ckpt-500) in FIRST
+    from peft import PeftModel
+    model = PeftModel.from_pretrained(model, BASE_CKPT).merge_and_unload()
+    print(f"merged BASE adapter {BASE_CKPT} into base {MODEL}", flush=True)
 if CKPT:                                       # merge the LoRA adapter into base (same path as eval_checkpoint.py:37)
     from peft import PeftModel
     model = PeftModel.from_pretrained(model, CKPT).merge_and_unload()
