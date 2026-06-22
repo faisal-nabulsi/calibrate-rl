@@ -733,6 +733,8 @@ def _recompute_target(target, c, V):
         y = Fraction(d1-a1*V)*c2 - Fraction(d2-a2*V)*c1
         z = Fraction(b1)*(d2-a2*V) - Fraction(b2)*(d1-a1*V)
         y, z = y/det, z/det
+        if "no such positive integers" in c:        # DEPTH-2.0 no-solution oracle: value, else 0 sentinel
+            return int(V+y+z) if (y.denominator==1 and z.denominator==1 and y>0 and z>0) else 0
         s = V+y+z
         return int(s) if s.denominator == 1 else None
     if target == "telescoping_mn":

@@ -66,6 +66,28 @@ def main():
                 out["knobs"] = r["knobs"]
             rows.append(out)
 
+    # FINISH-BOUND SELECTION (env FINISH_BOUND): keep only chains where the model REACHES the feeder
+    # value V (high feeder-hit) so the goldilocks failure is the TERMINAL step (an execution-slip),
+    # NOT the frozen feeder. Drops feeder-bound chains (easing their target is a no-op that trains
+    # feeder difficulty — the project's scar) so the binary gradient lands on the finish. This is the
+    # execution-slip lever (the ~16 within-2-of-gold AMC fails). Default off = depth-1 back-compat.
+    # conf=="low" (median feeder gold <10) -> KEEP (can't auto-classify; never silently drop a chain).
+    if os.environ.get("FINISH_BOUND"):
+        from analysis.depth1_calib_analyze import _feeder
+        FB_MIN = float(os.environ.get("FB_MIN", "0.70"))
+        cb = defaultdict(list)
+        for r in d:
+            cb[chain_key(r)].append(r)
+        fb = {}
+        for ch, rs in cb.items():
+            f = _feeder(rs)
+            fb[ch] = (f is None) or (f["conf"] == "low") or (f["hit"] >= FB_MIN)
+        before_n = len(rows)
+        rows = [r for r in rows if fb.get(chain_key(r), True)]
+        dropped = sorted(ch for ch, keep in fb.items() if not keep)
+        print(f"FINISH_BOUND: kept {len(rows)}/{before_n} goldilocks rows; dropped feeder-bound "
+              f"chains (feeder-hit<{FB_MIN}): {dropped or '(none)'}")
+
     nchains = len(set(chain_key(r) for r in rows))
     print(f"re-graded {len(d)} depth-1 calib rows | correct-count moved vs stored: {moved}")
     print(f"goldilocks ({LO}-{HI}/8 after re-grade): {len(rows)} across {nchains} chains")
