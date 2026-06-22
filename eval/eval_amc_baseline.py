@@ -12,11 +12,17 @@ SYSTEM_PROMPT = ("You are a math problem solver. Think step by step and put your
 
 BASE_MODEL = "Qwen/Qwen2.5-7B-Instruct"
 CHECKPOINT = sys.argv[1] if len(sys.argv) > 1 else None
+# optional 2nd adapter (e.g. ckpt-500) merged into base BEFORE CHECKPOINT, so a depth-1 ckpt
+# (= base + ckpt-500 + depth-1) evaluates correctly. Same two-stage merge as sample.py (#153).
+BASE_CHECKPOINT = sys.argv[2] if len(sys.argv) > 2 else None
 
 print(f"Loading base model: {BASE_MODEL}")
 tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
 model = AutoModelForCausalLM.from_pretrained(BASE_MODEL, dtype=torch.bfloat16, device_map="auto")
 
+if BASE_CHECKPOINT:
+    print(f"Loading BASE adapter: {BASE_CHECKPOINT}")
+    model = PeftModel.from_pretrained(model, BASE_CHECKPOINT).merge_and_unload()
 if CHECKPOINT:
     print(f"Loading LoRA adapter: {CHECKPOINT}")
     model = PeftModel.from_pretrained(model, CHECKPOINT)
