@@ -158,15 +158,18 @@ def correctness_reward(completions, answer, **kwargs) -> list[float]:
 
 
 def format_reward(completions, **kwargs) -> list[float]:
+    # ANTI-FABRICATION FIX: this used to return +0.1 for (boxed AND >30 words) REGARDLESS of
+    # correctness. Summed with correctness_reward (1.0/0.0), that made a wrong-but-boxed rollout
+    # score +0.1 ABOVE an honest no-box — i.e. it rewarded boxing a FABRICATED number over
+    # admitting uncertainty, directly training the fabricate-when-stuck behavior that dominates
+    # the AMC failures. correctness_reward already needs a parseable boxed answer to score 1.0,
+    # so the bonus was redundant for correct answers and actively harmful for wrong ones. Dropped.
+    # Now a pure no-work floor: discourage degenerate empty/short completions, never reward a guess.
+    # (GRPO normalizes within-group, so a constant bonus cancelled anyway when boxed_rate~0.99 —
+    # the bonus only ever bit the rare honest non-boxer. Removing it is strictly safer.)
     rewards = []
     for completion in completions:
         text = _get_text(completion)
-        has_boxed = bool(re.search(r"\\boxed\{-?[\d,]+(?:\.\d+)?", text))
         has_work = len(text.split()) > 30
-        if has_boxed and has_work:
-            rewards.append(0.1)
-        elif not has_work:
-            rewards.append(-0.2)
-        else:
-            rewards.append(0.0)
+        rewards.append(0.0 if has_work else -0.2)
     return rewards
