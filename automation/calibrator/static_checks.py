@@ -81,7 +81,11 @@ def generate_rows(inj, concept, n, seed):
         r = fn()
         if r is None:
             continue
-        rows.append({"problem": r[0], "answer": str(r[1]), "skeleton_type": concept})
+        row = {"problem": r[0], "answer": str(r[1]), "skeleton_type": concept}
+        if len(r) > 3 and r[3]:
+            row.update(r[3])               # fold in depth-1 chain meta (matches gen_clean) so the
+                                           # gold check can thread row["chain"] to the chain recomputer
+        rows.append(row)
     return rows, attempts
 
 
@@ -111,7 +115,7 @@ def check_golds(rows, recomputer):
             continue
         seen.add(r["problem"])
         try:
-            got = recomputer(r["problem"])
+            got = recomputer(r["problem"], r.get("chain")) if r.get("chain") else recomputer(r["problem"])
         except Exception:
             got = None
         if got is None:
