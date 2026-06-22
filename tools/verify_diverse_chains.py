@@ -26,10 +26,13 @@ import sys as _sys
 _sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from prep.check_dataset import _recompute_target, _chain_split  # noqa: E402
 
-def recompute(target, prob, V):
-    _, c = _chain_split(prob)            # (sub-question, target clause)
-    if c is None:
-        return None
+def recompute(target, prob, V, meta=None):
+    if meta and meta.get("surface") == "embedded":   # DEPTH-1.5: split from meta, normalize var->V
+        c = re.sub(r"\b" + re.escape(meta["var"]) + r"\b", "V", meta["target_clause"])
+    else:
+        _, c = _chain_split(prob)        # (sub-question, target clause)
+        if c is None:
+            return None
     return _recompute_target(target, c, V)
 
 chains = [nm for nm,_,_ in M.REGISTRY if nm.startswith("chain_")]
@@ -49,7 +52,7 @@ for nm in sorted(chains):
         prob, gold, _, meta = r
         ans.append(gold)
         V = meta["chain"]["intermediate_gold"]
-        got = recompute(target, prob, V)
+        got = recompute(target, prob, V, meta["chain"])
         if got is None: unp += 1
         elif got != gold: bad += 1
     cc = Counter(ans); top3 = sum(v for _,v in cc.most_common(3))/max(1,len(ans))

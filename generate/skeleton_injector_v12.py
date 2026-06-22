@@ -48,7 +48,7 @@ R6 method inferred. Difficulty = constraint interaction + execution slip-risk.
 NOTE: difficulty here is PREDICTED. The 7B calibration run is what confirms each
 concept lands in band; nothing is claimed calibrated until measured.
 """
-import argparse, json, math, os, random, sys
+import argparse, json, math, os, random, re, sys
 from fractions import Fraction
 from collections import Counter
 from itertools import combinations as Ccomb
@@ -1070,29 +1070,44 @@ def build(per):
 # ===================================================================
 def _feeder(name): return next(f for nm,f,_ in REGISTRY if nm==name)
 
+# DEPTH-1.5 target rephrasing: announced (depth-1) uses the CANONICAL clause (byte-identical);
+# embedded (depth-1.5) uses an ALTERNATIVE phrasing (never the canonical) so the target QUESTION
+# wording also de-correlates from depth-1, not just the composition scaffold. Light touch — one alt
+# per target, numeric anchors ("divisible by N", "V^k", "exceeds n/d", "V + bi", ...) preserved so
+# the gold recomputers parse BOTH forms. ("B, but don't reword too much.")
+def _clause(canonical, *alts):
+    if alts and os.environ.get("CHAIN_SURFACE","announced")=="embedded":
+        return random.choice(alts)
+    return canonical
+
 # adapter(V, kn) -> (answer|None, clause): draws the target's OTHER inputs from the chain's
 # knob file kn (int params; fraction/triple params stay inline). Clause embeds V SYMBOLICALLY
 # (the model must compute V first); answer uses the actual V. kn = K["chain_<feeder>__<target>"].
 def _a_modexp_base(V, kn):
     k=kn.randint("k"); m=kn.randint("m")
-    return (pow(V,k,m), f"What is the remainder when V^{k} is divided by {m}?")
+    return (pow(V,k,m), _clause(f"What is the remainder when V^{k} is divided by {m}?",
+                                f"Find the remainder of V^{k} modulo {m}."))
 def _a_modexp_exp(V, kn):
     a=kn.choice("a"); m=kn.randint("m")
-    return (pow(a,V,m), f"What is the remainder when {a}^V is divided by {m}?")
+    return (pow(a,V,m), _clause(f"What is the remainder when {a}^V is divided by {m}?",
+                                f"Find the remainder of {a}^V modulo {m}."))
 def _a_algebraic_x(V, kn):
     y=kn.randint("y"); z=kn.randint("z")
     a1=kn.randint("coef"); b1=kn.randint("coef"); c1=kn.randint("coef")
     a2=kn.randint("coef"); b2=kn.randint("coef"); c2=kn.randint("coef")
     if b1*c2-b2*c1==0: return (None,"")
     d1=a1*V+b1*y+c1*z; d2=a2*V+b2*y+c2*z
-    return (V+y+z, f"Positive integers x, y, z satisfy x=V, {a1}x+{b1}y+{c1}z={d1}, and {a2}x+{b2}y+{c2}z={d2}. Find x+y+z.")
+    return (V+y+z, _clause(f"Positive integers x, y, z satisfy x=V, {a1}x+{b1}y+{c1}z={d1}, and {a2}x+{b2}y+{c2}z={d2}. Find x+y+z.",
+                           f"Suppose positive integers x, y, z have x=V and satisfy both {a1}x+{b1}y+{c1}z={d1} and {a2}x+{b2}y+{c2}z={d2}. Compute x+y+z."))
 def _a_telescoping_N(V, kn):
     gap=kn.choice("gap"); s=sum(Fraction(1,k*(k+gap)) for k in range(1,V+1))
-    return (s.numerator+s.denominator, f"Compute the sum of 1/(k(k+{gap})) for k=1 to V as a reduced fraction m/n; find m+n.")
+    return (s.numerator+s.denominator, _clause(f"Compute the sum of 1/(k(k+{gap})) for k=1 to V as a reduced fraction m/n; find m+n.",
+                                               f"Add up 1/(k(k+{gap})) for k=1 to V; with the total written as a reduced fraction m/n, find m+n."))
 def _a_digit_target(V, kn):
     lo=kn.choice("lo"); hi=lo+kn.choice("span")
     return (sum(1 for x in range(lo,hi) if sum(int(c) for c in str(x))==V),
-            f"How many integers from {lo} to {hi-1} have digits summing to exactly V?")
+            _clause(f"How many integers from {lo} to {hi-1} have digits summing to exactly V?",
+                    f"Count how many integers from {lo} to {hi-1} have a digit sum of exactly V."))
 def _a_ie3_U(V, kn):
     # iter1: 3 sets -> 2 sets (fewer constraints) to ease the TOO_HARD ie3-target chains;
     # divisor pool widened [2..9] to keep answers diverse after dropping a term.
@@ -1110,13 +1125,16 @@ def _a_ie3_U(V, kn):
     if n>=3:
         a,b,c=sorted(random.sample(pool,3))
         return (V//a+V//b+V//c-V//lcm(a,b)-V//lcm(a,c)-V//lcm(b,c)+V//lcm(a,lcm(b,c)),
-                f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?")
+                _clause(f"How many integers from 1 to V are divisible by {a}, {b}, or {c}?",
+                        f"Among the integers 1 through V, how many are divisible by {a}, {b}, or {c}?"))
     if n<=1:
         a=random.choice(pool)
-        return (V//a, f"How many integers from 1 to V are divisible by {a}?")
+        return (V//a, _clause(f"How many integers from 1 to V are divisible by {a}?",
+                              f"Among the integers 1 through V, how many are divisible by {a}?"))
     a,b=sorted(random.sample(pool,2))
     return (V//a+V//b-V//lcm(a,b),
-            f"How many integers from 1 to V are divisible by {a} or {b}?")
+            _clause(f"How many integers from 1 to V are divisible by {a} or {b}?",
+                    f"Among the integers 1 through V, how many are divisible by {a} or {b}?"))
 def _a_perfsq_limit(V, kn):
     # iter2: optional per-chain "last" knob (a digit 0-9) adds a SECOND constraint
     # ("...and end in the digit L") to HARDEN the two TOO_EASY perfsq chains
@@ -1129,9 +1147,11 @@ def _a_perfsq_limit(V, kn):
         while (rd*k)**2<V:
             if ((rd*k)**2)%10==last: cnt+=1
             k+=1
-        return (cnt, f"How many perfect squares less than V are divisible by {div} and end in the digit {last}?")
+        return (cnt, _clause(f"How many perfect squares less than V are divisible by {div} and end in the digit {last}?",
+                             f"Count the perfect squares below V that are divisible by {div} and end in the digit {last}."))
     while (rd*k)**2<V: cnt+=1; k+=1
-    return (cnt, f"How many perfect squares less than V are divisible by {div}?")
+    return (cnt, _clause(f"How many perfect squares less than V are divisible by {div}?",
+                         f"Count the perfect squares below V that are divisible by {div}."))
 def _a_multisquare_limit(V, kn):
     # iter4: "last" digit is now OPTIONAL (a SECOND constraint). alternating_cubes (the only
     # multisquare chain) was 0.05 TOO_HARD with BOTH "divisible by d" AND "ends in last" on a
@@ -1143,11 +1163,13 @@ def _a_multisquare_limit(V, kn):
         while k*k<V:
             if (k*k)%d==0 and (k*k)%10==last: cnt+=1
             k+=1
-        return (cnt, f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?")
+        return (cnt, _clause(f"How many perfect squares less than V are divisible by {d} and end in the digit {last}?",
+                             f"Count the perfect squares below V divisible by {d} that end in the digit {last}."))
     while k*k<V:
         if (k*k)%d==0: cnt+=1
         k+=1
-    return (cnt, f"How many perfect squares less than V are divisible by {d}?")
+    return (cnt, _clause(f"How many perfect squares less than V are divisible by {d}?",
+                         f"Count the perfect squares below V divisible by {d}."))
 def _a_equalize_g(V, kn):
     if V<3: return (None,"")
     # iter4: cut the denominator-7/8 fractions entirely. The equalize-target chains are .1-.36
@@ -1160,7 +1182,8 @@ def _a_equalize_g(V, kn):
                       Fraction(1,6),Fraction(5,6)])
     pour=1-((V-1)+fn)/V
     return (pour.numerator+pour.denominator,
-            f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.")
+            _clause(f"There are V identical glasses; V-1 are full and one is {fn} full. To equalize, the fraction poured from each full glass is m/n in lowest terms. Find m+n.",
+                    f"You have V identical glasses: V-1 are full and one is {fn} full. To level them all, the fraction poured out of each full glass equals m/n in lowest terms; find m+n."))
 def _a_complement_faces(V, kn):
     if V<3: return (None,"")
     # iter4: threshold is now a per-chain knob "thr" (list of [num,den] pairs). The answer r =
@@ -1177,29 +1200,34 @@ def _a_complement_faces(V, kn):
     while 1-Fraction((V-1)**r,V**r)<=thr:
         r+=1
         if r>60: return (None,"")
-    return (r, f"A V-sided die is rolled repeatedly. What is the fewest rolls so the probability a specific face appears at least once first exceeds {thr.numerator}/{thr.denominator}?")
+    return (r, _clause(f"A V-sided die is rolled repeatedly. What is the fewest rolls so the probability a specific face appears at least once first exceeds {thr.numerator}/{thr.denominator}?",
+                       f"Roll a V-sided die repeatedly. What is the minimum number of rolls so the probability that a chosen face has shown up at least once first exceeds {thr.numerator}/{thr.denominator}?"))
 
 # tkey -> (adapter, target_concept, fed_input_label, fed_lo, fed_hi)
 def _a_cmod(V, kn):
     # NEW TARGET (more-targets pass): complex modulus power |z|^{2k} for z=V+bi -> (V^2+b^2)^k.
     # Multi-input (b, k supply entropy), V load-bearing, clean symbolic V-embedding, top3~0.01.
     b=kn.choice("b"); k=kn.choice("k")
-    return ((V*V+b*b)**k, f"Let z = V + {b}i (where i squared = -1). Compute |z|^{2*k} (its modulus raised to the {2*k}th power).")
+    return ((V*V+b*b)**k, _clause(f"Let z = V + {b}i (where i squared = -1). Compute |z|^{2*k} (its modulus raised to the {2*k}th power).",
+                                  f"Consider the complex number z = V + {b}i (with i^2 = -1). Find |z|^{2*k}, the {2*k}th power of its modulus."))
 def _a_divsum(V, kn):
     # NEW TARGET (pass-through; needs a high-cardinality feeder): sum of odd/even divisors of V.
     cond=kn.choice("cond")
-    return (sum(d for d in divisors(V) if (d%2==1)==(cond=="odd")), f"What is the sum of the {cond} divisors of V?")
+    return (sum(d for d in divisors(V) if (d%2==1)==(cond=="odd")), _clause(f"What is the sum of the {cond} divisors of V?",
+                                                                            f"Find the sum of all {cond} divisors of V."))
 def _a_customop_target(V, kn):
     # NEW TARGET (charizard): nested custom op x(+)y=x+y+xy. Feed V->operand (V<=15, overflow cap),
     # b,c supply entropy. Value-valued -> diversity-rich (top3 ~0.04 even for small-count feeders).
     b=kn.choice("b"); c=kn.choice("c"); op=lambda x,y:x+y+x*y
-    return (op(op(V,b),c), f"Define x\u2295y = x+y+xy for all integers. Compute ((V\u2295{b})\u2295{c}).")
+    return (op(op(V,b),c), _clause(f"Define x\u2295y = x+y+xy for all integers. Compute ((V\u2295{b})\u2295{c}).",
+                                   f"With the operation x\u2295y = x+y+xy defined on all integers, evaluate ((V\u2295{b})\u2295{c})."))
 def _a_boxdiag_target(V, kn):
     # NEW TARGET (charizard): box space-diagonal^2 = V^2+b^2+c^2 (V->one edge). V^2 dominates ->
     # every V gives a distinct answer -> top3 ~0.008. box_diagonal is dead as a FEEDER (12 distinct V)
     # but pristine as a TARGET.
     b=kn.choice("b"); c=kn.choice("c")
-    return (V*V+b*b+c*c, f"A rectangular box has edge lengths V, {b}, and {c}. Find the square of its space diagonal.")
+    return (V*V+b*b+c*c, _clause(f"A rectangular box has edge lengths V, {b}, and {c}. Find the square of its space diagonal.",
+                                 f"A box has edges V, {b}, and {c}. Compute the squared length of its space diagonal."))
 _ADAPT={
  # iter2: modexp_base V-ceiling lowered 10^12 -> 5000. V^k mod m on a ~10^12 base is an
  # intractable too-hard ghost (CLAUDE.md §5: big numbers teach tedium, not method); capping
@@ -1264,6 +1292,39 @@ _FEEDER_EASE={
  "chain_telescoping_mn__inclusion_exclusion_3set":{"N":(5,9)},
  "chain_ordered_triple_constraint__box_diagonal_sq":{"N":(8,13),"parts":[3]},
 }
+# ── DEPTH-1.5 de-announced surface (env CHAIN_SURFACE=embedded) ───────────────
+# Same 46 compositions + same EXACT oracle gold as depth-1 (V and ans are computed
+# by the identical feeder->adapter path BEFORE rendering — the surface string never
+# touches the math). Only the wording changes, to kill the three depth-1 "cheat
+# tells" a depth-1-trained model would template-match instead of RECOGNIZING the
+# composition: (1) the constant "Let V be the answer to this problem." preamble,
+# (2) the curly-quoted feeder, (3) the literal "V" token threaded through the
+# target clause. Embedded mode introduces the intermediate with a VARIED,
+# collision-free letter (never V, and never a letter already bound in the clause —
+# k,m,n,x,y,z,a,i,z) via a RANDOMIZED connective, so depth-1.5 is not itself a new
+# single template to memorize. Default surface is "announced" (depth-1, byte-
+# identical) — embedded is strictly opt-in, so the live depth-1 pipeline is untouched.
+_CHAIN_VARS=["t","s","w","u","r","p","g","h"]   # collision-free across every target clause
+_EMBED_TEMPLATES=[
+ "{q} Let {v} be the value you obtain. {c}",
+ "First work out the following. {q} Denote that result by {v}. {c}",
+ "{q} Call this number {v}. {c}",
+ "{q} Write {v} for that answer. {c}",
+ "Suppose {v} is the number determined by this. {q} {c}",
+ "{q} Take {v} to be the result of the above. {c}",
+ "Begin with this sub-problem. {q} Let its answer be {v}. {c}",
+ "{q} Using {v} to denote that quantity, {cl}",
+]
+def _render_embedded(q, clause):
+    """De-announced (depth-1.5) surface. Returns (problem, var, target_clause).
+    var/target_clause are stashed in meta so check_dataset can split + RE-SOLVE both
+    halves independently (it normalizes var->V, reusing the announced recomputers)."""
+    v=random.choice(_CHAIN_VARS)
+    c=re.sub(r"\bV\b", v, clause)                       # swap the literal V token
+    if not q.endswith((".","?","!")): q=q+"."           # feeder reads as a full sentence
+    cl=(c[0].lower()+c[1:]) if c[:1].isupper() else c   # mid-sentence form for the {cl} template
+    return random.choice(_EMBED_TEMPLATES).format(q=q,v=v,c=c,cl=cl), v, c
+
 def _register_diverse_chain(feeder,tkey):
     adapt,tconcept,flabel,flo,fhi=_ADAPT[tkey]
     cname=f"chain_{feeder}__{tconcept}"
@@ -1276,10 +1337,15 @@ def _register_diverse_chain(feeder,tkey):
         if not (_lo<=V<=_hi): return None
         ans,clause=_ad(V, K[_cn])
         if not isinstance(ans,int) or ans<2: return None
-        q=sub[0].strip().rstrip(".")
-        prob=f"Let V be the answer to this problem.\n“{q}”\n{clause}"
-        meta={"depth":1,"chain":{"components":[_f,_t],"fed_param":_fl,"intermediate_gold":V}}
-        return (prob,ans,_cn,meta)
+        chain={"components":[_f,_t],"fed_param":_fl,"intermediate_gold":V}
+        if os.environ.get("CHAIN_SURFACE","announced")=="embedded":
+            fq=sub[0].strip()
+            prob,var,tclause=_render_embedded(fq, clause)
+            chain.update(surface="embedded", var=var, feeder_question=fq, target_clause=tclause)
+        else:
+            q=sub[0].strip().rstrip(".")
+            prob=f"Let V be the answer to this problem.\n“{q}”\n{clause}"
+        return (prob,ans,_cn,{"depth":1,"chain":chain})
     return _gen
 for _f,_tk in _DIVERSE_CHAINS.items():
     _register_diverse_chain(_f,_tk)

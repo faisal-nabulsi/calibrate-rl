@@ -719,7 +719,7 @@ def _chain_split(problem):
 
 def _recompute_target(target, c, V):
     if target == "modular_exponent":
-        m = int(re.search(r"divided by (\d+)", c).group(1))
+        m = int(re.search(r"(?:divided by|modulo) (\d+)", c).group(1))
         mb = re.search(r"V\^(\d+)", c); me = re.search(r"(\d+)\^V", c)
         if mb: return pow(V, int(mb.group(1)), m)
         if me: return pow(int(me.group(1)), V, m)
@@ -800,7 +800,7 @@ def _recompute_target(target, c, V):
         op = lambda x, y: x + y + x * y
         return op(op(V, int(bc[0])), int(bc[1]))
     if target == "box_diagonal_sq":
-        mm = re.search(r"edge lengths V, (\d+), and (\d+)", c)
+        mm = re.search(r"edges?(?: of length| lengths)?\s+V, (\d+), and (\d+)", c)
         return V * V + int(mm.group(1)) ** 2 + int(mm.group(2)) ** 2
     return None
 
@@ -832,9 +832,20 @@ _CHAIN_TARGET = {
  "vieta_sumcubes":"inclusion_exclusion_3set",
 }
 def _make_chain_rc(feeder, target):
-    def rc(problem):
-        sub, clause = _chain_split(problem)
-        if sub is None: return None
+    def rc(problem, meta=None):
+        # DEPTH-1.5 embedded surface (chain.surface=="embedded"): no curly quotes / no "V"
+        # token / no preamble, so _chain_split can't segment it. Read the split from chain meta
+        # (feeder_question / target_clause / var) and normalize the varied letter back to V so
+        # _recompute_target is reused UNCHANGED. Independent math is preserved: V is RE-SOLVED
+        # from feeder_question via the feeder's own atomic recomputer below (intermediate_gold
+        # is NOT trusted here). meta=None / announced -> the curly-quote path, byte-identical.
+        if isinstance(meta, dict) and meta.get("surface") == "embedded":
+            sub = meta.get("feeder_question"); tcl = meta.get("target_clause"); var = meta.get("var")
+            if not (sub and tcl and var): return None
+            clause = re.sub(r"\b" + re.escape(var) + r"\b", "V", tcl)
+        else:
+            sub, clause = _chain_split(problem)
+            if sub is None: return None
         ffn = RECOMPUTERS.get(feeder)          # the FEEDER's own atomic recomputer
         if ffn is None: return None            # feeder not independently checkable -> UNCHECKED
         try: V = ffn(sub)
@@ -888,7 +899,7 @@ def main():
         checked = bad = 0
         for r in rs:
             try:
-                got = fn(r["problem"])
+                got = fn(r["problem"], r.get("chain")) if c.startswith("chain_") else fn(r["problem"])
             except Exception:
                 got = None
             if got is None:
