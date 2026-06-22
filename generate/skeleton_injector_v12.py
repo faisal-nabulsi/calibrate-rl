@@ -1099,6 +1099,35 @@ def _a_algebraic_x(V, kn):
     d1=a1*V+b1*y+c1*z; d2=a2*V+b2*y+c2*z
     return (V+y+z, _clause(f"Positive integers x, y, z satisfy x=V, {a1}x+{b1}y+{c1}z={d1}, and {a2}x+{b2}y+{c2}z={d2}. Find x+y+z.",
                            f"Suppose positive integers x, y, z have x=V and satisfy both {a1}x+{b1}y+{c1}z={d1} and {a2}x+{b2}y+{c2}z={d2}. Compute x+y+z."))
+def _a_algebraic_nosol(V, kn):
+    # DEPTH-2.0 ANTI-FABRICATION ORACLE. The system MAY have no positive-integer solution; gold =
+    # x+y+z if one exists, else 0 (a "no solution" sentinel). ~1/4 of draws are constructed
+    # unsolvable-but-NORMAL-LOOKING (a negative or fractional solution, positive RHS), so the model
+    # must SOLVE + check positivity — fabricating a plausible value is punished by the exact binary
+    # gold. This turns the dominant fabricate-when-stuck failure into an exact-gold contrast (the
+    # honest rollout boxes 0; the fabricator boxes a number). Difficulty = the no-solution FRACTION
+    # (a constraint, not magnitude). Gold recomputed independently in check_dataset (solve + check).
+    a1=kn.randint("coef"); b1=kn.randint("coef"); c1=kn.randint("coef")
+    a2=kn.randint("coef"); b2=kn.randint("coef"); c2=kn.randint("coef")
+    if b1*c2-b2*c1==0: return (None,"")
+    # NO-SOLUTION FRACTION is the anti-fabrication knob: more = stronger contrast, but the 0 sentinel
+    # is a single modal cluster, so the strict top3-SUM gate caps it (~16% keeps top3<=0.30 across the
+    # algebraic chains). always-guess-0 scores ~16% << goldilocks, so it is NOT answer-hackable even
+    # well above this; the campaign can raise it (the real anti-hack floor is single-modal < goldilocks).
+    m=random.random()
+    if m>0.16:                                              # solvable: positive-integer y,z
+        y,z=random.randint(2,18),random.randint(2,18); d1,d2=b1*y+c1*z+a1*V, b2*y+c2*z+a2*V
+    elif m>0.08:                                            # negative solution, POSITIVE RHS -> 0
+        y,z=random.randint(-6,-1),random.randint(12,20);  d1,d2=b1*y+c1*z+a1*V, b2*y+c2*z+a2*V
+    else:                                                   # fractional solution -> 0 (perturb RHS)
+        y,z=random.randint(2,18),random.randint(2,18);     d1,d2=b1*y+c1*z+a1*V+random.choice([1,2]), b2*y+c2*z+a2*V
+    if d1<1 or d2<1: return (None,"")                       # keep every displayed RHS positive (subtle traps)
+    det=b1*c2-b2*c1; e1,e2=d1-a1*V,d2-a2*V
+    yy=Fraction(e1*c2-e2*c1,det); zz=Fraction(b1*e2-b2*e1,det)
+    gold=(V+int(yy)+int(zz)) if (yy.denominator==1 and zz.denominator==1 and yy>0 and zz>0) else 0
+    tail="Find x+y+z; if no such positive integers exist, answer 0."
+    return (gold, _clause(f"Positive integers x, y, z satisfy x=V, {a1}x+{b1}y+{c1}z={d1}, and {a2}x+{b2}y+{c2}z={d2}. {tail}",
+                          f"Suppose positive integers x, y, z have x=V and satisfy both {a1}x+{b1}y+{c1}z={d1} and {a2}x+{b2}y+{c2}z={d2}. {tail}"))
 def _a_telescoping_N(V, kn):
     gap=kn.choice("gap"); s=sum(Fraction(1,k*(k+gap)) for k in range(1,V+1))
     return (s.numerator+s.denominator, _clause(f"Compute the sum of 1/(k(k+{gap})) for k=1 to V as a reduced fraction m/n; find m+n.",
@@ -1240,6 +1269,7 @@ _ADAPT={
  # a^V mod m with a large fed exponent V is a long fast-exponentiation chain; fewer steps eases it.
  "modexp_exp":(_a_modexp_exp,"modular_exponent","exponent",2,20),
  "algebraic_x":(_a_algebraic_x,"algebraic_system_2eq","x",1,60),
+ "algebraic_nosol":(_a_algebraic_nosol,"algebraic_system_2eq","x",1,60),   # DEPTH-2.0 no-solution oracle (anti-fabrication)
  "telescoping_N":(_a_telescoping_N,"telescoping_mn","N",3,30),
  # iter3: digit_sum_target ceiling 27 -> 20. ALL 5 digit_target chains are TOO_HARD; a fed digit
  # sum near 27 makes matches near-impossible (degenerate/near-0 counts). Capping at 20 keeps the
@@ -1335,9 +1365,15 @@ def _register_diverse_chain(feeder,tkey):
         if sub is None or not isinstance(sub[1],int): return None
         V=sub[1]
         if not (_lo<=V<=_hi): return None
-        ans,clause=_ad(V, K[_cn])
-        if not isinstance(ans,int) or ans<2: return None
+        # DEPTH-2.0 no-solution oracle (anti-fabrication): under env DEPTH2, the algebraic-targeting
+        # chains use the no-solution variant whose gold may be 0 ("no positive-integer solution"), so
+        # the model must SOLVE+check rather than fabricate. DEPTH2 unset => depth-1 byte-identical.
+        _nosol = bool(os.environ.get("DEPTH2")) and _t == "algebraic_system_2eq"
+        ans,clause=(_a_algebraic_nosol if _nosol else _ad)(V, K[_cn])
+        if not isinstance(ans,int): return None
+        if ans<2 and not (_nosol and ans==0): return None      # allow the 0 sentinel for no-sol chains
         chain={"components":[_f,_t],"fed_param":_fl,"intermediate_gold":V}
+        if _nosol: chain["nosol"]=True
         if os.environ.get("CHAIN_SURFACE","announced")=="embedded":
             fq=sub[0].strip()
             prob,var,tclause=_render_embedded(fq, clause)
