@@ -1387,6 +1387,66 @@ for _f,_tk in _DIVERSE_CHAINS.items():
     _register_diverse_chain(_f,_tk)
 
 
+# ── DEPTH-2.0 Family A: the RECOGNITION TRAP (single narrative, NO announced seam) ─────────────
+# Depth-1 trained EXECUTION of an ANNOUNCED composition ("Let V be the answer to: ...; now use V");
+# AMC has no announced seam, so that skill went flat (34/83). The transfer lever is a problem whose
+# tempting NAIVE method yields a SPECIFIC wrong number (naive!=gold asserted at build): on a goldilocks
+# group, rollouts that fall for the trap score 0 and rollouts that RECOGNIZE the real structure score 1,
+# so GRPO's gradient lands on RECOGNITION — the verified AMC wall.
+# This generator is the validated workhorse (AMC pid-27 shape): a 0-1 contingency-table count. The naive
+# "each row independently picks its cells, prod_i C(C,rows[i])" IGNORES the column-sum coupling and
+# OVERCOUNTS by a clean ~80x (naive>gold ALWAYS). Exact oracle (DP over rows on the column-deficit
+# vector), no LLM judge. Diversity from general row/col SUM VECTORS (top3 0.212 < 0.30 gate).
+# De-risking trail + verification: tools/family_a_grid_trap.py (0 mismatch, trap 100%, 71 distinct).
+# Gated on env DEPTH2 -> absent when unset, so depth-0/1/1.5 are byte-identical.
+def _trap_count_tables(rows, C, colsum):
+    """EXACT: # of len(rows)xC 0-1 matrices with the given row sums and column sums. DP over rows,
+    state = remaining per-column deficit. Deterministic; this IS the gold."""
+    state={tuple(colsum):1}
+    for r in rows:
+        nxt={}
+        for v in Ccomb(range(C), r):                  # the columns this row sets to 1
+            for deficit,ways in state.items():
+                nd=list(deficit); ok=True
+                for col in v:
+                    nd[col]-=1
+                    if nd[col]<0: ok=False; break
+                if ok:
+                    t=tuple(nd); nxt[t]=nxt.get(t,0)+ways
+        state=nxt
+    return state.get(tuple([0]*C),0)
+
+def _trap_naive_rows(rows, C):
+    """The TRAP value: treat rows independently, ignore the column coupling -> prod C(C,r). Always > gold."""
+    p=1
+    for r in rows: p*=math.comb(C,r)
+    return p
+
+def _a_trap_grid_count():
+    for _ in range(80):
+        R=random.randint(4,5); C=random.randint(4,5)
+        rows=[random.randint(1,C-1) for _ in range(R)]
+        cols=[0]*C
+        for _ in range(sum(rows)):                     # random valid column-sum vector
+            cand=[i for i in range(C) if cols[i]<R]
+            if not cand: break
+            cols[random.choice(cand)]+=1
+        if sum(cols)!=sum(rows): continue
+        gold=_trap_count_tables(rows,C,cols)
+        if not (4<=gold<=4000): continue               # floor drops trivial 2/3; ceiling keeps it enumerable
+        naive=_trap_naive_rows(rows,C)
+        if naive==gold: continue                        # trap must hold (defensive; naive>gold by construction)
+        rs=", ".join(map(str,rows)); cs=", ".join(map(str,cols))
+        prob=(f"Consider a {R} by {C} grid of cells, each filled with 0 or 1. The rows (top to bottom) "
+              f"must have sums {rs}, and the columns (left to right) must have sums {cs}. "
+              f"How many such grids are there?")
+        return (prob, gold, "trap_grid_count", {"depth":2,"trap":{"family":"A_grid","naive":naive}})
+    return None
+
+if os.environ.get("DEPTH2"):
+    concept("trap_grid_count",[27])(_a_trap_grid_count)
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--per",type=int,default=150)
