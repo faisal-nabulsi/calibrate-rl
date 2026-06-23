@@ -261,11 +261,20 @@ model = AutoModelForCausalLM.from_pretrained(
 # starting LoRA adapter INTO the base, then GRPOTrainer adds the FRESH peft_config (new LoRA) on
 # top of the merged weights. Same merge path as sample.py / eval_amc_baseline.py. CKPT unset =>
 # train from base Qwen (the depth-0 path), unchanged.
+# Merge a CHAIN of base adapters in order (BASE_CKPT first, then CKPT), all IN-MEMORY, then a fresh
+# LoRA trains on top — NO consolidated-model save. Train depth-1.5/2 on the depth-1 model = base +
+# ckpt-500 (BASE_CKPT) + depth-1 (CKPT), avoiding the 15GB save that OOM'd the boxes 3x. Same two-stage
+# merge sample.py / eval already do for these evals. Both unset => train from base Qwen, unchanged.
+_BASE_CKPT = os.environ.get("BASE_CKPT", "").strip()
 _CKPT = os.environ.get("CKPT", "").strip()
-if _CKPT:
+if _BASE_CKPT or _CKPT:
     from peft import PeftModel
-    logger.info(f"  Base ckpt:        merging adapter {_CKPT} into base, then fresh LoRA on top")
-    model = PeftModel.from_pretrained(model, _CKPT).merge_and_unload()
+    for _ck in [_BASE_CKPT, _CKPT]:
+        if not _ck:
+            continue
+        logger.info(f"  Base ckpt:        merging adapter {_ck} into base")
+        model = PeftModel.from_pretrained(model, _ck).merge_and_unload()
+    logger.info("  ... then a fresh LoRA trains on top")
 eval_tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-7B-Instruct")
 trainer = GRPOTrainer(
     model=model,
