@@ -316,14 +316,26 @@ else
   CKPT_ENV=""
   if [ -n "$JOB_CKPT" ]; then
     case "$JOB_CKPT" in
-      s3://*) CKPT_DIR="checkpoint/job_${JOB_ID}_baseckpt"
+      s3://*) CKPT_DIR="checkpoint/job_${JOB_ID}_ckpt"
               PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_CKPT%/} $CKPT_DIR") ;;
       *)      CKPT_DIR="$JOB_CKPT" ;;
     esac
     CKPT_ENV="CKPT=$CKPT_DIR"
   fi
+  # Optional 2nd base adapter merged BEFORE CKPT (in-memory) — train depth-1.5/2 ON TOP of a multi-
+  # adapter base (base + ckpt-500 [base_checkpoint] + depth-1 [checkpoint]) with NO 15GB consolidation
+  # save. train_grpo merges BASE_CKPT then CKPT, then the fresh LoRA. Mirrors sample.py's two-stage load.
+  BASE_CKPT_ENV=""
+  if [ -n "$JOB_BASE_CKPT" ]; then
+    case "$JOB_BASE_CKPT" in
+      s3://*) BASE_CKPT_DIR="checkpoint/job_${JOB_ID}_baseckpt"
+              PREP_CMDS+=("aws s3 cp --recursive --quiet ${JOB_BASE_CKPT%/} $BASE_CKPT_DIR") ;;
+      *)      BASE_CKPT_DIR="$JOB_BASE_CKPT" ;;
+    esac
+    BASE_CKPT_ENV="BASE_CKPT=$BASE_CKPT_DIR"
+  fi
   RUN_DIR="checkpoint/job_${JOB_ID}"
-  RUN_ENV=(TRAIN_DATA="$JOB_DATASET" RESUME_OUTPUT_DIR="$RUN_DIR" ${CKPT_ENV:+$CKPT_ENV}
+  RUN_ENV=(TRAIN_DATA="$JOB_DATASET" RESUME_OUTPUT_DIR="$RUN_DIR" ${CKPT_ENV:+$CKPT_ENV} ${BASE_CKPT_ENV:+$BASE_CKPT_ENV}
            ${JOB_HOLDOUT:+HOLDOUT_DATA="$JOB_HOLDOUT"}
            ${JOB_N:+MAX_STEPS="$JOB_N"}
            ${JOB_MAX_TOKENS:+MAX_COMPLETION_LENGTH="$JOB_MAX_TOKENS"}
