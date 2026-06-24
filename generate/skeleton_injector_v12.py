@@ -1443,8 +1443,98 @@ def _a_trap_grid_count():
         return (prob, gold, "trap_grid_count", {"depth":2,"trap":{"family":"A_grid","naive":naive}})
     return None
 
+def _trap_ndiv(n):
+    return 2*sum(1 for d in range(1, math.isqrt(n)+1) if n % d == 0) - (1 if math.isqrt(n)**2 == n else 0)
+
+def _a_trap_seam_presence():
+    # DEPTH-1.5 seam-presence twin: a CHAIN-LIKE surface with NO real chain. The computed value g is
+    # a RED HERRING; the target (a^e mod m) is self-contained. The naive "embedded value -> plug it in"
+    # reflex that depth-1/1.5 trains computes a^g mod m (a SPECIFIC wrong number); gold = a^e mod m.
+    # Trains the DECISION "is there actually a seam?" — the recognition depth-1 never had to make.
+    for _ in range(60):
+        D=random.randint(12,200); g=_trap_ndiv(D)
+        a,e,m=random.randint(2,9),random.randint(6,16),random.randint(50,200)
+        gold=pow(a,e,m); trap=pow(a,g,m)
+        if gold==trap: continue
+        prob=(f"Let g be the number of positive divisors of {D}. "
+              f"What is the remainder when {a}^{e} is divided by {m}?")
+        return (prob, gold, "trap_seam_presence", {"depth":2,"trap":{"family":"seam_presence","naive":trap}})
+    return None
+
+def _trap_tri_interior(a,b,c):
+    # interior lattice points of triangle (0,0),(a,0),(c,b); barycentric>0 cleared of denominators.
+    return sum(1 for y in range(1,b) for x in range(min(0,c),max(a,c)+1)
+               if x*b-c*y>0 and a*b-x*b+c*y-a*y>0)
+
+def _a_trap_lattice_triangle():
+    # DEPTH-2 Family B (lattice/region): interior lattice points of a triangle. Naive "the count is the
+    # AREA" (a*b/2, shear-invariant) overcounts; gold = exact enumeration. The shear c is a 3rd parameter
+    # for cardinality (area unchanged, count changes). Recognize: lattice count != continuous area.
+    for _ in range(60):
+        a,b=random.randint(6,16),random.randint(6,16); c=random.randint(-8,16)
+        gold=_trap_tri_interior(a,b,c); naive=a*b//2
+        if gold<2 or naive==gold: continue
+        prob=(f"How many points with integer coordinates lie strictly inside the triangle whose "
+              f"vertices are (0,0), ({a},0), and ({c},{b})?")
+        return (prob, gold, "trap_lattice_triangle", {"depth":2,"trap":{"family":"B_lattice","naive":naive}})
+    return None
+
+def _trap_walks(n,F):
+    ways=[0]*(n+1); ways[1]=1
+    for i in range(2,n+1):
+        ways[i]=0 if i in F else ways[i-1]+(ways[i-2] if i-2>=1 else 0)
+    return ways[n]
+
+def _a_trap_walk_blocked():
+    # DEPTH-2 Family C (finite-state process / first-passage): count +1/+2 walks 1->n that AVOID a set
+    # of blocked squares. Naive ignores the blocks -> the plain Fibonacci count (a SPECIFIC wrong number
+    # > gold); gold = DP over the blocked squares. Recognize: the process is state-dependent, not free.
+    for _ in range(60):
+        n=random.randint(12,20)
+        F=set(random.sample(range(2,n), random.randint(2,4)))
+        gold=_trap_walks(n,F); naive=_trap_walks(n,set())
+        if gold<2 or naive==gold: continue
+        fl=", ".join(map(str,sorted(F)))
+        prob=(f"A token starts on square 1 of a row of {n} squares and moves forward 1 or 2 squares each "
+              f"step, never overshooting square {n}. Squares {fl} are blocked and may not be landed on. "
+              f"How many distinct sequences of moves bring the token to exactly square {n}?")
+        return (prob, gold, "trap_walk_blocked", {"depth":2,"trap":{"family":"C_process","naive":naive}})
+    return None
+
+def _trap_sat_count(n,imp):
+    cnt=0
+    for mask in range(1<<n):
+        v=[(mask>>i)&1 for i in range(n)]
+        if all((not v[x]) or v[y] for x,y in imp): cnt+=1
+    return cnt
+
+def _a_trap_logic_implications():
+    # DEPTH-2 Family D (adversarial logic): # T/F assignments to n statements satisfying a set of
+    # implications. Naive = 2^n (ignore the constraints); gold = exact satisfying count. Recognize:
+    # the constraints couple the choices, they are not free.
+    for _ in range(60):
+        n=random.randint(4,6); k=random.randint(2,4); imp=set()
+        while len(imp)<k:
+            x,y=random.sample(range(n),2); imp.add((x,y))
+        gold=_trap_sat_count(n,imp); naive=1<<n
+        if gold<2 or naive==gold: continue
+        names=[chr(ord('A')+i) for i in range(n)]
+        clauses="; ".join(f"if {names[x]} is true then {names[y]} is true" for x,y in sorted(imp))
+        prob=(f"Each of the statements {', '.join(names)} is either true or false, subject to: {clauses}. "
+              f"How many of the {1<<n} possible truth-assignments satisfy all of these conditions?")
+        return (prob, gold, "trap_logic_implications", {"depth":2,"trap":{"family":"D_logic","naive":naive}})
+    return None
+
 if os.environ.get("DEPTH2"):
-    concept("trap_grid_count",[27])(_a_trap_grid_count)
+    # Whole DEPTH-2 recognition-trap library — single un-announced problems whose naive method gives a
+    # specific wrong number (naive!=gold), so GRPO gradient lands on STRUCTURE-RECOGNITION (the AMC wall).
+    # All validated in tools/{family_a_grid_trap,depth2_families_prototype}.py (0 oracle mismatch, trap
+    # 100%, top3<=0.30). Gated here so depth-0/1/1.5 are byte-identical when DEPTH2 is unset.
+    concept("trap_grid_count",[27])(_a_trap_grid_count)                 # Family A: contingency-table count
+    concept("trap_seam_presence",[])(_a_trap_seam_presence)            # depth-1.5 seam-presence twin
+    concept("trap_lattice_triangle",[])(_a_trap_lattice_triangle)      # Family B: lattice/region
+    concept("trap_walk_blocked",[])(_a_trap_walk_blocked)              # Family C: finite-state process
+    concept("trap_logic_implications",[])(_a_trap_logic_implications)  # Family D: adversarial logic
 
 
 def main():
