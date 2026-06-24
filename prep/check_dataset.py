@@ -687,8 +687,64 @@ def rc_trap_grid_count(p):
     return state.get(tuple([0] * C), 0)
 
 
+def rc_trap_seam_presence(p):
+    """DEPTH-2 seam-presence twin. INDEPENDENT: the target is self-contained (a^e mod m); the divisor
+    'g' is a red herring and must NOT enter the gold. Parse a,e,m and recompute pow(a,e,m)."""
+    m = re.search(r"when (\d+)\^(\d+) is divided by (\d+)", p)
+    if not m:
+        return None
+    a, e, mod = int(m.group(1)), int(m.group(2)), int(m.group(3))
+    return pow(a, e, mod)
+
+
+def rc_trap_lattice_triangle(p):
+    """DEPTH-2 Family B. INDEPENDENT: re-enumerate interior lattice points of triangle (0,0),(a,0),(c,b)."""
+    m = re.search(r"\((\d+),0\), and \((-?\d+),(\d+)\)", p)
+    if not m:
+        return None
+    a, c, b = int(m.group(1)), int(m.group(2)), int(m.group(3))
+    return sum(1 for y in range(1, b) for x in range(min(0, c), max(a, c) + 1)
+               if x * b - c * y > 0 and a * b - x * b + c * y - a * y > 0)
+
+
+def rc_trap_walk_blocked(p):
+    """DEPTH-2 Family C. INDEPENDENT: re-run the +1/+2 DP over the blocked squares parsed from the text."""
+    mn = re.search(r"row of (\d+) squares", p)
+    mf = re.search(r"Squares ([\d, ]+?) are blocked", p)
+    if not (mn and mf):
+        return None
+    n = int(mn.group(1))
+    F = {int(x) for x in mf.group(1).split(", ")}
+    ways = [0] * (n + 1); ways[1] = 1
+    for i in range(2, n + 1):
+        ways[i] = 0 if i in F else ways[i - 1] + (ways[i - 2] if i - 2 >= 1 else 0)
+    return ways[n]
+
+
+def rc_trap_logic_implications(p):
+    """DEPTH-2 Family D. INDEPENDENT: parse statements + 'if X then Y' implications, brute-force the
+    satisfying truth-assignment count over 2^n."""
+    ms = re.search(r"statements ([A-Z, ]+?) is either", p)
+    if not ms:
+        return None
+    names = ms.group(1).replace(" ", "").split(",")
+    idx = {nm: i for i, nm in enumerate(names)}
+    imp = [(idx[x], idx[y]) for x, y in re.findall(r"if ([A-Z]) is true then ([A-Z]) is true", p)]
+    n = len(names)
+    cnt = 0
+    for mask in range(1 << n):
+        v = [(mask >> i) & 1 for i in range(n)]
+        if all((not v[x]) or v[y] for x, y in imp):
+            cnt += 1
+    return cnt
+
+
 RECOMPUTERS = {
     "trap_grid_count": rc_trap_grid_count,
+    "trap_seam_presence": rc_trap_seam_presence,
+    "trap_lattice_triangle": rc_trap_lattice_triangle,
+    "trap_walk_blocked": rc_trap_walk_blocked,
+    "trap_logic_implications": rc_trap_logic_implications,
     "continued_fraction": rc_continued_fraction,
     "custom_binary_op": rc_custom_binary_op,
     "modular_exponent": rc_modular_exponent,

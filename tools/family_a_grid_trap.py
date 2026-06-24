@@ -14,12 +14,13 @@ WHY THIS ONE (the de-risking trail, tools/family_a_trap_prototype.py is the reje
       naive = prod_i C(C, rows[i]); ignoring columns only ADDS matrices, so naive > gold ALWAYS, and
       it's a CLEAN overcount (median ~99x), never a near-miss.
     * diversity: general row/col SUM VECTORS (not the symmetric all-rows-equal case) blow the parameter
-      space open -> 93 distinct golds, top3=0.240 (<0.30 gate), gold range 4..1486.
+      space open -> 71 distinct golds, top3=0.212 (<0.30 gate), gold range 4..680 at the default run.
   - exact oracle (DP over rows on the column-deficit vector). NO LLM judge.
   - single narrative, NO announced feeder->target seam: the model must RECOGNIZE the column coupling,
     the operation depth-1 (announced-seam execution) never trained.
 
-VERIFIED (seed 13, ~3k draws): mismatches 0, trap 100%, distinct 93, top3 0.240. See __main__.
+VERIFIED (default __main__, seed 13, n=400): mismatches 0, trap 100%, distinct 71, top3 0.212, range 4..680.
+(A wider scan — ~3k draws, ceiling 4000 — reaches ~93 distinct / top3 ~0.24 / range 4..1486; both clear the gate.)
 """
 import argparse, math, random, re
 from collections import Counter, defaultdict

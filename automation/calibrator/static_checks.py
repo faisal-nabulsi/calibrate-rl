@@ -155,11 +155,13 @@ def check_golds(rows, recomputer):
         return {"ok": False,
                 "detail": f"{cov} — recomputer parses NOTHING; gate would verify nothing. "
                           "Fix the recomputer or the phrasing before trusting this concept."}
-    if trap_unique and not trap_checked:
+    if trap_unique and trap_checked < trap_unique:
         return {"ok": False,
-                "detail": f"recomputer skipped ALL {trap_unique} trap/no-solution rows (returned None) — "
-                          "the anti-fabrication gold is the load-bearing contrast and must be verified, "
-                          "not silently skipped. Fix the recomputer to parse the trap form."}
+                "detail": f"recomputer verified only {trap_checked}/{trap_unique} trap/no-solution rows "
+                          "(the rest returned None) — the anti-fabrication gold is the load-bearing contrast "
+                          "and EVERY trap row must be verified, not a subset (a partial-coverage recomputer "
+                          "would let fabricated golds on the skipped rows ship unchecked). Fix the recomputer "
+                          "to parse every trap form."}
     if mismatches:
         ex = "; ".join(f"stored={s} correct={g} :: {p}" for s, g, p in
                        [m for m in mismatches if m][:3])
