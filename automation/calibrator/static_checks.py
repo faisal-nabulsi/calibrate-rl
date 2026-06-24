@@ -102,24 +102,40 @@ def check_golds(rows, recomputer):
         by_prob[r["problem"]].add(str(r["answer"]))
     conflicts = sum(1 for a in by_prob.values() if len(a) > 1)
 
+    # Anti-fabrication golds (depth-2 traps + no-solution sentinels) carry their load-bearing
+    # CONTRAST in the gold value itself — a trap whose gold is wrong trains the exact failure we're
+    # attacking. So they may NOT ride the ordinary "UNCHECKED is honest coverage" pass: any concept
+    # that ships a trap/no-sol row REQUIRES a recomputer. (Without this a new trap passes the gate
+    # ungated, because `None is not False` is True in the PASS rollup.)
+    trap_rows = sum(1 for r in rows if r.get("trap") or (r.get("chain") or {}).get("nosol"))
+
     if recomputer is None:
         if conflicts:
             return {"ok": False, "detail": f"{conflicts} conflicting golds (no recomputer)"}
+        if trap_rows:
+            return {"ok": False, "detail": f"{trap_rows} trap/no-solution golds UNVERIFIED — a recomputer "
+                    "in prep/check_dataset.py is REQUIRED (anti-fabrication gold cannot ship unchecked)"}
         return {"ok": None, "detail": "UNCHECKED — no recomputer in prep/check_dataset.py"}
 
     checked = 0
+    trap_unique = trap_checked = 0
     mismatches = []
     seen = set()
     for r in rows:
         if r["problem"] in seen:           # duplicates recompute identically
             continue
         seen.add(r["problem"])
+        is_trap = bool(r.get("trap") or (r.get("chain") or {}).get("nosol"))
+        if is_trap:
+            trap_unique += 1
         try:
             got = recomputer(r["problem"], r.get("chain")) if r.get("chain") else recomputer(r["problem"])
         except Exception:
             got = None
         if got is None:
             continue
+        if is_trap:
+            trap_checked += 1
         checked += 1
         try:
             stored = float(Fraction(str(r["answer"])))
@@ -139,6 +155,11 @@ def check_golds(rows, recomputer):
         return {"ok": False,
                 "detail": f"{cov} — recomputer parses NOTHING; gate would verify nothing. "
                           "Fix the recomputer or the phrasing before trusting this concept."}
+    if trap_unique and not trap_checked:
+        return {"ok": False,
+                "detail": f"recomputer skipped ALL {trap_unique} trap/no-solution rows (returned None) — "
+                          "the anti-fabrication gold is the load-bearing contrast and must be verified, "
+                          "not silently skipped. Fix the recomputer to parse the trap form."}
     if mismatches:
         ex = "; ".join(f"stored={s} correct={g} :: {p}" for s, g, p in
                        [m for m in mismatches if m][:3])

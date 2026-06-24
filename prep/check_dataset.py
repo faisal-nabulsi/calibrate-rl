@@ -654,7 +654,41 @@ def rc_vieta_sumcubes(p):
     return s**3 - 3*s*pp
 
 
+def rc_trap_grid_count(p):
+    """DEPTH-2.0 Family A recognition trap (0-1 contingency-table count). INDEPENDENT verification:
+    parse R,C + the row/column sum vectors from the displayed text and re-enumerate the exact count
+    via DP over rows on the column-deficit vector. Returns None if the text doesn't parse (not a grid
+    problem) so the dispatcher skips it cleanly."""
+    m = re.search(r"a (\d+) by (\d+) grid", p)
+    if not m:
+        return None
+    R, C = int(m.group(1)), int(m.group(2))
+    mr = re.search(r"sums ([\d, ]+?), and the columns", p)
+    mc = re.search(r"columns \(left to right\) must have sums ([\d, ]+?)\.", p)
+    if not (mr and mc):
+        return None
+    rows = [int(x) for x in mr.group(1).split(", ")]
+    cols = [int(x) for x in mc.group(1).split(", ")]
+    if len(rows) != R or len(cols) != C:
+        return None
+    state = {tuple(cols): 1}
+    for r in rows:
+        nxt = {}
+        for v in combinations(range(C), r):
+            for deficit, ways in state.items():
+                nd = list(deficit); ok = True
+                for col in v:
+                    nd[col] -= 1
+                    if nd[col] < 0:
+                        ok = False; break
+                if ok:
+                    t = tuple(nd); nxt[t] = nxt.get(t, 0) + ways
+        state = nxt
+    return state.get(tuple([0] * C), 0)
+
+
 RECOMPUTERS = {
+    "trap_grid_count": rc_trap_grid_count,
     "continued_fraction": rc_continued_fraction,
     "custom_binary_op": rc_custom_binary_op,
     "modular_exponent": rc_modular_exponent,
