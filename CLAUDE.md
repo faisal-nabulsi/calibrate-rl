@@ -456,43 +456,70 @@ ash (does isolation stop the depth-0 interference decline — see DAILY LOG 06-1
 > Completed items migrate to the DAILY LOG; this section is open/actionable work only. (This session's
 > done items are in CURRENTLY DOING + the log.)
 
-- [ ] **[depth-1 NEXT — the payoff, gated on calibration converging]** build the depth-1 train set from the
-      calibrated 46-chain pool (`prep/build_goldilocks_set_depth1.py`, verified drop-in) → train ~300 steps off
-      ckpt-40 → **validate**: re-run the composition-gap diagnostic (did the gap close — composite pass rises
-      toward the atom?) + AMC via `mean_pass_rate`. This is the whole point of the program — see §11.
-- [ ] **[diagnostic — failure-mode classifier (reasoning, not binary)]** Build a programmatic classifier over
-      the depth-1 calib that buckets each FAILING rollout: `feeder-error` (V wrong) · `wrong-extraction` (solved
-      feeder, took the wrong quantity as V) · `chaining-failure` (didn't carry V / contaminated a feeder number)
-      · `target-execution` (arithmetic slip / incomplete enumeration). Run it per-iter to TRACK which mode shrinks
-      as depth-1 trains — does it actually fix *chaining*, or just execution? Transcript audit (06-18, 12 hit-but-
-      fail rollouts) found **~50% target-execution, ~25% chaining, ~17% feeder, ~8% wrong-extraction** — so the
-      binary answer-reward is well-aimed (it already contrasts careful-vs-careless + chained-vs-not on goldilocks
-      groups). This classifier (a) verifies that holds at scale, (b) builds the exact feeder/carry detectors a
-      partial reward would need. PARTIAL-REWARD design (if we go there): NOT global (rewarding an earlier stage
-      cuts pressure on the failing last stage) — gate a staged feeder→carry reward to ALL-FAIL ghost-batch groups
-      only (feeder-capped too-hard chains calibration can't ease), where binary gives zero gradient. See §8.
-- [ ] **[when training depth-1 — PARTIAL REWARDS (look into, don't build yet)]** Binary is well-aimed (the
-      depth-0 transcripts PROVED RL patches execution slips: base one-shots `170+102+73−34−24−14+4=283`, trained
-      shows it step-by-step → 277; same for incomplete-enumeration + hallucinated-case). So default = clean binary
-      first. IF binary stalls, the strongest *next* lever (better than an LLM judge — our intermediate gold makes
-      it unhackable) = a **2-component EXACT reward: final-answer (dominant) + small feeder/carry bonus**, but
-      **gated to ALL-FAIL ghost-batch groups only** (where binary gives zero gradient) — global partial reward is
-      counterproductive (transcript audit: ~50% of failures are *target-step execution*, so paying for the feeder
-      the model already computes cuts pressure on the stage that's actually failing). Crux = a robust feeder/carry
-      detector (text-containment is gameable + false-positives) — build it via the failure-mode classifier first,
-      THEN decide. Keep final dominant so the model optimizes the whole chain, not the feeder.
-- [ ] **[when training depth-1 — REEVALUATE the goldilocks band / selection]** 2-6/8 (centered 0.5) maximizes
-      gradient *magnitude*, but magnitude ≠ best learning. Do NOT go 0-4/8 (0/8 = zero-gradient dead weight; 1/8 =
-      noisy 1-positive signal + near the capability ceiling; and for chains "harder" usually means a harder FROZEN
-      feeder → trains feeder-difficulty you can't keep, not chaining). The real lever isn't a harder band, it's
-      **failure-mode-WEIGHTED selection** (via the classifier): within the in-band set, up-weight chains whose
-      failures are *chaining* failures, not feeder-hard / pure-slip — targets the skill directly, not the pass-rate
-      proxy. Once the depth-1 baseline lands, ABLATE: 2-6/8 vs 2-5/8 (drop the fast-ghosting 6/8) vs failure-weighted,
-      on held-out gap-closing. Keep 2-6/8 as the proven default (gave depth-0's +0.13 + the slip-patching). See §8.
-- [ ] **(LOW PRIORITY)** Switch the agents to the Claude Max subscription instead of API credits — Max
-      usage headroom would save API spend. (faisal, bring up next meeting; not blocking anything.)
+**PIVOT (06-25): depth-0/1/2 are all capped/closed; the lever is ON-SHAPE AMC RL toward the MEASURED frontier.**
+depth-1 trained the in-distribution composition gap shut (P(pass|hit) 0.59→0.73) but stayed FLAT on AMC. depth-2
+recognition traps were built + adversarially verified + merged (#160/#161/#162) but CALIBRATION SHOWED THEY DON'T
+FIRE — the depth-1 model boxes the naive trap value only 0-2% (grid/lattice are capability walls at EVERY size, seam
+too easy, only walk in-band; 29% in-band overall). Root read: the transfer wall is a **DISTRIBUTION-SHAPE wall** (all
+three layers trained synthetic surfaces AMC never presents — atomic templates / announced "Let V be" seams / forced
+traps), NOT a proven capability wall — a confound never removed. AMC's own frontier is real + populated: BASE pass@8
+**0.711** (~59/83 reachable) → ckpt-500 **0.735** → depth-1 **0.747** (k=8); ~24 problems are 0/8 walls, ~27 greedy-
+unsolved are 1-7/8 = the teachable frontier. RLVR is teachable iff the model SOMETIMES produces it (0/8 = no gradient).
+⇒ stop hand-designing proxy curricula; MEASURE the frontier and train ON-SHAPE.
+
+- [ ] **[STEP 1 — RUNNING] Measure AMC's own per-problem goldilocks frontier.** #162 (merged) makes
+      `eval_amc_coverage` persist per-problem 0..k buckets + a transcripts sidecar. Re-run k=8 on BASE (running on
+      sage) + depth-1 → the 0..8 histogram of the 51 greedy-unsolved; classify the frontier's failures (recognition /
+      execution-slip / fabrication) via `analysis/amc_failure_conversion.py`. **GATE:** GO to Step 2 iff ≥~20 unsolved
+      are 1-7/8 (aggregate predicts ~27); KILL iff ≤5 (capability wall → Step 4 / bigger base).
+- [ ] **[STEP 2 — THE transfer test] On-shape AMC RL probe.** Build a pool of REAL AMC problems with PUBLISHED answers,
+      **SAME source as the test** (NuminaMath AMC, disjoint from the 83 — `tools/build_onshape_pool.py`; AMC ONLY, not
+      AIME — AIME is a distribution mismatch). Calibrate to goldilocks vs depth-1, GRPO ~150-300 steps off depth-1.
+      **GATE on the AMC number, not in-distribution:** held-out AMC frontier mean_pass ≥ +0.08 (above the ±0.05 noise
+      floor). Settles depth-1's never-controlled confound: was the killer the announced seam (fixable → on-shape works)
+      or synthetic-surface itself (a hard wall)?
+- [ ] **[STEP 3 — scale iff Step 2 GO]** larger on-shape AMC pool (1500-2500), ~300 steps. Success = the post-train AMC
+      per-problem histogram shifting to higher pass-counts — NOT in-distribution pass-rate (depth-1 grew that and moved
+      AMC by 0.00).
+- [ ] **[STEP 4 — conditional: SFT-distill the 0/8 walls]** ONLY if Step 1 finds a real 0/8-RECOGNITION cluster: use
+      the Anthropic key for DATA-GENERATION (distill correct CoT for the walls), SFT to convert 0/8→frontier, then RL.
+      **GRADER DECISION (06-25):** the RL reward stays the EXACT oracle — unhackable, and AMC answers are exactly
+      gradable; an LLM grader is hackable/noisy/slow ("Gemini-Pro proxy aced everything and misled us"). Claude is the
+      TEACHER (data-gen), never the judge. Partial rewards, if any = EXACT step detectors gated to all-fail ghost groups.
+- [ ] **[probe — does ANY trap fire?]** sample the forced-deduction/pairing pool (`pairing_probe_pool.json`) vs depth-1:
+      does the model box the forced-unique naive (the recognition lever the depth-2 traps lacked)? If yes, fold forced-
+      deduction into on-shape training. (depth-2 trap library itself = CLOSED: traps don't fire, not salvageable.)
+- [ ] **(reference, when on-shape training lands)** partial-reward design = 2-component EXACT (final + verifiable-step
+      bonus) gated to all-fail ghost groups; goldilocks 2-6/8 proven default; failure-mode-weighted selection to revisit
+      once a baseline lands. See §8.
+- [ ] **(LOW)** Switch agents to Claude Max instead of API credits (faisal, next meeting; not blocking).
 
 ## DAILY LOG  (append-only, newest first; `### YYYY-MM-DD` then `- [tag] item`)
+
+### 2026-06-25
+- [faisal] **Depth-2 trap library built, verified, merged — then CLOSED by calibration.** Landed the 5-trap
+  recognition-trap library (`trap_grid_count` A / `trap_seam_presence` 1.5-twin / `trap_lattice_triangle` B /
+  `trap_walk_blocked` C / `trap_logic_implications` D), all DEPTH2-gated (depth-0/1/1.5 byte-identical), exact
+  oracles, recomputers, + the anti-fabrication gate fix (UNCHECKED-as-green hole). PRs **#160** (Family A + gate
+  fix), **#161** (rest of the library — #160 was early-merged after only commit 1), **#162** (per-problem buckets).
+  8-agent adversarial verification: every oracle re-derived by a DIFFERENT algorithm (149k+ samples, 0 mismatch),
+  byte-identical invariant confirmed by regen, found+fixed a partial-trap-coverage hole in the gate. **Calibration
+  (952 problems × 8 vs depth-1) verdict: the traps DON'T FIRE** — model boxes the naive value 0-2% on ALL traps;
+  grid/lattice are capability walls at every size (not recalibratable), seam too easy, only walk in-band (29%
+  overall). The depth-1 model is smart enough not to take the naive shortcut but not strong enough to execute the
+  right method → traps test execution/capability, NOT recognition. Depth-2 = closed.
+- [faisal] **The pivot — measure AMC's own frontier; the wall is DISTRIBUTION-SHAPE, not capability.** Strategy
+  workflow (5 theses, stress-tested) + verified from `results/results_amc_coverage_BASE.json`: BASE pass@8=0.711
+  (~59/83 reachable), so only ~24/83 are 0/8 walls and ~27 greedy-unsolved already pass 1-7/8 = a real teachable
+  frontier never trained toward. All 3 layers trained synthetic surfaces AMC never presents — confound never removed.
+  Clean k=8 pass@8 (the rank-128 path, NOT the stale ckpt-40): BASE **0.711** → ckpt-500 **0.735** → depth-1 **0.747**
+  (mean_pass 0.425→0.452→0.453) — frontier nudged +3 reachable, monotone but near noise. ⇒ STEP 1 (running): per-
+  problem bucket BASE + depth-1 (#162) to pinpoint + classify the ~27 frontier; STEP 2: on-shape AMC RL (real AMC,
+  published answers, SAME source as test, NOT AIME) gated on held-out AMC conversion ≥+0.08. See TODO.
+- [faisal] **Grader decision: exact oracle stays; Claude → data-generation, not judging.** AMC answers are integers
+  → exact match is unhackable/free/instant; an LLM grader is hackable (the #1 RL failure), noisy, and rollout-cost-
+  prohibitive. Partial rewards = EXACT step detectors gated to all-fail ghost groups, never an LLM judge. The
+  Anthropic key's right role = SFT-distilling correct CoT for the 0/8 walls (teacher, not judge).
 
 ### 2026-06-18
 - [faisal] **Depth-0 per-concept decomposition → the flat v12 reward is concept INTERFERENCE, not a bad concept.**
