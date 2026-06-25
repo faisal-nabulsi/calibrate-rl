@@ -97,7 +97,8 @@ def main():
     label = a.checkpoint.replace("/", "_") if a.checkpoint else "BASE"
     results = {"checkpoint": a.checkpoint or "BASE", "k": a.k,
                "temperature": a.temperature, "max_new_tokens": a.max_new_tokens,
-               "subsets": {}}
+               "subsets": {}, "per_problem": {}}
+    _overall_recs = []
 
     # whole-set first (so a crash still yields the headline), then per-subset
     for name in ["overall", "covered", "partner_only", "uncovered"]:
@@ -107,14 +108,28 @@ def main():
             idx = sorted(subsets[name])
             probs = [amc[i] for i in idx]
         print(f"\n=== {label} / {name} (n={len(probs)}) ===", flush=True)
-        m = evaluate(model, tok, probs, **kw)
+        m, recs = evaluate(model, tok, probs, **kw, collect_transcripts=True)
         print(json.dumps(m), flush=True)
         results["subsets"][name] = m
+        # per-problem 0..k buckets — the teachable-frontier histogram (which problems are 0/k walls
+        # vs 1..k-1 frontier vs k/k solved), NOT just subset aggregates. This is the gap that left
+        # pass@k a single number with no view of WHICH problems are reachable.
+        results["per_problem"][name] = [{"problem": r["problem"], "gold": r["gold"],
+                                         "n_correct": r["n_correct_rollouts"], "k": r["k"]} for r in recs]
+        if name == "overall":
+            _overall_recs = recs
 
     out = a.out or f"results_amc_coverage_{label}.json"
     with open(out, "w") as f:
         json.dump(results, f, indent=2)
     print(f"\nSaved to: {out}", flush=True)
+    # full per-rollout transcripts (overall 83) → sidecar JSONL, for failure-mode classification of the
+    # frontier (recognition vs execution-slip vs fabrication) via analysis/amc_failure_conversion.py.
+    tpath = (out[:-5] if out.endswith(".json") else out) + "_transcripts.jsonl"
+    with open(tpath, "w") as f:
+        for r in _overall_recs:
+            f.write(json.dumps(r) + "\n")
+    print(f"Transcripts: {tpath}", flush=True)
 
     # one-line headline per subset
     print(f"\nHEADLINE [{label}]  mean_pass_rate:")
