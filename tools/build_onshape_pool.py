@@ -50,12 +50,31 @@ def _strip_choices(prob):
 def _norm(s):
     return re.sub(r'[^a-z0-9]', '', s.lower())
 
+_FIG = re.compile(r'\[asy\]|adjoining figure|as shown|shown below|in the (figure|diagram|graph)|'
+                  r'the (figure|diagram|graph) (below|shows)|pictured|the diagram|see figure', re.I)
+_ART = re.compile(r'\\textbf|\(\s*[A-E]\s*\)|\\qquad|[\$\\]\s*$')
+_QCUE = re.compile(r'\?|find|how many|what|value|number of|compute|equals?|sum|area|probability|'
+                   r'least|greatest|maximum|minimum|product|remainder|digits?', re.I)
+
+def _dirty(stem, ans):
+    """Reject unanswerable / garbled / poisoning stems. Returns a drop-reason or None (clean)."""
+    if len(stem) < 40: return 'short'
+    if _FIG.search(stem): return 'figure'            # references a missing image -> unanswerable text-only
+    if _ART.search(stem): return 'artifact'          # leftover choice/LaTeX from the strip
+    if re.fullmatch(r'-?\d+', ans) and abs(int(ans)) > 100000: return 'absurd_gold'
+    if not _QCUE.search(stem): return 'no_question'
+    return None
+
+def _is_synthetic(r):
+    return str(r.get("synthetic")).lower() in ("true", "1")
+
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="onshape_amc_pool.json")
     ap.add_argument("--sources", default="AI-MO/NuminaMath-1.5")   # AI-MO corpus, same family as the test
     ap.add_argument("--amc-only", type=int, default=1)             # 1 = keep AMC, drop AIME/others
+    ap.add_argument("--real-only", type=int, default=1)            # 1 = drop NuminaMath synthetic augmentations
     ap.add_argument("--max", type=int, default=0)
     a = ap.parse_args()
     from datasets import load_dataset
@@ -85,7 +104,7 @@ def main():
         if sfield:
             dist = Counter(str(r.get(sfield)) for r in ds)
             print(f"  source-field '{sfield}' distribution (top 15): {dist.most_common(15)}", flush=True)
-        kept = 0
+        kept = 0; drops = Counter(); n_amc = n_syn = 0
         for r in ds:
             prob = _field(r, "problem", "question", "Problem")
             ans = _field(r, "answer", "Answer", "solution_answer", "final_answer")
@@ -94,20 +113,29 @@ def main():
             src_tag = str(r.get(sfield)).lower() if sfield else ""
             if a.amc_only and "amc" not in src_tag:           # amc_aime is the AMC-bearing source
                 continue
+            n_amc += 1
+            if _is_synthetic(r):
+                n_syn += 1
+                if a.real_only:                                # REAL competition problems only — the whole point
+                    drops['synthetic'] += 1; continue
             stem = _strip_choices(prob)                        # MC-only (=AMC, drops AIME); strip -> free-response
             if stem is None:
-                continue
+                drops['not_mc'] += 1; continue
             ans_s = str(ans).strip()
             if not re.fullmatch(r"-?\d+(?:/\d+)?", ans_s):    # whole answer numeric -> clean exact grade
-                continue
+                drops['non_numeric'] += 1; continue
+            d = _dirty(stem, ans_s)                            # figure-dependent / garbled / absurd-gold -> drop
+            if d:
+                drops[d] += 1; continue
             nk = _norm(stem)
             if nk in test_full or nk[:60] in test_pref or nk in seen:   # dedup vs the 83 (normalized) + within-pool
-                continue
+                drops['dup_or_test'] += 1; continue
             seen.add(nk)
             rows.append({"problem": stem, "answer": ans_s,
                          "skeleton_type": "onshape_amc", "depth": 2})
             kept += 1
-        print(f"  kept {kept} AMC, numeric-answer, disjoint problems from {src}", flush=True)
+        print(f"  AMC-tagged rows={n_amc} | synthetic-flagged={n_syn} ({100*n_syn/max(1,n_amc):.0f}% of AMC)", flush=True)
+        print(f"  kept {kept} clean real-AMC | drops: {dict(drops)}", flush=True)
 
     if a.max and len(rows) > a.max:
         rows = rows[:a.max]
