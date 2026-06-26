@@ -50,6 +50,9 @@ def _strip_choices(prob):
 def _norm(s):
     return re.sub(r'[^a-z0-9]', '', s.lower())
 
+def _words(s):
+    return set(re.findall(r'[a-z0-9]+', s.lower()))
+
 _FIG = re.compile(r'\[asy\]|adjoining figure|as shown|shown below|in the (figure|diagram|graph)|'
                   r'the (figure|diagram|graph) (below|shows)|pictured|the diagram|see figure', re.I)
 _ART = re.compile(r'\\textbf|\(\s*[A-E]\s*\)|\\qquad|[\$\\]\s*$')
@@ -74,7 +77,7 @@ def main():
     ap.add_argument("--out", default="onshape_amc_pool.json")
     ap.add_argument("--sources", default="AI-MO/NuminaMath-1.5")   # AI-MO corpus, same family as the test
     ap.add_argument("--amc-only", type=int, default=1)             # 1 = keep AMC, drop AIME/others
-    ap.add_argument("--real-only", type=int, default=1)            # 1 = drop NuminaMath synthetic augmentations
+    ap.add_argument("--real-only", type=int, default=0)            # 0 = KEEP synthetic (synthetic AMC is still on-shape, and the flag may tag a synthetic SOLUTION not the problem); 1 = drop
     ap.add_argument("--max", type=int, default=0)
     a = ap.parse_args()
     from datasets import load_dataset
@@ -90,6 +93,7 @@ def main():
     # of the 83 test problems leaking through as MC otherwise.)
     test_full = {_norm(p) for p in amc_probs}
     test_pref = {_norm(p)[:60] for p in amc_probs}
+    test_words = [_words(p) for p in amc_probs]   # FUZZY dedup: catch synthetic REPHRASINGS of the test that exact-match misses
 
     rows, seen = [], set()
     for src in [s.strip() for s in a.sources.split(",") if s.strip()]:
@@ -104,7 +108,7 @@ def main():
         if sfield:
             dist = Counter(str(r.get(sfield)) for r in ds)
             print(f"  source-field '{sfield}' distribution (top 15): {dist.most_common(15)}", flush=True)
-        kept = 0; drops = Counter(); n_amc = n_syn = 0
+        kept = 0; drops = Counter(); n_amc = n_syn = 0; syn_ex = []
         for r in ds:
             prob = _field(r, "problem", "question", "Problem")
             ans = _field(r, "answer", "Answer", "solution_answer", "final_answer")
@@ -116,7 +120,8 @@ def main():
             n_amc += 1
             if _is_synthetic(r):
                 n_syn += 1
-                if a.real_only:                                # REAL competition problems only — the whole point
+                if len(syn_ex) < 3: syn_ex.append(prob[:120])  # surface what 'synthetic'-flagged AMC actually is
+                if a.real_only:                                # opt-in only — synthetic AMC is still on-shape
                     drops['synthetic'] += 1; continue
             stem = _strip_choices(prob)                        # MC-only (=AMC, drops AIME); strip -> free-response
             if stem is None:
@@ -128,14 +133,18 @@ def main():
             if d:
                 drops[d] += 1; continue
             nk = _norm(stem)
-            if nk in test_full or nk[:60] in test_pref or nk in seen:   # dedup vs the 83 (normalized) + within-pool
+            if nk in test_full or nk[:60] in test_pref or nk in seen:   # exact dedup vs the 83 + within-pool
                 drops['dup_or_test'] += 1; continue
+            sw = _words(stem)                                  # FUZZY dedup: a synthetic REPHRASING of a test problem
+            if sw and max((len(sw & tw) / len(sw | tw) for tw in test_words), default=0.0) >= 0.6:
+                drops['fuzzy_test'] += 1; continue             # ... evades exact-match -> drop as contamination
             seen.add(nk)
             rows.append({"problem": stem, "answer": ans_s,
                          "skeleton_type": "onshape_amc", "depth": 2})
             kept += 1
-        print(f"  AMC-tagged rows={n_amc} | synthetic-flagged={n_syn} ({100*n_syn/max(1,n_amc):.0f}% of AMC)", flush=True)
-        print(f"  kept {kept} clean real-AMC | drops: {dict(drops)}", flush=True)
+        print(f"  AMC-tagged rows={n_amc} | synthetic-flagged={n_syn} ({100*n_syn/max(1,n_amc):.0f}% of AMC; KEPT unless --real-only)", flush=True)
+        for e in syn_ex: print(f"    [synthetic example] {e}", flush=True)
+        print(f"  kept {kept} clean AMC | drops: {dict(drops)}", flush=True)
 
     if a.max and len(rows) > a.max:
         rows = rows[:a.max]
